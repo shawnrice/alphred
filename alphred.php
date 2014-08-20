@@ -1,4 +1,22 @@
 <?php
+// http://www.alfredforum.com/topic/4716-some-new-alfred-script-environment-variables-coming-in-alfred-24/#entry28819
+
+ // "alfred_preferences" = "/Users/Crayons/Dropbox/Alfred/Alfred.alfredpreferences";
+ //    "alfred_preferences_localhash" = adbd4f66bc3ae8493832af61a41ee609b20d8705;
+ //    "alfred_theme" = "alfred.theme.yosemite";
+ //    "alfred_theme_background" = "rgba(255,255,255,0.98)";
+ //    "alfred_theme_subtext" = 3;
+ //    "alfred_version" = "2.4";
+ //    "alfred_version_build" = 277;
+ //    "alfred_workflow_bundleid" = "com.alfredapp.david.googlesuggest";
+ //    "alfred_workflow_cache" = "/Users/Crayons/Library/Caches/com.runningwithcrayons.Alfred-2/Workflow Data/com.alfredapp.david.googlesuggest";
+ //    "alfred_workflow_data" = "/Users/Crayons/Library/Application Support/Alfred 2/Workflow Data/com.alfredapp.david.googlesuggest";
+ //    "alfred_workflow_name" = "Google Suggest";
+ //    "alfred_workflow_uid" = "user.workflow.B0AC54EC-601C-479A-9428-01F9FD732959";
+
+// so this should be just like the bundler in that this is the entry point
+// and the rest is the backend that isn't quite necessary to expose but can be
+// exposed
 /**
  *
  * (1) Provides basic workflow necessities
@@ -73,6 +91,18 @@ class Alphred {
   private $results;
 
   public function __construct( $log = FALSE, $locale = FALSE ) {
+
+    // Include the classes
+    foreach ( scandir( __DIR__ . '/classes' ) as $file ) :
+      if ( pathinfo( __DIR__ . "/{$file}" PATHINFO_EXTENSION ) == 'php' )
+        require_once( __DIR__ . "/{$file}" );
+    endforeach;
+
+
+
+
+
+
 
     $this->dir = exec('pwd'); // Only valid way that I think I can do
     $this->bundle = exec( "defaults read '{$this->dir}/info.plist' 'bundleid'" );
@@ -152,38 +182,7 @@ class Alphred {
       file_put_contents( $this->log , $msg . "\n" , FILE_APPEND | LOCK_EX );
   }
 
-  // Functions for encrypting and decryting strings
-  public function setSalt( $salt ) {
-    $this->salt = $salt;
-  }
 
-  public function getSalt() {
-    return $this->salt;
-  }
-
-  public function encryptString( $string, $salt = FALSE ) {
-    if ( $salt == FALSE )
-      $salt = $this->salt;
-    $string  = $salt . $string . $salt;
-    $cmd = 'out=$(echo "' . $string . '" | openssl base64 -e); echo "${out}"';
-    return exec( $cmd );
-  }
-
-  public function decryptString( $string, $salt = FALSE ) {
-    if ( $salt == FALSE )
-      $salt = $this->salt;
-    $cmd   = 'out=$(echo "' . $string . '" | openssl base64 -d); echo "${out}"';
-    return str_replace( $salt, '', exec( $cmd ) );
-  }
-
-  public function writeProtected( $key, $value ) {
-    $value = $this->encryptString( $value );
-    $this->writeSetting( $key, $value );
-  }
-
-  public function readProtected( $key ) {
-    return $this->decryptString( $this->readSetting( $key ) );
-  }
 
   public function writeSetting( $key, $value ) {
     if ( ! ( isset( $key ) && is_array( $key ) ) )
@@ -213,26 +212,7 @@ class Alphred {
     return TRUE;
   }
 
-  public function call( $url, $settings = array() ) {
-    // Function to simplify a cURL request
-  }
 
-  public function auth_call( $url, $user, $pass, $settings = array() ) {
-    // Function to simplify an auth cURL request
-  }
-
-  public function post( $url, $settings = array()) {
-    // Function to simplify a post request
-  }
-
-  public function auth_post($url, $user, $pass, $settings = array() ) {
-    // Function to simplify an auth post request
-  }
-
-  public function dl( $url ) {
-    // Function to download a URL easily.
-    return file_get_contents($url);
-  }
 
   public function cache_result($result, $kind) {
 
@@ -503,29 +483,9 @@ class AlphredResponse
  *******************************************************************************
  ******************************************************************************/
 
-function avoidDateErrors() {
-  // Set date/time to avoid warnings/errors.
-  if ( ! ini_get('date.timezone') ) {
-    $tz = exec( 'tz=`ls -l /etc/localtime` && echo ${tz#*/zoneinfo/}' );
-    ini_set( 'date.timezone', $tz );
-  }
-}
 
-function getOSXVersion( $verbose = FALSE ) {
-  if ( ! $verbose ) {
-    return substr( exec( 'sw_vers -productVersion' ), strpos( $version, '.', 3 ) );
-  } else {
-    $version = exec( 'sw_vers -productVersion' );
-    $versions = array( 'Yosemite' => '10.10', 'Mavericks' => '10.9',
-      'Mountain Lion' => '10.8', 'Lion' => '10.7', 'Snow Leopard' => '10.6' );
-    foreach ( $versions as $k => $v ) :
-      if ( strpos( $version, $v ) ) {
-        return $k;
-      }
-    endforeach;
-  }
-  return FALSE;
-}
+
+
 
 /**
  * Checks to see if the settings.json file exists and is complete
@@ -597,13 +557,7 @@ function decryptString( $string ) {
   return $decoded;
 }
 
-function callExternalTrigger( $bundle, $trigger, $argument = FALSE ) {
-  $script = "tell application \"Alfred 2\" to run trigger \"$trigger\" in workflow \"$bundle\"";
-  if ( $argument !== FALSE ) {
-    $script .= "with argument \"$argument\"";
-  }
-  exec( "osascript -e '$script'" );
-}
+
 
 function readPlistValue( $key, $plist ) {
   return exec( "/usr/libexec/PlistBuddy -c \"Print :$key\" '$plist' 2> /dev/null" );
@@ -674,163 +628,9 @@ function deleteDir( $dir ) {
   endforeach;
 }
 
-function convertSecondsToHumanTime( $time ) {
 
-  if ( $time < 0 )
-    $time = $time * -1;
-
-  if ( $time < 60 ) {
-    if ( $time > 1 )
-      return "$time seconds";
-    else
-      return "$time second";
-  }
-
-  // Error checking needs to go here.
-  $seconds = $time % 60;
-  $time    = ( $time - $seconds ) / 60;
-  $minutes = $time % 60;
-  $time    = ( $time - $minutes ) / 60;
-  $hours   = $time % 24;
-  $time    = ( $time - $hours ) / 24;
-  $days    = $time % 7;
-  $time    = ( $time - $days ) / 7;
-  $weeks   = $time; // Expand from here.
-
-}
-
-function howLongAgo( $time, $ago = TRUE ) {
-
-  avoidDateErrors();
-
-  $now = mktime();
-
-  $past = TRUE;
-  if ( ! ( ( $now - $time ) > 0 ) ) {
-    $past = FALSE;
-  }
-
-
-
-}
-
-
-/*******************************************************************************
- * Just including the Alfred Bundler PHP Wrapper for easy use.
- ******************************************************************************/
-
-if ( ! function_exists( '__load' ) ) {
-
-  /***
-    Main PHP interface for the Alfred Dependency Bundler. This file should be
-    the only one from the bundler that is distributed with your workflow.
-
-    See documentation on how to use: http://shawnrice.github.io/alfred-bundler/
-
-    License: GPLv3
-  ***/
-
-  /**
-   *  This is the only function the workflow author needs to invoke.
-   *  If the asset to be loaded is a PHP library, then you just need to call the function,
-   *  and the files will be required automatically.
-   *
-   *  If you are loading a "utility" application, then the function will return the full
-   *  path to the function so that you can invoke it.
-   *
-   *  If you are passing your own json, then include it as a file path.
-   *
-   **/
-  function __load( $name , $version = 'default' , $type = 'php' , $json = '' ) {
-    // Define the global bundler version.
-    $bundler_version       = "aries";
-
-    // Let's just make sure that the utility exists before we try to use it.
-    $__data = exec('echo $HOME') . "/Library/Application Support/Alfred 2/Workflow Data/alfred.bundler-$bundler_version";
-    if ( ! file_exists( "$__data" ) ) {
-      __installBundler();
-    }
-
-    // This file will be there because it either was or we just installed it.
-    require_once( "$__data/bundler.php" );
-
-    // Check for bundler minor update
-    $cmd = "sh '$__data/meta/update.sh' > /dev/null 2>&1";
-    exec( $cmd );
-
-    if ( file_exists( 'info.plist' ) ) {
-      // Grab the bundle ID from the plist file.
-      $bundle = exec( "/usr/libexec/PlistBuddy -c 'print :bundleid' 'info.plist'" );
-    } else if ( file_exists( '../info.plist' ) ) {
-      $bundle = exec( "/usr/libexec/PlistBuddy -c 'print :bundleid' '../info.plist'" );
-    } else {
-      $bundle = '';
-    }
-
-    if ( $type == 'php' ) {
-      $assets = __loadAsset( $name , $version , $bundle , strtolower($type) , $json );
-      foreach ($assets as $asset ) {
-        require_once( $asset );
-      }
-      return TRUE;
-    } else if ( $type == 'utility' ) {
-      $asset = __loadAsset( $name , $version , $bundle , strtolower($type) , $json );
-      return str_replace(' ' , '\ ' , $asset[0]);
-    } else {
-      return __loadAsset( $name , $version , $bundle , strtolower($type) , $json );
-    }
-
-    // We shouldn't get here.
-    return FALSE;
-
-  } // End __load()
-}
-
-if ( ! function_exists( '__installBundler' ) ) {
-  /**
-   * Installs the Alfred Bundler utility.
-   **/
-  function __installBundler() {
-    // Install the Alfred Bundler
-
-    global $bundler_version, $__data;
-
-    $installer = "https://raw.githubusercontent.com/shawnrice/alfred-bundler/$bundler_version/meta/installer.sh";
-    $__cache   = $_SERVER[ 'HOME' ] .
-       "/Library/Caches/com.runningwithcrayons.Alfred-2/Workflow Data/alfred.bundler-$bundler_version";
-
-    // Make the directories
-    if ( ! file_exists( $__cache ) ) {
-      mkdir( $__cache );
-    }
-    if ( ! file_exists( "$__cache/installer" ) ) {
-      mkdir( "$__cache/installer" );
-    }
-    // Download the installer
-    // I'm throwing in the second bash command to delay the execution of the next
-    // exec() command. I'm not sure if that's necessary.
-    exec( "curl -sL '$installer' > '$__cache/installer/installer.sh'" );
-    // Run the installer
-    exec( "sh '$__cache/installer/installer.sh'" );
-
-  } // End __installBundler()
-}
 
 /*******************************************************************************
  * End Alfred Bundler
  ******************************************************************************/
 
-// This could be used later to create icns files
-// mkdir MyIcon.iconset
-// sips -z 16 16     Icon1024.png --out MyIcon.iconset/icon_16x16.png
-// sips -z 32 32     Icon1024.png --out MyIcon.iconset/icon_16x16@2x.png
-// sips -z 32 32     Icon1024.png --out MyIcon.iconset/icon_32x32.png
-// sips -z 64 64     Icon1024.png --out MyIcon.iconset/icon_32x32@2x.png
-// sips -z 128 128   Icon1024.png --out MyIcon.iconset/icon_128x128.png
-// sips -z 256 256   Icon1024.png --out MyIcon.iconset/icon_128x128@2x.png
-// sips -z 256 256   Icon1024.png --out MyIcon.iconset/icon_256x256.png
-// sips -z 512 512   Icon1024.png --out MyIcon.iconset/icon_256x256@2x.png
-// sips -z 512 512   Icon1024.png --out MyIcon.iconset/icon_512x512.png
-// cp Icon1024.png MyIcon.iconset/icon_512x512@2x.png
-// iconutil -c icns MyIcon.iconset
-// rm -R MyIcon.iconset
