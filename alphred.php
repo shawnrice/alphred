@@ -99,11 +99,6 @@ class Alphred {
     endforeach;
 
 
-
-
-
-
-
     $this->dir = exec('pwd'); // Only valid way that I think I can do
     $this->bundle = exec( "defaults read '{$this->dir}/info.plist' 'bundleid'" );
     $this->cache  = "{$_SERVER['HOME']}/Library/Caches/com.runningwithcrayons.Alfred-2/Workflow Data/{$this->bundle}";
@@ -145,23 +140,54 @@ class Alphred {
   } /* End __contruct() */
 
   public function user() {
+    if ( ! isset($this->user) ) { $this->user = $_SERVER['USER']; }
     return $this->user;
   }
 
   public function bundle() {
+$_SERVER['alfred_workflow_bundleid'];
     return $this->bundle;
   }
 
   public function data() {
+    $_SERVER['alfred_workflow_data']
     return $this->data;
   }
 
   public function cache() {
+    $_SERVER['alfred_workflow_cache']
     return $this->cache;
   }
 
+public function uid() {
+  $_SERVER['alfred_workflow_uid'];
+}
+
+public function workflow_name() {
+  $_SERVER['alfred_workflow_name'];
+}
+
+public function theme_subtext() {
+  $_SERVER['alfred_theme_subtext'];
+}
+
+public function alfred_version() {
+  $_SERVER['alfred_version'];
+}
+
+public function alfred_build() {
+  $_SERVER['alfred_version_build'];
+}
+
+
+
   public function dir() {
+    if ( ! isset($this->dir) ) { $this->dir = $_SERVER['PWD']; }
     return $this->dir;
+  }
+
+  public function theme_background() {
+    return $_SERVER['alfred_theme_background'];
   }
 
 
