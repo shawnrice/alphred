@@ -4,9 +4,6 @@ namespace Alphred\Http;
 
 class http {
 
-    public function dl() {
-
-    }
 
     public function testServer() {
 
