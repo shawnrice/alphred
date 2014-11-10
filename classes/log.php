@@ -1,48 +1,11 @@
 <?php
 
-namespace Alphred\Log;
+namespace Alphred;
 
-class Log {
-    public function rotate() {
+// Much of (almost all of for now) this was taken from my code in the Alfred Bundler.
+// If you're using this library and the bundler, then just use one or the other
+// version of this class
 
-    }
-
-    public function console() {
-
-    }
-
-    public function file() {
-
-    }
-
-}
-
-
-
-
-
-<?php
-
-/**
- * Alfred Bundler Logging Fiel
- *
- * Generic interface for logging to files and the console to be used with the
- * PHP implementation of the Alfred Bundler.
- *
- * This file is part of the Alfred Bundler, released under the MIT licence.
- * Copyright (c) 2014 The Alfred Bundler Team
- * See https://github.com/shawnrice/alfred-bundler for more information
- *
- * @copyright  The Alfred Bundler Team 2014
- * @license    http://opensource.org/licenses/MIT  MIT
- * @version    Taurus 1
- * @link       http://shawnrice.github.io/alfred-bundler
- * @package    AlfredBundler
- * @since      File available since Taurus 1
- */
-
-
-if ( ! class_exists( 'AlfredBundlerLogger' ) ) :
 /**
  *
  * Simple logging functionality that writes to files or STDERR
@@ -50,28 +13,11 @@ if ( ! class_exists( 'AlfredBundlerLogger' ) ) :
  * Usage: just create a single object and reuse it solely. Initialize the
  * object with a full path to the log file (no log extension)
  *
- * This class was written to be part of the PHP implementation of the
- * Alfred Bundler for the bundler's internal logging requirements. However
- * its functionality is also made available to any workflow author implementing
- * the bundler.
- *
- * While you can use this class without going through the bundler, it is
- * easier just to use the logging functionality indirectly via the
- * bundler object.
- *
- * @see       AlfredBundlerInternalClass::log
- * @see       AlfredBundlerInternalClass::debug
- * @see       AlfredBundlerInternalClass::info
- * @see       AlfredBundlerInternalClass::warning
- * @see       AlfredBundlerInternalClass::error
- * @see       AlfredBundlerInternalClass::critical
- * @see       AlfredBundlerInternalClass::console
- *
- * @package   AlfredBundler
+ * @package   Alphred
  * @since     Class available since Taurus 1
  *
  */
-class AlfredBundlerLogger {
+class Log {
 
   /**
    * Log file
@@ -79,7 +25,7 @@ class AlfredBundlerLogger {
    * Full path to log file with no extension; set by user at instantiation
    *
    * @var  string
-   * @since Taurus 1
+   * @since 1.0.0
    */
   public $log;
 
@@ -93,7 +39,7 @@ class AlfredBundlerLogger {
    * 4 => 'CRITICAL'
    *
    * @var  array
-   * @since Taurus 1
+   * @since 1.0.0
    */
   protected $logLevels;
 
@@ -101,7 +47,7 @@ class AlfredBundlerLogger {
    * Stacktrace information; reset with each message
    *
    * @var  array
-   * @since Taurus 1
+   * @since 1.0.0
    */
   private $trace;
 
@@ -109,7 +55,7 @@ class AlfredBundlerLogger {
    * File from stacktrace; reset with each message
    *
    * @var  string
-   * @since Taurus 1
+   * @since 1.0.0
    */
   private $file;
 
@@ -117,7 +63,7 @@ class AlfredBundlerLogger {
    * Line from stacktrace; reset with each message
    *
    * @var  int
-   * @since Taurus 1
+   * @since 1.0.0
    */
   private $line;
 
@@ -125,7 +71,7 @@ class AlfredBundlerLogger {
    * Log level; reset with each message
    *
    * @var  mixed
-   * @since Taurus 1
+   * @since 1.0.0
    */
   private $level;
 
@@ -141,11 +87,16 @@ class AlfredBundlerLogger {
    *
    * @param  string  $log                   filename to use as a log
    * @param  string  $destination = 'file'  default destination for messages
-   * @since Taurus 1
+   * @since 1.0.0
    */
   public function __construct( $log, $destination = 'file' ) {
 
-    $this->log = $log . '.log';
+    if ( ! isset( $_SERVER['alfred_bundleid'] ) ) {
+      // we should throw an exception here
+      return false;
+    }
+
+    $this->log = $_SERVER['alfred_workflow_data'] . '/' . $_SERVER['alfred_bundleid'] . '.log';
     $this->initializeLog();
 
     if ( ! in_array( $destination, [ 'file', 'console', 'both' ] ) )
@@ -169,7 +120,7 @@ class AlfredBundlerLogger {
 
     // This is needed because, Macs don't read EOLs well.
     if ( ! ini_get( 'auto_detect_line_endings' ) )
-      ini_set( 'auto_detect_line_endings', TRUE );
+      ini_set( 'auto_detect_line_endings', true );
 
   }
 
@@ -179,13 +130,9 @@ class AlfredBundlerLogger {
    * After initializing the log object, this should be the only
    * method with which you interact.
    *
-   * While you could use this separate from the bundler itself, it is
-   * easier to use the logging functionality from the bundler object.
-   *
-   * @see AlfredBundlerInternalClass::log
    *
    * <code>
-   * $log = new AlfredBundlerLogger( '/full/path/to/mylog' );
+   * $log = new \Alphred\Log( '/full/path/to/mylog' );
    * $log->log( 'Write this to a file', 'INFO' );
    * $log->log( 'Warning message to console', 2, 'console' );
    * $log->log( 'This message will go to both the console and the log', 3, 'both');
@@ -196,15 +143,13 @@ class AlfredBundlerLogger {
    * @param   mixed   $level        either int or string of log level
    * @param   string  $destination  where the message should appear:
    *                                valid options: 'file', 'console', 'both'
-   * @since Taurus 1
+   * @since 1.0.0
    */
   public function log( $message, $level = 'INFO', $destination = '', $trace = 0 ) {
 
     // Set the destination to the default if not implied
     if ( empty( $destination ) )
       $destination = $this->defaultDestination;
-
-    // print_r( debug_backtrace() );
 
     // Get the relevant information from the backtrace
     $this->trace = debug_backtrace();
@@ -225,12 +170,12 @@ class AlfredBundlerLogger {
 
   /**
    * Creates log directory and file if necessary
-   * @since Taurus 1
+   * @since 1.0.0
    */
   private function initializeLog() {
     if ( ! file_exists( $this->log ) ) {
       if ( ! is_dir( realpath( dirname( $this->log ) ) ) )
-        mkdir( dirname( $this->log ), 0775, TRUE );
+        mkdir( dirname( $this->log ), 0775, true );
       file_put_contents( $this->log, '' );
     }
   }
@@ -238,7 +183,7 @@ class AlfredBundlerLogger {
 
   /**
    * Checks to see if the log needs to be rotated
-   * @since Taurus 1
+   * @since 1.0.0
    */
   private function checkLog() {
     if ( filesize( $this->log ) > 1048576 )
@@ -248,7 +193,7 @@ class AlfredBundlerLogger {
 
   /**
    * Rotates the log
-   * @since Taurus 1
+   * @since 1.0.0
    */
   private function rotateLog() {
       $old = substr( $this->log, -4 );
@@ -265,7 +210,7 @@ class AlfredBundlerLogger {
    * @param   mixed  $level   either an int or a string denoting log level
    *
    * @return  string          log level as string
-   * @since Taurus 1
+   * @since 1.0.0
    */
   public function normalizeLogLevel( $level ) {
 
@@ -290,7 +235,7 @@ class AlfredBundlerLogger {
    * Writes a message to the console (STDERR)
    *
    * @param   string  $message  message to log
-   * @since Taurus 1
+   * @since 1.0.0
    */
   public function logConsole( $message ) {
     $date = date( 'H:i:s', time() );
@@ -302,7 +247,7 @@ class AlfredBundlerLogger {
    * Writes message to log file
    *
    * @param   string  $message  message to log
-   * @since Taurus 1
+   * @since 1.0.0
    */
   public function logFile( $message ) {
     $date = date( "Y-m-d H:i:s" );
@@ -313,4 +258,3 @@ class AlfredBundlerLogger {
 
 
 }
-endif;

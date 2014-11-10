@@ -1,9 +1,11 @@
 <?php
 
-namespace Alphred\Text;
+namespace Alphred;
 
 
 class Text {
+
+    // What else needs to go here?
 
     public function titleCase( $string ) {
         // This needs to be improved upon. Basically, it needs to account for sentence ending punctuation

@@ -15,12 +15,12 @@ class Color {
    *
    * @param   string  $image  file path to alleged image
    *
-   * @return  bool            TRUE is a png, FALSE if not
+   * @return  bool            true is a png, false if not
    */
   public function validateImage( $image ) {
     if ( finfo_file( $this->mime, $image . '.png' ) == 'image/png' )
-      return TRUE;
-    return FALSE;
+      return true;
+    return false;
 
   }
 
@@ -60,7 +60,7 @@ class Color {
 
     if ( ! in_array( $color, $this->colors ) ) {
       if ( ! $color = $this->checkHex( $color ) )
-        return FALSE;
+        return false;
       $this->colors[ $color ][ 'hex' ] = $color;
     }
     return $color;
@@ -75,7 +75,7 @@ class Color {
    * a check is run to see if the theme background color is
    * the same as the proposed icon color. If not, then it sends back
    * the arguments. If so, then, if the `alter` variable is another
-   * hex color, it returns that. If, instead, it is TRUE, then alters
+   * hex color, it returns that. If, instead, it is true, then alters
    * the color accordingly so that the icon will best appear on
    * the background.
    *
@@ -107,7 +107,7 @@ class Color {
 
     $args[ 'color' ] = $this->color( $args[ 'color' ] );
 
-    if ( $args[ 'alter' ] === FALSE )
+    if ( $args[ 'alter' ] === false )
       return $args;
 
     if ( $this->brightness( $args[ 'color' ] ) != $this->background )
@@ -689,7 +689,7 @@ class Color {
    *
    * @param   string  $color A hex color
    *
-   * @return  mixed       FALSE on non-hex or hex color (normalized) to six characters and lowercased
+   * @return  mixed       false on non-hex or hex color (normalized) to six characters and lowercased
    */
   public function checkHex( $hex ) {
 
@@ -757,14 +757,14 @@ class Color {
    *
    * @param   string  $hex a hex color
    *
-   * @return  mixed   FALSE on failure, the hex value on success
+   * @return  mixed   false on failure, the hex value on success
    */
   public function validateHex( $hex ) {
 
     if ( strlen( $hex ) != 3 && strlen( $hex ) != 6 )
-      return FALSE; // Not a valid hex value
+      return false; // Not a valid hex value
     if ( ! preg_match( "/([0-9a-f]{3}|[0-9a-f]{6})/", $hex ) )
-      return FALSE; // Not a valid hex value
+      return false; // Not a valid hex value
     return $hex;
 
   }

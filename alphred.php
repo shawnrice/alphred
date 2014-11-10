@@ -90,7 +90,7 @@ class Alphred {
 
   private $results;
 
-  public function __construct( $log = FALSE, $locale = FALSE ) {
+  public function __construct( $log = false, $locale = false ) {
 
     // Include the classes
     foreach ( scandir( __DIR__ . '/classes' ) as $file ) :
@@ -130,11 +130,11 @@ class Alphred {
     //     if ( function_exists( $function ) ) {
     //       $this->t = function( $function );
     //     } else {
-    //       $this->l = FALSE;
+    //       $this->l = false;
     //     }
     //   }
     //   else
-    //     $this->l = FALSE;
+    //     $this->l = false;
     //   unset( $l );
     // }
   } /* End __contruct() */
@@ -212,30 +212,30 @@ public function alfred_build() {
 
   public function writeSetting( $key, $value ) {
     if ( ! ( isset( $key ) && is_array( $key ) ) )
-      return FALSE;
+      return false;
     if ( ! ( isset( $value ) && is_array( $value ) ) )
-      return FALSE;
+      return false;
 
-    $settings = json_decode( file_get_contents( $this->settings ), TRUE );
+    $settings = json_decode( file_get_contents( $this->settings ), true );
     $settings[ $key ] = $value;
     file_put_contents( $this->settings, json_encode( $settings ) );
   }
 
   public function readSetting( $key ) {
     if ( ! ( isset( $key ) && is_array( $key ) ) )
-      return FALSE;
-    $settings = json_decode( file_get_contents( $this->settings ), TRUE );
+      return false;
+    $settings = json_decode( file_get_contents( $this->settings ), true );
     if ( isset( $settings[ $key ] ) )
       return $settings[ $key ];
     else
-      return FALSE;
+      return false;
   }
 
   public function validate_settings( $array ) {
     if ( ! file_exists( $this->settings ) )
-      return FALSE;
+      return false;
 
-    return TRUE;
+    return true;
   }
 
 
@@ -248,7 +248,7 @@ public function alfred_build() {
 
   }
 
-  public function clear_caches($kind = FALSE) {
+  public function clear_caches($kind = false) {
 
   }
 
@@ -277,7 +277,7 @@ public function alfred_build() {
     } else if ( is_array( $result ) ) {
       array_push( $this->results, $result );
     } else {
-      return FALSE;
+      return false;
     }
   }
 
@@ -295,7 +295,7 @@ public function alfred_build() {
    *
    * @return  [type]           [description]
    */
-  public function cdata( $key, $value, $xml, $mod = FALSE ) {
+  public function cdata( $key, $value, $xml, $mod = false ) {
     $xml->startElement( $key );
     if ( $mod )
       $xml->writeAttribute( $mod[0], $mod[1] );
@@ -325,7 +325,7 @@ public function alfred_build() {
    * @return  [type]                   [description]
    */
   public function writeItem( $xml, $uid = '', $arg = '', $valid = 'no',
-    $autocomplete = '', $type = FALSE, $title = '', $subtitle = '',
+    $autocomplete = '', $type = false, $title = '', $subtitle = '',
     $subtitleShift = '', $subtitleFn = '', $subtitleCtrl = '',
     $subtitleAlt = '', $subtitleCmd = '', $textCopy = '',
     $textLargeType = '' ) {
@@ -516,14 +516,14 @@ class AlphredResponse
 /**
  * Checks to see if the settings.json file exists and is complete
  * @param  string $settings_file path to settings file
- * @return mixed                 either an error code ('user' or 'password') or TRUE on a complete settings file
+ * @return mixed                 either an error code ('user' or 'password') or true on a complete settings file
  */
 function checkSettings( $settings_file ) {
 
   if ( file_exists( $settings_file ) ) {
     // The settings file exists; now check for completeness
 
-    $settings = json_decode( file_get_contents( $settings_file ) , TRUE );
+    $settings = json_decode( file_get_contents( $settings_file ) , true );
 
     if ( ! isset( $settings['username'] ) || empty( $settings['username'] ) ) {
       // The user setting isn't there, so throw the user error
@@ -533,8 +533,8 @@ function checkSettings( $settings_file ) {
       // The password setting isn't there, so throw the password error
       return 'password';
     }
-    // There are no problems with the settings, so return 'TRUE'
-    return TRUE;
+    // There are no problems with the settings, so return 'true'
+    return true;
   } else {
     // The settings file doesn't exist, so just throw the 'user' error
     return 'user';
@@ -595,16 +595,16 @@ function checkConnection() {
   // First test
   exec( "ping -c 1 -t 1 www.google.com", $pingResponse, $pingError);
   if ( $pingError == 14 )
-    return FALSE;
+    return false;
 
   // Second Test
     $connection = @fsockopen("www.google.com", 80, $errno, $errstr, 1);
 
     if ( $connection ) {
-        $status = TRUE;
+        $status = true;
         fclose( $connection );
     } else {
-        $status = FALSE;
+        $status = false;
     }
     return $status;
 }
@@ -613,15 +613,15 @@ function getFiles( $dir ) {
   return array_diff( scandir( $dir ), array( '..', '.', '.DS_Store' ) );
 }
 
-function createDir( $dir, $permissions = 0755, $recursive = FALSE ) {
+function createDir( $dir, $permissions = 0755, $recursive = false ) {
   if ( ! file_exists( $dir ) ) {
     if ( ! mkdir( $dir, $permissions, $recursive ) ) {
-      return TRUE;
+      return true;
     } else {
-      return FALSE;
+      return false;
     }
   }
-  return TRUE;
+  return true;
 }
 
 function sortArray( &$array ) {
@@ -635,7 +635,7 @@ function sortAssociativeArray( $a, $b ) {
 function getDefaultsValue( $domain, $key ) {
   exec( "defaults read $domain $key", $out );
   if ( empty( $out[0] ) ) {
-    return FALSE;
+    return false;
   } else {
     return $out[0];
   }

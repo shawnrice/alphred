@@ -2,7 +2,7 @@
 
 // Right now, some of this code should just be in alphred.php... we'll see.
 
-namespace Alphred\Alfred;
+namespace Alphred;
 
 class Alfred {
 
@@ -10,9 +10,9 @@ class Alfred {
         // call an external trigger
     }
 
-    public function callExternalTrigger( $bundle, $trigger, $argument = FALSE ) {
+    public function callExternalTrigger( $bundle, $trigger, $argument = false ) {
       $script = "tell application \"Alfred 2\" to run trigger \"$trigger\" in workflow \"$bundle\"";
-      if ( $argument !== FALSE ) {
+      if ( $argument !== false ) {
         $script .= "with argument \"$argument\"";
       }
       exec( "osascript -e '$script'" );
@@ -30,12 +30,13 @@ class Workflow {
             require_once( __DIR__ . '/config.php');
             $this->config = new \Alphred\Config\Config( $options['config'] );
         }
+        $this->results = [];
         $this->xml = new \XMLWriter();
 
     }
 
     public function add_result( $result ) {
-        if ( ! ( is_object( $result ) && ( get_class( $result ) == 'Alphred\Alfred\Result' ) ) ) {
+        if ( ! ( is_object( $result ) && ( get_class( $result ) == 'Alphred\Result' ) ) ) {
             // Double-check that the namespacing doesn't affect the return value of "get_class"
             // raise an exception instead
             return false;
@@ -44,7 +45,7 @@ class Workflow {
     }
 
     public function item( $props ) {
-        $tmp = new Result( $props );
+        $tmp = new \Alphred\Result( $props );
         $this->add_result( $tmp );
         return $tmp;
     }
@@ -87,10 +88,10 @@ class Workflow {
 
         foreach ( $item as $k => $v ) :
             if ( ! in_array( $k, array_merge( $attributes, $bool ) ) ) {
-                if ( strpos( $k, '_' ) !== FALSE && strpos( $k, 'subtitle' ) === 0 ) {
+                if ( strpos( $k, '_' ) !== false && strpos( $k, 'subtitle' ) === 0 ) {
                     $this->xml->startElement( substr( $k, 0, strpos( $k, '_' ) ) );
                     $this->xml->writeAttribute( 'mod', substr( $k, strpos( $k, '_' ) + 1 ) );
-                } else if ( strpos( $k, '_' ) !== FALSE ) {
+                } else if ( strpos( $k, '_' ) !== false ) {
                     // Add in checks for icon filetype
                     $this->xml->startElement( substr( $k, 0, strpos( $k, '_' ) ) );
                     $this->xml->writeAttribute( 'type', substr( $k, strpos( $k, '_' ) + 1 ) );
@@ -164,6 +165,7 @@ class Result {
             $this->set_title( $title );
         } else if ( is_array( $title ) ) {
             foreach ( $title as $key => $value ) :
+
                 $fn = "set_{$key}";
                 $this->$fn( $value );
             endforeach;

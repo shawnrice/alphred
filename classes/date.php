@@ -4,7 +4,7 @@ namespace Alphred\Date;
 
 class Date {
 
-function avoidDateErrors() {
+public function avoidDateErrors() {
   // Set date/time to avoid warnings/errors.
   if ( ! ini_get('date.timezone') ) {
     $tz = exec( 'tz=`ls -l /etc/localtime` && echo ${tz#*/zoneinfo/}' );
@@ -12,7 +12,7 @@ function avoidDateErrors() {
   }
 }
 
-function convertSecondsToHumanTime( $time ) {
+public function convertSecondsToHumanTime( $time ) {
 
   if ( $time < 0 )
     $time = $time * -1;
@@ -37,15 +37,15 @@ function convertSecondsToHumanTime( $time ) {
 
 }
 
-function ago( $time, $ago = TRUE ) {
+public function ago( $time, $ago = true ) {
 
-  avoidDateErrors();
+  $this->avoidDateErrors();
 
-  $now = mktime();
+  $now = time();
 
-  $past = TRUE;
+  $past = true;
   if ( ! ( ( $now - $time ) > 0 ) ) {
-    $past = FALSE;
+    $past = false;
   }
 
 

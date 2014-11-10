@@ -5,6 +5,7 @@ require_once('classes/alfred.php');
 require_once('classes/config.php');
 require_once('classes/text.php');
 require_once('classes/server.php');
+require_once('classes/applescript.php');
 
 // require_once('build/alphred.phar');
 
@@ -12,14 +13,20 @@ require_once('classes/server.php');
 $_SERVER['alfred_workflow_data'] = $_SERVER['HOME'] . '/Library/Application Support/Alfred 2/Workflow Data/com.alphred';
 $_SERVER['alfred_workflow_bundleid'] = 'com.alphred';
 
-$s = new \Alphred\Server;
-$s->start_server();
-echo "Here is the result: " . $s->get('response.php', [ 'a' => 'b' ]) . PHP_EOL;
+$a = new \Alphred\AppleScript\Dialog( [
+    'text' => 'This is it. Really. It is. That
+  is all there is to_xml
+  it   ',
+    'title' => 'This is a title',
+    'buttons' => ['testing', 'ok', 'cancel'],
+    'default_button' => 'ok',
+    ]);
+$a->set_icon( 'stop' );
+echo $a->execute();
 
-$text = new \Alphred\Text\Text;
+$text = new \Alphred\Text;
+$w = new \Alphred\Workflow(['config' => 'db']);
 
-
-$w = new Alphred\Alfred\Workflow(['config' => 'db']);
 $w->set( 'username', 'And sha-wn but: :considering: patrick rice' );
 print_r( $text->titleCase( $w->config_read( 'username' ) ) );
 $w->remove( 'username' );

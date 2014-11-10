@@ -18,21 +18,21 @@ class System {
     }
 
 
-function version( $verbose = FALSE ) {
-  if ( ! $verbose ) {
-    return substr( exec( 'sw_vers -productVersion' ), strpos( $version, '.', 3 ) );
-  } else {
-    $version = exec( 'sw_vers -productVersion' );
-    $versions = array( 'Yosemite' => '10.10', 'Mavericks' => '10.9',
-      'Mountain Lion' => '10.8', 'Lion' => '10.7', 'Snow Leopard' => '10.6' );
-    foreach ( $versions as $k => $v ) :
-      if ( strpos( $version, $v ) ) {
-        return $k;
-      }
-    endforeach;
+  function version( $verbose = false ) {
+    if ( ! $verbose ) {
+      return substr( exec( 'sw_vers -productVersion' ), strpos( $version, '.', 3 ) );
+    } else {
+      $version = exec( 'sw_vers -productVersion' );
+      $versions = array( 'Yosemite' => '10.10', 'Mavericks' => '10.9',
+        'Mountain Lion' => '10.8', 'Lion' => '10.7', 'Snow Leopard' => '10.6' );
+      foreach ( $versions as $k => $v ) :
+        if ( strpos( $version, $v ) ) {
+          return $k;
+        }
+      endforeach;
+    }
+    return false;
   }
-  return FALSE;
-}
 
 
 

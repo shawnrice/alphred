@@ -11,6 +11,7 @@ class Server {
             // here we throw an exception
             return false;
         }
+        $this->start_server();
     }
 
     private function bootstrap( $options = [] ) {
@@ -21,7 +22,7 @@ class Server {
 
     }
 
-    private function update_zombie() {
+    public function update_zombie() {
         file_put_contents( $this->keep_alive, time() );
     }
 
@@ -31,7 +32,7 @@ class Server {
         return ( $pid ) ? $pid : false;
     }
 
-    public function start_server() {
+    private function start_server() {
         $this->bootstrap();
         if ( ! $this->check_server() ) {
             $cmd = "nohup php -S localhost:{$this->port} -t '" . dirname( $_SERVER['PWD'] ) . "' >/dev/null 2>&1 &";
@@ -71,7 +72,7 @@ class Server {
         return $result;
     }
 
-    public function request( $path ) {
+    private function request( $path ) {
         $this->c = curl_init();
         $this->url = "http://localhost:{$this->port}/{$this->dir}/{$path}";
         curl_setopt_array( $this->c, array(

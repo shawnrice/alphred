@@ -31,16 +31,16 @@ class Security {
     return $this->salt;
   }
 
-  public function encryptString( $string, $salt = FALSE ) {
-    if ( $salt == FALSE )
+  public function encryptString( $string, $salt = false ) {
+    if ( $salt == false )
       $salt = $this->salt;
     $string  = $salt . $string . $salt;
     $cmd = 'out=$(echo "' . $string . '" | openssl base64 -e); echo "${out}"';
     return exec( $cmd );
   }
 
-  public function decryptString( $string, $salt = FALSE ) {
-    if ( $salt == FALSE )
+  public function decryptString( $string, $salt = false ) {
+    if ( $salt == false )
       $salt = $this->salt;
     $cmd   = 'out=$(echo "' . $string . '" | openssl base64 -d); echo "${out}"';
     return str_replace( $salt, '', exec( $cmd ) );

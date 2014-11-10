@@ -6,5 +6,3 @@ foreach( array_diff( scandir( 'classes' ), ['.', '..', '.DS_Store' ] ) as $filen
     $phar[$filename] = file_get_contents( 'classes/' . $filename );
 endforeach;
 $phar->setStub( $phar->createDefaultStub( 'alphred.php' ) );
-
-// copy($srcRoot . "/config.ini", $buildRoot . "/config.ini");
