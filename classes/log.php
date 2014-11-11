@@ -114,8 +114,8 @@ class Log {
 
     // Set date/time to avoid warnings/errors.
     if ( ! ini_get( 'date.timezone' ) ) {
-      $tz = exec( 'tz=`ls -l /etc/localtime` && echo ${tz#*/zoneinfo/}' );
-      ini_set( 'date.timezone', $tz );
+      $timezone = exec( 'tz=`ls -l /etc/localtime` && echo ${tz#*/zoneinfo/}' );
+      ini_set( 'date.timezone', $timezone );
     }
 
     // This is needed because, Macs don't read EOLs well.

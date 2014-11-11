@@ -3,6 +3,7 @@
 
 require_once('classes/alfred.php');
 require_once('classes/config.php');
+require_once('classes/date.php');
 require_once('classes/text.php');
 require_once('classes/server.php');
 require_once('classes/applescript.php');
@@ -13,16 +14,9 @@ require_once('classes/applescript.php');
 $_SERVER['alfred_workflow_data'] = $_SERVER['HOME'] . '/Library/Application Support/Alfred 2/Workflow Data/com.alphred';
 $_SERVER['alfred_workflow_bundleid'] = 'com.alphred';
 
-$a = new \Alphred\AppleScript\Dialog( [
-    'text' => 'This is it. Really. It is. That
-  is all there is to_xml
-  it   ',
-    'title' => 'This is a title',
-    'buttons' => ['testing', 'ok', 'cancel'],
-    'default_button' => 'ok',
-    ]);
-$a->set_icon( 'stop' );
-echo $a->execute();
+$date = new \Alphred\Date;
+print_r( $date->convertSecondsToHumanTime( 3286861 ) );
+echo PHP_EOL;
 
 $text = new \Alphred\Text;
 $w = new \Alphred\Workflow(['config' => 'db']);

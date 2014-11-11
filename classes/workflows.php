@@ -12,15 +12,17 @@ class Workflows {
         $this->map_file = $_SERVER['alfred_workflow_data'] . '/workflow_map.json';
     }
 
-    public function find() {
+    public function find( $bundle ) {
         $base = $_SERVER['PWD'];
+        if ( ! file_exists( $this->map_file ) )
+            $this->map();
         $workflows = json_decode( file_get_contents( $this->map_file ), true );
-        // make this a better search thingie... or maybe make this work with the db function...
-        // finds a workflow path
+        if ( isset( $workflows['bundle'] ) )
+            return "{$base}/{$workflows['bundle']}";
+        return false;
     }
 
     public function map() {
-
         $wfs = scandir( '..', array_diff( '.', '..', '.DS_Store' ) );
         $pb = '/usr/libexec/PlistBuddy';
         $workflows = [];
