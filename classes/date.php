@@ -4,10 +4,6 @@ namespace Alphred;
 
 class Date {
 
-    public function __construct() {
-      $this->avoid_date_errors();
-    }
-
     public function avoid_date_errors() {
       // Set date/time to avoid warnings/errors.
       if ( ! ini_get( 'date.timezone' ) ) {
@@ -18,9 +14,8 @@ class Date {
 
 
     public function seconds_to_human_time( $seconds, $words = false, $type = 'string' ) {
-      $data = [];
-
-      $legend = [
+        $data = [];
+        $legend = [
         'millenium' => [ 'multiple' => 'millenia',  'value' => 31536000000 ],
         'century'   => [ 'multiple' => 'centuries', 'value' => 3153600000  ],
         'decade'    => [ 'multiple' => 'decades',   'value' => 315360000   ],
@@ -31,55 +26,74 @@ class Date {
         'hour'      => [ 'multiple' => 'hours',     'value' => 3600        ],
         'minute'    => [ 'multiple' => 'minutes',   'value' => 60          ],
         'second'    => [ 'multiple' => 'seconds',   'value' => 1           ]
-      ];
+        ];
 
-      foreach ( $legend as $singular => $values ) :
-        if ( $seconds >= $values['value'] ) {
-          $value = floor( $seconds / $values['value']);
-          if ( $words )
-            $value =  $this->convert_number_to_words( $value );
+        // Start with the greatest values and whittle down until we're left with seconds
+        foreach ( $legend as $singular => $values ) :
+            // If the seconds is greater than the unit, then do some math
+            if ( $seconds >= $values['value'] ) {
+                // How many units are in those seconds?
+                $value = floor( $seconds / $values['value'] );
+                if ( $words ) {
+                    // We want words, not numbers, so convert to words
+                    $value = \Alphred\Date::convert_number_to_words( $value );
+                }
+                // Did we get single or multiple?
+                if ( $seconds / $values['value'] >= 2 ) {
+                    // Use plural units
+                    $data[ $values['multiple'] ] = $value;
+                } else {
+                    // Use singlur units
+                    $data[ $singular ] = $value;
+                }
+                // Remove what we just converted and continue
+                $seconds = $seconds % $values['value'];
+            }
+        endforeach;
 
-          if ( $seconds / $values['value'] >= 2 ) {
-            $data[ $values['multiple'] ] = $value;
-          } else {
-            if ( $words )
-              $data[ $singular ] = $value;
-          }
-          $seconds = $seconds % $values['value'];
+        // If we want this as an array, then return that
+        if ( $type == 'array' ) {
+            return $data;
         }
-      endforeach;
-      if ( $type == 'array' )
-        return $data;
 
-      $string = '';
-      $count  = 1;
-      foreach( $data as $unit => $value ) :
-        $string .= "{$value} {$unit}";
-        if ( $count == count( $data ) )
-          return $string;
-        else if ( $count + 1 == count( $data ) )
-          $string .= ", and ";
-        else
-          $string .= ", ";
-        $count++;
-      endforeach;
+        // We want a string, so let's convert it to one with an Oxford Comma
+        $string = '';
+        $count  = 1;
+        foreach( $data as $unit => $value ) :
+            // Concatenate the string with the units
+            $string .= "{$value} {$unit}";
+            if ( $count == count( $data ) ) {
+                // All done, so return
+                return $string;
+            } else if ( ( $count + 1 ) == count( $data ) ) {
+                // Last unit, so add in the "and"
+                $string .= ", and ";
+            } else {
+                // We have more units, so just add in the comma
+                $string .= ", ";
+            }
+            $count++;
+        endforeach;
 
+        // We shouldn't ever get here. We've already returned the value
     }
 
     public function ago( $seconds, $words = false ) {
       // Only goes back to the Unix Epoch (1-Jan 1970)
       $seconds = ( $seconds - time() ) * - 1; // this needs to be converted with the date function
-      return $this->seconds_to_human_time( $seconds, $words, 'string' ) . ' ago';
+      return \Alphred\Date::seconds_to_human_time( $seconds, $words, 'string' ) . ' ago';
     }
 
     public function convert_number_to_words( $number ) {
-        // from http://www.karlrixon.co.uk/writing/convert-numbers-to-words-with-php/
+        // This is a complex function, but I'm not sure if it can be simplified.
+        // adapted from http://www.karlrixon.co.uk/writing/convert-numbers-to-words-with-php/
         $hyphen      = '-';
         $conjunction = ' and ';
         $separator   = ', ';
         $negative    = 'negative ';
         $decimal     = ' point ';
-        $dictionary  = array(
+        // This is our map of numerals to letters
+        $dictionary  = [
             0                   => 'zero',
             1                   => 'one',
             2                   => 'two',
@@ -115,9 +129,10 @@ class Date {
             1000000000000       => 'trillion',
             1000000000000000    => 'quadrillion',
             1000000000000000000 => 'quintillion'
-        );
+        ];
 
-        if (!is_numeric($number)) {
+        if ( ! is_numeric( $number ) ) {
+            // You didn't feed this a number
             return false;
         }
 
@@ -131,7 +146,8 @@ class Date {
         }
 
         if ( $number < 0 ) {
-            return $negative . $this->convert_number_to_words( abs( $number ) );
+            // The number is negative, so re-run the function with the positive value but prepend the negative sign
+            return $negative . \Alphred\Date::convert_number_to_words( abs( $number ) );
         }
 
         $string = $fraction = null;
@@ -140,6 +156,7 @@ class Date {
             list( $number, $fraction ) = explode( '.', $number );
         }
 
+        // We're going to run through what we have now
         switch ( true ) {
             case $number < 21:
                 $string = $dictionary[$number];
@@ -156,25 +173,27 @@ class Date {
                 $hundreds  = $number / 100;
                 $remainder = $number % 100;
                 $string = $dictionary[$hundreds] . ' ' . $dictionary[100];
-                if ($remainder) {
-                    $string .= $conjunction . $this->convert_number_to_words( $remainder );
+                if ( $remainder ) {
+                    // We have some leftover number, so let's run the function again on what's left
+                    $string .= $conjunction . \Alphred\Date::convert_number_to_words( $remainder );
                 }
                 break;
             default:
                 $baseUnit = pow( 1000, floor( log( $number, 1000 ) ) );
                 $numBaseUnits = (int) ( $number / $baseUnit );
                 $remainder = $number % $baseUnit;
-                $string = $this->convert_number_to_words( $numBaseUnits ) . ' ' . $dictionary[$baseUnit];
+                $string = \Alphred\Date::convert_number_to_words( $numBaseUnits ) . ' ' . $dictionary[$baseUnit];
                 if ( $remainder ) {
                     $string .= $remainder < 100 ? $conjunction : $separator;
-                    $string .= $this->convert_number_to_words( $remainder );
+                    // We have some leftover number, so let's run the function again on what's left
+                    $string .= \Alphred\Date::convert_number_to_words( $remainder );
                 }
                 break;
         }
 
         if ( null !== $fraction && is_numeric( $fraction ) ) {
             $string .= $decimal;
-            $words = array();
+            $words = [];
             foreach ( str_split( (string) $fraction ) as $number ) {
                 $words[] = $dictionary[$number];
             }

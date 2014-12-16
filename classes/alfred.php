@@ -82,19 +82,6 @@ class Alfred {
       return exec( "osascript -e '$script'" );
     }
 
-    // should I take these out?
-    public function _( $string ) {
-        if ( ! isset( $this->i18n ) )
-            $this->i18n = new \Alphred\i18n;
-        if ( $this->i18n === false )
-            return $string;
-        return $this->i18n->translate( $string );
-    }
-
-    public function t( $string ) {
-        return $this->_( $string );
-    }
-
 }
 
 class ScriptFilter {
@@ -158,8 +145,8 @@ class ScriptFilter {
 
     public function to_xml() {
 
-        if ( true === $this->options[ 'error_on_empty' ] ) {
-            if ( 0 == count( $this->get_results() ) ) {
+        if ( isset( $this->options[ 'error_on_empty' ] ) ) {
+            if ( 0 === count( $this->get_results() ) ) {
                 // Alter these strings below to make them more generic
                 $result = new \Alphred\Result( [
                     'title'    => 'Error: No results found.',
@@ -275,18 +262,18 @@ class Result {
     }
 
     // Let's just make a common function for all the "set" methods
-    public function __call( $method, $arguments ) {
-        if ( strpos( $method, "set_" ) === 0 ) {
-            if ( count( $arguments ) == 1 ) {
-                $m = str_replace('set_', '', $method);
+    public function __call( $called, $arguments ) {
+        if ( 0 === strpos( $called, "set_" ) ) {
+            if ( 1 === count( $arguments ) ) {
+                $method = str_replace('set_', '', $called);
                 if ( is_bool( $arguments[0] ) ) {
-                    if ( in_array( $m, $this->bool_methods ) ) {
-                        $this->data[$m] = $arguments[0];
+                    if ( in_array( $method, $this->bool_methods ) ) {
+                        $this->data[$method] = $arguments[0];
                         return true;
                     }
                 } else if ( is_string( $arguments[0] ) ) {
-                    if ( in_array( $m, $this->string_methods ) ) {
-                        $this->data[$m] = $arguments[0];
+                    if ( in_array( $method, $this->string_methods ) ) {
+                        $this->data[$method] = $arguments[0];
                         return true;
                     }
                 }

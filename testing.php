@@ -2,11 +2,9 @@
 
 require_once('classes/Globals.php');
 
-echo \Alphred\Globals::get('USER');
-
 // require_once('classes/alfred.php');
 // require_once('classes/config.php');
-// require_once('classes/date.php');
+require_once('classes/Date.php');
 // require_once('classes/text.php');
 // require_once('classes/server.php');
 // require_once('classes/applescript.php');
@@ -17,9 +15,9 @@ echo \Alphred\Globals::get('USER');
 // $_SERVER['alfred_workflow_data'] = $_SERVER['HOME'] . '/Library/Application Support/Alfred 2/Workflow Data/com.alphred';
 // $_SERVER['alfred_workflow_bundleid'] = 'com.alphred';
 
-// $date = new \Alphred\Date;
-
-// echo $date->convert_number_to_words(9223372036854775807);
+// $date = new ;
+\Alphred\Date::avoid_date_errors();
+echo \Alphred\Date::ago( time() - 2322 );
 
 // exit();
 
