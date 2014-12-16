@@ -34,6 +34,7 @@ First and foremost: figure out where the line is between bloat and not bloat.
 
 #### Alphred\AppleScript\AppleScript
 1. Doesn't the namespacing make it sound redundant?
+2. What is missing? I know that there could be some more good stuff here.
 
 #### Alphred\AppleScript\Choose
 1. This is messy. Clean, refactor a bit more?
@@ -89,7 +90,7 @@ What else do we add? What are we missing that would really help things through?
 1. OAuth -- should I bake this in or just leave it out?
 1. Network (stuff for bluetooth/wifi... is this necessary?)
 1. Security Class (keychains)
-1. System Functions (zip/tar/system information, etc...)
+1. System Functions (zip/tar/system information, etc...) FORK!
 
 
 
