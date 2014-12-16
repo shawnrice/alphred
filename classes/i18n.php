@@ -12,11 +12,11 @@ namespace Alphred;
  * "ln" is the two-letter language code: i.e. en = English, de = German, etc...
  * (3) In that json, make the original string as the key and the value as the translated test.
  *     i.e., a file called i18n/fr.json would contain:
- *     [
- *       'Hello': 'Bonjour',
- *       'Do you speak French?': 'Parlez-vous Français?',
- *       'I am a grapefruit': 'Je suis un pamplemousse',
- *     ]
+ *     {
+ *       "Hello": "Bonjour",
+ *       "Do you speak French?": "Parlez-vous Français?",
+ *       "I am a grapefruit": "Je suis un pamplemousse",
+ *     }
  *
  * (4) Make sure you escape the string if necessary.
  *
@@ -30,12 +30,15 @@ namespace Alphred;
  *
 **/
 
-
 class i18n {
 
     public function __construct() {
         if ( ! file_exists( 'i18n' ) || ! is_dir( 'i18n' ) ) { return false; }
-        $locale = exec( 'defaults read .GlobalPreferences AppleLanguages | tr -d [:space:] | cut -c2-3' );
+        if ( ! defined( 'ALPHRED_TESTING' ) || ( true !== ALPHRED_TESTING ) ) {
+            $locale = exec( 'defaults read .GlobalPreferences AppleLanguages | tr -d [:space:] | cut -c2-3' );
+        } else {
+            $locale = 'fr';
+        }
         if ( file_exists( "i18n/{$locale}.json" ) ) {
             $this->locale = $locale;
         } else {
@@ -53,17 +56,15 @@ class i18n {
     }
 
     public function translate( $string ) {
-        if ( ! $this->locale ) return $string;
-        if ( isset( $this->dictionary[ $string ] ) )
+        if ( ! isset( $this->locale ) ) { return $string; }
+        if ( isset( $this->dictionary[ $string ] ) ) {
             return $this->dictionary[ $string ];
+        }
         return $string;
     }
-
-    public function t( $string ) {
-        return $this->translate( $string );
-    }
-
-    public function _( $string ) {
-        return $this->translate( $string );
-    }
 }
+
+// In the future, it would be pretty badass if I could give the option to do a background translation
+// using Google Translate or something akin to that.
+
+// I'd have to figure out how to cache it though...

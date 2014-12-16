@@ -91,8 +91,7 @@ class ScriptFilter {
     public function __construct( $options = [] ) {
 
         if ( isset( $options['config'] ) ) {
-            require_once( __DIR__ . '/config.php');
-            $this->config = new \Alphred\Config\Config( $options['config'] );
+            $this->config = new Config( $options['config'] );
         }
 
         $this->il18 = false;
@@ -113,7 +112,7 @@ class ScriptFilter {
 
     private function initializei118n() {
         if ( class_exists( '\Alphred\i18n' ) ) {
-            $this->il18 = new \Alphred\i18n;
+            $this->il18 = new i18n;
         }
     }
 
@@ -134,7 +133,7 @@ class ScriptFilter {
     }
 
     public function item( $props ) {
-        $tmp = new \Alphred\Result( $props );
+        $tmp = new Result( $props );
         $this->add_result( $tmp );
         return $tmp;
     }
@@ -148,7 +147,7 @@ class ScriptFilter {
         if ( isset( $this->options[ 'error_on_empty' ] ) ) {
             if ( 0 === count( $this->get_results() ) ) {
                 // Alter these strings below to make them more generic
-                $result = new \Alphred\Result( [
+                $result = new Result( [
                     'title'    => 'Error: No results found.',
                     'icon'     => '/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/Unsupported.icns',
                     'subtitle' => 'Please search for something else.',
@@ -263,23 +262,21 @@ class Result {
 
     // Let's just make a common function for all the "set" methods
     public function __call( $called, $arguments ) {
-        if ( 0 === strpos( $called, "set_" ) ) {
-            if ( 1 === count( $arguments ) ) {
-                $method = str_replace('set_', '', $called);
-                if ( is_bool( $arguments[0] ) ) {
-                    if ( in_array( $method, $this->bool_methods ) ) {
-                        $this->data[$method] = $arguments[0];
-                        return true;
-                    }
-                } else if ( is_string( $arguments[0] ) ) {
-                    if ( in_array( $method, $this->string_methods ) ) {
-                        $this->data[$method] = $arguments[0];
-                        return true;
-                    }
+        if ( 0 !== strpos( $called, "set_" ) ) {
+            // We should raise an exception here instead.
+            return false;
+        }
+        if ( 1 === count( $arguments ) ) {
+            $method = str_replace('set_', '', $called);
+            if ( is_bool( $arguments[0] ) && ( in_array( $method, $this->bool_methods ) ) ) {
+                $this->data[$method] = $arguments[0];
+                return true;
+            } else if ( is_string( $arguments[0] ) ) {
+                if ( in_array( $method, $this->string_methods ) ) {
+                    $this->data[$method] = $arguments[0];
+                    return true;
                 }
             }
         }
-        // We should raise an exception here instead.
-        return false;
     }
 }

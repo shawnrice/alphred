@@ -1,13 +1,8 @@
 <?php
 
-require_once('classes/Globals.php');
+namespace Alphred;
 
-// require_once('classes/alfred.php');
-// require_once('classes/config.php');
-require_once('classes/Date.php');
-require_once('classes/Text.php');
-// require_once('classes/server.php');
-// require_once('classes/applescript.php');
+require_once('classes/Alphred.php');
 
 // // require_once('build/alphred.phar');
 
@@ -16,16 +11,26 @@ require_once('classes/Text.php');
 // $_SERVER['alfred_workflow_bundleid'] = 'com.alphred';
 
 // $date = new ;
-\Alphred\Date::avoid_date_errors();
-echo \Alphred\Date::ago( time() - 2322 );
+// $as = new AppleScript\Dialog([
+//     'text' => 'Hello!',
+//     'title' => 'What?',
+//     'icon' => 'note',
+//     'buttons' => [ 'One', 'Two', 'Three' ],
+//     'default_button' => 'One',
+//     'cancel' => 'Two',
+//     'timeout' => 1
+// ]);
+// echo $as->execute();
+
+AppleScript\Notification::notify( ['text'=> 'Testing!', 'title' => 'what?', 'sound' => 'Purr']);
 
 // exit();
 
 // print_r( $date->ago( 315234220, true ) );
 // echo PHP_EOL;
 
-// $text = new \Alphred\Text;
-// $w = new \Alphred\ScriptFilter(['config' => 'db']);
+// $text = new Text;
+// $w = new ScriptFilter(['config' => 'db']);
 
 // $w->set( 'username', 'And sha-wn but: :considering: patrick rice' );
 // print_r( $text->titleCase( $w->config_read( 'username' ) ) );

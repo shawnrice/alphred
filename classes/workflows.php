@@ -1,49 +1,49 @@
 <?php
 
-namespace Alphred\Workflows;
+namespace Alphred;
 
 class Workflows {
 
     public function __construct() {
-        if ( ! isset( $_SERVER['alfred_workflow_data'] ) ) {
+        if ( ! isset( Globals::get('alfred_workflow_data') ) ) {
             // should throw an exception
             return false;
         }
-        $this->map_file = $_SERVER['alfred_workflow_data'] . '/workflow_map.json';
+        $this->map_file = Globals::get('alfred_workflow_data') . '/workflow_map.json';
     }
 
     public function find( $bundle ) {
-        $base = $_SERVER['PWD'];
-        if ( ! file_exists( $this->map_file ) )
+        $base = Globals::get('PWD');
+        if ( ! file_exists( $this->map_file ) ) {
             $this->map();
+        }
         $workflows = json_decode( file_get_contents( $this->map_file ), true );
-        if ( isset( $workflows['bundle'] ) )
+        if ( isset( $workflows['bundle'] ) ) {
             return "{$base}/{$workflows['bundle']}";
+        }
         return false;
     }
 
     public function map() {
-        $wfs = scandir( '..', array_diff( '.', '..', '.DS_Store' ) );
-        $pb = '/usr/libexec/PlistBuddy';
+        $wfs = array_diff( scandir( '..' ),  [ '.', '..', '.DS_Store' ] );
+        $PlistBuddy = '/usr/libexec/PlistBuddy';
         $workflows = [];
-        foreach ( $wfs as $w ) :
-            if ( strpos( $w, 'user.workflow.' ) === 0 ) {
-                if ( ! file_exists( "{$w}/info.plist" ) ) continue;
+        foreach ( $wfs as $workflow ) :
+            if ( 0 === strpos( $workflow, 'user.workflow.' ) ) {
+                if ( ! file_exists( "{$workflow}/info.plist" ) ) { continue; }
                 // I need to alter this to protect from errors
-                $cmd = "{$pb} -c 'print :bundleid' '{$w}/info.plist'";
-                $bundle = exec( $cmd );
-                $cmd = "{$pb} -c 'print :name' '{$w}/info.plist'";
-                $name = exec( $cmd );
-                $uid = $w;
-                $workflows[$bundle] = array(
+                $bundle = exec( "{$PlistBuddy} -c 'print :bundleid' '{$workflow}/info.plist'" );
+                $name   = exec( "{$PlistBuddy} -c 'print :name' '{$workflow}/info.plist'" );
+                $uid    = $workflow;
+                $workflows[ $bundle ] = array(
                     'bundle' => $bundle,
                     'name'   => $name,
-                    'dir'    => $w
+                    'dir'    => $workflow
                 );
             }
         endforeach;
 
-        file_put_contents( $this->map_file, json_encode( $workflows ) );
+        file_put_contents( $this->map_file, json_encode( $workflows, true ) );
     }
 
 }

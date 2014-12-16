@@ -5,8 +5,9 @@ namespace Alphred\Database;
 class Database {
 
     // This should be a database abstraction layer... right now, we only use SQLite3
+    // So, it seems kind of pointless
     public function __construct( $type, $db, $options = [] ) {
-        if ( ! in_array( $type, [ 'SQLite' ] ) ) { $type = 'SQLite'; }
+        if ( ! in_array( $type, [ 'SQLite3' ] ) ) { $type = 'SQLite3'; }
         $type = "\Alphred\Database\\{$type}";
         $this->db = new $type( $db, $options );
         return $this->db;
@@ -22,12 +23,11 @@ class Database {
     }
 }
 
-class SQLite {
+class SQLite3 {
 
     public function __construct( $db, $options = [] ) {
         // TODO: add in options
         $this->db = new \SQLite3( $db );
-        $this->db->exec( 'PRAGMA encoding = "UTF-8";' ); // Set encoding to UTF-8
         return $this->db;
     }
 

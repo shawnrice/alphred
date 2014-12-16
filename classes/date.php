@@ -36,7 +36,7 @@ class Date {
                 $value = floor( $seconds / $values['value'] );
                 if ( $words ) {
                     // We want words, not numbers, so convert to words
-                    $value = \Alphred\Date::convert_number_to_words( $value );
+                    $value = Date::convert_number_to_words( $value );
                 }
                 // Did we get single or multiple?
                 if ( $seconds / $values['value'] >= 2 ) {
@@ -57,13 +57,13 @@ class Date {
         }
 
         // We want a string, so let's convert it to one with an Oxford Comma
-        return \Alphred\Text::commaify( $data, true );
+        return Text::add_commas_to_list( $data, true );
     }
 
     public function ago( $seconds, $words = false ) {
       // Only goes back to the Unix Epoch (1-Jan 1970)
       $seconds = ( $seconds - time() ) * - 1; // this needs to be converted with the date function
-      return \Alphred\Date::seconds_to_human_time( $seconds, $words, 'string' ) . ' ago';
+      return Date::seconds_to_human_time( $seconds, $words, 'string' ) . ' ago';
     }
 
     public function convert_number_to_words( $number ) {
@@ -129,7 +129,7 @@ class Date {
 
         if ( $number < 0 ) {
             // The number is negative, so re-run the function with the positive value but prepend the negative sign
-            return $negative . \Alphred\Date::convert_number_to_words( abs( $number ) );
+            return $negative . Date::convert_number_to_words( abs( $number ) );
         }
 
         $string = $fraction = null;
@@ -157,18 +157,18 @@ class Date {
                 $string = $dictionary[$hundreds] . ' ' . $dictionary[100];
                 if ( $remainder ) {
                     // We have some leftover number, so let's run the function again on what's left
-                    $string .= $conjunction . \Alphred\Date::convert_number_to_words( $remainder );
+                    $string .= $conjunction . Date::convert_number_to_words( $remainder );
                 }
                 break;
             default:
                 $baseUnit = pow( 1000, floor( log( $number, 1000 ) ) );
                 $numBaseUnits = (int) ( $number / $baseUnit );
                 $remainder = $number % $baseUnit;
-                $string = \Alphred\Date::convert_number_to_words( $numBaseUnits ) . ' ' . $dictionary[$baseUnit];
+                $string = Date::convert_number_to_words( $numBaseUnits ) . ' ' . $dictionary[$baseUnit];
                 if ( $remainder ) {
                     $string .= $remainder < 100 ? $conjunction : $separator;
                     // We have some leftover number, so let's run the function again on what's left
-                    $string .= \Alphred\Date::convert_number_to_words( $remainder );
+                    $string .= Date::convert_number_to_words( $remainder );
                 }
                 break;
         }

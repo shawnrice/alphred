@@ -1,6 +1,6 @@
 <?php
 
-namespace Alphred\Config;
+namespace Alphred;
 
 // Right now, this class just lets you create key-value configs either for a
 // sqlite3 database or a json file.
@@ -8,8 +8,8 @@ namespace Alphred\Config;
 class Config {
 
     public function __construct( $type = 'json' ) {
-        $this->data   = $_SERVER['alfred_workflow_data'];
-        $this->bundle = $_SERVER['alfred_workflow_bundleid'];
+        $this->data   = Globals::get('alfred_workflow_data');
+        $this->bundle = Globals::get('alfred_workflow_bundleid');
         if ( ! file_exists( $this->data ) ) { mkdir( $this->data, 0755 ); }
 
         // really, I need to throw an exception
@@ -22,12 +22,11 @@ class Config {
                 $this->config = json_decode( file_get_contents( "{$this->data}/config.json" ) );
             }
             $this->handler = 'json';
-        } else if ( in_array( $type, [ 'db', 'database', 'sqlite', 'SQLite' ] ) ) {
-            require_once( __DIR__ . '/database.php' );
+        } else if ( in_array( $type, [ 'db', 'database', 'sqlite', 'SQLite', 'SQLite3' ] ) ) {
             // Right now, we just support SQLite, but, if we expand database handlers, then we
             // can expand the possibilities here.
             $options = [];
-            $this->db = new \Alphred\Database\Database( 'SQLite', "{$this->data}/config.sqlite3", $options );
+            $this->db = new Database\Database( 'SQLite3', "{$this->data}/config.sqlite3", $options );
             $this->init_db_table();
             $this->handler = 'db';
         }
@@ -53,11 +52,10 @@ class Config {
     }
 
     private function unset_json( $key ) {
-        if ( ! isset( $this->config->$key ) ) { return; }
-
+        if ( ! isset( $this->config->$key ) ) { return false; }
         unset( $this->config->$key );
         file_put_contents( "{$this->data}/config.json", json_encode( $this->config ) );
-
+        return true;
     }
 
     private function unset_db( $key ) {

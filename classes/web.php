@@ -6,11 +6,12 @@ class http {
 
  public function post(  $url,
                         $params = [],
-                        $cache  = [ 'bin' => '', 'ttl' => '600' ],
+                        $cache  = [ 'bin' => '', 'ttl' => 600 ],
                         $credentials = false ) {
     if ( $cache ) {
-      if ( $file = $this->cache( md5( $path . implode(' ', $params ) ), $cache[ 'bin' ], $cache[ 'ttl' ] ) )
+      if ( $file = $this->cache( md5( $path . implode(' ', $params ) ), $cache[ 'bin' ], $cache[ 'ttl' ] ) ) {
         return file_get_contents( $file );
+      }
     }
 
     $this->request( $path );
@@ -78,30 +79,34 @@ class http {
 
   public function get_favicon( $url, $destination = '', $cache = true, $ttl = 604800 ) {
     $url = parse_url( $url );
-    $domain = $url[ 'host' ];
-    if ( $cache && $file = $this->cache( "{$domain}.png", 'favicons', $ttl ) )
+    $domain = $url['host'];
+    if ( $cache && $file = $this->cache( "{$domain}.png", 'favicons', $ttl ) ) {
       return $file;
-    $favicon = file_get_contents( "https://www.google.com/s2/favicons?domain=$domain" );
-    if ( empty( $destination ) )
-      $destination = \Alphred\Globals::get('alfred_workflow_cache') . "/favicons";
-    if ( ! file_exists( $destination ) && substr( $destination, -4 ) !== '.png' )
+    }
+    $favicon = file_get_contents( "https://www.google.com/s2/favicons?domain={$domain}" );
+    if ( empty( $destination ) ) {
+      $destination = Globals::get('alfred_workflow_cache') . "/favicons";
+    }
+    if ( ! file_exists( $destination ) && substr( $destination, -4 ) !== '.png' ) {
       mkdir( $destination, 0755, true );
-    if ( file_exists( $destination ) && is_dir( $desintation ) )
+    }
+    if ( file_exists( $destination ) && is_dir( $desintation ) ) {
       $destination .= "/{$domain}.png";
+    }
 
     file_put_contents( $destination, $favicon );
     return $destination;
   }
 
   public function cache( $file, $bin = '', $ttl = 600 ) {
-    $file = \Alphred\Globals::get('alfred_workflow_cache') . "/{$bin}/{$file}";
+    $file = Globals::get('alfred_workflow_cache') . "/{$bin}/{$file}";
     if ( ! file_exists( $file ) ) return false;
     if ( time() - filemtime( $file ) > $ttl && $ttl !== 0 ) return false;
     return $file;
   }
 
   public function clear_cache( $bin = '' ) {
-    $clear = \Alphred\Globals::get('alfred_workflow_cache');
+    $clear = Globals::get('alfred_workflow_cache');
     $clear .= ( $bin ) ? $bin : '';
     if ( file_exists( $clear ) && is_dir( $clear ) ) {
       // remove all the files from the bin. If the bin isn't set, then remove

@@ -91,18 +91,19 @@ class Log {
    */
   public function __construct( $log, $destination = 'file' ) {
 
-    if ( ! isset( \Alphred\Globals::get('alfred_bundleid') ) ) {
+    if ( !  Globals::get('alfred_bundleid') ) {
       // we should throw an exception here
       return false;
     }
 
-    $this->log = \Alphred\Globals::get('alfred_workflow_data') . '/' . \Alphred\Globals::get('alfred_bundleid') . '.log';
+    $this->log = Globals::get('alfred_workflow_data') . '/' . Globals::get('alfred_bundleid') . '.log';
     $this->initializeLog();
 
-    if ( ! in_array( $destination, [ 'file', 'console', 'both' ] ) )
+    if ( ! in_array( $destination, [ 'file', 'console', 'both' ] ) ) {
       $this->defaultDestination = 'file';
-    else
+    } else {
       $this->defaultDestination = $destination;
+    }
 
     // These are the appropriate log levels
     $this->logLevels = array( 0 => 'DEBUG',
@@ -113,7 +114,7 @@ class Log {
     );
 
     // Set date/time to avoid warnings/errors.
-    \Alphred\Date::avoid_date_errors();
+    Date::avoid_date_errors();
 
     // This is needed because, Macs don't read EOLs well.
     if ( ! ini_get( 'auto_detect_line_endings' ) ) {
@@ -130,7 +131,7 @@ class Log {
    *
    *
    * <code>
-   * $log = new \Alphred\Log( '/full/path/to/mylog' );
+   * $log = new Log( '/full/path/to/mylog' );
    * $log->log( 'Write this to a file', 'INFO' );
    * $log->log( 'Warning message to console', 2, 'console' );
    * $log->log( 'This message will go to both the console and the log', 3, 'both');

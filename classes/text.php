@@ -7,7 +7,7 @@ class Text {
 
     // What else needs to go here?
 
-    public function titleCase( $string ) {
+    public function title_case( $string ) {
         // This needs to be improved upon. Basically, it needs to account for sentence ending punctuation
         // Words that are not capitalized. Well, articles, conjunctions, and prepositions.
         $lower = [
@@ -45,7 +45,7 @@ class Text {
         return implode(' ', $words );
     }
 
-    public function camelCase( $string ) {
+    public function camel_case( $string ) {
         // converts spaces to camelcase
         $words = explode( ' ', $string );
         foreach ( $words as $k => $w ) :
@@ -66,7 +66,7 @@ class Text {
         return str_replace(' ', '-', $string );
     }
 
-    public function commaify( $list, $suffix = false ) {
+    public function add_commas_to_list( $list, $suffix = false ) {
         // We want a string, so let's convert it to one with an Oxford Comma
         $string = '';
         $count  = 1;

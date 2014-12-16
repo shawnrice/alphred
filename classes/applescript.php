@@ -26,12 +26,56 @@ class AppleScript {
 
 class Notification {
 
-// display notification    text    required
-// with title  text    optional
-// subtitle    text    optional
-// sound name
-// display notification "Encoding complete" subtitle "The encoded files are in the folder " & folderName
+    // The notification will always have the script editor icon on it.
+    // Use CocoaDialog for better notifications.
+    public function notify( $options ) {
+        if ( is_string( $options ) ) {
+            exec( "osascript -e 'display notification \"{$options}\"'" );
+            return true;
+        }
+        if ( ! isset( $options['text'] ) ) {
+            // throw exception
+            return false;
+        }
 
+        $sounds = [
+                'Basso',
+                'Bottle',
+                'Funk',
+                'Hero',
+                'Ping',
+                'Purr',
+                'Submarine',
+                'Blow',
+                'Frog',
+                'Glass',
+                'Morse',
+                'Pop',
+                'Sosumi',
+                'Tink'
+        ];
+
+        $script = "osascript -e 'display notification \"{$options['text']}\"";
+        foreach ( $options as $field => $option ) :
+            switch ( $field ) :
+                case 'title' :
+                    $script .= " with title \"{$option}\"";
+                    break;
+                case 'subtitle' :
+                    $script .= " subtitle \"{$option}\"";
+                    break;
+                case 'sound' :
+                    if ( in_array( $option, $sounds ) ) {
+                        $script .= " sound name \"{$option}\"";
+                    }
+                    break;
+                default:
+                    break;
+            endswitch;
+        endforeach;
+        $script .= "'";
+        exec( $script );
+    }
 }
 
 class Dialog {
@@ -50,15 +94,27 @@ class Dialog {
 
     private function create_dialog() {
         $this->script = "display dialog \"{$this->text}\"";
-        if ( isset( $this->buttons_ ) ) $this->script .= $this->buttons_;
+        if ( isset( $this->buttons_ ) )       $this->script .= $this->buttons_;
         if ( isset( $this->default_answer ) ) $this->script .= $this->default_answer;
-        if ( isset( $this->title ) ) $this->script .= $this->title;
-        if ( isset( $this->icon ) ) $this->script .= $this->icon;
+        if ( isset( $this->title ) )          $this->script .= $this->title;
+        if ( isset( $this->icon ) )           $this->script .= $this->icon;
+        if ( isset( $this->hidden_answer ) )  $this->script .= $this->icon;
+        if ( isset( $this->cancel ) )         $this->script .= $this->cancel;
+        if ( isset( $this->timeout ) )        $this->script .= $this->timeout;
     }
 
     public function execute() {
         $this->create_dialog();
-        $result = exec( "osascript -e '{$this->script}'" );
+        $result = exec( "osascript -e '{$this->script}' 2>&1" );
+        if ( false !== strpos( $result, ', gave up:false' ) ) {
+            $result = str_replace( ', gave up:false', '', $result );
+        }
+        if ( false !== strpos( $result, 'gave up:true' ) ) {
+            return 'timeout';
+        }
+        if ( false !== strpos( $result, 'execution error: User canceled. (-128)' ) ) {
+            return 'canceled';
+        }
         if ( strpos( $result, 'text returned:' ) !== false ) {
             return substr( $result, strpos( $result, 'text returned:' ) + 14 );
         }
@@ -114,10 +170,19 @@ class Dialog {
         $this->default_answer = " default answer \"{$text}\"";
     }
 
-    // add in these:
-    // giving up after
-    // cancel button
-    // hidden answer
+    public function set_timeout( $seconds ) {
+        $this->timeout = " giving up after {$seconds}";
+    }
+
+    public function set_cancel( $cancel ) {
+        $this->cancel = " cancel button \"{$cancel}\"";
+    }
+
+    public function set_hidden_answer( $hidden = false ) {
+        if ( $hidden ) {
+            $this->hidden_answer = " hidden answer true";
+        }
+    }
 
 }
 
