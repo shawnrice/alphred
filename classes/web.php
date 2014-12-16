@@ -83,7 +83,7 @@ class http {
       return $file;
     $favicon = file_get_contents( "https://www.google.com/s2/favicons?domain=$domain" );
     if ( empty( $destination ) )
-      $destination = $_SERVER['alfred_workflow_cache'] . "/favicons";
+      $destination = \Alphred\Globals::get('alfred_workflow_cache') . "/favicons";
     if ( ! file_exists( $destination ) && substr( $destination, -4 ) !== '.png' )
       mkdir( $destination, 0755, true );
     if ( file_exists( $destination ) && is_dir( $desintation ) )
@@ -94,14 +94,14 @@ class http {
   }
 
   public function cache( $file, $bin = '', $ttl = 600 ) {
-    $file = $_SERVER['alfred_workflow_cache'] . "/{$bin}/{$file}";
+    $file = \Alphred\Globals::get('alfred_workflow_cache') . "/{$bin}/{$file}";
     if ( ! file_exists( $file ) ) return false;
     if ( time() - filemtime( $file ) > $ttl && $ttl !== 0 ) return false;
     return $file;
   }
 
   public function clear_cache( $bin = '' ) {
-    $clear = $_SERVER['alfred_workflow_cache'];
+    $clear = \Alphred\Globals::get('alfred_workflow_cache');
     $clear .= ( $bin ) ? $bin : '';
     if ( file_exists( $clear ) && is_dir( $clear ) ) {
       // remove all the files from the bin. If the bin isn't set, then remove

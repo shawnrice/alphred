@@ -91,12 +91,12 @@ class Log {
    */
   public function __construct( $log, $destination = 'file' ) {
 
-    if ( ! isset( $_SERVER['alfred_bundleid'] ) ) {
+    if ( ! isset( \Alphred\Globals::get('alfred_bundleid') ) ) {
       // we should throw an exception here
       return false;
     }
 
-    $this->log = $_SERVER['alfred_workflow_data'] . '/' . $_SERVER['alfred_bundleid'] . '.log';
+    $this->log = \Alphred\Globals::get('alfred_workflow_data') . '/' . \Alphred\Globals::get('alfred_bundleid') . '.log';
     $this->initializeLog();
 
     if ( ! in_array( $destination, [ 'file', 'console', 'both' ] ) )
@@ -113,14 +113,12 @@ class Log {
     );
 
     // Set date/time to avoid warnings/errors.
-    if ( ! ini_get( 'date.timezone' ) ) {
-      $timezone = exec( 'tz=`ls -l /etc/localtime` && echo ${tz#*/zoneinfo/}' );
-      ini_set( 'date.timezone', $timezone );
-    }
+    \Alphred\Date::avoid_date_errors();
 
     // This is needed because, Macs don't read EOLs well.
-    if ( ! ini_get( 'auto_detect_line_endings' ) )
+    if ( ! ini_get( 'auto_detect_line_endings' ) ) {
       ini_set( 'auto_detect_line_endings', true );
+    }
 
   }
 
