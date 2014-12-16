@@ -57,25 +57,7 @@ class Date {
         }
 
         // We want a string, so let's convert it to one with an Oxford Comma
-        $string = '';
-        $count  = 1;
-        foreach( $data as $unit => $value ) :
-            // Concatenate the string with the units
-            $string .= "{$value} {$unit}";
-            if ( $count == count( $data ) ) {
-                // All done, so return
-                return $string;
-            } else if ( ( $count + 1 ) == count( $data ) ) {
-                // Last unit, so add in the "and"
-                $string .= ", and ";
-            } else {
-                // We have more units, so just add in the comma
-                $string .= ", ";
-            }
-            $count++;
-        endforeach;
-
-        // We shouldn't ever get here. We've already returned the value
+        return \Alphred\Text::commaify( $data, true );
     }
 
     public function ago( $seconds, $words = false ) {

@@ -37,8 +37,8 @@ class Text {
             };
 
             // Add back in the punctuation if it was there.
-            if ( ctype_punct( $first ) ) $words[$k] = $first . $words[$k];
-            if ( ctype_punct( $last ) ) $words[$k] = $words[$k] . $last;
+            if ( ctype_punct( $first ) ) { $words[ $k ] = $first . $words[ $k ]; }
+            if ( ctype_punct( $last ) )  { $words[ $k ] = $words[ $k ] . $last;  }
 
         endforeach;
         $words[0] = ucfirst( $words[0] );
@@ -64,6 +64,30 @@ class Text {
     public function hyphenate( $string ) {
         // converts spaces to hyphens
         return str_replace(' ', '-', $string );
+    }
+
+    public function commaify( $list, $suffix = false ) {
+        // We want a string, so let's convert it to one with an Oxford Comma
+        $string = '';
+        $count  = 1;
+        foreach( $list as $unit => $value ) :
+            // Concatenate the string with the units
+            $string .= $suffix ? "{$value} {$unit}" : $value;
+            if ( $count == count( $list ) ) {
+                // All done, so return
+                return $string;
+            } else if ( ( ( $count + 1 ) == count( $list ) ) && ( 2 == count( $list ) ) ) {
+                // There are only two units, so no comma
+                $string .= " and ";
+            } else if ( ( $count + 1 ) == count( $list ) ) {
+                // Last unit, so add in the "and"
+                $string .= ", and ";
+            } else {
+                // We have more units, so just add in the comma
+                $string .= ", ";
+            }
+            $count++;
+        endforeach;
     }
 
 }

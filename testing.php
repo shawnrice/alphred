@@ -5,7 +5,7 @@ require_once('classes/Globals.php');
 // require_once('classes/alfred.php');
 // require_once('classes/config.php');
 require_once('classes/Date.php');
-// require_once('classes/text.php');
+require_once('classes/Text.php');
 // require_once('classes/server.php');
 // require_once('classes/applescript.php');
 
