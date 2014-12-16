@@ -6,33 +6,135 @@ namespace Alphred;
 
 class Alfred {
 
-    public function trigger() {
-        // call an external trigger
+    public function __construct( $options = [ 'create_directories' => false ] ) {
+        if ( true === $options['create_directories'] ) {
+            $this->create_directories();
+        }
     }
 
-    public function callExternalTrigger( $bundle, $trigger, $argument = false ) {
+    public function create_directories() {
+        if ( ! $this->data() ) {
+            return false;
+        }
+        if ( ! file_exists( $this->data() ) ) {
+            mkdir( $this->data() );
+        }
+        if ( ! file_exists( $this->cache() ) ) {
+            mkdir( $this->cache() );
+        }
+
+        return true;
+    }
+
+    public function user() {
+      return $_SERVER['USER'];
+    }
+
+    public function bundle() {
+      return $_SERVER['alfred_workflow_bundleid'];
+    }
+
+    public function data() {
+      return $_SERVER['alfred_workflow_data'];
+    }
+
+    public function cache() {
+      return $_SERVER['alfred_workflow_cache'];
+    }
+
+    public function uid() {
+      return $_SERVER['alfred_workflow_uid'];
+    }
+
+    public function workflow_name() {
+      return $_SERVER['alfred_workflow_name'];
+    }
+
+    public function theme_subtext() {
+      return $_SERVER['alfred_theme_subtext'];
+    }
+
+    public function alfred_version() {
+      return $_SERVER['alfred_version'];
+    }
+
+    public function alfred_build() {
+      return $_SERVER['alfred_version_build'];
+    }
+
+    public function dir() {
+      return $_SERVER['PWD'];
+    }
+
+    public function theme_background() {
+      return $_SERVER['alfred_theme_background'];
+    }
+
+    public function trigger( $bundle, $trigger, $argument = false ) {
+        return $this->call_external_trigger( $bundle, $trigger, $argument );
+    }
+
+    public function call_external_trigger( $bundle, $trigger, $argument = false ) {
       $script = "tell application \"Alfred 2\" to run trigger \"$trigger\" in workflow \"$bundle\"";
       if ( $argument !== false ) {
         $script .= "with argument \"$argument\"";
       }
-      exec( "osascript -e '$script'" );
+      return exec( "osascript -e '$script'" );
     }
 
+    // should I take these out?
+    public function _( $string ) {
+        if ( ! isset( $this->i18n ) )
+            $this->i18n = new \Alphred\i18n;
+        if ( $this->i18n === false )
+            return $string;
+        return $this->i18n->translate( $string );
+    }
+
+    public function t( $string ) {
+        return $this->_( $string );
+    }
 
 }
 
-class Workflow {
+class ScriptFilter {
 // Should we have the options of "modules" to enable here and have this as the main entry-point
 // for the entire usage?
 
     public function __construct( $options = [] ) {
+
         if ( isset( $options['config'] ) ) {
             require_once( __DIR__ . '/config.php');
             $this->config = new \Alphred\Config\Config( $options['config'] );
         }
+
+        $this->il18 = false;
+        foreach( ['localize', 'localise', 'il8n' ] as $localize ) :
+            if ( isset( $options[ $localize ] ) && $options[ $localize ] ) {
+                $this->initializei118n();
+                break;
+            }
+        endforeach;
+
+        // We'll just save all the options for later use if necessary
+        $this->options = $options;
+
         $this->results = [];
         $this->xml = new \XMLWriter();
 
+    }
+
+    private function initializei118n() {
+        if ( class_exists( '\Alphred\i18n' ) ) {
+            $this->il18 = new \Alphred\i18n;
+        }
+    }
+
+    private function t( $string ) {
+        if ( ! isset( $this->i18n ) ) {
+            return $string;
+        }
+        return $this->i18n->translate( $string );
     }
 
     public function add_result( $result ) {
@@ -55,6 +157,19 @@ class Workflow {
     }
 
     public function to_xml() {
+
+        if ( true === $this->options[ 'error_on_empty' ] ) {
+            if ( 0 == count( $this->get_results() ) ) {
+                $result = new \Alphred\Result( [
+                    'title'    => 'Error: No results found.',
+                    'icon'     => '/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/Unsupported.icns',
+                    'subtitle' => 'Please search for something else.',
+                    'valid'    => false
+                ]);
+                $this->add_result( $result );
+            }
+        }
+
         $this->xml->openMemory();
         $this->xml->setIndent(4);
         $this->xml->startDocument('1.0', 'UTF-8' );
@@ -73,7 +188,9 @@ class Workflow {
 
         foreach ( $attributes as $v ) :
             if ( ! isset( $item[$v] ) ) {
-                $this->xml->writeAttribute( $v, '');
+                if ( ( 'autocomplete' !== $v ) && ( 'uid' !== $v ) ) {
+                    $this->xml->writeAttribute( $v, '' );
+                }
             } else {
                 $this->xml->writeAttribute($v, $item[$v]);
             }
@@ -98,7 +215,7 @@ class Workflow {
                 } else {
                     $this->xml->startElement( $k );
                 }
-                $this->xml->text( $v );
+                $this->xml->text( $this->t( $v ) );
                 $this->xml->endElement();
             }
         endforeach;
@@ -106,13 +223,9 @@ class Workflow {
         $this->xml->endElement();
     }
 
-    public function set( $key, $value ) {
-        return $this->config->set( $key, $value );
-    }
-
-    public function read( $key ) {
-        return $this->config->read( $key );
-    }
+    // public function read( $key ) {
+    //     return $this->config->read( $key );
+    // }
 
     public function remove( $key ) {
         return $this->config->remove( $key );
@@ -171,6 +284,18 @@ class Result {
             endforeach;
         }
 
+    }
+
+    // extra meta function that will let you set more than one thing at once
+    public function set( $options ) {
+        if ( ! is_array( $options ) ) {
+            return false;
+        }
+
+        foreach ( $options as $option => $value ) :
+            $method = "set_{$option}";
+            $this->$method( $value );
+        endforeach;
     }
 
     // Let's just make a common function for all the "set" methods

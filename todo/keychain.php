@@ -9,21 +9,30 @@ class Keychain {
 
     }
 
-    public function execute() {
-        $cmd = "osascript -e 'do shell script \"{$this->cmd}\" with administrator privileges'";
+    public function execute( $command ) {
+        $cmd = "osascript -e 'do shell script \"{$command}\" with administrator privileges'";
         return exec( $cmd );
     }
 
     public function add_generic_password( $opts ) {
+        $cmd = "security add-generic-password";
 
+        -a account
+        -s service
+        -w password
+        -u
+
+        return $this->execute( $cmd );
     }
 
     public function delete_generic_password( $opts ) {
-
+        $cmd = "security delete-generic-password";
+        return $this->execute( $cmd );
     }
 
     public function find_generic_password( $opts ) {
-
+        $cmd = "security find-generic-password";
+        return $this->execute( $cmd );
     }
 
 
@@ -31,15 +40,18 @@ class Keychain {
 
 
     public function add_internet_password( $opts ) {
-
+        $cmd = "security add-internet-password";
+        return $this->execute( $cmd );
     }
 
     public function delete_internet_password( $opts ) {
-
+        $cmd = "security delete-internet-password";
+        return $this->execute( $cmd );
     }
 
     public function find_internet_password( $opts ) {
-
+        $cmd = "security find-internet-password";
+        return $this->execute( $cmd );
     }
 
 
@@ -56,9 +68,6 @@ find-generic-password
 find-internet-password
 delete-generic-password
 delete-internet-password
-
-
-
 
 
  add-generic-password [-h] [-a account] [-s service] [-w password] [options...] [keychain]

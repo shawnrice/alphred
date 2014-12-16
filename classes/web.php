@@ -83,8 +83,8 @@ class http {
       return $file;
     $favicon = file_get_contents( "https://www.google.com/s2/favicons?domain=$domain" );
     if ( empty( $destination ) )
-      $destination = $_SERVER['alfred_workflow_cache'] . "/favicons" );
-    if ( ! file_exists( $destination ) && substr( $destination, -4 ) !== '.png' ) {
+      $destination = $_SERVER['alfred_workflow_cache'] . "/favicons";
+    if ( ! file_exists( $destination ) && substr( $destination, -4 ) !== '.png' )
       mkdir( $destination, 0755, true );
     if ( file_exists( $destination ) && is_dir( $desintation ) )
       $destination .= "/{$domain}.png";

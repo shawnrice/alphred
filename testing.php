@@ -15,11 +15,16 @@ $_SERVER['alfred_workflow_data'] = $_SERVER['HOME'] . '/Library/Application Supp
 $_SERVER['alfred_workflow_bundleid'] = 'com.alphred';
 
 $date = new \Alphred\Date;
-print_r( $date->convertSecondsToHumanTime( 3286861 ) );
+
+echo $date->convert_number_to_words(9223372036854775807);
+
+exit();
+
+print_r( $date->ago( 315234220, true ) );
 echo PHP_EOL;
 
 $text = new \Alphred\Text;
-$w = new \Alphred\Workflow(['config' => 'db']);
+$w = new \Alphred\ScriptFilter(['config' => 'db']);
 
 $w->set( 'username', 'And sha-wn but: :considering: patrick rice' );
 print_r( $text->titleCase( $w->config_read( 'username' ) ) );
