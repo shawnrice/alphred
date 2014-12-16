@@ -86,7 +86,7 @@ What else do we add? What are we missing that would really help things through?
 
 1. Color: should I bother?
 1. Image... for processing. How much do I use this?
-1. OAuth -- should I bake this in or just leave it?
+1. OAuth -- should I bake this in or just leave it out?
 1. Network (stuff for bluetooth/wifi... is this necessary?)
 1. Security Class (keychains)
 1. System Functions (zip/tar/system information, etc...)
@@ -102,5 +102,5 @@ What else do we add? What are we missing that would really help things through?
 #### Internal Documentation
 1. Write the entire damn lot of it
 
-#### Use Documentations
+#### User Documentation
 1. Write the whole damn lot of it (somewhat dependent on above)
