@@ -12,7 +12,7 @@ class Alfred {
         }
     }
 
-    public function create_directories() {
+    private function create_directories() {
         if ( ! $this->data() ) {
             return false;
         }
@@ -27,47 +27,47 @@ class Alfred {
     }
 
     public function user() {
-      return $_SERVER['USER'];
+      return Globals::get('USER');
     }
 
     public function bundle() {
-      return $_SERVER['alfred_workflow_bundleid'];
+      return Globals::get('alfred_workflow_bundleid');
     }
 
     public function data() {
-      return $_SERVER['alfred_workflow_data'];
+      return Globals::get('alfred_workflow_data');
     }
 
     public function cache() {
-      return $_SERVER['alfred_workflow_cache'];
+      return Globals::get('alfred_workflow_cache');
     }
 
     public function uid() {
-      return $_SERVER['alfred_workflow_uid'];
+      return Globals::get('alfred_workflow_uid');
     }
 
     public function workflow_name() {
-      return $_SERVER['alfred_workflow_name'];
+      return Globals::get('alfred_workflow_name');
     }
 
     public function theme_subtext() {
-      return $_SERVER['alfred_theme_subtext'];
+      return Globals::get('alfred_theme_subtext');
     }
 
     public function alfred_version() {
-      return $_SERVER['alfred_version'];
+      return Globals::get('alfred_version');
     }
 
     public function alfred_build() {
-      return $_SERVER['alfred_version_build'];
+      return Globals::get('alfred_version_build');
     }
 
     public function dir() {
-      return $_SERVER['PWD'];
+      return Globals::get('PWD');
     }
 
     public function theme_background() {
-      return $_SERVER['alfred_theme_background'];
+      return Globals::get('alfred_theme_background');
     }
 
     public function trigger( $bundle, $trigger, $argument = false ) {
@@ -160,6 +160,7 @@ class ScriptFilter {
 
         if ( true === $this->options[ 'error_on_empty' ] ) {
             if ( 0 == count( $this->get_results() ) ) {
+                // Alter these strings below to make them more generic
                 $result = new \Alphred\Result( [
                     'title'    => 'Error: No results found.',
                     'icon'     => '/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/Unsupported.icns',
@@ -223,36 +224,12 @@ class ScriptFilter {
         $this->xml->endElement();
     }
 
-    // public function read( $key ) {
-    //     return $this->config->read( $key );
-    // }
-
-    public function remove( $key ) {
-        return $this->config->remove( $key );
-    }
-
-    public function config_set( $key, $value ) {
-        return $this->set( $key, $value );
-    }
-
-    public function config_read( $key ) {
-        return $this->read( $key );
-    }
-
-    public function data() {
-        return $_SERVER['alfred_workflow_data'];
-    }
-
-    public function cache() {
-        return $_SERVER['alfred_workflow_cache'];
-    }
-
 }
 
 
 class Result {
 
-    public function __construct( $title ) {
+    public function __construct( $args ) {
         $this->string_methods = [
             'title',
             'icon',
@@ -274,11 +251,10 @@ class Result {
 
         $this->data = [];
 
-        if ( is_string( $title ) ) {
-            $this->set_title( $title );
+        if ( is_string( $args ) ) {
+            $this->set_title( $args );
         } else if ( is_array( $title ) ) {
-            foreach ( $title as $key => $value ) :
-
+            foreach ( $args as $key => $value ) :
                 $fn = "set_{$key}";
                 $this->$fn( $value );
             endforeach;

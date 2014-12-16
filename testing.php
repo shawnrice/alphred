@@ -1,48 +1,51 @@
 <?php
 
+require_once('classes/Globals.php');
 
-require_once('classes/alfred.php');
-require_once('classes/config.php');
-require_once('classes/date.php');
-require_once('classes/text.php');
-require_once('classes/server.php');
-require_once('classes/applescript.php');
+echo \Alphred\Globals::get('USER');
 
-// require_once('build/alphred.phar');
+// require_once('classes/alfred.php');
+// require_once('classes/config.php');
+// require_once('classes/date.php');
+// require_once('classes/text.php');
+// require_once('classes/server.php');
+// require_once('classes/applescript.php');
 
-// For testing purposes, we set these.
-$_SERVER['alfred_workflow_data'] = $_SERVER['HOME'] . '/Library/Application Support/Alfred 2/Workflow Data/com.alphred';
-$_SERVER['alfred_workflow_bundleid'] = 'com.alphred';
+// // require_once('build/alphred.phar');
 
-$date = new \Alphred\Date;
+// // For testing purposes, we set these.
+// $_SERVER['alfred_workflow_data'] = $_SERVER['HOME'] . '/Library/Application Support/Alfred 2/Workflow Data/com.alphred';
+// $_SERVER['alfred_workflow_bundleid'] = 'com.alphred';
 
-echo $date->convert_number_to_words(9223372036854775807);
+// $date = new \Alphred\Date;
 
-exit();
+// echo $date->convert_number_to_words(9223372036854775807);
 
-print_r( $date->ago( 315234220, true ) );
-echo PHP_EOL;
+// exit();
 
-$text = new \Alphred\Text;
-$w = new \Alphred\ScriptFilter(['config' => 'db']);
+// print_r( $date->ago( 315234220, true ) );
+// echo PHP_EOL;
 
-$w->set( 'username', 'And sha-wn but: :considering: patrick rice' );
-print_r( $text->titleCase( $w->config_read( 'username' ) ) );
-$w->remove( 'username' );
-echo "AND NOW: " . $w->config_read( 'username' );
+// $text = new \Alphred\Text;
+// $w = new \Alphred\ScriptFilter(['config' => 'db']);
+
+// $w->set( 'username', 'And sha-wn but: :considering: patrick rice' );
+// print_r( $text->titleCase( $w->config_read( 'username' ) ) );
+// $w->remove( 'username' );
+// echo "AND NOW: " . $w->config_read( 'username' );
 
 
-$result = $w->item([
-    'title' => 'This is a title',
-    'subtitle' => 'Subtitle',
-    'subtitle_alt' => 'Shifty!',
-    'valid' => true,
-    'args' => 'test',
-    'text_copy' => 'text copy',
-    'icon_filetype' => 'pdf',
-    'icon_fileicon' => 'pdf',
-]);
+// $result = $w->item([
+//     'title' => 'This is a title',
+//     'subtitle' => 'Subtitle',
+//     'subtitle_alt' => 'Shifty!',
+//     'valid' => true,
+//     'args' => 'test',
+//     'text_copy' => 'text copy',
+//     'icon_filetype' => 'pdf',
+//     'icon_fileicon' => 'pdf',
+// ]);
 
-$result->set_subtitle_cmd( 'testing' );
+// $result->set_subtitle_cmd( 'testing' );
 
-$w->to_xml();
+// $w->to_xml();
