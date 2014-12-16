@@ -8,18 +8,46 @@ namespace Alphred\AppleScript;
 
 class AppleScript {
 
-    // uses applescript to get the information about a lot of system stuff
-
-    public function front() {
+    // Returns the frontmost application and window name
+    public function get_front() {
+        // This is just inelegantly embedding a long AppleScript into the library
+        // https://stackoverflow.com/questions/5292204/macosx-get-foremost-window-title
+        $script = <<<EOT
+        global frontApp, frontAppName, windowTitle
+        set windowTitle to ""
+        tell application "System Events"
+            set frontApp to first application process whose frontmost is true
+            set frontAppName to name of frontApp
+            tell process frontAppName
+                tell (1st window whose value of attribute "AXMain" is true)
+                    set windowTitle to value of attribute "AXTitle"
+                end tell
+            end tell
+        end tell
+        return {frontAppName, windowTitle}
+EOT;
+        $result = self::exec( $script );
+        return [
+            'app'    => substr( $result, 0, strpos( $result, ', ' ) ),
+            'window' => substr( $result, strpos( $result, ', ' ) + 2 )
+        ];
 
     }
 
-    public function activate() {
-
+    public function activate( $application ) {
+        return self::exec(
+            "tell application \"" . addslashes( $application ) . "\" to activate"
+        );
     }
 
-    public function tab() {
+    public function bring_to_front( $process ) {
+        return self::exec(
+            "try\ntell application \"System Events\" to set frontmost of process \"{$process}\" to true\nend try"
+        );
+    }
 
+    private function exec( $script ) {
+        return exec( "osascript -e '{$script}'" );
     }
 
 }
@@ -78,6 +106,7 @@ class Notification {
     }
 }
 
+// This damn thing is really long and not so awesome.
 class Dialog {
 
     public function __construct( $values = [] ) {
@@ -189,6 +218,91 @@ class Dialog {
 
 class Choose {
 
+    // NOTE: THESE FUNCTIONS ARE SENSITIVE TO SINGLE and DOUBLE QUOTES and COMMAS
+
+    // Choose from List
+    // Returns false on cancel....
+    public function from_list( $list, $options = false ) {
+        if ( ! is_array( $list ) ) {
+            return false;
+        }
+        $list  = '{"' . implode( '", "', $list ) . '"}';
+        $start = "choose from list {$list}";
+        $default_options = [
+            'with title'                  => 'title',
+            'with prompt'                 => 'text',
+            'default items'               => 'default',
+            'OK button name'              => 'ok',
+            'cancel button name'          => 'cancel',
+            'multiple selections allowed' => 'multiple',
+            'empty selection allowed'     => 'empty'
+        ];
+        $script = self::create( $start, $default_options, $options );
+
+        if ( $script ) {
+            return self::process( exec( $script ) );
+        } else {
+            return false;
+        }
+    }
+
+    // Choose File(s)
+    public function file( $options = false ) {
+        $start = 'choose file';
+        $default_options = [
+            'with prompt'                 => 'text',
+            'of type'                     => 'type',
+            'default location'            => 'location',
+            'invisibles'                  => 'invisibles',
+            'multiple selections allowed' => 'multiple',
+            'showing package contents'    => 'package_contents'
+        ];
+        $script = self::create( $start, $default_options, $options );
+
+        if ( $script ) {
+            return self::process( exec( $script ), 'alias ', true );
+        } else {
+            return false;
+        }
+    }
+
+    // Choose Filename
+    public function filename( $options = false ) {
+        $start = 'choose file name';
+        $default_options = [
+            'with prompt'      => 'text',
+            'default name'     => 'default',
+            'default location' => 'location'
+        ];
+        $script = self::create( $start, $default_options, $options );
+
+        if ( $script ) {
+            return self::process( exec( $script ), 'file ', true );
+        } else {
+            return false;
+        }
+    }
+
+    // Choose Folder(s)
+    public function folder( $options = false ) {
+        $start = 'choose folder';
+        $default_options = [
+            'with prompt'                 => 'text',
+            'default location'            => 'location',
+            'invisibles'                  => 'invisibles',
+            'multiple selections allowed' => 'multiple',
+            'showing package contents'    => 'package_contents'
+        ];
+        $script = self::create( $start, $default_options, $options );
+
+        if ( $script ) {
+            return self::process( exec( $script ), 'alias ', true );
+        } else {
+            return false;
+        }
+    }
+
+    // Factory
     private function create( $start, $options, $selections ) {
         if ( ! isset( $options ) || ! is_array( $options ) ) {
             return false;
@@ -218,90 +332,7 @@ class Choose {
         return $script .= "' 2>&1";
     }
 
-    private function to_posix_path( $path ) {
-        $path = str_replace( ':', '/', $path );
-        $path = "/" . $path;
-        return $path;
-    }
-
-
-    public function from_list( $list, $options = false ) {
-        if ( ! is_array( $list ) ) {
-            return false;
-        }
-        $list  = '{"' . implode( '", "', $list ) . '"}';
-        $start = "choose from list {$list}";
-        $default_options = [
-            'with title'                  => 'title',
-            'with prompt'                 => 'text',
-            'default items'               => 'default',
-            'OK button name'              => 'ok',
-            'cancel button name'          => 'cancel',
-            'multiple selections allowed' => 'multiple',
-            'empty selection allowed'     => 'empty'
-        ];
-        $script = self::create( $start, $default_options, $options );
-
-        if ( $script ) {
-            return self::process( exec( $script ) );
-        } else {
-            return false;
-        }
-    }
-
-    public function file( $options = false ) {
-        $start = 'choose file';
-        $default_options = [
-            'with prompt'                 => 'text',
-            'of type'                     => 'type',
-            'default location'            => 'location',
-            'invisibles'                  => 'invisibles',
-            'multiple selections allowed' => 'multiple',
-            'showing package contents'    => 'package_contents'
-        ];
-        $script = self::create( $start, $default_options, $options );
-
-        if ( $script ) {
-            return self::process( exec( $script ), 'alias ', true );
-        } else {
-            return false;
-        }
-    }
-
-    public function filename( $options = false ) {
-        $start = 'choose file name';
-        $default_options = [
-            'with prompt'      => 'text',
-            'default name'     => 'default',
-            'default location' => 'location'
-        ];
-        $script = self::create( $start, $default_options, $options );
-
-        if ( $script ) {
-            return self::process( exec( $script ), 'file ', true );
-        } else {
-            return false;
-        }
-    }
-
-    public function folder( $options = false ) {
-        $start = 'choose folder';
-        $default_options = [
-            'with prompt'                 => 'text',
-            'default location'            => 'location',
-            'invisibles'                  => 'invisibles',
-            'multiple selections allowed' => 'multiple',
-            'showing package contents'    => 'package_contents'
-        ];
-        $script = self::create( $start, $default_options, $options );
-
-        if ( $script ) {
-            return self::process( exec( $script ), 'alias ', true );
-        } else {
-            return false;
-        }
-    }
-
+    // To process the response
     private function process( $result, $strip = false, $path = false ) {
         // Make sure the user didn't cancel the selection
         if ( false !== strpos( $result, 'execution error: User canceled. (-128)' ) ) {
@@ -325,6 +356,11 @@ class Choose {
             });
         }
         return $result;
+    }
+
+    // Converts a dumb path to a posix path
+    private function to_posix_path( $path ) {
+        return "/" . str_replace( ':', '/', $path );
     }
 
 }

@@ -31,21 +31,29 @@ require_once('classes/Alphred.php');
 //     'type' => [ 'txt', 'doc', 'docx' ],
 //     'location' => "/Users/Sven/Desktop"
 // ]));
-// print_r( AppleScript\ChooseFromList::execute(
+// print_r( AppleScript\Choose::from_list(
 //     [ 'One', 'Two', 'Three' ],
-//     [ 'multiple' => true ]
+//     [
+//         'multiple' => true,
+//         'default' => 'Two',
+//         'ok'    => 'Thats what I want',
+//         'empty' => 'true'
+//     ]
 // ));
+
+print_r( AppleScript\AppleScript::get_front() );
+
 // print_r( AppleScript\ChooseFileName::execute([
 //     'text' => 'Choose a damn file!',
 //     'location' => "/Users/Sven/Desktop"
 // ]));
-print_r( AppleScript\Choose::folder([
-    'text' => 'Choose a damn file!',
-    'invisibles' => true,
-    'multiple' => true,
-    'package_contents' => true,
-    'location' => "/Users/Sven/Desktop"
-]));
+// print_r( AppleScript\Choose::folder([
+//     'text' => 'Choose a damn file!',
+//     'invisibles' => true,
+//     'multiple' => true,
+//     'package_contents' => true,
+//     'location' => "/Users/Sven/Desktop"
+// ]));
 // exit();
 
 // print_r( $date->ago( 315234220, true ) );
