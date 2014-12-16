@@ -22,8 +22,30 @@ require_once('classes/Alphred.php');
 // ]);
 // echo $as->execute();
 
-AppleScript\Notification::notify( ['text'=> 'Testing!', 'title' => 'what?', 'sound' => 'Purr']);
-
+// AppleScript\Notification::notify( ['text'=> 'Testing!', 'title' => 'what?', 'sound' => 'Purr']);
+// print_r( AppleScript\ChooseFile::execute([
+//     'text' => 'Choose a damn file!',
+//     'invisibles' => true,
+//     'multiple' => true,
+//     'package_contents' => true,
+//     'type' => [ 'txt', 'doc', 'docx' ],
+//     'location' => "/Users/Sven/Desktop"
+// ]));
+// print_r( AppleScript\ChooseFromList::execute(
+//     [ 'One', 'Two', 'Three' ],
+//     [ 'multiple' => true ]
+// ));
+// print_r( AppleScript\ChooseFileName::execute([
+//     'text' => 'Choose a damn file!',
+//     'location' => "/Users/Sven/Desktop"
+// ]));
+print_r( AppleScript\Choose::folder([
+    'text' => 'Choose a damn file!',
+    'invisibles' => true,
+    'multiple' => true,
+    'package_contents' => true,
+    'location' => "/Users/Sven/Desktop"
+]));
 // exit();
 
 // print_r( $date->ago( 315234220, true ) );

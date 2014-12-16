@@ -2,6 +2,10 @@
 
 namespace Alphred\AppleScript;
 
+// So this file is an absolute mess.
+// I might need to rethink if I will / should reorganize all the classes
+// into something a bit better....
+
 class AppleScript {
 
     // uses applescript to get the information about a lot of system stuff
@@ -15,10 +19,6 @@ class AppleScript {
     }
 
     public function tab() {
-
-    }
-
-    public function dialog() {
 
     }
 
@@ -186,29 +186,154 @@ class Dialog {
 
 }
 
-class ChooseFromList {
-    // this needs to be written
-    function __construct( $list, $text = '' ) {
 
+class Choose {
+
+    private function create( $start, $options, $selections ) {
+        if ( ! isset( $options ) || ! is_array( $options ) ) {
+            return false;
+        }
+        $script = "osascript -e '{$start}";
+        foreach( $options as $key => $value ) :
+            $quotes = true;
+            if ( isset( $selections[ $value ] ) ) {
+                if ( is_array( $selections[ $value ] ) ) {
+                    $selections[ $value ] = '{"' . implode( '", "', $selections[ $value ] ) . '"}';
+                    $quotes = false;
+                }
+                if ( is_bool( $selections[ $value ] ) ) {
+                    if ( $selections[ $value ] ) {
+                        $selections[ $value ] = 'true';
+                    } else {
+                        $selections[ $value ] = 'false';
+                    }
+                }
+                if ( $quotes ) {
+                    $script .= " {$key} \"{$selections[ $value ]}\"";
+                } else {
+                    $script .= " {$key} {$selections[ $value ]}";
+                }
+            }
+        endforeach;
+        return $script .= "' 2>&1";
+    }
+
+    private function to_posix_path( $path ) {
+        $path = str_replace( ':', '/', $path );
+        $path = "/" . $path;
+        return $path;
+    }
+
+
+    public function from_list( $list, $options = false ) {
+        if ( ! is_array( $list ) ) {
+            return false;
+        }
+        $list  = '{"' . implode( '", "', $list ) . '"}';
+        $start = "choose from list {$list}";
+        $default_options = [
+            'with title'                  => 'title',
+            'with prompt'                 => 'text',
+            'default items'               => 'default',
+            'OK button name'              => 'ok',
+            'cancel button name'          => 'cancel',
+            'multiple selections allowed' => 'multiple',
+            'empty selection allowed'     => 'empty'
+        ];
+        $script = self::create( $start, $default_options, $options );
+
+        if ( $script ) {
+            return self::process( exec( $script ) );
+        } else {
+            return false;
+        }
+    }
+
+    public function file( $options = false ) {
+        $start = 'choose file';
+        $default_options = [
+            'with prompt'                 => 'text',
+            'of type'                     => 'type',
+            'default location'            => 'location',
+            'invisibles'                  => 'invisibles',
+            'multiple selections allowed' => 'multiple',
+            'showing package contents'    => 'package_contents'
+        ];
+        $script = self::create( $start, $default_options, $options );
+
+        if ( $script ) {
+            return self::process( exec( $script ), 'alias ', true );
+        } else {
+            return false;
+        }
+    }
+
+    public function filename( $options = false ) {
+        $start = 'choose file name';
+        $default_options = [
+            'with prompt'      => 'text',
+            'default name'     => 'default',
+            'default location' => 'location'
+        ];
+        $script = self::create( $start, $default_options, $options );
+
+        if ( $script ) {
+            return self::process( exec( $script ), 'file ', true );
+        } else {
+            return false;
+        }
+    }
+
+    public function folder( $options = false ) {
+        $start = 'choose folder';
+        $default_options = [
+            'with prompt'                 => 'text',
+            'default location'            => 'location',
+            'invisibles'                  => 'invisibles',
+            'multiple selections allowed' => 'multiple',
+            'showing package contents'    => 'package_contents'
+        ];
+        $script = self::create( $start, $default_options, $options );
+
+        if ( $script ) {
+            return self::process( exec( $script ), 'alias ', true );
+        } else {
+            return false;
+        }
+    }
+
+    private function process( $result, $strip = false, $path = false ) {
+        // Make sure the user didn't cancel the selection
+        if ( false !== strpos( $result, 'execution error: User canceled. (-128)' ) ) {
+            return 'canceled';
+        }
+        if ( $strip ) {
+            $result = str_replace( $strip, '', $result );
+        }
+        if ( false !== strpos( $result, ',' ) ) {
+            $result = explode( ',', $result );
+            // Just trim everything
+            array_walk( $result, function( &$value, $key ) {
+                $value = trim( $value );
+            });
+        } else {
+            $result = [ $result ];
+        }
+        if ( $path ) {
+            array_walk( $result, function( &$value, $key ) {
+                $value = self::to_posix_path( $value );
+            });
+        }
+        return $result;
     }
 
 }
 
-class ChooseColor {
-    // this needs to be written
-}
 
-class ChooseFile {
-    // this needs to be written
-}
-
-class ChooseApplication {
-    // this needs to be written
-}
-
-class ChooseFolder {
-    // this needs to be written
-}
-
+// Not written / not sure I'm going to write:
+// ===========
+// class ChooseApplication {
+//     // this needs to be written
+// }
 // Note: "choose remote application" will not be included nor will "choose file name" as those
 // use cases can be taken care of by the above and better php scripting.
