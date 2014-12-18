@@ -32,12 +32,12 @@ function prime_server() {
         # launch kill script
         nohup "${ME}/kill.sh" &> /dev/null &
     fi
-    # Last Triggered
+    # Update the Last Triggered file
     echo $(date +%s) > "${KEEP_ALIVE}" &
 }
 
 function query_server() {
-    # Last Triggered
+    # Update the Last Triggered file
     echo $(date +%s) > "${KEEP_ALIVE}" &
 
     echo $(curl  -fsS --request POST "http://localhost:${SERVER_PORT}/${alfred_workflow_uid}/${SCRIPT}" \
@@ -46,4 +46,13 @@ function query_server() {
 }
 
 prime_server
-query_server
+
+if [[ ${#QUERY} -ge $MIN_QUERY ]]; then
+    query_server
+else
+    # Currently, there is no fallback..., should we bake one in? Do
+    # we return XML or provide an extensible way to take a backup action?
+    #
+    # We need a statement in order to make this not fail.
+    a=a
+fi
