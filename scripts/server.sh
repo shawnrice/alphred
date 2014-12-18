@@ -37,9 +37,13 @@ function prime_server() {
 }
 
 function query_server() {
-    curl  -fsS --request POST "localhost:${SERVER_PORT}/${alfred_workflow_uid}/${SCRIPT}" \
-        --data query="${QUERY}"&alfred_workflow_data="${alfred_workflow_data}"&alfred_workflow_bundleid="${alfred_workflow_bundleid}"&alfred_workflow_cache="${alfred_workflow_cache}"
     # Last Triggered
     echo $(date +%s) > "${KEEP_ALIVE}" &
+
+    echo $(curl  -fsS --request POST "http://localhost:${SERVER_PORT}/${alfred_workflow_uid}/${SCRIPT}" \
+        --data query="${QUERY}"&alfred_workflow_data="${alfred_workflow_data}"&alfred_workflow_bundleid="${alfred_workflow_bundleid}"&alfred_workflow_cache="${alfred_workflow_cache}")
+
 }
 
+prime_server
+query_server
