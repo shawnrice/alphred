@@ -1,58 +1,78 @@
 #!/bin/bash
 
+# Note: all declared variables have been prepended with "_ALPHRED_" so that
+# we avoid any sort of nameclashes that the user might implement
+
 if [[ ! $(basename "${PWD}") =~ 'user.workflow.' ]]; then
     echo "You can execute this script only from an Alfred Workflow"
     exit 1
 fi
 
 # The location of the pid file
-PHP_PID_FILE=/tmp/Alphred-Server.pid
+_ALPHRED_PHP_PID_FILE=/tmp/Alphred-Server.pid
 # The location of the keep alive file
-KEEP_ALIVE=/tmp/Alphred-Server-Keep-Alive
+_ALPHRED_KEEP_ALIVE=/tmp/Alphred-Server-Keep-Alive
 # The Location of Me
-ME=$( cd "$( dirname "$0" )" && pwd )
+_ALPHRED_ME=$( cd "$( dirname "$0" )" && pwd )
 # Kill Script
-KILL_SCRIPT="${ME}/kill.sh"
+_ALPHRED_KILL_SCRIPT="${_ALPHRED_ME}/kill.sh"
 
-[[ ! -f "${KILL_SCRIPT}" ]] && echo
+[[ ! -f "${_ALPHRED_KILL_SCRIPT}" ]] && echo
 
 # SETTINGS
-MIN_QUERY=3
-SERVER_PORT=8972
+_ALPHRED_MIN_QUERY=3
+_ALPHRED_SERVER_PORT=8972
 
-SCRIPT="$1"
-QUERY="$2"
+# This is the PHP script that is to be queried
+_ALPHRED_SCRIPT="$1"
+# This is the query to pass onto the script
+_ALPHRED_QUERY="$2"
 
-function prime_server() {
+function Alphred::prime_server() {
     # kickoff thread handling scripts if process doesn't exist
-    if [[ ! -f ${PHP_PID_FILE} ]] || ( ! ps -p $(cat "${PHP_PID_FILE}") > /dev/null ); then
+    if [[ ! -f ${_ALPHRED_PHP_PID_FILE} ]] || ( ! ps -p $(cat "${_ALPHRED_PHP_PID_FILE}") > /dev/null ); then
         # launch the PHP Server in the Workflows Directory and store the PID
-        nohup php -S localhost:$SERVER_PORT -t .. &> /dev/null &
-        echo $! > "${PHP_PID_FILE}"
+        nohup php -S "localhost:${_ALPHRED_SERVER_PORT}" -t .. &> /dev/null &
+        echo $! > "${_ALPHRED_PHP_PID_FILE}"
         # launch kill script
-        nohup "${ME}/kill.sh" &> /dev/null &
+        nohup "${_ALPHRED_ME}/kill.sh" &> /dev/null &
     fi
     # Update the Last Triggered file
-    echo $(date +%s) > "${KEEP_ALIVE}" &
+    echo $(date +%s) > "${_ALPHRED_KEEP_ALIVE}" &
 }
 
-function query_server() {
+function Alphred::query_server() {
     # Update the Last Triggered file
-    echo $(date +%s) > "${KEEP_ALIVE}" &
+    echo $(date +%s) > "${_ALPHRED_KEEP_ALIVE}" &
 
-    echo $(curl  -fsS --request POST "http://localhost:${SERVER_PORT}/${alfred_workflow_uid}/${SCRIPT}" \
-        --data query="${QUERY}"&alfred_workflow_data="${alfred_workflow_data}"&alfred_workflow_bundleid="${alfred_workflow_bundleid}"&alfred_workflow_cache="${alfred_workflow_cache}")
+    echo $(curl -fsS --request POST \
+            "http://localhost:${_ALPHRED_SERVER_PORT}/${alfred_workflow_uid}/${_ALPHRED_SCRIPT}" \
+            "--data query=${_ALPHRED_QUERY}&" \
+                   "alfred_workflow_data=${alfred_workflow_data}&" \
+                   "alfred_workflow_bundleid=${alfred_workflow_bundleid}&" \
+                   "alfred_workflow_cache=${alfred_workflow_cache}")
 
 }
 
-prime_server
+Alphred::prime_server
 
-if [[ ${#QUERY} -ge $MIN_QUERY ]]; then
-    query_server
-else
-    # Currently, there is no fallback..., should we bake one in? Do
-    # we return XML or provide an extensible way to take a backup action?
+if [[ ${#_ALPHRED_QUERY} -ge $_ALPHRED_MIN_QUERY ]]; then
+    Alphred::query_server
+elif [[ ! -z $(Alphred::extend_query_server) ]]; then
+    # If you want to define a fallback for this script to do when then min query is not reached,
+    # then define the function "Alphred::extend_query_server"
     #
-    # We need a statement in order to make this not fail.
-    a=a
+    # Example:
+    # function Alphred::extend_query_server() {
+    #   print "<?xml version='1.0' encoding='UTF-8'?>\n" \
+    #         "<items>\n" \
+    #         " <item valid='no'>\n" \
+    #         "  <title>Error: ${_ALPHRED_MIN_QUERY} characters minimum are needed to perform query.</title>\n" \
+    #         "  <subtitle>${alfred_workflow_name}</subtitle>\n" \
+    #         "  <icon>/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/Unsupported.icns</icon>\n" \
+    #         " </item>\n" \
+    #         "</items>\n"
+    # }
+    #
+    Alphred::extend_query_server "${_ALPHRED_QUERY}"
 fi

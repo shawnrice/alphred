@@ -1,5 +1,14 @@
+*.diff
+./*.xml
 .DS_Store
-misc/*
-vendor/*
+apigen.neon
+build/*
+commands/*
 composer.json
 composer.lock
+docs/*
+misc/*
+output/*
+tmp/*
+todo/*
+vendor/*

@@ -32,36 +32,36 @@ namespace Alphred;
 
 class i18n {
 
-    public function __construct() {
-        if ( ! file_exists( 'i18n' ) || ! is_dir( 'i18n' ) ) { return false; }
-        if ( ! defined( 'ALPHRED_TESTING' ) || ( true !== ALPHRED_TESTING ) ) {
-            $locale = exec( 'defaults read .GlobalPreferences AppleLanguages | tr -d [:space:] | cut -c2-3' );
-        } else {
-            $locale = 'fr';
-        }
-        if ( file_exists( "i18n/{$locale}.json" ) ) {
-            $this->locale = $locale;
-        } else {
-            return false;
-        }
+	public function __construct() {
+		if ( ! file_exists( 'i18n' ) || ! is_dir( 'i18n' ) ) { return false; }
+		if ( ! defined( 'ALPHRED_TESTING' ) || ( true !== ALPHRED_TESTING ) ) {
+			$locale = exec( 'defaults read .GlobalPreferences AppleLanguages | tr -d [:space:] | cut -c2-3' );
+		} else {
+			$locale = 'fr';
+		}
+		if ( file_exists( "i18n/{$locale}.json" ) ) {
+			$this->locale = $locale;
+		} else {
+			return false;
+		}
 
-        try {
-            $this->dictionary = json_decode( file_get_contents( "i18n/{$locale}.json" ), true );
-        } catch ( Exception $e ) {
-            file_put_contents( 'php://stderr', "Error: locale '{$locale}.json' file is not valid json." );
-            return false;
-        }
+		try {
+			$this->dictionary = json_decode( file_get_contents( "i18n/{$locale}.json" ), true );
+		} catch ( Exception $e ) {
+			file_put_contents( 'php://stderr', "Error: locale '{$locale}.json' file is not valid json." );
+			return false;
+		}
 
-        return $this;
-    }
+		return $this;
+	}
 
-    public function translate( $string ) {
-        if ( ! isset( $this->locale ) ) { return $string; }
-        if ( isset( $this->dictionary[ $string ] ) ) {
-            return $this->dictionary[ $string ];
-        }
-        return $string;
-    }
+	public function translate( $string ) {
+		if ( ! isset( $this->locale ) ) { return $string; }
+		if ( isset( $this->dictionary[ $string ] ) ) {
+			return $this->dictionary[ $string ];
+		}
+		return $string;
+	}
 }
 
 // In the future, it would be pretty badass if I could give the option to do a background translation

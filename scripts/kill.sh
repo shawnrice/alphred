@@ -35,6 +35,6 @@ done
 kill $PHP_PID
 
 [[ -f "${PHP_PID_FILE}" ]] && rm "${cache}/php.pid"
-[[ -f "${KEEP_ALIVE}" ]] && rm "${cache}/last"
+[[ -f "${KEEP_ALIVE}" ]]   && rm "${cache}/last"
 
 exit 0

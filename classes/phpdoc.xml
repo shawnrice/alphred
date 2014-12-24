@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdocumentor>
+    <title>Alphred</title>
+    <parser>
+        <default-package-name>Alphred</default-package-name>
+        <target>./classes</target>
+    </parser>
+    <transformer>
+        <target>docs</target>
+    </transformer>
+    <transformations>
+        <template name="clean"/>
+    </transformations>
+</phpdocumentor>
