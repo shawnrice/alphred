@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>    API Documentation &raquo; \Alphred\Database\Index
+</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+            <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+        <script src="../js/template.js" type="text/javascript"></script>
+        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
+    
+            <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    </head>
+<body>
+
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </a>
+                <a class="brand" href="../index.html">API Documentation</a>
+
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                API Documentation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                                                    <li><a>Namespaces</a></li>
+                                                                        <li><a href="../namespaces/Alphred.html">Alphred</a></li>
+                                                                                                                                </ul>
+                        </li>
+                        <li class="dropdown" id="charts-menu">
+                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                Charts <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../graph_class.html">
+                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="reports-menu">
+                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../errors.html">
+                                        <i class="icon-list-alt"></i>&#160;Errors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../markers.html">
+                                        <i class="icon-list-alt"></i>&#160;Markers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deprecated.html">
+                                        <i class="icon-list-alt"></i>&#160;Deprecated
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="go_to_top">
+            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
+        </div>
+    </div>
+    
+    <div id="___" class="container">
+        <noscript>
+            <div class="alert alert-warning">
+                Javascript is disabled; several features are only available if Javascript is enabled.
+            </div>
+        </noscript>
+
+        
+            <style>
+        .deprecated h2 {
+            text-decoration: line-through;
+        }
+    </style>
+    <div class="row">
+        <div class="span4">
+                    <div class="btn-group view pull-right" data-toggle="buttons-radio">
+        <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button>
+        <button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+    </div>
+    <div class="btn-group visibility" data-toggle="buttons-checkbox">
+        <button class="btn public active" title="Show public elements">Public</button>
+        <button class="btn protected" title="Show protected elements">Protected</button>
+        <button class="btn private" title="Show private elements">Private</button>
+        <button class="btn inherited active" title="Show inherited elements">Inherited</button>
+    </div>
+
+        <ul class="side-nav nav nav-list">
+        <li class="nav-header">
+            <i class="icon-custom icon-method"></i> Methods
+            <ul>
+                                                                                                    <li class="method public">
+        <a href="#method___construct" title="__construct :: [__construct description]">
+            <span class="description">[__construct description]</span><pre>__construct</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method___destruct" title="__destruct :: Closes the connections to the data and index database files">
+            <span class="description">Closes the connections to the data and index database files</span><pre>__destruct</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_add_internal_data" title="add_internal_data :: Adds a record to the internal data table">
+            <span class="description">Adds a record to the internal data table</span><pre>add_internal_data</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_add_missing_records" title="add_missing_records :: Adds all records from the data db that are not in the index">
+            <span class="description">Adds all records from the data db that are not in the index</span><pre>add_missing_records</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <li class="method public">
+        <a href="#method_delete_extra_records" title="delete_extra_records :: Deletes records that are in the index but not in the data db">
+            <span class="description">Deletes records that are in the index but not in the data db</span><pre>delete_extra_records</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_delete_internal_data" title="delete_internal_data :: Deletes a record from the internal data table">
+            <span class="description">Deletes a record from the internal data table</span><pre>delete_internal_data</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_delete_meta" title="delete_meta :: Deletes a record (or records) from meta table matching key">
+            <span class="description">Deletes a record (or records) from meta table matching key</span><pre>delete_meta</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                                                                                                                                                                                                                                                <li class="method public">
+        <a href="#method_flush_update_log" title="flush_update_log :: Removes all add/delete log notices from the meta table">
+            <span class="description">Removes all add/delete log notices from the meta table</span><pre>flush_update_log</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_get_internal_data" title="get_internal_data :: Gets a record from the internal data table">
+            <span class="description">Gets a record from the internal data table</span><pre>get_internal_data</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_get_last_update" title="get_last_update :: Gets the last updated time of the data table">
+            <span class="description">Gets the last updated time of the data table</span><pre>get_last_update</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_get_meta" title="get_meta :: Retrieves a value from the meta table">
+            <span class="description">Retrieves a value from the meta table</span><pre>get_meta</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                                                                                                                                                                                        <li class="method public">
+        <a href="#method_read_updates" title="read_updates :: Returns an array of all the updates in the meta table">
+            <span class="description">Returns an array of all the updates in the meta table</span><pre>read_updates</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_reindex_record" title="reindex_record :: Deletes and re-adds a record from the data db">
+            <span class="description">Deletes and re-adds a record from the data db</span><pre>reindex_record</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                <li class="method public">
+        <a href="#method_set_meta" title="set_meta :: Sets a value in the meta table">
+            <span class="description">Sets a value in the meta table</span><pre>set_meta</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_sync_index" title="sync_index :: Forces a sync between the data db and the index">
+            <span class="description">Forces a sync between the data db and the index</span><pre>sync_index</pre>
+        </a>
+    </li>
+
+                                                                                                        </ul>
+        </li>
+        <li class="nav-header protected">» Protected
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </ul>
+        </li>
+        <li class="nav-header private">» Private
+            <ul>
+                                                                                                                                                                                                                            <li class="method private">
+                            <a href="#method_add_record" title="add_record :: Adds a record to the index">
+                                <span class="description">Adds a record to the index</span><pre>add_record</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private">
+                            <a href="#method_check_for_update" title="check_for_update :: Checks if the index table needs updating">
+                                <span class="description">Checks if the index table needs updating</span><pre>check_for_update</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private">
+                            <a href="#method_copy_data_table" title="copy_data_table :: Performs a full copy of the external data_db">
+                                <span class="description">Performs a full copy of the external data_db</span><pre>copy_data_table</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private">
+                            <a href="#method_create_index_tables" title="create_index_tables :: Parses a data object and creates the relevant tables from it">
+                                <span class="description">Parses a data object and creates the relevant tables from it</span><pre>create_index_tables</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private">
+                            <a href="#method_create_internal_data_table" title="create_internal_data_table :: Creates the internal data table">
+                                <span class="description">Creates the internal data table</span><pre>create_internal_data_table</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private">
+                            <a href="#method_create_meta" title="create_meta :: Creates a meta table that is simply key-value storage">
+                                <span class="description">Creates a meta table that is simply key-value storage</span><pre>create_meta</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private">
+                            <a href="#method_create_table" title="create_table :: Creates a table structure for a field">
+                                <span class="description">Creates a table structure for a field</span><pre>create_table</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                            <li class="method private">
+                            <a href="#method_find_all_data_records" title="find_all_data_records :: Returns the ids of all records in the data db">
+                                <span class="description">Returns the ids of all records in the data db</span><pre>find_all_data_records</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private">
+                            <a href="#method_find_all_index_records" title="find_all_index_records :: Returns the ids of all the records in the index">
+                                <span class="description">Returns the ids of all the records in the index</span><pre>find_all_index_records</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private">
+                            <a href="#method_find_all_records" title="find_all_records :: A generic method to do the work of &quot;find_all_index_records&quot; and the same for data">
+                                <span class="description">A generic method to do the work of &quot;find_all_index_records&quot; and the same for data</span><pre>find_all_records</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private">
+                            <a href="#method_find_extra_records" title="find_extra_records :: Returns a list of records that are in the index but not in the data">
+                                <span class="description">Returns a list of records that are in the index but not in the data</span><pre>find_extra_records</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private">
+                            <a href="#method_find_missing_records" title="find_missing_records :: Returns a list of records that are in the data db but not indexed">
+                                <span class="description">Returns a list of records that are in the data db but not indexed</span><pre>find_missing_records</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                                                <li class="method private">
+                            <a href="#method_get_tables" title="get_tables :: Gets a list of tables in a SQLite3 database">
+                                <span class="description">Gets a list of tables in a SQLite3 database</span><pre>get_tables</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private">
+                            <a href="#method_insert" title="insert :: Inserts a record into a field table">
+                                <span class="description">Inserts a record into a field table</span><pre>insert</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private">
+                            <a href="#method_is_reserved" title="is_reserved :: Checks if a word is reserved in SQLite">
+                                <span class="description">Checks if a word is reserved in SQLite</span><pre>is_reserved</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private">
+                            <a href="#method_log_update" title="log_update :: Logs update information to the meta table">
+                                <span class="description">Logs update information to the meta table</span><pre>log_update</pre>
+                            </a>
+                        </li>
+                                                                                                                                                        <li class="method private">
+                            <a href="#method_sanitize_column_name" title="sanitize_column_name :: Appends a string to a word if the word is RESERVED">
+                                <span class="description">Appends a string to a word if the word is RESERVED</span><pre>sanitize_column_name</pre>
+                            </a>
+                        </li>
+                                                                                                                                                        <li class="method private">
+                            <a href="#method_unescape_data" title="unescape_data :: Removes escaping characters from a JSON string stored in the database">
+                                <span class="description">Removes escaping characters from a JSON string stored in the database</span><pre>unescape_data</pre>
+                            </a>
+                        </li>
+                                                </ul>
+        </li>
+        <li class="nav-header">
+            <i class="icon-custom icon-constant"></i> Constants
+            <ul>
+                            </ul>
+        </li>
+    </ul>
+
+
+        </div>
+
+        <div class="span8">
+            <div class="element class">
+                <h1>Index</h1>
+                <small style="display: block; text-align: right">
+                                                        </small>
+                <p class="short_description">A data indexer class</p>
+                <div class="details">
+                    <div class="long_description">
+                        <p>Feed objects of this class JSON objects, and it will automagically organize them
+into searchable data. The data need not been uniform either.</p>
+<p>It is better to have a single data structure, however.</p>
+                    </div>
+                    <table class="table table-bordered">
+                                                                                    <tr>
+                                    <th>
+                                        todo
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Add in proper exceptions</p>
+                                    </td>
+                                </tr>
+                                                            <tr>
+                                    <th>
+                                        todo
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Add in optional callbacks so you can track the progress</p>
+                                    </td>
+                                </tr>
+                                                            <tr>
+                                    <th>
+                                        todo
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Reduce number of public functions</p>
+                                    </td>
+                                </tr>
+                                                            <tr>
+                                    <th>
+                                        todo
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Attempt to shorten file</p>
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        package
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Default</p>
+                                    </td>
+                                </tr>
+                                                                                                                                                                                </table>
+
+                    <h3><i class="icon-custom icon-method"></i> Methods</h3>
+                                                                <a id="method___construct"></a>
+                        <div class="element clickable method public  method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
+                            <h2>[__construct description]</h2>
+                            <pre>__construct(\Alphred\Database\[type] $data, \Alphred\Database\[type] $index, \Alphred\Database\[type] $options = array()) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>options:</p>
+<pre><code> update =&gt; true : updates the index to match the data db</code></pre></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$data</h4>
+                                                <code>\Alphred\Database\[type]</code><p><p>[description]</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$index</h4>
+                                                <code>\Alphred\Database\[type]</code><p><p>[description]</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$options</h4>
+                                                <code>\Alphred\Database\[type]</code><p><p>[description]</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method___destruct"></a>
+                        <div class="element clickable method public  method___destruct" data-toggle="collapse" data-target=".method___destruct .collapse">
+                            <h2>Closes the connections to the data and index database files</h2>
+                            <pre>__destruct() </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_add_internal_data"></a>
+                        <div class="element clickable method public  method_add_internal_data" data-toggle="collapse" data-target=".method_add_internal_data .collapse">
+                            <h2>Adds a record to the internal data table</h2>
+                            <pre>add_internal_data(string $data_id, string $data) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Note: the internal data table has two meaningful values:</p>
+<pre><code>(1) a unique identifier (data_id), and
+(2) a json data string.
+
+ A timestamp is included as a third column.</code></pre></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$data_id</h4>
+                                                <code>string</code><p><p>the data_id that matches to the external database</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$data</h4>
+                                                <code>string</code><p><p>a json string</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_add_missing_records"></a>
+                        <div class="element clickable method public  method_add_missing_records" data-toggle="collapse" data-target=".method_add_missing_records .collapse">
+                            <h2>Adds all records from the data db that are not in the index</h2>
+                            <pre>add_missing_records(integer $number, \Alphred\Database\function $callback = false) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    todo
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>Implement callbacks</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$number</h4>
+                                                <code>integer</code><p><p>the number of records to index</p>
+<pre><code>                         (use 0 to index all)</code></pre></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$callback</h4>
+                                                <code>\Alphred\Database\function</code><p><p>name of function to use as callback for</p>
+<pre><code>                         progress updates</code></pre></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_add_record"></a>
+                        <div class="element clickable method private  method_add_record" data-toggle="collapse" data-target=".method_add_record .collapse">
+                            <h2>Adds a record to the index</h2>
+                            <pre>add_record(\Alphred\Database\[type] $data_id, \Alphred\Database\[type] $data) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Note: Currently (and maybe in perpetuity), this ignores multi-dimensional
+arrays.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$data_id</h4>
+                                                <code>\Alphred\Database\[type]</code><p><p>[description]</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$data</h4>
+                                                <code>\Alphred\Database\[type]</code><p><p>[description]</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_check_for_update"></a>
+                        <div class="element clickable method private  method_check_for_update" data-toggle="collapse" data-target=".method_check_for_update .collapse">
+                            <h2>Checks if the index table needs updating</h2>
+                            <pre>check_for_update() : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p><p>whether or not the index needs updating</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_copy_data_table"></a>
+                        <div class="element clickable method private  method_copy_data_table" data-toggle="collapse" data-target=".method_copy_data_table .collapse">
+                            <h2>Performs a full copy of the external data_db</h2>
+                            <pre>copy_data_table() </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Note: this is good to use when creating the DB for the first time if you want
+to index everything immediately; however, this function can be slow.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_create_index_tables"></a>
+                        <div class="element clickable method private  method_create_index_tables" data-toggle="collapse" data-target=".method_create_index_tables .collapse">
+                            <h2>Parses a data object and creates the relevant tables from it</h2>
+                            <pre>create_index_tables( $data) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    todo
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>FIX THIS FUNCTION
+Right now, this function iterates over all data. Really, we should just feed it a data object
+and have it create those tables via that....</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$data</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_create_internal_data_table"></a>
+                        <div class="element clickable method private  method_create_internal_data_table" data-toggle="collapse" data-target=".method_create_internal_data_table .collapse">
+                            <h2>Creates the internal data table</h2>
+                            <pre>create_internal_data_table() : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_create_meta"></a>
+                        <div class="element clickable method private  method_create_meta" data-toggle="collapse" data-target=".method_create_meta .collapse">
+                            <h2>Creates a meta table that is simply key-value storage</h2>
+                            <pre>create_meta() : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_create_table"></a>
+                        <div class="element clickable method private  method_create_table" data-toggle="collapse" data-target=".method_create_table .collapse">
+                            <h2>Creates a table structure for a field</h2>
+                            <pre>create_table(string $table, string $type) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This also creates the FTS tables along with the triggers to keep the FTS tables up to date.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$table</h4>
+                                                <code>string</code><p><p>name of the table</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$type</h4>
+                                                <code>string</code><p><p>SQLite data type for the stored data (TEXT, INTEGER, NUMERIC, etc...)</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_delete_extra_records"></a>
+                        <div class="element clickable method public  method_delete_extra_records" data-toggle="collapse" data-target=".method_delete_extra_records .collapse">
+                            <h2>Deletes records that are in the index but not in the data db</h2>
+                            <pre>delete_extra_records() </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_delete_internal_data"></a>
+                        <div class="element clickable method public  method_delete_internal_data" data-toggle="collapse" data-target=".method_delete_internal_data .collapse">
+                            <h2>Deletes a record from the internal data table</h2>
+                            <pre>delete_internal_data(string $data_id) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$data_id</h4>
+                                                <code>string</code><p><p>the data_id of the data record</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_delete_meta"></a>
+                        <div class="element clickable method public  method_delete_meta" data-toggle="collapse" data-target=".method_delete_meta .collapse">
+                            <h2>Deletes a record (or records) from meta table matching key</h2>
+                            <pre>delete_meta(string $key) : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$key</h4>
+                                                <code>string</code><p><p>the key to delete</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p><p>success or failure of query</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_find_all_data_records"></a>
+                        <div class="element clickable method private  method_find_all_data_records" data-toggle="collapse" data-target=".method_find_all_data_records .collapse">
+                            <h2>Returns the ids of all records in the data db</h2>
+                            <pre>find_all_data_records(boolean $force = false) : array</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$force</h4>
+                                                <code>boolean</code><p><p>forces a regeneration of the data if true</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p><p>an array of data ids</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_find_all_index_records"></a>
+                        <div class="element clickable method private  method_find_all_index_records" data-toggle="collapse" data-target=".method_find_all_index_records .collapse">
+                            <h2>Returns the ids of all the records in the index</h2>
+                            <pre>find_all_index_records(boolean $force = false) : array</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$force</h4>
+                                                <code>boolean</code><p><p>forces a regeneration of the data if true</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p><p>an array of data ids</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_find_all_records"></a>
+                        <div class="element clickable method private  method_find_all_records" data-toggle="collapse" data-target=".method_find_all_records .collapse">
+                            <h2>A generic method to do the work of &quot;find_all_index_records&quot; and the same for data</h2>
+                            <pre>find_all_records(string $type, boolean $force) : array</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$type</h4>
+                                                <code>string</code><p><p>either 'data' or 'index'</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$force</h4>
+                                                <code>boolean</code><p><p>whether or not to force new data</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p><p>an array of data ids</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_find_extra_records"></a>
+                        <div class="element clickable method private  method_find_extra_records" data-toggle="collapse" data-target=".method_find_extra_records .collapse">
+                            <h2>Returns a list of records that are in the index but not in the data</h2>
+                            <pre>find_extra_records(boolean $force = false) : array</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$force</h4>
+                                                <code>boolean</code><p><p>forces a regeneration of the data if true</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p><p>an array of data ids</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_find_missing_records"></a>
+                        <div class="element clickable method private  method_find_missing_records" data-toggle="collapse" data-target=".method_find_missing_records .collapse">
+                            <h2>Returns a list of records that are in the data db but not indexed</h2>
+                            <pre>find_missing_records(boolean $force = false) : array</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$force</h4>
+                                                <code>boolean</code><p><p>forces a regeneration of the data if true</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p><p>an array of data ids</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_flush_update_log"></a>
+                        <div class="element clickable method public  method_flush_update_log" data-toggle="collapse" data-target=".method_flush_update_log .collapse">
+                            <h2>Removes all add/delete log notices from the meta table</h2>
+                            <pre>flush_update_log() </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_get_internal_data"></a>
+                        <div class="element clickable method public  method_get_internal_data" data-toggle="collapse" data-target=".method_get_internal_data .collapse">
+                            <h2>Gets a record from the internal data table</h2>
+                            <pre>get_internal_data(string $data_id) : mixed</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$data_id</h4>
+                                                <code>string</code><p><p>the data_id of the data record</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p><p>returns false if the data is not found; otherwise returns data</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_get_last_update"></a>
+                        <div class="element clickable method public  method_get_last_update" data-toggle="collapse" data-target=".method_get_last_update .collapse">
+                            <h2>Gets the last updated time of the data table</h2>
+                            <pre>get_last_update() : integer</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>integer</code><p><p>the last update time as seconds since the Unix Epoch</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_get_meta"></a>
+                        <div class="element clickable method public  method_get_meta" data-toggle="collapse" data-target=".method_get_meta .collapse">
+                            <h2>Retrieves a value from the meta table</h2>
+                            <pre>get_meta(string $key) : mixed</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$key</h4>
+                                                <code>string</code><p><p>meta key</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p><p>the value of the key</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_get_tables"></a>
+                        <div class="element clickable method private  method_get_tables" data-toggle="collapse" data-target=".method_get_tables .collapse">
+                            <h2>Gets a list of tables in a SQLite3 database</h2>
+                            <pre>get_tables( $db) : array</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$db</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p><p>An array of tablenames</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_insert"></a>
+                        <div class="element clickable method private  method_insert" data-toggle="collapse" data-target=".method_insert .collapse">
+                            <h2>Inserts a record into a field table</h2>
+                            <pre>insert(string $table, string $data_id, string $data) : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$table</h4>
+                                                <code>string</code><p><p>the field tablename</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$data_id</h4>
+                                                <code>string</code><p><p>the data_id</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$data</h4>
+                                                <code>string</code><p><p>a json string of data</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_is_reserved"></a>
+                        <div class="element clickable method private  method_is_reserved" data-toggle="collapse" data-target=".method_is_reserved .collapse">
+                            <h2>Checks if a word is reserved in SQLite</h2>
+                            <pre>is_reserved(string $word) : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$word</h4>
+                                                <code>string</code><p><p>word to be checked</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_log_update"></a>
+                        <div class="element clickable method private  method_log_update" data-toggle="collapse" data-target=".method_log_update .collapse">
+                            <h2>Logs update information to the meta table</h2>
+                            <pre>log_update(mixed $data_ids, string $type) : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$data_ids</h4>
+                                                <code>mixed</code><p><p>the data id(s) of the object(s) changed</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$type</h4>
+                                                <code>string</code><p><p>either 'add' or 'delete'</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p><p>or null</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_read_updates"></a>
+                        <div class="element clickable method public  method_read_updates" data-toggle="collapse" data-target=".method_read_updates .collapse">
+                            <h2>Returns an array of all the updates in the meta table</h2>
+                            <pre>read_updates(mixed $since, mixed $type = false) : \Alphred\Database\[type]</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$since</h4>
+                                                <code>mixed</code><p><p>something that indicates a time</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$type</h4>
+                                                <code>mixed</code><p><p>either 'add' or 'delete' or false for both</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>\Alphred\Database\[type]</code><p><p>[description]</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_reindex_record"></a>
+                        <div class="element clickable method public  method_reindex_record" data-toggle="collapse" data-target=".method_reindex_record .collapse">
+                            <h2>Deletes and re-adds a record from the data db</h2>
+                            <pre>reindex_record(string $id) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$id</h4>
+                                                <code>string</code><p><p>unique identifier of the record</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_sanitize_column_name"></a>
+                        <div class="element clickable method private  method_sanitize_column_name" data-toggle="collapse" data-target=".method_sanitize_column_name .collapse">
+                            <h2>Appends a string to a word if the word is RESERVED</h2>
+                            <pre>sanitize_column_name(string $name) : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p><p>the word to check (usually a column name)</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p><p>a sanitized version of the column name</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_set_meta"></a>
+                        <div class="element clickable method public  method_set_meta" data-toggle="collapse" data-target=".method_set_meta .collapse">
+                            <h2>Sets a value in the meta table</h2>
+                            <pre>set_meta(string $key, mixed $value,  $force_overwrite = false) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$key</h4>
+                                                <code>string</code><p><p>key to be set</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$value</h4>
+                                                <code>mixed</code><p><p>value of key</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$force_overwrite</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_sync_index"></a>
+                        <div class="element clickable method public  method_sync_index" data-toggle="collapse" data-target=".method_sync_index .collapse">
+                            <h2>Forces a sync between the data db and the index</h2>
+                            <pre>sync_index() </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_unescape_data"></a>
+                        <div class="element clickable method private  method_unescape_data" data-toggle="collapse" data-target=".method_unescape_data .collapse">
+                            <h2>Removes escaping characters from a JSON string stored in the database</h2>
+                            <pre>unescape_data(string $data) : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$data</h4>
+                                                <code>string</code><p><p>the string to be unescaped</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p><p>a valid JSON string</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                    
+                    
+                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property_index"> </a>
+                            <div class="element clickable property  public property_index" data-toggle="collapse" data-target=".property_index .collapse">
+                                <h2>index</h2>
+                                <pre>index : </pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_data"> </a>
+                            <div class="element clickable property  public property_data" data-toggle="collapse" data-target=".property_data .collapse">
+                                <h2>data</h2>
+                                <pre>data : </pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                            </div>
+            </div>
+            <a id="\Alphred\Database\Index"></a>
+            <ul class="breadcrumb">
+                <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
+                    
+    
+    <li><span class="divider">\</span><a href="../namespaces/Alphred.Database.html">Database</a></li>
+
+                <li class="active"><span class="divider">\</span><a href="../classes/Alphred.Database.Index.html">Index</a></li>
+            </ul>
+        </div>
+    </div>
+
+    </div>
+
+        <footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
+            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
+            generated on Tue, 23 Dec 2014 22:11:41 -0500.<br/>
+    </footer>
+    </body>
+</html>
