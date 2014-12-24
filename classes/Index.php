@@ -16,7 +16,7 @@
  *
  */
 
-namespace Database;
+namespace Alphred\Database;
 
 /**
  * A data indexer class

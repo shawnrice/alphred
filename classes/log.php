@@ -7,7 +7,6 @@ namespace Alphred;
 // version of this class
 
 /**
- *
  * Simple logging functionality that writes to files or STDERR
  *
  * Usage: just create a single object and reuse it solely. Initialize the
