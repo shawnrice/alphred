@@ -620,7 +620,7 @@ class Index {
 	 */
 	public function sync_index( $callback = false ) {
 		$this->delete_extra_records();
-		$this->add_missing_records( $callback );
+		$this->add_missing_records( 0, $callback );
 	}
 
 
