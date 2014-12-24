@@ -618,9 +618,9 @@ class Index {
 	 *
 	 *
 	 */
-	public function sync_index() {
+	public function sync_index( $callback = false ) {
 		$this->delete_extra_records();
-		$this->add_missing_records();
+		$this->add_missing_records( $callback );
 	}
 
 
