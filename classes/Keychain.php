@@ -4,7 +4,6 @@
  *
  * PHP version 5
  *
- *
  * @package    Alphred
  * @copyright  Shawn Patrick Rice 2014
  * @license    http://opensource.org/licenses/MIT  MIT
@@ -30,15 +29,24 @@ namespace Alphred;
 class Keychain {
 
 	/**
+	 * Throws an exception if you try to instantiate it
+	 *
+	 * @throws UseOnlyAsStatic if you try to institate a Globals object
+	 */
+	public function __construct() {
+		throw new UseOnlyAsStatic( 'The Keychain class is to be used statically only.', 1 );
+	}
+
+	/**
 	 * Saves a password to the keychain
 	 *
 	 * @throws PasswordExists			(indirectly )when trying to add a password that already exists
-	 *         							without specifying 'update'
+	 *         										without specifying 'update'
 	 *
 	 * @param  string  	$account  		the name of the account
 	 * @param  string  	$password 		the new password
 	 * @param  boolean 	$update     	whether or not to update an old password (defaults to `true`)
-	 * @param  string 	$service 		optional: defaults to the bundleid of the workflow (if set)
+	 * @param  string 	$service 			optional: defaults to the bundleid of the workflow (if set)
 	 *
 	 * @return boolean            		whether or not it was successful (usually true)
 	 */
@@ -48,7 +56,7 @@ class Keychain {
 		} else {
 			$update = '';
 		}
-		return $this->call_security( 'save-generic-password', $service, $account, "{$update} -w '{$password}'" );
+		return self::call_security( 'save-generic-password', $service, $account, "{$update} -w '{$password}'" );
 	}
 
 
@@ -57,10 +65,10 @@ class Keychain {
 	 *
 	 * @throws InvalidKeychainAccount 	on an empty account
 	 *
-	 * @param  string $account 			The name of an account
+	 * @param  string $account 			the name of an account
 	 * @param  string $service 			optional: defaults to the bundleid of the workflow (if set)
 	 *
-	 * @return string          		the password
+	 * @return string          			the password
 	 */
 	public static function find_password( $account, $service = null ) {
 		// Make sure that the account is something other than whitespace
@@ -68,16 +76,16 @@ class Keychain {
 			throw new InvalidKeychainAccount( 'You must specify an account to get a password', 1 );
 		}
 
-		return $this->call_security( 'find-generic-password', $service, $account, '-w' );
+		return self::call_security( 'find-generic-password', $service, $account, '-w' );
 	}
 
 
 	/**
 	 * Deletes a password from the keychain
 	 *
-	 * @param  string $account [description]
+	 * @param  string $account 			the name of the account
 	 * @param  string $service 			optional: defaults to the bundleid of the workflow (if set)
-	 * @return [type]          [description]
+	 * @return boolean          		success of command
 	 */
 	public static function delete_password( $account, $service = null ) {
 		if ( empty( trim( $account ) ) ) {
@@ -85,7 +93,7 @@ class Keychain {
 			    'The action you just attempted will delete the entire keychain; please speficy the account', 1
 			);
 		}
-		return $this->call_security( 'delete-generic-password', $service, $account );
+		return self::call_security( 'delete-generic-password', $service, $account );
 	}
 
 
@@ -109,7 +117,7 @@ class Keychain {
 			// So, if, for some reason, the thing is caught, we can't really go on. So we'll exit anyway.
 			return false;
 		}
-		$service = $this->set_service();
+		$service = self::set_service();
 
 		// Note: $args needs to be escaped in the function that calls this one
 		$command = "security {$action} -s '{$service}' -a '{$account}'  {$args}";

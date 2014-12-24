@@ -1,4 +1,20 @@
 <?php
+/**
+ * Contains Globals class for Alphred
+ *
+ * PHP version 5
+ *
+ * @package 	 Alphred
+ * @copyright  Shawn Patrick Rice 2014
+ * @license    http://opensource.org/licenses/MIT  MIT
+ * @version    1.0.0
+ * @author     Shawn Patrick Rice <rice@shawnrice.org>
+ * @link       http://www.github.com/shawnrice/alphred
+ * @link       http://shawnrice.github.io/alphred
+ * @since      File available since Release 1.0.0
+ *
+ */
+
 
 namespace Alphred;
 
@@ -17,6 +33,7 @@ class Globals {
 	/**
 	 * Throws an exception if you try to instantiate it
 	 *
+	 * @throws UseOnlyAsStatic if you try to institate a Globals object
 	 */
 	public function __construct() {
 		throw new UseOnlyAsStatic( 'The Globals class is to be used statically only.', 1 );
