@@ -110,7 +110,7 @@ class Data {
 			// We're going to overwrite, but, in case we don't have a good identifier, then
 			// we'll just delete the field first rather than using an INSERT OR REPLACE query
 			$this->db->exec(
-				'DELETE FROM data WHERE id=\'' . $this->db->escapeString( $unique ) . '\';', true
+				'DELETE FROM data WHERE id=\'' . $this->db->escapeString( $unique ) . '\';'
 			);
 
 		} else if ( $result = $this->get( $unique ) ) {
