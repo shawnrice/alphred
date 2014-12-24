@@ -643,7 +643,7 @@ class Index {
 	 *
 	 */
 	public function delete_extra_records() {
-		foreach ( $this->find_extra_records as $delete ) :
+		foreach ( $this->find_extra_records() as $delete ) :
 			$this->delete_internal_data( $delete );
 		endforeach;
 	}
