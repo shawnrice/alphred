@@ -21,7 +21,7 @@
 define( 'ALPHRED_VERSION',   '0.1.0' );
 
 if ( ! is_defined( 'ALPHRED_LOG_LEVEL' ) ) {
-	define( 'ALPHRED_LOG_LEVEL', 'WARNING' );
+	define( 'ALPHRED_LOG_LEVEL', 2 );
 }
 
 if ( ! ( isset( $argv ) && ( 'Alphred.phar' === basename( $argv[0] ) || 'Alphred.php' === basename( $argv[0] ) ) ) ) {
