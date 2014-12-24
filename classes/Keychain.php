@@ -34,7 +34,7 @@ class Keychain {
 	 * @throws UseOnlyAsStatic if you try to institate a Globals object
 	 */
 	public function __construct() {
-		throw new UseOnlyAsStatic( 'The Keychain class is to be used statically only.', 1 );
+		throw new UseOnlyAsStatic( 'The Keychain class is to be used statically only.', 2 );
 	}
 
 	/**
@@ -73,7 +73,7 @@ class Keychain {
 	public static function find_password( $account, $service = null ) {
 		// Make sure that the account is something other than whitespace
 		if ( empty( trim( $account ) ) ) {
-			throw new InvalidKeychainAccount( 'You must specify an account to get a password', 1 );
+			throw new InvalidKeychainAccount( 'You must specify an account to get a password', 3 );
 		}
 
 		return self::call_security( 'find-generic-password', $service, $account, '-w' );
@@ -90,7 +90,7 @@ class Keychain {
 	public static function delete_password( $account, $service = null ) {
 		if ( empty( trim( $account ) ) ) {
 			throw new InvalidKeychainAccount(
-			    'The action you just attempted will delete the entire keychain; please speficy the account', 1
+			    'The action you just attempted will delete the entire keychain; please specify the account', 3
 			);
 		}
 		return self::call_security( 'delete-generic-password', $service, $account );
@@ -112,7 +112,7 @@ class Keychain {
 	 */
 	private function call_security( $action, $service, $account, $args ) {
 		if ( ! in_array( $action, [ 'add-generic-password', 'delete-generic-password', 'find-generic-password' ] ) ) {
-			throw new InvalidSecurityAction( "{$action} is not valid.", 1 );
+			throw new InvalidSecurityAction( "{$action} is not valid.", 4 );
 
 			// So, if, for some reason, the thing is caught, we can't really go on. So we'll exit anyway.
 			return false;
@@ -124,13 +124,13 @@ class Keychain {
 		exec( $command, $output, $return_code );
 		if ( 45 == $return_code ) {
 			// raise exception because password already exists
-			throw new PasswordExists( 'Password Already Exists, did you mean to update it?', 1 );
+			throw new PasswordExists( 'Password Already Exists, did you mean to update it?', 2 );
 		} else if ( 44 == $return_code ) {
 			// raise exception because password does not exist
-			throw new PasswordNotFound( "Password for '{$account}' does not exist", 1 );
+			throw new PasswordNotFound( "Password for '{$account}' does not exist", 3 );
 		} else {
 			throw new UnknownSecurityException(
-				'An unanticipated error has happened when trying to call the security command', 1
+				'An unanticipated error has happened when trying to call the security command', 4
 			);
 		}
 
