@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Alphred\Database\Index</title>
+
+	<link rel="stylesheet" href="resources/style.css?2174713577">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-Alphred.html">
+						Alphred<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Alphred.AppleScript.html">
+						AppleScript					</a>
+
+						</li>
+				<li class="active">
+					<a href="namespace-Alphred.Database.html">
+						Database					</a>
+
+						</li>
+							</ul></li>
+				<li>
+					<a href="namespace-PHP.html">
+						PHP					</a>
+
+						</li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Alphred.Database.Data.html">Data</a></li>
+				<li class="active"><a href="class-Alphred.Database.Index.html">Index</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Alphred.Database.html" title="Summary of Alphred\Database"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="deprecated.html" title="List of deprecated elements"><span>Deprecated</span></a>
+			</li>
+			<li>
+				<a href="todo.html" title="Todo list"><span>Todo</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class Index</h1>
+
+
+	<div class="description">
+	<p>A data indexer class</p>
+
+<p>Feed objects of this class JSON objects, and it will automagically organize them
+into searchable data. The data need not been uniform either.</p>
+
+<p>It is better to have a single data structure, however.</p>
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> Alphred\Database<br>
+		
+
+				<b>Todo:</b>
+				Add in proper exceptions<br>
+				<b>Todo:</b>
+				Add in optional callbacks so you can track the progress<br>
+				<b>Todo:</b>
+				Reduce number of public functions<br>
+				<b>Todo:</b>
+				Attempt to shorten file<br>
+			<b>Located at</b> <a href="source-class-Alphred.Database.Index.html#21-812" title="Go to source code">Index.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-Alphred.Database.Index.html#41-68" title="Go to source code">__construct</a>( <span>[type] <var>$data</var></span>, <span>[type] <var>$index</var></span>, <span>[type] <var>$options</var> = [] </span> )</code>
+
+		<div class="description short">
+			<p>[__construct description]</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>[__construct description]</p>
+
+<p>options: update => true : updates the index to match the data db</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$data</var></dt>
+					<dd>[description]</dd>
+					<dt><var>$index</var></dt>
+					<dd>[description]</dd>
+					<dt><var>$options</var></dt>
+					<dd>[description]</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__destruct" id="___destruct">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___destruct">#</a>
+		<code><a href="source-class-Alphred.Database.Index.html#70-76" title="Go to source code">__destruct</a>( )</code>
+
+		<div class="description short">
+			<p>Closes the connections to the data and index database files</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Closes the connections to the data and index database files</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="set_meta" id="_set_meta">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_set_meta">#</a>
+		<code><a href="source-class-Alphred.Database.Index.html#98-113" title="Go to source code">set_meta</a>( <span>string <var>$key</var></span>, <span>mixed <var>$value</var></span>, <span> <var>$force_overwrite</var> = <span class="php-keyword1">false</span> </span> )</code>
+
+		<div class="description short">
+			<p>Sets a value in the meta table</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Sets a value in the meta table</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$key</var></dt>
+					<dd>key to be set</dd>
+					<dt><var>$value</var></dt>
+					<dd>value of key</dd>
+					<dt><var>$force_overwrite</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="get_meta" id="_get_meta">
+
+		<td class="attributes"><code>
+			 public 
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_get_meta">#</a>
+		<code><a href="source-class-Alphred.Database.Index.html#115-124" title="Go to source code">get_meta</a>( <span>string <var>$key</var></span> )</code>
+
+		<div class="description short">
+			<p>Retrieves a value from the meta table</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Retrieves a value from the meta table</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$key</var></dt>
+					<dd>meta key</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br>the value of the key
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="delete_meta" id="_delete_meta">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_delete_meta">#</a>
+		<code><a href="source-class-Alphred.Database.Index.html#126-135" title="Go to source code">delete_meta</a>( <span>string <var>$key</var></span> )</code>
+
+		<div class="description short">
+			<p>Deletes a record (or records) from meta table matching key</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Deletes a record (or records) from meta table matching key</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$key</var></dt>
+					<dd>the key to delete</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>success or failure of query
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="read_updates" id="_read_updates">
+
+		<td class="attributes"><code>
+			 public 
+
+			[type]
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_read_updates">#</a>
+		<code><a href="source-class-Alphred.Database.Index.html#169-204" title="Go to source code">read_updates</a>( <span>mixed <var>$since</var> = <span class="php-num">0</span></span>, <span>mixed <var>$type</var> = <span class="php-keyword1">false</span> </span> )</code>
+
+		<div class="description short">
+			<p>Returns an array of all the updates in the meta table</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns an array of all the updates in the meta table</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$since</var></dt>
+					<dd>something that indicates a time</dd>
+					<dt><var>$type</var></dt>
+					<dd>either 'add' or 'delete' or false for both</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>[type]</code><br>[description]
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="add_internal_data" id="_add_internal_data">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_add_internal_data">#</a>
+		<code><a href="source-class-Alphred.Database.Index.html#231-261" title="Go to source code">add_internal_data</a>( <span>string <var>$data_id</var></span>, <span>string <var>$data</var></span> )</code>
+
+		<div class="description short">
+			<p>Adds a record to the internal data table</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Adds a record to the internal data table</p>
+
+<p>Note: the internal data table has two meaningful values: (1) a unique identifier (data_id), and (2) a json data string.
+ A timestamp is included as a third column.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$data_id</var></dt>
+					<dd>the data_id that matches to the external database</dd>
+					<dt><var>$data</var></dt>
+					<dd>a json string</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="get_internal_data" id="_get_internal_data">
+
+		<td class="attributes"><code>
+			 public 
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_get_internal_data">#</a>
+		<code><a href="source-class-Alphred.Database.Index.html#264-280" title="Go to source code">get_internal_data</a>( <span>string <var>$data_id</var></span> )</code>
+
+		<div class="description short">
+			<p>Gets a record from the internal data table</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets a record from the internal data table</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$data_id</var></dt>
+					<dd>the data_id of the data record</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br>returns false if the data is not found; otherwise returns data
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="delete_internal_data" id="_delete_internal_data">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_delete_internal_data">#</a>
+		<code><a href="source-class-Alphred.Database.Index.html#282-296" title="Go to source code">delete_internal_data</a>( <span>string <var>$data_id</var></span> )</code>
+
+		<div class="description short">
+			<p>Deletes a record from the internal data table</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Deletes a record from the internal data table</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$data_id</var></dt>
+					<dd>the data_id of the data record</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="sync_index" id="_sync_index">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_sync_index">#</a>
+		<code><a href="source-class-Alphred.Database.Index.html#610-618" title="Go to source code">sync_index</a>( )</code>
+
+		<div class="description short">
+			<p>Forces a sync between the data db and the index</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Forces a sync between the data db and the index</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="reindex_record" id="_reindex_record">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_reindex_record">#</a>
+		<code><a href="source-class-Alphred.Database.Index.html#621-632" title="Go to source code">reindex_record</a>( <span>string <var>$id</var></span> )</code>
+
+		<div class="description short">
+			<p>Deletes and re-adds a record from the data db</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Deletes and re-adds a record from the data db</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$id</var></dt>
+					<dd>unique identifier of the record</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="delete_extra_records" id="_delete_extra_records">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_delete_extra_records">#</a>
+		<code><a href="source-class-Alphred.Database.Index.html#635-643" title="Go to source code">delete_extra_records</a>( )</code>
+
+		<div class="description short">
+			<p>Deletes records that are in the index but not in the data db</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Deletes records that are in the index but not in the data db</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="add_missing_records" id="_add_missing_records">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_add_missing_records">#</a>
+		<code><a href="source-class-Alphred.Database.Index.html#645-674" title="Go to source code">add_missing_records</a>( <span>integer <var>$number</var> = <span class="php-num">0</span></span>, <span>function <var>$callback</var> = <span class="php-keyword1">false</span> </span> )</code>
+
+		<div class="description short">
+			<p>Adds all records from the data db that are not in the index</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Adds all records from the data db that are not in the index</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$number</var></dt>
+					<dd><p>the number of records to index
+                             (use 0 to index all)</p></dd>
+					<dt><var>$callback</var></dt>
+					<dd><p>name of function to use as callback for
+                             progress updates</p></dd>
+				</dl></div>
+
+
+
+				<h4>Todo</h4>
+				<div class="list">
+						Implement callbacks<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="get_last_update" id="_get_last_update">
+
+		<td class="attributes"><code>
+			 public 
+
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_get_last_update">#</a>
+		<code><a href="source-class-Alphred.Database.Index.html#792-801" title="Go to source code">get_last_update</a>( )</code>
+
+		<div class="description short">
+			<p>Gets the last updated time of the data table</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets the last updated time of the data table</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>integer</code><br>the last update time as seconds since the Unix Epoch
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="flush_update_log" id="_flush_update_log">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_flush_update_log">#</a>
+		<code><a href="source-class-Alphred.Database.Index.html#803-809" title="Go to source code">flush_update_log</a>( )</code>
+
+		<div class="description short">
+			<p>Removes all add/delete log notices from the meta table</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Removes all add/delete log notices from the meta table</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="index" id="$index">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Alphred.Database.Index.html#38" title="Go to source code"><var>$index</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$index" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="data" id="$data">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Alphred.Database.Index.html#39" title="Go to source code"><var>$data</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$data" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>
