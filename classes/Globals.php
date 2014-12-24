@@ -40,10 +40,10 @@ class Globals {
 	}
 
 	/**
-	 * Retrieves a variable from the $_SERVER global
+	 * Retrieves a variable from the global $_SERVER array
 	 *
-	 * @param  [type] $name [description]
-	 * @return [type]       [description]
+	 * @param  string 	$name 	name of the variable
+	 * @return string       		value of the variable
 	 */
 	public static function get( $name ) {
 		$variables = [
@@ -67,6 +67,11 @@ class Globals {
 		}
 	}
 
+	/**
+	 * Retrieves the bundle id of the workflow from the global $_SERVER array
+	 *
+	 * @return string 	the bundle id of the running workflow
+	 */
 	public static function bundle() {
 		return Globals::get( 'alfred_workflow_bundleid' );
 	}
