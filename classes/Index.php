@@ -27,9 +27,10 @@ namespace Alphred\Database;
  * It is better to have a single data structure, however.
  *
  * @todo Add in proper exceptions
- * @todo Add in optional callbacks so you can track the progress
+ * @todo Add in optional callbacks so you can track the progress -- partially done
  * @todo Reduce number of public functions
  * @todo Attempt to shorten file
+ * @todo Write search classes (regular and cache)
  *
  */
 class Index {
@@ -44,6 +45,7 @@ class Index {
 	 *
 	 *  options:
 	 *      update => true : updates the index to match the data db
+	 *      progress_callback => string : name of function for progress bar
 	 *
 	 *
 	 *
@@ -62,7 +64,11 @@ class Index {
 
 		if ( isset( $options['update'] ) && ( $options['update'] ) ) {
 			if ( $this->check_for_update() ) {
-				$this->sync_index();
+				if ( isset( $options[ 'progress_callback' ] ) ) {
+					$this->sync_index( $options[ 'progress_callback' ] );
+				} else {
+					$this->sync_index();
+				}
 			}
 		}
 	}
@@ -669,7 +675,11 @@ class Index {
 				$this->add_internal_data( $this->index->escapeString( $add ), $record );
 			}
 			$progress++;
-			// call function callback( current, total );
+
+			// Callback
+			if ( is_callable( $callback ) ) {
+				call_user_func_array( $callback, [ $progress, $number ] );
+			}
 		endforeach;
 	}
 
