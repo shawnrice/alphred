@@ -718,26 +718,7 @@ class Index {
 	 * @return array            an array of data ids
 	 */
 	private function find_all_data_records( $force = false ) {
-
-		// If the value has already been set, then let's not
-		// for the expensive operation unless asked.
-		if ( false === $force ) {
-			if ( isset( $this->data_records ) ) {
-				return $this->data_records;
-			}
-		}
-
-		// Query the data db for all their record ids
-		$data = $this->data->query( 'SELECT id FROM data;' );
-		$records = [];
-
-		// Get all the data IDs
-		while ( $row = $data->fetchArray( SQLITE3_ASSOC ) ) :
-			$records[] = $row['id'];
-		endwhile;
-
-		// Set the records and return them
-		return $this->data_records = $records;
+		return $this->find_all_records( 'data', $force );
 	}
 
 	/**
@@ -747,25 +728,50 @@ class Index {
 	 * @return array            an array of data ids
 	 */
 	private function find_all_index_records( $force = false ) {
+		return $this->find_all_records( 'index', $force );
+	}
+
+
+	/**
+	 * A generic method to do the work of "find_all_index_records" and the same for data
+	 * @param  string 	$type   either 'data' or 'index'
+	 * @param  bool 		$force 	whether or not to force new data
+	 * @return array        		an array of data ids
+	 */
+	private function find_all_records( $type, $force ) {
+
+		// This functions works with only 'index' or 'data'
+		if ( 'data' == $type ) {
+			$row_name = 'id';
+		} else if ( 'index' == $type ) {
+			$row_name = 'data_id';
+		} else {
+			// or throw an exception
+			return false;
+		}
+
+		$type_records = "{$type}_records";
+
 		// If the value has already been set, then let's not
 		// for the expensive operation unless asked.
 		if ( false === $force ) {
-			if ( isset( $this->index_records ) ) {
-				return $this->index_records;
+			if ( isset( $this->$type_records ) ) {
+				return $this->$type_records;
 			}
 		}
 
 		// Query the data db for all their record ids
-		$data = $this->index->query( 'SELECT data_id FROM data;' );
+		$data = $this->$type->query( "SELECT {$row_name} FROM data;" );
 		$records = [];
 
 		// Get all the data IDs
 		while ( $row = $data->fetchArray( SQLITE3_ASSOC ) ) :
-			$records[] = $row['data_id'];
+			$records[] = $row[ $row_name ];
 		endwhile;
 
 		// Set the records and return them
-		return $this->index_records = $records;
+		return $this->$type_records = $records;
+
 	}
 
 	/**
