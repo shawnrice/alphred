@@ -28,6 +28,8 @@ namespace Database;
  *
  * @todo Add in proper exceptions
  * @todo Add in optional callbacks so you can track the progress
+ * @todo Reduce number of public functions
+ * @todo Attempt to shorten file
  *
  */
 class Index {
@@ -203,12 +205,12 @@ class Index {
 
 
 	/***************************************************************************
-     * Internal Data Table Functions
-     *
-     * Note: we keep a copy of the data table in the index. This should
-     * be a simple copy. The logic is that we can alter the actual data_db without
-     * having to touch the index so that we can defer indexing until later, if necessary.
-     **************************************************************************/
+   * Internal Data Table Functions
+   *
+   * Note: we keep a copy of the data table in the index. This should
+   * be a simple copy. The logic is that we can alter the actual data_db without
+   * having to touch the index so that we can defer indexing until later, if necessary.
+   **************************************************************************/
 
 
 	/**
@@ -362,18 +364,18 @@ class Index {
 	}
 
 	/***************************************************************************
-     * Index Table Methods
-     **************************************************************************/
+   * Index Table Methods
+   **************************************************************************/
 
 	/**
 	 * Parses a data object and creates the relevant tables from it
 	 *
-	 * NOTE: FIX THIS FUNCTION
+	 * @todo FIX THIS FUNCTION
 	 * Right now, this function iterates over all data. Really, we should just feed it a data object
 	 * and have it create those tables via that....
 	 *
 	 */
-	public function create_index_tables( $data ) {
+	private function create_index_tables( $data ) {
 		$bools    = [];
 		$lists    = [];
 		$numbers  = [];
@@ -592,7 +594,7 @@ class Index {
 	 * @param  SQLite3 object   $db     An already instantiated SQLite3 object
 	 * @return array                    An array of tablenames
 	 */
-	public function get_tables( $db ) {
+	private function get_tables( $db ) {
 		$results = $db->query( 'PRAGMA stats;' );
 		$tables = [];
 		while ( $row = $results->fetchArray() ) :
