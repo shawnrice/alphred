@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <phpdoc>
-  <parser>
-    <target>./docs</target>
-  </parser>
   <transformer>
-    <target>./docs</target>
+    <target>../alphred-docs/phpdoc</target>
   </transformer>
   <files>
     <directory>classes</directory>
     <ignore>*Tests*</ignore>
   </files>
   <transformations>
-    <template name="abstract" />
+    <template name="responsive-twig" />
   </transformations>
 </phpdoc>

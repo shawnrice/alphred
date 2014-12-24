@@ -5,6 +5,11 @@ namespace Alphred;
 // Right now, this class just lets you create key-value configs either for a
 // sqlite3 database or a json file.
 
+/**
+ *
+ * @todo Make query methods uniform
+ *
+ */
 class Config {
 
 	public function __construct( $type = 'json' ) {
@@ -26,7 +31,7 @@ class Config {
 			// Right now, we just support SQLite, but, if we expand database handlers, then we
 			// can expand the possibilities here.
 			$options = [];
-			$this->db = new Database\Database( 'SQLite3', "{$this->data}/config.sqlite3", $options );
+			$this->db = new \SQLite3( "{$this->data}/config.sqlite3" );
 			$this->init_db_table();
 			$this->handler = 'db';
 		}
@@ -59,8 +64,10 @@ class Config {
 	}
 
 	private function unset_db( $key ) {
-		$query = "DELETE FROM config WHERE key = '{$key}';";
-		$this->db->exec( $query );
+		$key = $this->db->escapeString( $key );
+		$this->db->exec(
+		  "DELETE FROM config WHERE key = '{$key}';"
+		);
 	}
 
 	private function set_json( $key, $value ) {
@@ -73,9 +80,13 @@ class Config {
 		return false; // or throw an exception
 	}
 
-	private function set_db( $key, $value ) {
-		$query = "INSERT or REPLACE INTO config (key, value) values (\"{$key}\", {$value});";
-		$query = $this->db->escapeString( $query );
+	private function set_db( $key, $value, $overwrite = true ) {
+		$key   = $this->db->escapeString( $key );
+		$value = $this->db->escapeString( $value );
+		if ( $overwrite ) {
+			$this->db->exec( "DELETE FROM config WHERE key='{$key}';" );
+		}
+		$query = "INSERT OR REPLACE INTO config (key, value) values ('{$key}', '{$value}');";
 		return $this->db->exec( $query );
 	}
 
@@ -89,8 +100,9 @@ class Config {
 	}
 
 	private function init_db_table() {
-		$sql = 'CREATE TABLE IF NOT EXISTS config (key TEXT NOT NULL PRIMARY KEY, value TEXT) WITHOUT ROWID;';
-		$this->db->exec( $sql );
+		$this->db->exec(
+		  'CREATE TABLE IF NOT EXISTS config (key TEXT NOT NULL PRIMARY KEY, value TEXT) WITHOUT ROWID;'
+		);
 	}
 
 }
