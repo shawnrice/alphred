@@ -20,7 +20,7 @@
 
 define( 'ALPHRED_VERSION',   '0.1.0' );
 
-if ( ! is_defined( 'ALPHRED_LOG_LEVEL' ) ) {
+if ( ! defined( 'ALPHRED_LOG_LEVEL' ) ) {
 	define( 'ALPHRED_LOG_LEVEL', 2 );
 }
 
@@ -32,6 +32,7 @@ if ( ! ( isset( $argv ) && ( 'Alphred.phar' === basename( $argv[0] ) || 'Alphred
 	require_once( __DIR__ . '/Date.php' );
 	require_once( __DIR__ . '/Database.php' );
 	require_once( __DIR__ . '/Exceptions.php' );
+	require_once( __DIR__ . '/Globals.php' );
 	require_once( __DIR__ . '/i18n.php' );
 	require_once( __DIR__ . '/Index.php' );
 	require_once( __DIR__ . '/Keychain.php' );

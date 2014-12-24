@@ -84,10 +84,10 @@ class Notification {
 
 		$script = "osascript -e 'display notification \"{$options['text']}\"";
 		foreach ( $options as $field => $option ) :
-			switch ( $field ) { :
+			switch ( $field ) :
 				case 'title' :
 					$script .= " with title \"{$option}\"";
-					break };
+					break;
 			case 'subtitle' :
 				$script .= " subtitle \"{$option}\"";
 					break;
@@ -95,9 +95,9 @@ class Notification {
 				if ( in_array( $option, $sounds ) ) {
 					$script .= " sound name \"{$option}\"";
 				}
-					break;
+				break;
 			default:
-					break;
+				break;
 			endswitch;
 		endforeach;
 		$script .= "'";
