@@ -174,7 +174,7 @@ class ScriptFilter {
 			// raise an exception instead
 			return false;
 		}
-		array_push( $this->results[], $result );
+		array_push( $this->results, $result );
 	}
 
 	public function item( $props ) {
