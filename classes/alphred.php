@@ -29,8 +29,8 @@ if ( ! ( isset( $argv ) && ( 'Alphred.phar' === basename( $argv[0] ) || 'Alphred
 	require_once( __DIR__ . '/Alfred.php' );
 	require_once( __DIR__ . '/AppleScript.php' );
 	require_once( __DIR__ . '/Config.php' );
-	require_once( __DIR__ . '/Date.php' );
 	require_once( __DIR__ . '/Database.php' );
+	require_once( __DIR__ . '/Date.php' );
 	require_once( __DIR__ . '/Exceptions.php' );
 	require_once( __DIR__ . '/Globals.php' );
 	require_once( __DIR__ . '/i18n.php' );
