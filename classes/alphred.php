@@ -28,6 +28,30 @@ if ( ! defined( 'ALPHRED_LOG_LEVEL' ) ) {
 
 ALPHRED_PARSE_INI();
 
+
+	# These replicate Alfred Workflow
+	# ####
+	# Match filter flags
+	#: Match items that start with ``query``
+	define( 'MATCH_STARTSWITH', 1 );
+	#: Match items whose capital letters start with ``query``
+	define( 'MATCH_CAPITALS', 2 );
+	#: Match items with a component "word" that matches ``query``
+	define( 'MATCH_ATOM', 4 );
+	#: Match items whose initials (based on atoms) start with ``query``
+	define( 'MATCH_INITIALS_STARTSWITH', 8 );
+	#: Match items whose initials (based on atoms) contain ``query``
+	define( 'MATCH_INITIALS_CONTAIN', 16 );
+	#: Combination of :const:`MATCH_INITIALS_STARTSWITH` and
+	#: :const:`MATCH_INITIALS_CONTAIN`
+	define( 'MATCH_INITIALS', 24 );
+	#: Match items if ``query`` is a substring
+	define( 'MATCH_SUBSTRING', 32 );
+	#: Match items if all characters in ``query`` appear in the item in order
+	define( 'MATCH_ALLCHARS', 64 );
+	#: Combination of all other ``MATCH_*`` constants
+	define( 'MATCH_ALL', 127 );
+
 // Check if Alphred.phar was included or run. Behavior differs based on that
 if ( ! ( isset( $argv ) && ( 'Alphred.phar' === basename( $argv[0] ) || 'Alphred.php' === basename( $argv[0] ) ) ) ) {
 	// Alphred was included and not run directly
@@ -37,6 +61,7 @@ if ( ! ( isset( $argv ) && ( 'Alphred.phar' === basename( $argv[0] ) || 'Alphred
 	require_once( __DIR__ . '/Database.php' );
 	require_once( __DIR__ . '/Date.php' );
 	require_once( __DIR__ . '/Exceptions.php' );
+	require_once( __DIR__ . '/Filter.php' );
 	require_once( __DIR__ . '/Globals.php' );
 	require_once( __DIR__ . '/i18n.php' );
 	require_once( __DIR__ . '/Index.php' );
