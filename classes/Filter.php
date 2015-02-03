@@ -3,7 +3,9 @@
  *
  * This file contains the functions for filtering arrays of text
  *
- * This is heavily based on Alfred Workflow's library.
+ * This is almost a direct translation of the filter functionality of
+ * Deanishe's Alfred Workflows (https://github.com/deanishe/alfred-workflow).
+ * He and his collaborators get credit for this one.
  *
  * Also, if you are folding diacritics, then you can work only with
  * characters that can be transliterated to ASCII.
@@ -13,7 +15,15 @@ namespace Alphred;
 
 class Filter {
 
-	public function Filter( $haystack, $needle, $max, $key = false, $flags = MATCH_ALLCHARS ) {
+	/**
+	 * Filters items
+	 * @param array    	$haystack [description]
+	 * @param string   	$needle   [description]
+	 * @param integer  	$max      [description]
+	 * @param string  	$key      [description]
+	 * @param [type]  	$flags    [description]
+	 */
+	public function Filter( $haystack, $needle, $max = false, $key = false, $flags = MATCH_ALLCHARS ) {
 
 		$results = [];
 
@@ -59,21 +69,50 @@ class Filter {
 		print_r( $results );
 	}
 
-	public function sort_by_score( $a, $b ) {
+	/**
+	 * Callback function to help sort the results array
+	 * @param  array $a an array
+	 * @param  array $b an array
+	 * @return bool
+	 */
+	private function sort_by_score( $a, $b ) {
 		return $a[0] < $b[0];
 	}
 
-	function remove_all_non_caps( $string ) {
-		return strtolower( preg_replace( '/[^A-Z]/', '', $string ) );
+	/**
+	 * Removes all non-capital characters and non-digit characters frmo a string
+	 * @param  string $string 	a string to process
+	 * @return string         	the processed string
+	 */
+	private function remove_all_non_caps( $string ) {
+		return strtolower( preg_replace( '/[^A-Z0-9]/', '', $string ) );
 	}
 
-	function convert( $string ) {
+	/**
+	 * Converts and transliterates a string to ascii
+	 * @param  string $string a string to transliterate
+	 * @return string         the transliterated string
+	 */
+	private function convert( $string ) {
+		// I don't want to mess with encodings, so we'll just auto-detect
 		$encoding = mb_detect_encoding( $string );
+		// Note: if PHP will throw a notice if the string contains characters that cannot
+		// be transliterated. These will most likely be certain symbols and characters
+		// from many different Asian languages.
 		return iconv( $encoding, 'ASCII//TRANSLIT', $string );
  	}
 
- 	function filter_item( $value, $query, $match_on, $fold_diacritics ) {
+ 	/**
+ 	 * [filter_item description]
+ 	 * @param  string $value           the value string (haystack)
+ 	 * @param  string $query           the query string (needle)
+ 	 * @param  [type] $match_on        [description]
+ 	 * @param  bool   $fold_diacritics whether or not to transliterate to ascii
+ 	 * @return array                   an array that is score and then the rule matched
+ 	 */
+ 	private function filter_item( $value, $query, $match_on, $fold_diacritics ) {
  		$query = strtolower( $query );
+
  		if ( $fold_diacritics ) {
  			$value = self::convert( $value );
  		}
@@ -91,8 +130,7 @@ class Filter {
       return [ $score, MATCH_STARTSWITH ];
     }
 
-    # $query matches capitalised letters in item,
-    # e.g. of = OmniFocus
+    // $query matches capitalised letters in item, e.g. of = OmniFocus
     if ( $match_on & MATCH_CAPITALS ) {
     		$initials = self::remove_all_non_caps( $value );
         if ( false !== strpos( $initials, $query ) ) {
@@ -101,10 +139,11 @@ class Filter {
         }
     }
 
-    # split the item into "atoms", i.e. words separated by
-    # spaces or other non-word characters
+    // split the item into "atoms", i.e. words separated by spaces or other non-word characters
     if ( $match_on & MATCH_ATOM || $match_on & MATCH_INITIALS_CONTAIN || $match_on & MATCH_INITIALS_STARTSWITH ) {
+        // Split into atoms, note: if you are not transliterating, then this will split on accented characters too
         $atoms = preg_split('/[^a-zA-Z0-9]/', strtolower($value), -1, PREG_SPLIT_NO_EMPTY);
+
         // initials of the atoms
         $initials = $atoms;
         array_walk( $initials, function ( &$value, $key ) { $value = substr( $value, 0, 1 ); } );
@@ -112,15 +151,14 @@ class Filter {
 		}
 
     if ( $match_on & MATCH_ATOM ) {
-        # is `query` one of the atoms in item?
-        # similar to substring, but $scores more highly, as it's
-        # a word within the item
+        // is `$query` one of the atoms in item? Similar to substring, but $scores more highly, as it's
+        // a word within the item
         if ( in_array( $query, $atoms ) ) {
             $score = 100.0 - ( strlen( $value ) / strlen( $query ) );
             return [ $score, MATCH_ATOM ];
         }
 		}
-    # `query` matches start (or all) of the initials of the
+    # `$query` matches start (or all) of the initials of the
     # atoms, e.g. ``himym`` matches "How I Met Your Mother"
     # *and* "how i met your mother" (the ``capitals`` rule only
     # matches the former)
@@ -142,8 +180,9 @@ class Filter {
 
     # finally, assign a $score based on how close together the
     # characters in `query` are in item.
-    # this is a half-baked algorithm of my own invention and tweaking.
-    # It is somewhat based on a z-score, but it's really not at all.
+    /**
+     * @todo Rework the scoring on this part
+     */
     if ( $match_on & MATCH_ALLCHARS ) {
     	foreach( str_split( $query ) as $character ) :
     		$position[] = strpos( $value, $character );
@@ -158,7 +197,7 @@ class Filter {
       return [$score, MATCH_ALLCHARS ];
     }
 
-    # Nothing matched
+    // Nothing matched, so return a score of 0
     return [0, 'None'];
 	}
 
