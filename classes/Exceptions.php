@@ -24,10 +24,10 @@ class Exception extends \Exception {
 			);
 			// Get the relevant information from the backtrace
 			$trace = debug_backtrace();
-			$trace = $trace[ 0 ];
+			$trace = end( $trace );
 			$file  = basename( $trace['file'] );
 			$line  = $trace['line'];
-			$data = date( 'H:i:s', time() );
+			$date = date( 'H:i:s', time() );
 			file_put_contents( 'php://stderr',
 			  "[{$file},{$line}] [{$date}] [{$log_levels[ $code ]}] {$message}" . PHP_EOL
 			);

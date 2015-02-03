@@ -22,9 +22,9 @@ class Config {
 		if ( 'json' == $type ) {
 			if ( ! file_exists( "{$this->data}/config.json" ) ) {
 				file_put_contents( "{$this->data}/config.json", json_encode( [] ) );
-				$this->config = json_decode( '' );
+				$this->config = [];
 			} else {
-				$this->config = json_decode( file_get_contents( "{$this->data}/config.json" ) );
+				$this->config = json_decode( file_get_contents( "{$this->data}/config.json" ), true );
 			}
 			$this->handler = 'json';
 		} else if ( in_array( $type, [ 'db', 'database', 'sqlite', 'SQLite', 'SQLite3' ] ) ) {
@@ -38,7 +38,6 @@ class Config {
 	}
 
 	public function set( $key, $value ) {
-		$value = json_encode( $value );
 		if ( 'json' == $this->handler ) { return $this->set_json( $key, $value ); }
 		else if ( 'db' == $this->handler ) { return $this->set_db( $key, $value ); }
 		return false; // or raise an exeception
@@ -57,8 +56,8 @@ class Config {
 	}
 
 	private function unset_json( $key ) {
-		if ( ! isset( $this->config->$key ) ) { return false; }
-		unset( $this->config->$key );
+		if ( ! isset( $this->config[ $key ] ) ) { return false; }
+		unset( $this->config[ $key ] );
 		file_put_contents( "{$this->data}/config.json", json_encode( $this->config ) );
 		return true;
 	}
@@ -71,12 +70,12 @@ class Config {
 	}
 
 	private function set_json( $key, $value ) {
-		$this->config->$key = $value;
+		$this->config[ $key ] = $value;
 		file_put_contents( "{$this->data}/config.json", json_encode( $this->config ) );
 	}
 
 	private function read_json( $key ) {
-		if ( isset( $this->config->$key ) ) { return json_decode( $this->config->$key ); }
+		if ( isset( $this->config[ $key ] ) ) { return $this->config[ $key ]; }
 		return false; // or throw an exception
 	}
 

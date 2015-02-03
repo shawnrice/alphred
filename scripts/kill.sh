@@ -10,7 +10,7 @@ KEEP_ALIVE=/tmp/Alphred-Server-Keep-Alive
 # Read the pid from the pid file
 PHP_PID=$(cat "${PHP_PID_FILE}")
 
-# Sleep for a bit... commented out for debug
+# Sleep for a bit...
 sleep 20
 
 # Set the flag to die as false

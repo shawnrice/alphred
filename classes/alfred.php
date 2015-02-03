@@ -13,7 +13,7 @@ namespace Alphred;
 
 /**
  *
- *
+ * What is the purpose of this class? Is there any real good purpose?
  *
  */
 class Alfred {
@@ -95,6 +95,9 @@ class Alfred {
 	}
 
 }
+
+
+
 
 
 /**
@@ -313,7 +316,7 @@ class Result {
 
 		if ( is_string( $args ) ) {
 			$this->set_title( $args );
-		} else if ( is_array( $title ) ) {
+		} else if ( is_array( $args ) ) {
 			foreach ( $args as $key => $value ) :
 				$fn = "set_{$key}";
 				$this->$fn( $value );

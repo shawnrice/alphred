@@ -1,4 +1,11 @@
 <?php
+/**
+ *
+ * This file contains text manipulation functions, all of which are written to be called
+ * statically.
+ *
+ *
+ */
 
 namespace Alphred;
 
@@ -7,8 +14,13 @@ class Text {
 
 	// What else needs to go here?
 
+	/**
+	 * Convert a string to Title Case
+	 * @param  string $string string to be converted
+	 * @return string         the string in Title Case
+	 */
 	public function title_case( $string ) {
-		// This needs to be improved upon. Basically, it needs to account for sentence ending punctuation
+		// This needs to be improved upon. Basically, it needs to account for sentence ending punctuation.
 		// Words that are not capitalized. Well, articles, conjunctions, and prepositions.
 		$lower = [
 			'the','a','an','and','but','or','for','nor','aboard','about','above','across','after','against','along',
@@ -45,6 +57,11 @@ class Text {
 		return implode( ' ', $words );
 	}
 
+	/**
+	 * Converts a string to CamelCase
+	 * @param  string 	$string 	the string to be converted
+	 * @return string             the string in CamelCase
+	 */
 	public function camel_case( $string ) {
 		// converts spaces to camelcase
 		$words = explode( ' ', $string );
@@ -66,6 +83,14 @@ class Text {
 		return str_replace( ' ', '-', $string );
 	}
 
+	/**
+	 * Adds commas to list (uses Oxford Commas, sorry, it's just proper)
+	 *
+	 * @todo Debug this... it doesn't quite make sense looking back on it
+	 *
+	 * @param array  	$list   an array to be pushed into a comma-ified string
+	 * @param boolean $suffix a suffix to add
+	 */
 	public function add_commas_to_list( $list, $suffix = false ) {
 		// We want a string, so let's convert it to one with an Oxford Comma
 		$string = '';
@@ -88,6 +113,9 @@ class Text {
 			}
 			$count++;
 		endforeach;
+
+		return $string;
+
 	}
 
 }

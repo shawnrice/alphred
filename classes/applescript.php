@@ -126,7 +126,7 @@ class Dialog {
 		if ( isset( $this->default_answer ) ) { $this->script .= $this->default_answer; }
 		if ( isset( $this->title ) ) {          $this->script .= $this->title; }
 		if ( isset( $this->icon ) ) {           $this->script .= $this->icon; }
-		if ( isset( $this->hidden_answer ) ) {  $this->script .= $this->icon; }
+		if ( isset( $this->hidden_answer ) ) {  $this->script .= $this->hidden_answer; }
 		if ( isset( $this->cancel ) ) {         $this->script .= $this->cancel; }
 		if ( isset( $this->timeout ) ) {        $this->script .= $this->timeout; }
 	}
@@ -134,6 +134,7 @@ class Dialog {
 	public function execute() {
 		$this->create_dialog();
 		$result = exec( "osascript -e '{$this->script}' 2>&1" );
+
 		if ( false !== strpos( $result, ', gave up:false' ) ) {
 			$result = str_replace( ', gave up:false', '', $result );
 		}
@@ -215,7 +216,13 @@ class Dialog {
 }
 
 
+// This is a generic class that creates Choose... AppleScript dialogs
 class Choose {
+	/**
+	 * Each of the public functions corresponds to a type of AppleScript "Chose..." dialog.
+	 *
+	 */
+
 
 	// NOTE: THESE FUNCTIONS ARE SENSITIVE TO SINGLE and DOUBLE QUOTES and COMMAS
 
@@ -331,10 +338,18 @@ class Choose {
 		return $script .= "' 2>&1";
 	}
 
-	// To process the response
+	/**
+	 * Processes the returned text from an AppleScript interaction
+	 *
+	 * @param  string  $result 	the text that comes out of the AppleScript interaction
+	 * @param  mixed   $strip  	text to strip out of the result
+	 * @param  boolean $path   	whether or not the result is a path
+	 * @return string           the processed text
+	 */
 	private function process( $result, $strip = false, $path = false ) {
 		// Make sure the user didn't cancel the selection
 		if ( false !== strpos( $result, 'execution error: User canceled. (-128)' ) ) {
+			// User canceled the operation, so return an explicit "canceled"
 			return 'canceled';
 		}
 		if ( $strip ) {
@@ -357,7 +372,12 @@ class Choose {
 		return $result;
 	}
 
-	// Converts a dumb path to a posix path
+	/**
+	 * Converts to a POSIX path
+	 *
+	 * @param  string 	$path 	the path
+	 * @return string       		the path as POSIX
+	 */
 	private function to_posix_path( $path ) {
 		return '/' . str_replace( ':', '/', $path );
 	}

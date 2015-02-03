@@ -56,7 +56,7 @@ class Keychain {
 		} else {
 			$update = '';
 		}
-		return self::call_security( 'save-generic-password', $service, $account, "{$update} -w '{$password}'" );
+		return self::call_security( 'add-generic-password', $service, $account, "{$update} -w '{$password}'" );
 	}
 
 
@@ -117,7 +117,7 @@ class Keychain {
 			// So, if, for some reason, the thing is caught, we can't really go on. So we'll exit anyway.
 			return false;
 		}
-		$service = self::set_service();
+		$service = self::set_service( $service );
 
 		// Note: $args needs to be escaped in the function that calls this one
 		$command = "security {$action} -s '{$service}' -a '{$account}'  {$args}";
@@ -128,6 +128,9 @@ class Keychain {
 		} else if ( 44 == $return_code ) {
 			// raise exception because password does not exist
 			throw new PasswordNotFound( "Password for '{$account}' does not exist", 3 );
+		} else if ( 0 == $return_code ) {
+			// Do nothing here. For now.
+			// @todo Do something here.
 		} else {
 			throw new UnknownSecurityException(
 				'An unanticipated error has happened when trying to call the security command', 4
@@ -146,7 +149,7 @@ class Keychain {
 	/**
 	 * Sets the service appropriately, usually to the bundle id of the workflow
 	 */
-	private function set_service() {
+	private function set_service( $service ) {
 
 		// The service has not been set, so let's set it to the bundle id of the workflow
 		if ( is_null( $service ) ) {

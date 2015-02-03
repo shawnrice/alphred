@@ -88,14 +88,14 @@ class Log {
 	* @param  string  $destination = 'file'  default destination for messages
 	* @since 1.0.0
 	*/
-	public function __construct( $log, $destination = 'file' ) {
+	public function __construct( $log = 'log', $destination = 'file' ) {
 
 		if ( ! Globals::get( 'alfred_bundleid' ) ) {
 			// we should throw an exception here
 			return false;
 		}
 
-		$this->log = Globals::get( 'alfred_workflow_data' ) . '/' . Globals::get( 'alfred_bundleid' ) . '.log';
+		$this->log = Globals::get( 'alfred_workflow_data' ) . '/' . $log . '.log';
 		$this->initialize_log();
 
 		if ( ! in_array( $destination, [ 'file', 'console', 'both' ] ) ) {
@@ -148,7 +148,8 @@ class Log {
 
 		// Set the destination to the default if not implied
 		if ( empty( $destination ) ) {
-			$destination = $this->default_destination; }
+			$destination = $this->default_destination;
+		}
 
 		// Get the relevant information from the backtrace
 		$this->trace = debug_backtrace();
@@ -161,9 +162,11 @@ class Log {
 		$destination = strtolower( $destination );
 
 		if ( 'file' == $destination || 'both' == $destination ) {
-			$this->log_file( $message ); }
+			$this->log_file( $message );
+		}
 		if ( 'console' == $destination || 'both' == $destination ) {
-			$this->log_console( $message ); }
+			$this->log_console( $message );
+		}
 
 	}
 
@@ -186,7 +189,8 @@ class Log {
 	*/
 	private function check_log() {
 		if ( filesize( $this->log ) > 1048576 ) {
-			$this->rotate_log(); }
+			$this->rotate_log();
+		}
 	}
 
 
@@ -197,7 +201,8 @@ class Log {
 	private function rotate_log() {
 		$old = substr( $this->log, -4 );
 		if ( file_exists( $old . '1.log' ) ) {
-			unlink( $old . '1.log' ); }
+			unlink( $old . '1.log' );
+		}
 
 		rename( $this->log, $old . '1.log' );
 		file_put_contents( $this->log, '' );
@@ -216,8 +221,7 @@ class Log {
 		$date = date( 'H:i:s', time() );
 
 		// If the level is okay, then just return it
-		if ( isset( $this->log_levels[ $level ] )
-		 || in_array( $level, $this->log_levels ) ) {
+		if ( isset( $this->log_levels[ $level ] ) || in_array( $level, $this->log_levels ) ) {
 			return $level;
 		}
 
@@ -233,7 +237,7 @@ class Log {
 	/**
 	* Writes a message to the console (STDERR)
 	*
-	* @param   string  $message  message to log
+	* @param string  $message  message to log
 	* @since 1.0.0
 	*/
 	public function log_console( $message ) {
@@ -245,7 +249,7 @@ class Log {
 	/**
 	* Writes message to log file
 	*
-	* @param   string  $message  message to log
+	* @param string  $message  message to log
 	* @since 1.0.0
 	*/
 	public function log_file( $message ) {
