@@ -86,6 +86,7 @@ if ( ! ( isset( $argv ) && ( 'Alphred.phar' === basename( $argv[0] ) || 'Alphred
 	require_once( __DIR__ . '/Log.php' );
 	require_once( __DIR__ . '/Request.php' );
 	require_once( __DIR__ . '/Server.php' );
+	require_once( __DIR__ . '/ScriptFilter.php' );
 	require_once( __DIR__ . '/Text.php' );
 	require_once( __DIR__ . '/Web.php' );
 } else {

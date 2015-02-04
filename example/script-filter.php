@@ -92,6 +92,9 @@ $repos =  json_decode( $request->execute(), true );
 
 // Okay, now, if there is a query, then we'll use that to filter out the repos
 if ( ! empty( $query ) ) {
+	// So, Alpred's filter will filter out all things that don't match the query, and it will also
+	// reorganize the array so that the highest match is at the top. Granted, Alfred will override
+	// the sort order if a uid is present.
 	$matches = Alphred\Filter::Filter($repos, $query, 30, 'name', MATCH_ALL );
 } else {
 	// There was no query, so the answer is the full set
@@ -105,17 +108,30 @@ foreach ( $matches as $match ) :
 	// Alphred lets us add results by adding an Alphred\Result object. While we can create these and
 	// modify them over the course of the script, we'll just create the Result object in the `add_result`
 	// method call.
+	$icon = 'icons/octoface-light.png';
 	$filter->add_result( new Alphred\Result([
 	    // I want Alfred to show the name of the repo as the ttle
 	    'title' 	 			 => $match['name'],
-	    // We'll add the last updated text as the subtitle
-	    'subtitle' 			 => $updated,
-	    'subtitle_shift' => $match['stargazers_count'] . " stars",
-	    'subtitle_fn' 	 => $match['stargazers_count'] . " stars",
+	    // We'll add in the appropriate icon
+	    'icon' 					 => $icon,
+	    // The description will the the subtitle
+	    'subtitle' 			 => $match['description'],
+	    // See the stargazers when you press shift
+	    'subtitle_shift' => $match['stargazers_count'] . ' stars.',
+	    // See the forks when you press function
+	    'subtitle_fn' 	 => $match['forks_count'] . ' forks.',
+	    // See when this was last updated when you press command
+	    'subtitle_cmd' 	 => $updated,
+	    // See the open issues when you press control
+	    'subtitle_ctrl'  => $match['open_issues'] . ' open issues.',
+	    // Right now, this just shows the icon. What should we put here?
+	    'subtitle_alt'   => $icon,
+	    // Add in a uid so that Alfred can do its sorting magic
 	    'uid' 		 			 => $match['name'],
-	    'arg'      			 => 'test',
-	    'valid'    			 => false
+	    'arg'      			 => $match['html_url'],
+	    'valid'    			 => true
 	]));
 endforeach;
 
+// Send out the script filter XML
 $filter->to_xml();

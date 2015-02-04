@@ -82,3 +82,7 @@ if ( 0 === strpos( $action, 'set-username ' ) ) {
 	// Exit with a 0 status so nothing else in the script runs.
 	exit(0);
 }
+
+if ( filter_var( $action, FILTER_VALIDATE_URL ) ) {
+	exec( "open {$action}" );
+}
