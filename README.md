@@ -73,7 +73,7 @@ First and foremost: figure out where the line is between bloat and not bloat.
 1. What else belongs here?
 
 #### Alphred\Log
-1. Adapt to make it more Alphred specific (less bundler-like)
+1. Document this.
 
 #### Alphred\Web
 1. Clean up hardily
