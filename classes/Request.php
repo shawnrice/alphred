@@ -50,7 +50,6 @@ class Request {
 				$url = substr( $url, 0, -1 ); // strip off the last ampersand
 				// Set the new URL that will include the parameters.
 				curl_setopt( $this->handler, CURLOPT_URL, $url );
-				print $url . "\n";
 			}
 		}
 		if ( isset( $this->cache_life ) ) {
@@ -62,7 +61,6 @@ class Request {
 		}
 
 		$this->results = curl_exec( $this->handler );
-		print_r( curl_error( $this->handler ) );
 		curl_close( $this->handler );
 		$this->save_cache_data( $this->results );
 		return $this->results;

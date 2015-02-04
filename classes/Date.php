@@ -2,17 +2,22 @@
 
 namespace Alphred;
 
+/**
+ *
+ * @todo Abstract the time dictionaries so that they can be translated
+ *
+ *
+ */
 class Date {
 
-	public function avoid_date_errors() {
-		// Set date/time to avoid warnings/errors.
-		if ( ! ini_get( 'date.timezone' ) ) {
-			$timezone = exec( 'tz=`ls -l /etc/localtime` && echo ${tz#*/zoneinfo/}' );
-			ini_set( 'date.timezone', $timezone );
-		}
-	}
-
-
+	/**
+	 * Converts seconds to a human readable string or an array
+	 *
+	 * @param  integer  $seconds  a number of seconds
+	 * @param  boolean  $words    whether or not the numbers should be numerals or words
+	 * @param  string   $type     either 'string' or 'array'
+	 * @return string|array 			a string or an array, depending on $type
+	 */
 	public function seconds_to_human_time( $seconds, $words = false, $type = 'string' ) {
 		$data = [];
 		$legend = [
@@ -57,15 +62,36 @@ class Date {
 		}
 
 		// We want a string, so let's convert it to one with an Oxford Comma
+		// because Oxford Commas are important. If you don't agree, then look here:
+		// http://stephentall.org/2011/09/19/oxford-comma/
+		// Otherwise, "fuck off," says the grammarian.
+		// This is not optional.
 		return Text::add_commas_to_list( $data, true );
 	}
 
+	/**
+	 * Explains how long ago something happened...
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param  integer  $seconds  a number of seconds
+	 * @param  boolean 	$words   	whether or not to return numerals or the word-equivalent
+	 * @return string             a string indicating a time in words
+	 */
 	public function ago( $seconds, $words = false ) {
 		// Only goes back to the Unix Epoch (1-Jan 1970)
 		$seconds = ( $seconds - time() ) * - 1; // this needs to be converted with the date function
 		return Date::seconds_to_human_time( $seconds, $words, 'string' ) . ' ago';
 	}
 
+	/**
+	 * Converts a number to words
+	 *
+	 * @todo Add in an option for a shorter version...
+	 *
+	 * @param  [type] $number [description]
+	 * @return [type]         [description]
+	 */
 	public function convert_number_to_words( $number ) {
 		// This is a complex function, but I'm not sure if it can be simplified.
 		// adapted from http://www.karlrixon.co.uk/writing/convert-numbers-to-words-with-php/

@@ -90,11 +90,32 @@ $request->set_auth( $username, $password );
 // also decode it into an easily accessible array.
 $repos =  json_decode( $request->execute(), true );
 
-// Now that we have everything, we should filter it out a bit.
-$r = [];
-foreach ( $repos as $repo ) :
-	$r[] = $repo['name'];
+// Okay, now, if there is a query, then we'll use that to filter out the repos
+if ( ! empty( $query ) ) {
+	$matches = Alphred\Filter::Filter($repos, $query, 30, 'name', MATCH_ALL );
+} else {
+	// There was no query, so the answer is the full set
+	$matches = $repos;
+}
+
+// Let's go ahead and add each to the script filter results
+foreach ( $matches as $match ) :
+	// Let's use one of the text filters to tell us how long ago something was updated.
+	$updated = "Last updated " . Alphred\Date::ago( strtotime( $match['updated_at'] ) ) . ".";
+	// Alphred lets us add results by adding an Alphred\Result object. While we can create these and
+	// modify them over the course of the script, we'll just create the Result object in the `add_result`
+	// method call.
+	$filter->add_result( new Alphred\Result([
+	    // I want Alfred to show the name of the repo as the ttle
+	    'title' 	 			 => $match['name'],
+	    // We'll add the last updated text as the subtitle
+	    'subtitle' 			 => $updated,
+	    'subtitle_shift' => $match['stargazers_count'] . " stars",
+	    'subtitle_fn' 	 => $match['stargazers_count'] . " stars",
+	    'uid' 		 			 => $match['name'],
+	    'arg'      			 => 'test',
+	    'valid'    			 => false
+	]));
 endforeach;
 
-$matches = Alphred\Filter::Filter($repos, $query, 10, 'name', MATCH_ALL );
-print_r($matches);
+$filter->to_xml();
