@@ -2,15 +2,8 @@
 
 namespace Alphred;
 
-// Much of (almost all of for now) this was taken from my code in the Alfred Bundler.
-// If you're using this library and the bundler, then just use one or the other
-// version of this class
-
 /**
- * Simple logging functionality that writes to files or STDERR
- *
- * Usage: just create a single object and reuse it solely. Initialize the
- * object with a full path to the log file (no log extension)
+ * Simple static logging functionality that writes to files or STDERR
  *
  * @package   Alphred
  * @since     Class available since 1.0.0
@@ -19,28 +12,11 @@ namespace Alphred;
 class Log {
 
 	/**
-	* Log file
-	*
-	* Full path to log file with no extension; set by user at instantiation
-	*
-	* @var  string
-	* @since 1.0.0
-	*/
-	public $log;
-
-	/**
-	* An array of log levels (int => string )
-	*
-	* 0 => 'DEBUG'
-	* 1 => 'INFO'
-	* 2 => 'WARNING'
-	* 3 => 'ERROR'
-	* 4 => 'CRITICAL'
-	*
-	* @var  array
-	* @since 1.0.0
-	*/
-	protected $log_levels = [
+	 * An array that contans the valid log levels
+	 * @since 1.0.0
+	 * @var array
+	 */
+	static $log_levels = [
 								0 => 'DEBUG',
 							  1 => 'INFO',
 							  2 => 'WARNING',
@@ -48,215 +24,240 @@ class Log {
 							  4 => 'CRITICAL',
 		];
 
-	/**
-	* Stacktrace information; reset with each message
-	*
-	* @var  array
-	* @since 1.0.0
-	*/
-	private $trace;
+		public function file( $message, $level = 1, $filename = 'workflow', $trace = false ) {
 
-	/**
-	* File from stacktrace; reset with each message
-	*
-	* @var  string
-	* @since 1.0.0
-	*/
-	private $file;
+			// Check if the log level is loggable based on the threshold.
+			// The threshold is defined as the constant ALPHED_LOG_LEVEL, and defaults to level 2 (WARNING).
+			// Change this either in the workflow.ini file or by defining the constant ALPHRED_LOG_LEVEL
+			// before you include Alphred.phar.
+			if ( ! self::is_loggable( $level ) ) {
+				return false;
+			}
 
-	/**
-	* Line from stacktrace; reset with each message
-	*
-	* @var  int
-	* @since 1.0.0
-	*/
-	private $line;
+			// Get the full path to the log file, and create the data directory if it doesn't exist
+			$log_file = self::get_log_filename( $filename );
+			// Get the trace
+			$trace = self::trace( $trace );
+			// Get the formatted date
+			$date = self::date_file();
+			// Normalize the log level
+			$level = self::normalize_log_level( $level );
 
-	/**
-	* Log level; reset with each message
-	*
-	* @var  mixed
-	* @since 1.0.0
-	*/
-	private $level;
+			// Construct the log entry
+			$message = "[{$date}][{$trace}][{$level}] {$message}\n";
 
-	/**
-	* Default destination to send a log message to
-	*
-	* @var  string   options: file, console, both
-	*/
-	private $default_destination;
-
-	/**
-	* Sets variables and ini settings to ensure there are no errors
-	*
-	* @param  string  $log                   filename to use as a log
-	* @param  string  $destination = 'file'  default destination for messages
-	* @since 1.0.0
-	*/
-	public function __construct( $log = 'log', $destination = 'file' ) {
-
-		if ( ! Globals::get( 'alfred_bundleid' ) ) {
-			// we should throw an exception here
-			return false;
+			// Write to the log file
+			file_put_contents( $log_file, $message, FILE_APPEND | LOCK_EX );
 		}
 
-		$this->log = Globals::get( 'alfred_workflow_data' ) . '/' . $log . '.log';
-		$this->initialize_log();
+		/**
+		 * Log a message to the console (STDERR)
+		 *
+		 * @param  string  					$message the message to log
+		 * @param  string|integer 	$level   the log level
+		 * @param  boolean|integer 	$trace   how far back to trace
+		 */
+		public function console( $message, $level = 1, $trace = false ) {
 
-		if ( ! in_array( $destination, [ 'file', 'console', 'both' ] ) ) {
-			$this->default_destination = 'file';
-		} else {
-			$this->default_destination = $destination;
+			// Check if the log level is loggable based on the threshold.
+			// The threshold is defined as the constant ALPHED_LOG_LEVEL, and defaults to level 2 (WARNING).
+			// Change this either in the workflow.ini file or by defining the constant ALPHRED_LOG_LEVEL
+			// before you include Alphred.phar.
+			if ( ! self::is_loggable( $level ) ) {
+				return false;
+			}
+
+			// Get the trace
+			$trace = self::trace( $trace );
+			// Get the formatted date
+			$date  = self::date_console();
+			// Normalize the log level
+			$level = self::normalize_log_level( $level );
+			file_put_contents( 'php://stderr', "[{$date}][{$trace}][{$level}] {$message}\n" );
+		}
+
+		/**
+		 * Gets the full filepath to the log file
+		 * @param  string $filename a filename for a log file
+		 * @return string           the full filepath for a log file
+		 */
+		private function get_log_filename( $filename ) {
+			// Attempt to get the workflow's data directory. If it isn't set (i.e. running outside of a workflow env),
+			// then just use the current directory.
+			if ( ! $dir = \Alphred\Globals::get( 'alfred_workflow_data' ) ) {
+				$dir = '.';
+			} else {
+				self::create_log_directory();
+			}
+			return "{$dir}/{$filename}.log";
+		}
+
+		/**
+		 * Creates the workflow's data directory if it does not exist.
+		 */
+		private function create_log_directory() {
+			$directory = \Alphred\Globals::get( 'alfred_workflow_data' );
+			if ( $directory ) {
+				if ( ! file_exists( $directory ) ) {
+					mkdir( $directory, 0775, true );
+				}
+			}
+		}
+
+		/**
+		* Checks to see if the log needs to be rotated
+		* @since 1.0.0
+		*/
+		private function check_log( $filename ) {
+			// ALPHRED_LOG_SIZE is define in bytes. It defaults to 1048576 and is set in
+			// `Alphred.php`. If you want to change the max size, then either define the
+			// max size in the INI file or define the constant ALPHRED_LOG_SIZE before
+			// you include `Alphred.phar`.
+			if ( filesize( self::get_log_filename( $filename ) ) > ALPHRED_LOG_SIZE ) {
+				// The log is too big, so rotate it.
+				self::rotate_log( $filename );
+			}
 		}
 
 
+		/**
+		* Rotates the log
+		* @since 1.0.0
+		*/
+		private function rotate_log( $filename ) {
+			// Get the log filename
+			$log_file = self::get_log_filename( $filename );
 
-		// Set date/time to avoid warnings/errors.
-		Date::avoid_date_errors();
+			// Set the backup log filename
+			$old = substr( $log_file, -4 ) . '.1.log';
 
-		// This is needed because, Macs don't read EOLs well.
-		if ( ! ini_get( 'auto_detect_line_endings' ) ) {
-			ini_set( 'auto_detect_line_endings', true );
+			// Check if an old filelog exists
+			if ( file_exists( $old ) ) {
+				// It exists, so delete it
+				unlink( $old );
+			}
+
+			// Rename the current log to the old log
+			rename( $log_file, $old );
+
+			// Create an empty log file
+			file_put_contents( $log_file, '' );
 		}
 
-	}
-
-	/**
-	* Logs a message to either a file or STDERR
-	*
-	* After initializing the log object, this should be the only
-	* method with which you interact.
-	*
-	*
-	* <code>
-	* $log = new Log( '/full/path/to/mylog' );
-	* $log->log( 'Write this to a file', 'INFO' );
-	* $log->log( 'Warning message to console', 2, 'console' );
-	* $log->log( 'This message will go to both the console and the log', 3, 'both');
-	* </code>
-	*
-	*
-	* @param   string  $message      message to log
-	* @param   mixed   $level        either int or string of log level
-	* @param   string  $destination  where the message should appear:
-	*                                valid options: 'file', 'console', 'both'
-	* @since 1.0.0
-	*/
-	public function log( $message, $level = 'INFO', $destination = '', $trace = 0 ) {
-
-		// Set the destination to the default if not implied
-		if ( empty( $destination ) ) {
-			$destination = $this->default_destination;
+		/**
+		 * Normalizes the log level, returning 'INFO' or 1 if invalid
+		 * @param  integer|string $level the level represented as either a string or an integer
+		 * @return string        	the name of the log level
+		 */
+		private function normalize_log_level( $level ) {
+			// Check if the log level is numeric
+			if ( is_numeric( $level ) ) {
+				// It is numeric, so check if it is valid
+				if ( isset( self::$log_levels[ $level ] ) ) {
+					// It is valid, so return the name of the level
+					return self::$log_levels[ $level ];
+				} else {
+					// The level is numeric but not valid, so log a warning to the console, and
+					// return log level 1.
+					self::console( "Log level {$level} is not valid. Setting to log level 1." );
+					return self::$log_levels[1]; // This is an assumption note an error here
+				}
+			}
+			// It is not numeric, so check if it is in the log levels array
+			if ( in_array( $level, self::$log_levels ) ) {
+				// It is in the array, so return the value passed
+				return $level;
+			}
+			// The log level is a string but is not valid, so log an error to the console
+			// and return log level 1.
+			self::console( "Log level {$level} is not valid. Setting to log level 1." );
+			return self::$log_levels[1]; // This is an assumption, note an error here
 		}
 
-		// Get the relevant information from the backtrace
-		$this->trace = debug_backtrace();
-		$this->trace = $this->trace[ $trace ];
-		$this->file  = basename( $this->trace['file'] );
-		$this->line  = $this->trace['line'];
+		/**
+		 * Fetches information from a stack trace
+		 * @param  boolean|integer $depth How far to do the trace, default is the last
+		 * @return string          the file and line number of the trace
+		 */
+		private function trace( $depth = false ) {
 
-		// check / normalize the arguments
-		$this->level = $this->normalize_log_level( $level );
-		$destination = strtolower( $destination );
+			// Get the relevant information from the backtrace
+			$trace = debug_backtrace();
+			// Check if the dpeth is defined, and if the depth is within the trace
+			if ( $depth && isset( $trace[ $depth ] ) ) {
+				// The depth is defined, see if it is negative
+				if ( $depth < 0 ) {
+					// It's negative, so translate that to a positive number that we can use.
+					$depth = count( $trace ) + $depth - 1;
+				}
+				// Get the explicit trace
+				$trace = $trace[ $depth ];
+			} else {
+				// Just get the last trace.
+				$trace = end( $trace );
+			}
 
-		if ( 'file' == $destination || 'both' == $destination ) {
-			$this->log_file( $message );
-		}
-		if ( 'console' == $destination || 'both' == $destination ) {
-			$this->log_console( $message );
-		}
+			// Set the filename
+			$file  = basename( $trace['file'] );
+			// Set the line number
+			$line  = $trace['line'];
 
-	}
-
-	/**
-	* Creates log directory and file if necessary
-	* @since 1.0.0
-	*/
-	private function initialize_log() {
-		if ( ! file_exists( $this->log ) ) {
-			if ( ! is_dir( realpath( dirname( $this->log ) ) ) ) {
-				mkdir( dirname( $this->log ), 0775, true ); }
-			file_put_contents( $this->log, '' );
-		}
-	}
-
-
-	/**
-	* Checks to see if the log needs to be rotated
-	* @since 1.0.0
-	*/
-	private function check_log() {
-		if ( filesize( $this->log ) > 1048576 ) {
-			$this->rotate_log();
-		}
-	}
-
-
-	/**
-	* Rotates the log
-	* @since 1.0.0
-	*/
-	private function rotate_log() {
-		$old = substr( $this->log, -4 );
-		if ( file_exists( $old . '1.log' ) ) {
-			unlink( $old . '1.log' );
+			return "{$file}:{$line}";
 		}
 
-		rename( $this->log, $old . '1.log' );
-		file_put_contents( $this->log, '' );
-	}
 
-	/**
-	* Ensures that the log level is valid
-	*
-	* @param   mixed  $level   either an int or a string denoting log level
-	*
-	* @return  string          log level as string
-	* @since 1.0.0
-	*/
-	public function normalize_log_level( $level ) {
-
-		$date = date( 'H:i:s', time() );
-
-		// If the level is okay, then just return it
-		if ( isset( self::$log_levels[ $level ] ) || in_array( $level, self::$log_levels ) ) {
-			return $level;
+		/**
+		 * Checks if a log level is within a display threshold
+		 * @param  mixed  $level  Either a string or a
+		 * @return boolean        Whether or not a value is above the logging threshold
+		 */
+		private function is_loggable( $level ) {
+			// First, check is the level is numeric
+			if ( ! is_numeric( $level ) ) {
+				// It is not numeric, so let's translate it to a number
+				$level = array_search( $level, self::$log_levels ); // This needs error checking
+			}
+			// Return a boolean of whether or not the level is less than or equal to the logging threshold
+			return $level >= self::get_threshold();
 		}
 
-		// the level is invalid; log a message to the console
-		file_put_contents( 'php://stderr', "[{$date}] " .
-			"[{$this->file},{$this->line}] [WARNING] Log level '{$level}' " .
-		"is not valid. Falling back to 'INFO' (1)" . PHP_EOL );
+		/**
+		 * Gets the threshold for log messages
+		 *
+		 * @todo Implement exception for bad log level
+		 *
+		 * @return integer  an integer matching a log level
+		 */
+		private function get_threshold() {
+			// Check is the threshold is defined as a number
+			if ( is_numeric( ALPHRED_LOG_LEVEL ) ) {
+				// It is, so just return that number
+				return ALPHRED_LOG_LEVEL;
+			} else if ( in_array( ALPHRED_LOG_LEVEL, self::$log_levels ) ) {
+				// The threshold is not defined as a number, but it is a string defined
+				// in the log_levels, so return the number
+				return array_search( ALPHRED_LOG_LEVEL, self::$log_levels );
+			} else {
+				// The threshold is not a number, and it is not a string that is in the
+				// log_levels, so throw an exception and return 0.
+				throw new Exception( "Alphred Log Level is not a valid level" );
+				return 0;
+			}
+		}
 
-		// set level to info
-		return 'INFO';
-	}
+		/**
+		 * Gets the time formatted for a console display log
+		 * @return string the time as HH:MM:SS
+		 */
+		private function date_console() {
+			return date( 'H:i:s', time() );
+		}
 
-	/**
-	* Writes a message to the console (STDERR)
-	*
-	* @param string  $message  message to log
-	* @since 1.0.0
-	*/
-	public function console( $message ) {
-		$date = date( 'H:i:s', time() );
-		file_put_contents( 'php://stderr', "[{$date}] " .
-		"[{$this->file}:{$this->line}] [{$this->level}] {$message}" . PHP_EOL );
-	}
-
-	/**
-	* Writes message to log file
-	*
-	* @param string  $message  message to log
-	* @since 1.0.0
-	*/
-	public function file( $message ) {
-		$date = date( 'Y-m-d H:i:s' );
-		$message = "[{$date}] [{$this->file}:{$this->line}] " .
-			   "[{$this->level}] ". $message . PHP_EOL;
-		file_put_contents( $this->log, $message, FILE_APPEND | LOCK_EX );
-	}
-
-
+		/**
+		 * Gets a datestamp formatted for a file log
+		 * @return string Formatted as YYYY-MM-DD HH:MM:SS
+		 */
+		private function date_file() {
+ 			return date( 'Y-m-d H:i:s' );
+		}
 }

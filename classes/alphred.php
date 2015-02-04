@@ -1,6 +1,6 @@
 <?php
 /**
- * Entry point for the library
+ * Entry point for the library. Sets the environment.
  *
  * `Alphred.phar` can be used in two main ways...
  *
@@ -21,16 +21,30 @@
 // Set the version of the library as a constant
 define( 'ALPHRED_VERSION',   '0.1.0' );
 
-// Define the log level if not already defined
+// Parse the INI file early, if it exists
+ALPHRED_PARSE_INI();
+
+// This is needed because, Macs don't read EOLs well.
+if ( ! ini_get( 'auto_detect_line_endings' ) ) {
+	ini_set( 'auto_detect_line_endings', true );
+}
+
+// Set date/time to avoid warnings/errors.
+if ( ! ini_get( 'date.timezone' ) ) {
+	ini_set( 'date.timezone', exec( 'tz=`ls -l /etc/localtime` && echo ${tz#*/zoneinfo/}' ) );
+}
+
+// Define the log level if not already defined, either in code or in the INI file
 if ( ! defined( 'ALPHRED_LOG_LEVEL' ) ) {
 	define( 'ALPHRED_LOG_LEVEL', 2 );
 }
 
+if ( ! defined( 'ALPHRED_LOG_SIZE' ) ) {
+	define( 'ALPHRED_LOG_SIZE', 1048576 );
+}
+
+// We might need to set the type: http://php.net/manual/en/function.iconv.php#74101
 // setlocale( LC_CTYPE, exec('defaults read -g AppleLocale') );
-// setlocale( LC_CTYPE, 'de_DE' );
-
-ALPHRED_PARSE_INI();
-
 
 # These replicate Alfred Workflow
 # ####
@@ -76,10 +90,6 @@ if ( ! ( isset( $argv ) && ( 'Alphred.phar' === basename( $argv[0] ) || 'Alphred
 	require_once( __DIR__ . '/Web.php' );
 } else {
 	// Alphred was invoked as a command, so....
-	// Set date/time to avoid warnings/errors.
-	if ( ! ini_get( 'date.timezone' ) ) {
-		ini_set( 'date.timezone', exec( 'tz=`ls -l /etc/localtime` && echo ${tz#*/zoneinfo/}' ) );
-	}
 
 	if ( '2014' === date( 'Y', time() ) ) {
 		define( 'ALPHRED_COPYRIGHT', '2014' );
