@@ -30,50 +30,69 @@ class Filter {
 		 * @todo Re-think about the way to call this function
 		 */
 
+		// Initialize an empty results array
 		$results = [];
 
+		// Go through each item in the "haystack" array
 		foreach ( $haystack as $row ) :
 
+			// Start with a score of 0
 			$score = 0;
 
+			// Treat each word in "needle" as separate
 			$words = explode( ' ', $needle );
+			// trim the whitespace off the needles
 			array_walk( $words, 'trim' );
 
+			// If a key was specified, use that; otherwise, just use the value of the row
 			if ( $key ) {
 				$value = $row[$key];
 			} else {
 				$value = $row;
 			}
 
+			// If the value is empty, then don't bother searching. We got whitespace.
 			if ( empty( trim( $value ) ) )
 				continue;
 
+			// Foreach word, do a search
 			foreach( $words as $word ) :
 
+				// If the word is empty, then don't bother searching
 				if ( empty( $word ) )
 					continue;
 
+				// Perform the search
 				$result = self::filter_item( $value, $word, $flags, $fold_diacritics );
-				if ( ! $result[0] )
+				// Check is a score was sent back that was not 0. If it was 0, then just
+				// continue because it didn't matter
+				if ( ! $result[0] ) {
 					continue;
+				}
+				// It did matter! And so augment the score.
 				$score += $result[0];
 
 			endforeach;
 
+			// If the score is greater than 0, then include it in the results
 			if ( $score > 0 ) {
 				$results[] = [ $score, $row ];
 			}
 
 		endforeach;
 
+		// Sort the array by score
 		usort( $results, 'self::sort_by_score' );
+		// If we have a max result set, then take the top results
 		if ( isset( $max ) && ( count( $results ) > $max ) ) {
 			$results = array_slice( $results, 0, $max );
 		}
 
+		// Right now, we're just returning the values without the scores.
 		foreach ($results as $key => $value ) :
 			$results[$key] = $value[1];
 		endforeach;
+		// Return the sorted results
 		return $results;
 	}
 
