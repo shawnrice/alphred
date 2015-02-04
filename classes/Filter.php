@@ -23,7 +23,7 @@ class Filter {
 	 * @param string  	$key      [description]
 	 * @param [type]  	$flags    [description]
 	 */
-	public function Filter( $haystack, $needle, $max = false, $key = false, $flags = MATCH_ALLCHARS ) {
+	public function Filter( $haystack, $needle, $max = false, $key = false, $flags = MATCH_ALLCHARS, $fold_diacritics = true ) {
 		/**
 		 * @todo Add in min-score
 		 * @todo Add in return score option
@@ -53,7 +53,7 @@ class Filter {
 				if ( empty( $word ) )
 					continue;
 
-				$result = self::filter_item( $value, $word, $flags, false );
+				$result = self::filter_item( $value, $word, $flags, $fold_diacritics );
 				if ( ! $result[0] )
 					continue;
 				$score += $result[0];

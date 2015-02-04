@@ -26,6 +26,9 @@ if ( ! defined( 'ALPHRED_LOG_LEVEL' ) ) {
 	define( 'ALPHRED_LOG_LEVEL', 2 );
 }
 
+// setlocale( LC_CTYPE, exec('defaults read -g AppleLocale') );
+// setlocale( LC_CTYPE, 'de_DE' );
+
 ALPHRED_PARSE_INI();
 
 

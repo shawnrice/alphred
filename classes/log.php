@@ -40,7 +40,13 @@ class Log {
 	* @var  array
 	* @since 1.0.0
 	*/
-	protected $log_levels;
+	protected $log_levels = [
+								0 => 'DEBUG',
+							  1 => 'INFO',
+							  2 => 'WARNING',
+							  3 => 'ERROR',
+							  4 => 'CRITICAL',
+		];
 
 	/**
 	* Stacktrace information; reset with each message
@@ -104,14 +110,7 @@ class Log {
 			$this->default_destination = $destination;
 		}
 
-		// These are the appropriate log levels
-		$this->log_levels = array(
-								0 => 'DEBUG',
-							  1 => 'INFO',
-							  2 => 'WARNING',
-							  3 => 'ERROR',
-							  4 => 'CRITICAL',
-		);
+
 
 		// Set date/time to avoid warnings/errors.
 		Date::avoid_date_errors();
@@ -221,7 +220,7 @@ class Log {
 		$date = date( 'H:i:s', time() );
 
 		// If the level is okay, then just return it
-		if ( isset( $this->log_levels[ $level ] ) || in_array( $level, $this->log_levels ) ) {
+		if ( isset( self::$log_levels[ $level ] ) || in_array( $level, self::$log_levels ) ) {
 			return $level;
 		}
 
@@ -240,7 +239,7 @@ class Log {
 	* @param string  $message  message to log
 	* @since 1.0.0
 	*/
-	public function log_console( $message ) {
+	public function console( $message ) {
 		$date = date( 'H:i:s', time() );
 		file_put_contents( 'php://stderr', "[{$date}] " .
 		"[{$this->file}:{$this->line}] [{$this->level}] {$message}" . PHP_EOL );
@@ -252,7 +251,7 @@ class Log {
 	* @param string  $message  message to log
 	* @since 1.0.0
 	*/
-	public function log_file( $message ) {
+	public function file( $message ) {
 		$date = date( 'Y-m-d H:i:s' );
 		$message = "[{$date}] [{$this->file}:{$this->line}] " .
 			   "[{$this->level}] ". $message . PHP_EOL;
