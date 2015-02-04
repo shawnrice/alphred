@@ -24,6 +24,11 @@ class Filter {
 	 * @param [type]  	$flags    [description]
 	 */
 	public function Filter( $haystack, $needle, $max = false, $key = false, $flags = MATCH_ALLCHARS ) {
+		/**
+		 * @todo Add in min-score
+		 * @todo Add in return score option
+		 * @todo Re-think about the way to call this function
+		 */
 
 		$results = [];
 
@@ -66,7 +71,10 @@ class Filter {
 			$results = array_slice( $results, 0, $max );
 		}
 
-		print_r( $results );
+		foreach ($results as $key => $value ) :
+			$results[$key] = $value[1];
+		endforeach;
+		return $results;
 	}
 
 	/**
