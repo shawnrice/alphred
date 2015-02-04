@@ -24,6 +24,16 @@ class Log {
 							  4 => 'CRITICAL',
 		];
 
+		/**
+		 * Log a message to a file
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param  string  					$message  the message to log
+		 * @param  integer|string 	$level    the log level
+		 * @param  string  					$filename the filename of the log without an extension
+		 * @param  boolean|integer 	$trace    how far back to trace
+		 */
 		public function file( $message, $level = 1, $filename = 'workflow', $trace = false ) {
 
 			// Check if the log level is loggable based on the threshold.
@@ -53,6 +63,8 @@ class Log {
 		/**
 		 * Log a message to the console (STDERR)
 		 *
+		 * @since 1.0.0
+		 *
 		 * @param  string  					$message the message to log
 		 * @param  string|integer 	$level   the log level
 		 * @param  boolean|integer 	$trace   how far back to trace
@@ -78,6 +90,9 @@ class Log {
 
 		/**
 		 * Gets the full filepath to the log file
+		 *
+		 * @since 1.0.0
+		 *
 		 * @param  string $filename a filename for a log file
 		 * @return string           the full filepath for a log file
 		 */
@@ -94,6 +109,8 @@ class Log {
 
 		/**
 		 * Creates the workflow's data directory if it does not exist.
+		 *
+		 * @since 1.0.0
 		 */
 		private function create_log_directory() {
 			$directory = \Alphred\Globals::get( 'alfred_workflow_data' );
@@ -106,6 +123,7 @@ class Log {
 
 		/**
 		* Checks to see if the log needs to be rotated
+		*
 		* @since 1.0.0
 		*/
 		private function check_log( $filename ) {
@@ -122,6 +140,7 @@ class Log {
 
 		/**
 		* Rotates the log
+		*
 		* @since 1.0.0
 		*/
 		private function rotate_log( $filename ) {
@@ -146,6 +165,9 @@ class Log {
 
 		/**
 		 * Normalizes the log level, returning 'INFO' or 1 if invalid
+		 *
+		 * @since 1.0.0
+		 *
 		 * @param  integer|string $level the level represented as either a string or an integer
 		 * @return string        	the name of the log level
 		 */
@@ -176,6 +198,9 @@ class Log {
 
 		/**
 		 * Fetches information from a stack trace
+		 *
+		 * @since 1.0.0
+		 *
 		 * @param  boolean|integer $depth How far to do the trace, default is the last
 		 * @return string          the file and line number of the trace
 		 */
@@ -208,6 +233,9 @@ class Log {
 
 		/**
 		 * Checks if a log level is within a display threshold
+		 *
+		 * @since 1.0.0
+		 *
 		 * @param  mixed  $level  Either a string or a
 		 * @return boolean        Whether or not a value is above the logging threshold
 		 */
@@ -225,6 +253,7 @@ class Log {
 		 * Gets the threshold for log messages
 		 *
 		 * @todo Implement exception for bad log level
+		 * @since 1.0.0
 		 *
 		 * @return integer  an integer matching a log level
 		 */
@@ -247,6 +276,9 @@ class Log {
 
 		/**
 		 * Gets the time formatted for a console display log
+		 *
+		 * @since 1.0.0
+		 *
 		 * @return string the time as HH:MM:SS
 		 */
 		private function date_console() {
@@ -255,6 +287,9 @@ class Log {
 
 		/**
 		 * Gets a datestamp formatted for a file log
+		 *
+		 * @since 1.0.0
+		 *
 		 * @return string Formatted as YYYY-MM-DD HH:MM:SS
 		 */
 		private function date_file() {
