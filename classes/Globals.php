@@ -73,7 +73,7 @@ class Globals {
 	 * @return string 	the bundle id of the running workflow
 	 */
 	public static function bundle() {
-		return Globals::get( 'alfred_workflow_bundleid' );
+		return self::get( 'alfred_workflow_bundleid' );
 	}
 
 }
