@@ -98,7 +98,21 @@ if ( ! ( isset( $argv ) && ( 'Alphred.phar' === basename( $argv[0] ) || 'Alphred
 		define( 'ALPHRED_COPYRIGHT', '2014–' . date( 'Y', time() ) );
 	}
 
+	// An array of possible commands...
+	$commands = [ 'create-server-scripts' => 'Creates the scripts to run your workflow through the CLI server SAPI'];
+
+	// Parse the options
 	$options = getopt( 'h', [ 'help' ] );
+
+	// There was no command, so we'll just assume that they wanted the help
+	if ( ! isset( $argv[1] ) ) {
+		$options['h'] = true;
+	}
+
+	// If the command sent wasn't in the commands array, then show the help
+	if ( ! isset( $commands[ trim( $argv[1] ) ] ) ) {
+		$options['h'] = true;
+	}
 
 	// They asked for the help file.
 	if ( isset( $options['h'] ) || isset( $options['help'] ) ) {
@@ -109,9 +123,45 @@ if ( ! ( isset( $argv ) && ( 'Alphred.phar' === basename( $argv[0] ) || 'Alphred
 
 		// Print the text of the help
 		print $text;
+		print "---------------------------\n";
+		print "Commands:\n";
+		foreach ( $commands as $command => $help ) :
+			print "\t{$command}:\t {$help}\n";
+		endforeach;
 		// Exit with status 0
 		exit(0);
 	}
+
+	// This just copies the `server.sh`, `kill.sh`, `server.php` scripts into the current directory, and
+	// then displays the server help.
+	if ( 'create-server-scripts' == trim( $argv[1] ) ) {
+		switch ( strtolower( alphred_confirm_create_server_scripts() ) ):
+			case 'y':
+			case 'yes':
+				switch ( strtolower( alphred_confirm_create_server_scripts_path() ) ):
+					case 'y':
+					case 'yes':
+						// foreach( [ 'server.sh', 'kill.sh', 'server.php' ] as $file ) :
+						// 	file_put_contents( $_SERVER['PWD'] . "/{$file}", file_get_contents( __DIR__ . "/../scripts/{$file}" ) );
+						// endforeach;
+						$text = file_get_contents( __DIR__ . '/../commands/server-scripts.txt');
+						$text = str_replace( 'ALPHRED_VERSION', ALPHRED_VERSION, $text );
+						print $text;
+						break;
+					case 'n':
+					case 'no':
+					default:
+						print "Canceled script creation.\n";
+						break;
+				endswitch;
+				break;
+			case 'n':
+			case 'no':
+				print "Canceled script creation.\n";
+				break;
+		endswitch;
+	}
+
 }
 
 
@@ -120,4 +170,32 @@ function ALPHRED_PARSE_INI() {
 	// if ( file_exists( $_SERVER['PWD'] . '/workflow.ini' ) ) {
 	// 	print_r( parse_ini_file( $_SERVER['PWD'] . '/workflow.ini', true ) );
 	// }
+}
+
+
+function alphred_confirm_create_server_scripts() {
+	$answers = [ 'y', 'yes', 'n', 'no' ];
+	$line = readline("Do you want to create the server scripts to run this workflow from a CLI Server SAPI? (Y/n): ");
+	if ( empty( $line ) ) {
+		$line = 'Y';
+	}
+	if ( in_array( strtolower( $line ), $answers ) ) {
+		return $line;
+	} else {
+		return alphred_confirm_create_server_scripts();
+	}
+}
+
+function alphred_confirm_create_server_scripts_path() {
+	$answers = [ 'y', 'yes', 'n', 'no' ];
+	$path = $_SERVER['PWD'];
+	$line = readline("Files will be created at $path. Continue? (Y/n): ");
+	if ( empty( $line ) ) {
+		$line = 'Y';
+	}
+	if ( in_array( strtolower( $line ), $answers ) ) {
+		return $line;
+	} else {
+		return alphred_confirm_create_server_scripts_location();
+	}
 }
