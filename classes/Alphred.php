@@ -90,7 +90,8 @@ if ( ! ( isset( $argv ) && ( 'Alphred.phar' === basename( $argv[0] ) || 'Alphred
 	require_once( __DIR__ . '/Text.php' );
 	require_once( __DIR__ . '/Web.php' );
 } else {
-	// Alphred was invoked as a command, so....
+	// Alphred was invoked as a command, so let's include the cli-functions file that contains, well
+	// most of the functions for using Alphred.phar as a cli utility.
 	require_once( __DIR__ . '/../commands/cli-functions.php' );
 
 	if ( '2014' === date( 'Y', time() ) ) {
@@ -120,19 +121,7 @@ if ( ! ( isset( $argv ) && ( 'Alphred.phar' === basename( $argv[0] ) || 'Alphred
 
 	// They asked for the help file.
 	if ( isset( $options['h'] ) || isset( $options['help'] ) ) {
-		// Get the help command from the embedded text file
-		$text = str_replace( 'ALPHRED_VERSION', ALPHRED_VERSION, file_get_contents( __DIR__ . '/../commands/help.txt' ) );
-		// Update the copyright year
-		$text = str_replace( 'ALPHRED_COPYRIGHT', ALPHRED_COPYRIGHT, $text );
-
-		// Print the text of the help
-		print $text;
-		print "---------------------------\n";
-		print "Commands:\n";
-		foreach ( $commands as $command => $help ) :
-			print "\t{$command}:\t {$help}\n";
-		endforeach;
-		// Exit with status 0
+		print_alphred_help( $commands );
 		exit(0);
 	}
 
@@ -215,6 +204,24 @@ class Alphred {
 		$this->filter = new \Alphred\ScriptFilter( $options );
 	}
 
+
+	public function background( $script, $args = false ) {
+		// Make sure that the script
+		if ( ! file_exists( $script ) ) {
+			throw new Exception( "Script `{$script}` does not exist.", 4 );
+		}
+		if ( $args ) {
+			if ( is_array( $args ) ) {
+				// Turn $args into a string if we were passed an array
+				$args = implode( ' ', $args );
+			} else {
+				// Quote args if it is a string
+				$args = "'{$args}'";
+			}
+			$args = str_replace( '"', '\"', $args );
+		}
+		exec( "/usr/bin/nohup php '{$script}' {$args}  >/dev/null 2>&1 &", $output, $return );
+	}
 
 	private function parse_ini_file() {
 		$ini = parse_ini_file( $_SERVER['PWD'] . '/workflow.ini', true );
