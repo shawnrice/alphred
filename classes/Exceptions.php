@@ -31,7 +31,12 @@ class Exception extends \Exception {
 /**
  * Thrown when trying to instantiate a class that is written to be used as static only.
  */
-class UseOnlyAsStatic					extends Exception {}
+class UseOnlyAsStatic					 extends Exception {}
+
+/**
+ * This is thrown when trying to use functions that require variables set by Alfred
+ */
+class RunningOutsideOfAlfred   extends Exception {}
 
 
 class InvalidKeychainAccount   extends Exception {}
@@ -41,5 +46,6 @@ class InvalidSecurityAction		 extends Exception {}
 class UnknownSecurityException extends Exception {}
 
 
-
-
+class TooManyArguments  	     extends Exception {}
+class InvalidXMLProperty			 extends Exception {}
+class ShouldBeBool			 			 extends Exception {}

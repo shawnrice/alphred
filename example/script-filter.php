@@ -24,6 +24,8 @@ if ( isset( $argv[1] ) ) {
 
 // print "Query: '{$query}'\n";
 
+$workflow = new Alphred(['error_on_empty' => true ]);
+
 $filter = new Alphred\ScriptFilter;
 
 // We want to use the built-in configuration utility, and we'll go ahead and use the standard
@@ -76,7 +78,7 @@ $request = new Alphred\Request( "https://api.github.com/users/{$username}/repos"
 $request->set_headers([ 'Accept: application/vnd.github.v3+json' ]);
 
 // Github also demands that we set a user-agent
-$request->add_user_agent( 'something goes here' );
+$request->set_user_agent( 'something goes here' );
 
 // Github gives us a default of 30 repos in the response, but we can push it to 100
 $request->add_parameter( 'per_page', 100 );
@@ -95,7 +97,7 @@ if ( ! empty( $query ) ) {
 	// So, Alpred's filter will filter out all things that don't match the query, and it will also
 	// reorganize the array so that the highest match is at the top. Granted, Alfred will override
 	// the sort order if a uid is present.
-	$matches = Alphred\Filter::Filter($repos, $query, 30, 'name', MATCH_ALL );
+	$matches = Alphred\Filter::Filter($repos, $query, 30, 'name', 37 );
 } else {
 	// There was no query, so the answer is the full set
 	$matches = $repos;
@@ -109,7 +111,7 @@ foreach ( $matches as $match ) :
 	// modify them over the course of the script, we'll just create the Result object in the `add_result`
 	// method call.
 	$icon = 'icons/octoface-light.png';
-	$filter->add_result( new Alphred\Result([
+	$workflow->add_result( [
 	    // I want Alfred to show the name of the repo as the ttle
 	    'title' 	 			 => $match['name'],
 	    // We'll add in the appropriate icon
@@ -130,8 +132,8 @@ foreach ( $matches as $match ) :
 	    'uid' 		 			 => $match['name'],
 	    'arg'      			 => $match['html_url'],
 	    'valid'    			 => true
-	]));
+	]);
 endforeach;
 
 // Send out the script filter XML
-$filter->to_xml();
+$workflow->to_xml();

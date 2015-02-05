@@ -193,7 +193,7 @@ function ALPHRED_PARSE_INI() {
 class Alphred {
 
 
-	public function construct( $options = [], $plugins = false ) {
+	public function __construct( $options = [], $plugins = false ) {
 
 		// We did already parse the INI file on a global scale when loading the library, but
 		// we're going to parse it again for some functionality that we need here, such as
@@ -202,8 +202,12 @@ class Alphred {
 
 		// We'll always create a script filter object to use
 		$this->filter = new \Alphred\ScriptFilter( $options );
+
 	}
 
+	public function to_xml() {
+		$this->filter->to_xml();
+	}
 
 	public function background( $script, $args = false ) {
 		// Make sure that the script
@@ -227,17 +231,22 @@ class Alphred {
 		$ini = parse_ini_file( $_SERVER['PWD'] . '/workflow.ini', true );
 
 		if ( isset( $ini['alphred:plugins'] ) ) {
-			$this->load_plugins( $ini['alphred_plugins'] );
+			$this->load_plugins( $ini['alphred:plugins'] );
 		}
 
 	}
 
 	/**
 	 * [add description]
-	 * @param array $item an array of values to parse that construct an Alphred\Response object
+	 * @param array $item an array of values to parse that construct an Alphred\Result object
 	 */
-	public function add( $item ) {
+	public function add_result( $item, $options = [] ) {
 		// Adds items to a script filter
+		if ( $function = $this->get_plugin_function( __FUNCTION__ ) ) {
+			return call_user_func_array( $function, [ $item, $options ] );
+		}
+		// Default functionality
+		return $this->filter->add_result( new \Alphred\Result( $item ) );
 
 	}
 
@@ -303,6 +312,46 @@ class Alphred {
 		}
 		// Default functionality
 		return \Alphred\Keychain::save_password( $account, $password, true, null );
+	}
+
+	/**
+	 * Creates an AppleScript dialog to enter a password securely
+	 *
+	 * Note: this will return 'canceled' if the user presses the 'cancel' button
+	 *
+	 * @param  string|boolean $text  		the text for the dialog
+	 * @param  string|boolean $title 		the title of the dialog; defaults to the workflow name
+	 * @param  string|boolean $icon  		An icon to use with the dialog box
+	 * @param  array 					$options  Unused, but can be used by a plugin
+	 * @return string         the result of the user-input
+	 */
+	public function get_password_dialog( $text = false, $title = false, $icon = false, $options = [] ) {
+		// This makes the function pluggable, (i.e. overrideable)
+		if ( $function = $this->get_plugin_function( __FUNCTION__ ) ) {
+			return call_user_func_array( $function, [ $text, $title, $icon, $options ] );
+		}
+		// Default functionality
+		// Set the default text
+		if ( ! $text ) {
+			$text = 'Please enter the password.';
+		}
+		// Set the default title to be that of the workflow's name
+		if ( ! $title ) {
+			$title = \Alphred\Globals::get( 'alfred_workflow_name' );
+		}
+		// Create hidden answer AppleScript dialog
+		$dialog = new \Alphred\Dialog([
+		  'text' => $text,
+		  'title' => $title,
+		  'default_answer' => '',
+		  'hidden_answer' => true
+		]);
+		// If there was an icon, then set it
+		if ( $icon ) {
+			$dialog->set_icon( $icon );
+		}
+		// Execute the dialog and return the result
+		return $dialog->execute();
 	}
 
 

@@ -89,6 +89,30 @@ class Log {
 		}
 
 		/**
+		 * Log a message to both a file and the console
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param  string  					$message  the message to log
+		 * @param  integer|string 	$level    the log level
+		 * @param  string  					$filename the filename of the log without an extension
+		 * @param  boolean|integer 	$trace    how far back to trace
+		 */
+		public function log( $message, $level = 1, $filename = 'workflow', $trace = false ) {
+			// Check if the log level is loggable based on the threshold.
+			// The threshold is defined as the constant ALPHED_LOG_LEVEL, and defaults to level 2 (WARNING).
+			// Change this either in the workflow.ini file or by defining the constant ALPHRED_LOG_LEVEL
+			// before you include Alphred.phar.
+			if ( ! self::is_loggable( $level ) ) {
+				return false;
+			}
+			// Log message to console
+			self::console( $message, $level, $trace );
+			// Log message to file
+			self::file( $message, $level, $filename, $trace );
+		}
+
+		/**
 		 * Gets the full filepath to the log file
 		 *
 		 * @since 1.0.0

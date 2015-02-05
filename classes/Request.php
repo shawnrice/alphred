@@ -16,14 +16,22 @@ class Request {
 	 */
 	private $object;
 
-	public function __construct( $url = false, $options = array( 'cache' => true, 'cache_life' => 3600 ) ) {
+	public function __construct( $url = false, $options = array( 'cache' => true, 'cache_life' => 3600, 'cache_bin' => true ) ) {
 
 		$this->handler = curl_init();
 		$this->object['request_type'] = 'get';
 
+		// Here we can automatically set the cache bin to the URL hostname
+		if ( true == $options[ 'cache_bin' ] && $url ) {
+			$options[ 'cache_bin' ] = parse_url( $url, PHP_URL_HOST );
+		}
+
 		if ( isset( $options['cache'] ) && $options['cache'] ) {
 			if ( isset( $options['cache_life'] ) ) {
 				$this->cache_life = $options['cache_life'];
+			}
+			if ( isset( $options['cache_bin'] ) ) {
+				$this->cache_bin = $options['cache_bin'];
 			}
 		}
 
@@ -54,15 +62,25 @@ class Request {
 		}
 		if ( isset( $this->cache_life ) ) {
 			if ( $data = $this->get_cached_data() ) {
-				file_put_contents( 'php://stderr', 'Getting the data from the cache, age: ' . $this->get_cache_age() );
+				// Debug-level log message
+				\Alphred\Log::log( "Getting the data from cache, aged " . $this->get_cache_age() . " seconds.", 0, 'debug' );
+
+				// Close the cURL handler for good measure
 				curl_close( $this->handler );
+
+				// Return the data
 				return $data;
 			}
 		}
 
 		$this->results = curl_exec( $this->handler );
 		curl_close( $this->handler );
-		$this->save_cache_data( $this->results );
+
+		// Cache the data if the cache life is greater than 0 seconds
+		if ( isset( $this->cache_life ) && ( $this->cache_life > 0 ) ) {
+			$this->save_cache_data( $this->results );
+		}
+
 		return $this->results;
 
 	}
@@ -91,7 +109,7 @@ class Request {
 	}
 
 
-	public function add_user_agent( $agent ) {
+	public function set_user_agent( $agent ) {
 		curl_setopt( $this->handler, CURLOPT_USERAGENT, $agent );
 		$this->object['agent'] = $agent;
 	}
@@ -146,7 +164,7 @@ class Request {
 	private function get_cached_data() {
 
 		// Does the cache file exist?
-		if ( ! file_exists( $this->cache_file() ) ) {
+		if ( ! file_exists( $this->get_cache_file() ) ) {
 			return false;
 		}
 
@@ -157,60 +175,76 @@ class Request {
 
 		// Has the has expired?
 		if ( $this->cache_life < $this->get_cache_age() ) {
+
+			// Debug-level log message
+			\Alphred\Log::log( "Expiring cache file `" . $this->get_cache_file() . "`", 0, 'debug' );
+
 			// Delete the old cached entry
-			unlink( $this->cache_file() );
+			unlink( $this->get_cache_file() );
 			return false;
 		}
 
 		// Return the contents of the cached file
-		return file_get_contents( $this->cache_file() );
+		return file_get_contents( $this->get_cache_file() );
 
 	}
 
 	private function save_cache_data( $data ) {
 		// Make sure that the cache directory exists
 		$this->create_cache_dir();
-	  file_put_contents( 'php://stderr', 'Saving data to "' . $this->cache_file() . '"' );
+
+		// Debug-level log message
+		\Alphred\Log::log( "Saving cached data to `" . $this->get_cache_file() . "`", 0, 'debug' );
+
 		// Save the data
-		file_put_contents( $this->cache_file(), $data );
+		file_put_contents( $this->get_cache_file(), $data );
 	}
 
-	private function cache_key() {
+	/**
+	 * Creates a cache key based on the request object
+	 *
+	 * @return string 	a cache key
+	 */
+	private function get_cache_key() {
 		return md5( json_encode( $this->object ) );
 	}
 
 	/**
-	 * [cache_file description]
+	 * Returns the file cache
 	 *
 	 * @todo Allow for cache bins (basically, sub-folders that are specified)
 	 * @return [type] [description]
 	 */
-	private function cache_file() {
-		return \Alphred\Globals::get( 'alfred_workflow_cache' ) . '/' . $this->cache_key();
+	private function get_cache_file() {
+		return $this->get_cache_dir() . '/' . $this->get_cache_key();
+	}
+
+	private function get_cache_dir() {
+		$path = \Alphred\Globals::get( 'alfred_workflow_cache' );
+		if ( isset( $this->cache_bin ) && $this->cache_bin ) {
+			$path .= '/' . $this->cache_bin;
+		}
+		return $path;
 	}
 
 	private function create_cache_dir() {
 		if ( ! \Alphred\Globals::get( 'alfred_workflow_cache' ) ) {
-			throw new Exception( "Whoops... trying to get the cache outside of a workflow environment" );
+			throw new \Alphred\RunningOutsideOfAlfred( 'Cache directory unknown', 4 );
 		}
-		if ( ! file_exists( \Alphred\Globals::get( 'alfred_workflow_cache' ) ) ) {
-			return mkdir( \Alphred\Globals::get( 'alfred_workflow_cache' ), 0775, true );
+		if ( ! file_exists( $this->get_cache_dir() ) ) {
+			// Debug-level log message
+			\Alphred\Log::log( "Creating cache dir `" . $this->get_cache_dir() . "`", 0, 'debug' );
+			return mkdir( $this->get_cache_dir(), 0775, true );
 		}
 	}
 
-
 	private function get_cache_age() {
-		if ( ! file_exists( $this->cache_file() ) ) {
+		if ( ! file_exists( $this->get_cache_file() ) ) {
 			// Cache does not exist
 			return false;
 		}
-		return time() - filemtime( $this->cache_file() );
+		return time() - filemtime( $this->get_cache_file() );
 	}
-
-
-	// So, what we need to do is to try to find a way to set the parameters and the url
-	// together to form a stable cache key that I can then save the data with.
-	//
 
 
 
