@@ -91,6 +91,7 @@ if ( ! ( isset( $argv ) && ( 'Alphred.phar' === basename( $argv[0] ) || 'Alphred
 	require_once( __DIR__ . '/Web.php' );
 } else {
 	// Alphred was invoked as a command, so....
+	require_once( __DIR__ . '/../commands/cli-functions.php' );
 
 	if ( '2014' === date( 'Y', time() ) ) {
 		define( 'ALPHRED_COPYRIGHT', '2014' );
@@ -99,7 +100,10 @@ if ( ! ( isset( $argv ) && ( 'Alphred.phar' === basename( $argv[0] ) || 'Alphred
 	}
 
 	// An array of possible commands...
-	$commands = [ 'create-server-scripts' => 'Creates the scripts to run your workflow through the CLI server SAPI'];
+	$commands = [
+		'create-server-scripts' => 'Creates the scripts to run your workflow through the CLI server SAPI',
+		'update-self-master'    => 'Updates Alphred.phar to the latest on the master branch'
+	];
 
 	// Parse the options
 	$options = getopt( 'h', [ 'help' ] );
@@ -110,7 +114,7 @@ if ( ! ( isset( $argv ) && ( 'Alphred.phar' === basename( $argv[0] ) || 'Alphred
 	}
 
 	// If the command sent wasn't in the commands array, then show the help
-	if ( ! isset( $commands[ trim( $argv[1] ) ] ) ) {
+	if ( isset( $argv[1] ) && ! isset( $commands[ trim( $argv[1] ) ] ) ) {
 		$options['h'] = true;
 	}
 
@@ -162,40 +166,218 @@ if ( ! ( isset( $argv ) && ( 'Alphred.phar' === basename( $argv[0] ) || 'Alphred
 		endswitch;
 	}
 
+	if ( 'update-self-master' == trim( $argv[1] ) ) {
+		update_alphred_from_master();
+	}
+
 }
 
 
 // This is just a placeholder for now
 function ALPHRED_PARSE_INI() {
-	// if ( file_exists( $_SERVER['PWD'] . '/workflow.ini' ) ) {
-	// 	print_r( parse_ini_file( $_SERVER['PWD'] . '/workflow.ini', true ) );
-	// }
+	if ( ! file_exists( $_SERVER['PWD'] . '/workflow.ini' ) ) {
+		// Exit early if the workflow.ini file does not exist
+		return false;
+	}
+	$ini = parse_ini_file( $_SERVER['PWD'] . '/workflow.ini', true );
+	// We can only about the Alphred section
+	$ini = $ini['alphred'];
+
+	if ( isset( $ini['log_level'] ) ) {
+		define( 'ALPHRED_LOG_LEVEL', $ini['log_level'] );
+	}
+	if ( isset( $ini['log_size'] ) ) {
+		define( 'ALPHRED_LOG_SIZE', $ini['log_size'] );
+	}
+
 }
 
 
-function alphred_confirm_create_server_scripts() {
-	$answers = [ 'y', 'yes', 'n', 'no' ];
-	$line = readline("Do you want to create the server scripts to run this workflow from a CLI Server SAPI? (Y/n): ");
-	if ( empty( $line ) ) {
-		$line = 'Y';
-	}
-	if ( in_array( strtolower( $line ), $answers ) ) {
-		return $line;
-	} else {
-		return alphred_confirm_create_server_scripts();
-	}
-}
 
-function alphred_confirm_create_server_scripts_path() {
-	$answers = [ 'y', 'yes', 'n', 'no' ];
-	$path = $_SERVER['PWD'];
-	$line = readline("Files will be created at $path. Continue? (Y/n): ");
-	if ( empty( $line ) ) {
-		$line = 'Y';
+
+/**
+ * Wrapper Class.
+ *
+ * This provides a simple wrapper for all of the important parts of the Alphred library
+ *
+ */
+class Alphred {
+
+
+	public function construct( $options = [], $plugins = false ) {
+
+		// We did already parse the INI file on a global scale when loading the library, but
+		// we're going to parse it again for some functionality that we need here, such as
+		// loading the plugins.
+		$this->parse_ini_file();
+
+		// We'll always create a script filter object to use
+		$this->filter = new \Alphred\ScriptFilter( $options );
 	}
-	if ( in_array( strtolower( $line ), $answers ) ) {
-		return $line;
-	} else {
-		return alphred_confirm_create_server_scripts_location();
+
+
+	private function parse_ini_file() {
+		$ini = parse_ini_file( $_SERVER['PWD'] . '/workflow.ini', true );
+
+		if ( isset( $ini['alphred:plugins'] ) ) {
+			$this->load_plugins( $ini['alphred_plugins'] );
+		}
+
 	}
+
+	/**
+	 * [add description]
+	 * @param array $item an array of values to parse that construct an Alphred\Response object
+	 */
+	public function add( $item ) {
+		// Adds items to a script filter
+
+	}
+
+
+	public function request_get( $options, $cache_ttl = 600 ) {
+
+	}
+	public function request_post( $options, $cache_ttl = 600 ) {
+
+	}
+	public function request_clear_cache( $bin = false ) {
+
+	}
+
+
+	// Wrappers around the config class
+	public function config_get() {
+
+	}
+	public function config_set() {
+
+	}
+	public function config_reset() {
+
+	}
+
+
+
+	public function add_commas( $list, $suffix = false ) {
+		return \Alphred\Text::add_commas_to_list( $list, $suffix );
+	}
+
+
+
+	public function notification( $options ) {
+		if ( $function = $this->get_plugin_function( __FUNCTION__ ) ) {
+			return call_user_func_array( $function, [ $account, $options ] );
+		}
+		// Default functionality
+		return \Alphred\Notification::notify( $options );
+	}
+
+
+
+	// Wrappers around the Keychain Class
+	public function get_password( $account, $options = false ) {
+		if ( $function = $this->get_plugin_function( __FUNCTION__ ) ) {
+			return call_user_func_array( $function, [ $account, $options ] );
+		}
+		// Default functionality
+		return \Alphred\Keychain::find_password( $account, null );
+	}
+	public function delete_password( $account, $options = false ) {
+		if ( $function = $this->get_plugin_function( __FUNCTION__ ) ) {
+			return call_user_func_array( $function, [ $account, $options ] );
+		}
+		// Default functionality
+		return \Alphred\Keychain::delete_password( $account, null );
+	}
+	public function save_password( $account, $password, $options = false ) {
+		if ( $function = $this->get_plugin_function( __FUNCTION__ ) ) {
+			return call_user_func_array( $function, [ $account, $password, $options ] );
+		}
+		// Default functionality
+		return \Alphred\Keychain::save_password( $account, $password, true, null );
+	}
+
+
+/// These two functions make the wrapper pluggable
+
+/**
+ * Gets the name of the function to run when a plugin overrides default functionality
+ *
+ *
+ * @param  string  $function_call    the name of the function
+ * @return string|boolean            the name of the function to call or false if no plugin is loaded
+ */
+	private function get_plugin_function( $function_call ) {
+		if ( isset( $this->plugins[ $function_call ] ) ) {
+			return $this->plugins[ $function_call ];
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * Loads a plugin to override default functionality
+	 *
+	 * @todo 	 Update for custom exception
+	 * @throws Exception
+	 *
+	 * @param  string $function_call     the name of the function to override (name of method in this wrapper)
+	 * @param  string $function 				 the name of the new function to call
+	 */
+	private function load_plugin_function( $function_call, $function ) {
+		// Check to see if the function is callable. If so, set it in the plugins array;
+		// if not, throw an exception
+		if ( is_callable( $function ) ) {
+			$this->plugins[ $function_call ] = $function;
+		} else {
+			throw new Exception( 'Bad function plugin' );
+		}
+	}
+
+	/**
+	 * Loads the plugins
+	 * @param  [type] $plugins [description]
+	 * @return [type]          [description]
+	 */
+	private function load_plugins( $plugins ) {
+		foreach( $plugins as $original => $new ) :
+			$this->load_plugin_function( $orignal, $new );
+		endforeach;
+
+	}
+
+	// Logging Functions
+
+	/**
+	 * [console description]
+	 *
+	 * @see \Alphred\Log::console()
+	 *
+	 * @param  [type]  $message [description]
+	 * @param  string  $level   [description]
+	 * @param  boolean $trace   [description]
+	 * @return [type]           [description]
+	 */
+	public function console( $message, $level = 'INFO', $trace = false ) {
+
+		\Alphred\Log::console( $message, $level, $trace );
+	}
+
+	/**
+	 * [log description]
+	 *
+	 * @see \Alphred\Log::file()
+	 *
+	 * @param  [type]  $message  [description]
+	 * @param  string  $level    [description]
+	 * @param  string  $filename [description]
+	 * @param  boolean $trace    [description]
+	 * @return [type]            [description]
+	 */
+	public function log( $message, $level = 'INFO', $filename = 'workflow', $trace = false ) {
+		\Alphred\Log::file( $message, $level, $filename, $trace );
+	}
+
+
 }
