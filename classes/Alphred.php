@@ -398,7 +398,7 @@ class Alphred {
 	 */
 	private function load_plugins( $plugins ) {
 		foreach( $plugins as $original => $new ) :
-			$this->load_plugin_function( $orignal, $new );
+			$this->load_plugin_function( $original, $new );
 		endforeach;
 
 	}
