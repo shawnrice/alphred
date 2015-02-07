@@ -10,6 +10,8 @@ $phar = new Phar( 'build/Alphred.phar',
                   'Alphred.phar'
 );
 
+$phar[ "Main.php" ] = file_get_contents( "Main.php" );
+
 // Cycle through these directories and include everything
 foreach( [ 'classes', 'scripts', 'commands' ] as $directory ) :
 	foreach( array_diff( scandir( $directory ), ['.', '..', '.DS_Store' ] ) as $filename ) :
@@ -18,4 +20,4 @@ foreach( [ 'classes', 'scripts', 'commands' ] as $directory ) :
 endforeach;
 
 // Set "classes/Alphred.php" as the default
-$phar->setStub( $phar->createDefaultStub( 'classes/Alphred.php' ) );
+$phar->setStub( $phar->createDefaultStub( 'Main.php' ) );

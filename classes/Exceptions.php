@@ -49,3 +49,6 @@ class UnknownSecurityException extends Exception {}
 class TooManyArguments  	     extends Exception {}
 class InvalidXMLProperty			 extends Exception {}
 class ShouldBeBool			 			 extends Exception {}
+class FileDoesNotExist				 extends Exception {}
+
+class PluginFunctionNotFound   extends Exception {}
