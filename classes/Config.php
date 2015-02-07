@@ -393,6 +393,7 @@ class Config {
 	private function set_ini( $key, $value ) {
 		// Re-initialize the config variable
 		$this->load_ini();
+		// Set the key
 		$this->config[ $key ] = $value;
 		// Write the INI file
 		return Ini::write_ini( $this->config, $this->get_config_file() );

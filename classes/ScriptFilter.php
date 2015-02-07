@@ -18,7 +18,18 @@
 namespace Alphred;
 
 /**
+ * Creates Script Filter XML for Alfred
  *
+ * Example usage:
+ * ````php
+ * $script_filter = new Alphred\ScriptFilter( ['error_on_empty'] => true );
+ * $script_filter->add_result( new Alphred\Result([
+ * 	'title' => 'This is a title',
+ *  'subtitle' => 'This is a subtitle',
+ *  'valid' => false
+ * ]));
+ * $script_filter->to_xml();
+ * ````
  *
  * @uses Result           Result items are stored in the script filter
  *
@@ -234,6 +245,9 @@ class ScriptFilter {
 /**
  * Result class
  *
+ * Class object represents an item in the script filter array. The internals of the
+ * class check for validity so that only correct methods can be set.
+ *
  * @since 1.0.0
  * @see ScriptFilter::add_result() These items are part of the ScriptFilter
  *
@@ -255,35 +269,54 @@ class ScriptFilter {
  */
 class Result {
 
-		private $string_methods = [
-			'title',
-			'icon',
-			'icon_filetype',
-			'icon_fileicon',
-			'subtitle',
-			'subtitle_shift',
-			'subtitle_fn',
-			'subtitle_ctrl',
-			'subtitle_alt',
-			'subtitle_cmd',
-			'uid',
-			'arg',
-			'text_copy',
-			'text_largetype',
-			'autocomplete'
-		];
-		private $bool_methods = [ 'valid' ];
+	/**
+	 * Possible string methods for a Result
+	 *
+	 * @var array
+	 */
+	private static $string_methods = [
+		'title',
+		'icon',
+		'icon_filetype',
+		'icon_fileicon',
+		'subtitle',
+		'subtitle_shift',
+		'subtitle_fn',
+		'subtitle_ctrl',
+		'subtitle_alt',
+		'subtitle_cmd',
+		'uid',
+		'arg',
+		'text_copy',
+		'text_largetype',
+		'autocomplete'
+	];
 
+	/**
+	 * Possible boolean methods for a Result
+	 * @var array
+	 */
+	private static $bool_methods = [ 'valid' ];
+
+
+	/**
+	 * Creates a Result object
+	 *
+	 * @param array|string $args the title if string; a list of arguments if an array
+	 */
 	public function __construct( $args ) {
 
+		// Create the data storage variable
 		$this->data = [];
 
+		// If it is a string, then it's the title; if it's an array, then it's multiple values
 		if ( is_string( $args ) ) {
+			// Set the title
 			$this->set_title( $args );
 		} else if ( is_array( $args ) ) {
+			// It's an array, so, cycle through each value and set it
 			foreach ( $args as $key => $value ) :
-				$fn = "set_{$key}";
-				$this->$fn( $value );
+				$this->set( [ $key => $value ] );
 			endforeach;
 		}
 
@@ -292,18 +325,23 @@ class Result {
 	/**
 	 * Sets a multiple values of a result object
 	 *
+	 * @throws \Alphred\InvalidScriptFilterArgument When trying to set an invalid script filter field
+	 *
 	 * @param array $options an array of possible options
 	 */
 	public function set( $options ) {
+		// Options must be an array of 'key' => 'value', like: 'title' => 'This is a title'
 		if ( ! is_array( $options ) ) {
 			return false;
 		}
-
+		// Cycle through the options and see if they are in either $string_methods or $bool_methods;
+		// if so, call them via the magic __call(); otherwise, thrown an exception.
 		foreach ( $options as $option => $value ) :
 			$method = "set_{$option}";
-			if ( method_exists( $this, $method ) ) {
-				$this->$method( $value );
-			} else {
+		  if ( in_array( $option, self::$string_methods ) || in_array( $option, self::$bool_methods ) ) {
+		  	$this->$method( $value );
+		  } else {
+		  	// Not valid. Throw an exception.
 				throw new InvalidScriptFilterArgument( "Error: `{$method}` is not valid.", 3 );
 			}
 		endforeach;
@@ -331,16 +369,16 @@ class Result {
 			// Remove the "set_" part of the 'method'
 			$method = str_replace( 'set_', '', $called );
 			// If the value is a bool, then check to make sure it's supposed to be a bool
-			if ( is_bool( $arguments[0] ) && ( in_array( $method, $this->bool_methods ) ) ) {
+			if ( is_bool( $arguments[0] ) && ( in_array( $method, self::$bool_methods ) ) ) {
 				// Set the data
 				$this->data[ $method ] = $arguments[0];
 				return true;
-			} else if ( in_array( $method, $this->string_methods ) ) {
+			} else if ( in_array( $method, self::$string_methods ) ) {
 				// Set the data
 				$this->data[ $method ] = $arguments[0];
 				return true;
 			} else {
-				if ( in_array( $method, $this->bool_methods ) ) {
+				if ( in_array( $method, self::$bool_methods ) ) {
 					throw new ShouldBeBool( "`{$method}` should be passed as bool not string" );
 				} else {
 					throw new InvalidXMLProperty( "`{$method}` is not a valid property for a script filter.", 3 );

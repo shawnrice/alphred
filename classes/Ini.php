@@ -122,10 +122,18 @@ class Ini {
 		$contents .= ";;;;;\r\n\r\n";
 
 		foreach ( $sections as $title => $section ) :
-			if ( ! is_integer( $title ) ) {
-				$contents .= "\n[$title]\n";
+
+			// Print the section
+			if ( is_array( $section ) ) {
+				if ( ! is_integer( $title ) ) {
+					$contents .= "\n[$title]\n";
+				}
+				$contents .= self::print_section( $section );
+			} else {
+				// Okay, the names are a bit weird here. This is
+				// actually key => value rather than title => section
+				$contents .= "{$title} = {$section}\r\n";
 			}
-			$contents .= self::print_section( $section );
 
 		endforeach;
 
@@ -170,6 +178,7 @@ class Ini {
 	 * Flattens an associate array
 	 *
 	 * @since 1.0.0
+	 * @todo Better tests for numeric keys
 	 *
 	 * @param  array $array    an array to be flattened
 	 * @param  string $prefix  a prefix for a key
@@ -190,8 +199,11 @@ class Ini {
 	        $new_key = $prefix . ( empty( $prefix ) ? '' : ':') . $key;
 
 	      	if ( is_integer( $key ) ) {
-	      		// Don't compound numeric keys
-	      		$result[ $key ] = $value;
+	      		// Don't compound numeric keys; the assumption is that a numeric key will contain only
+	      		// one array. @todo test this further
+	      		foreach ( $value as $k => $v ) :
+	      			$result[ $k ] = $v;
+						endforeach;
 	      	} else if ( is_array( $value ) && self::is_assoc( $value ) ) {
 	            $result = array_merge( $result, self::flatten_array( $value, $new_key ) );
 	        } else {

@@ -38,6 +38,7 @@ class UseOnlyAsStatic					 extends Exception {}
  */
 class RunningOutsideOfAlfred   extends Exception {}
 
+class InvalidScriptFilterArgument extends Exception {}
 
 class InvalidKeychainAccount   extends Exception {}
 class PasswordExists   				 extends Exception {}

@@ -14,10 +14,13 @@ $_SERVER['alfred_workflow_cache'] =
 // Require Alphred
 require_once( __DIR__ . '/../build/Alphred.phar' );
 
-$log = new Alphred\Log;
+// Instantiate an Alphred object, but since this isn't run as a script filter, we'll just
+// turn off the filter. It will run just fine if we left it on, but we're turning it off.
+$Alphred = new Alphred( [ 'no_filter' => true ] );
 
 if ( ! isset( $argv[1] ) ) {
-	die("You need an argument...\n");
+	$Alphred->console( 'Cannot run `' . basename( __FILE__ ) . '` without an argument.', 4 );
+	exit(1);
 }
 $action = trim( $argv[1] );
 
@@ -26,19 +29,10 @@ $action = trim( $argv[1] );
 // that will present an "input hidden" password text box. This way, we do
 // not have to worry that anyone is looking over our shoulders.
 if ( 'set-password' == $action ) {
-	// Create the dialog box. Note: you need to provide a "default answer" in
-	// order for the text box to appear, so we're setting the default answer to
-	// nothing at all.
-	$dialog = new Alphred\AppleScript\Dialog([
-	  'text' => 'Please set your Github password',
-	  'title' => 'GH Repos',
-	  'default_answer' => '',
-	  'hidden_answer' => true
-	]);
 	// Run the dialog and save the output as in the $password variable. Note,
 	// Alphred's AppleScript utility will strip out everything but the text
 	// returned.
-	$password = $dialog->execute();
+	$password = $Alphred->get_password_dialog();
 	// Now we need some error checking. This is a placeholder, but, since we
 	// know that Github won't allow for an empty password, then we're doing
 	// to just exit the script with an error message.
@@ -48,9 +42,9 @@ if ( 'set-password' == $action ) {
 	// So, there is a password. Let's go ahead and save it using Alphred's
 	// keychain utility. This is what is needed, minimally, in order to set
 	// the password.
-	if ( Alphred\Keychain::save_password( 'github.com', $password ) ) {
+	if ( $Alphred->save_password( 'github.com', $password ) ) {
 		// Send a message to the console that we managed to set the password.
-		$log->log( 'Set password for github.', 1, 'console' );
+		$Alphred->console( 'Set password for github.', 1 );
 	}
 }
 
@@ -73,10 +67,11 @@ if ( 0 === strpos( $action, 'set-username ' ) ) {
 		die("Empty username");
 	}
 	// Create a new config object, just like we did with the script filter
-	$config = new Alphred\Config( 'json' );
+	$Alphred->config_set( 'username', $username );
+	// $config = new Alphred\Config( 'json' );
 	// Set the username to $username. The backend will take care of escaping the
 	// characters for you.
-	$config->set( 'username', $username );
+	// $config->set( 'username', $username );
 	// Print a message that we've set the username (for the notification).
 	print "Set username to {$username}\n";
 	// Exit with a 0 status so nothing else in the script runs.

@@ -24,26 +24,22 @@ if ( isset( $argv[1] ) ) {
 
 // print "Query: '{$query}'\n";
 
-$workflow = new Alphred(['error_on_empty' => true ]);
+$Alphred = new Alphred(['error_on_empty' => true ]);
 
-$filter = new Alphred\ScriptFilter;
-
-// We want to use the built-in configuration utility, and we'll go ahead and use the standard
-// JSON format. So, create a new "config" utility.
-$config = new Alphred\Config( 'json' );
 // Read the username from the config file
-$username = $config->read('username');
+$username = $Alphred->config_read( 'username' );
 
 // If the username has not been set, then we'll just show one option for the script filter
 // that will lead to the action to set the username.
-if ( empty( $username ) ) {
-	$filter->add_result( new Alphred\Result([
+if ( ! $username ) {
+	$Alphred->add_result([
 	    'title' => 'Please set your username',
+	    'subtitle' => "Set username to `{$query}`",
 	    'arg'   => "set-username {$query}",
 	    'valid' => true
-	]));
+	]);
 	// Print out the XML
-	$filter->to_xml();
+	$Alphred->to_xml();
 	// Exit the script with a status of 0 (which means sucessfully completed -- no errors)
 	exit(0);
 }
@@ -57,13 +53,13 @@ try {
 	$password = Alphred\Keychain::find_password( 'github.com' );
 } catch (Alphred\PasswordNotFound $e) {
 		// The password has not been set, so we'll provide only one option to set the password
-		$filter->add_result( new Alphred\Result([
+		$Alphred->add_result( new Alphred\Result([
 	    'title' => 'Press enter to set your password',
 	    'arg'   => 'set-password',
 	    'valid' => true
 	]));
 	// Print out the XML
-	$filter->to_xml();
+	$Alphred->to_xml();
 	// Exit the script with a status of 0 (which means sucessfully completed -- no errors)
 	exit(0);
 }
@@ -111,7 +107,7 @@ foreach ( $matches as $match ) :
 	// modify them over the course of the script, we'll just create the Result object in the `add_result`
 	// method call.
 	$icon = 'icons/octoface-light.png';
-	$workflow->add_result( [
+	$Alphred->add_result( [
 	    // I want Alfred to show the name of the repo as the ttle
 	    'title' 	 			 => $match['name'],
 	    // We'll add in the appropriate icon
@@ -136,4 +132,4 @@ foreach ( $matches as $match ) :
 endforeach;
 
 // Send out the script filter XML
-$workflow->to_xml();
+$Alphred->to_xml();
