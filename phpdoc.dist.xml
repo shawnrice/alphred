@@ -8,6 +8,6 @@
     <ignore>*Tests*</ignore>
   </files>
   <transformations>
-    <template name="responsive-twig" />
+    <template name="clean" />
   </transformations>
 </phpdoc>

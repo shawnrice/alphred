@@ -7,12 +7,16 @@ Alphred
 
 php library for alfred workflows -- under heavy development.
 
-
-
 TODO
 ====
 
 First and foremost: figure out where the line is between bloat and not bloat.
+
+### Files
+
+Tentatively finshed:
+1. Globals.php
+2. Log.php
 
 ### Classes
 
@@ -36,18 +40,19 @@ First and foremost: figure out where the line is between bloat and not bloat.
 1. Doesn't the namespacing make it sound redundant?
 2. What is missing? I know that there could be some more good stuff here.
 
-#### Alphred\AppleScript\Choose
+#### Alphred\Choose
 1. This is messy. Clean, refactor a bit more?
 
-#### Alphred\AppleScript\Dialog
+#### Alphred\Dialog
 1. Way too many public methods. Clean, consolidate.
 
-#### Alphred\AppleScript\Notification
+#### Alphred\Notification
 1. I hate this class. It's ugly. Does it even need to be a class?
 2. Do I fold this into Alphred\AppleScript\AppleScript?
 
 #### Alphred\Config
-1. Figure out what needs to happen here
+1. Write Tests
+2. Make it pluggable
 
 #### Alphred\Database\Database
 1. Abstraction class over a single class... this feels dumb.
@@ -62,9 +67,7 @@ First and foremost: figure out where the line is between bloat and not bloat.
 1. Finalize from BookLibrary and move here
 
 #### Alphred\Globals
-1. I put this class in there so that CodeClimate would stop yelling at me....
-2. Add in more error checking?
-3. Set the globals when Alfred isn't setting them (i.e.: server?)
+1. Write tests
 
 #### Alphred\i18n
 1. Test more thoroughly, initially it looks like it's working.
@@ -73,7 +76,7 @@ First and foremost: figure out where the line is between bloat and not bloat.
 1. What else belongs here?
 
 #### Alphred\Log
-1. Document this.
+1. Write Tests
 
 #### Alphred\Web
 1. Clean up hardily

@@ -4,7 +4,7 @@
  *
  * PHP version 5
  *
- * @package 	 Alphred
+ * @package    Alphred
  * @copyright  Shawn Patrick Rice 2014
  * @license    http://opensource.org/licenses/MIT  MIT
  * @version    1.0.0
@@ -20,12 +20,28 @@ namespace Alphred;
 /**
  * A simple class to manage configuration for workflows
  *
+ * Currently, there are three handlers that are available: `json`, `sqlite`, and
+ * `ini`. These correspond to their obvious data storage types. To use, do something
+ * simple like:
+ * ````php
+ * $config = new Alphred\Config( 'ini' );
+ * $config->set( 'username', 'shawn patrick rice' );
+ * ````
+ * To get it later, just use:
+ * ````php
+ * $username = $config->read( 'username' );
+ * ````
+ *
+ * You can store arrays and more complex data with the `json` and `ini` handlers.
+ * Currently, the SQLite3 handler is a bit primitive.
  *
  */
 class Config {
 
 	/**
 	 * A list of valid handlers and their file extensions
+	 *
+	 * Current options are `json`, `sqlite`, and `ini`.
 	 *
 	 * @since 1.0.0
 	 *
@@ -350,6 +366,7 @@ class Config {
 	 * Loads the ini handler
 	 *
 	 * @since 1.0.0
+	 * @see Ini INI functionality
 	 *
 	 * @return bool 	true on success
 	 */
@@ -368,6 +385,7 @@ class Config {
 	 * Sets a config value
 	 *
 	 * @since 1.0.0
+	 * @see Ini INI functionality
 	 *
 	 * @param string $key   the key to set
 	 * @param mixed $value the value to set
@@ -384,6 +402,7 @@ class Config {
 	 * Reads a value from a config file
 	 *
 	 * @since 1.0.0
+	 * @see Ini INI functionality
 	 * @throws \Alphred\ConfigKeyNotSet when the key is not set
 	 *
 	 * @param  string $key the key to read
@@ -403,6 +422,7 @@ class Config {
 	 * Unsets a config
 	 *
 	 * @since 1.0.0
+	 * @see Ini INI functionality
 	 *
 	 * @param  string $key the key to unset
 	 * @return boolean     true if the key existed; false if the key did not exist

@@ -45,6 +45,7 @@ class Globals {
 			'alfred_workflow_data',
 			'alfred_workflow_name',
 			'alfred_workflow_uid',
+			'ALPHRED_RUNNING_IN_BACKGROUND',
 			'PWD',
 			'USER'
 		];
@@ -52,7 +53,7 @@ class Globals {
 	/**
 	 * Throws an exception if you try to instantiate it
 	 *
-	 * @throws UseOnlyAsStatic if you try to institate a Globals object
+	 * @throws \Alphred\UseOnlyAsStatic if you try to institate a Globals object
 	 */
 	public function __construct() {
 		throw new UseOnlyAsStatic( 'The Globals class is to be used statically only.', 1 );
@@ -64,10 +65,10 @@ class Globals {
 	 * @since 1.0.0
 	 * @throws \Alphred\RunningOutsideOfAlfred
 	 *
-	 * @param  string 	$name 	name of the variable
-	 * @return string       		value of the variable
+	 * @param  string $name 	name of the variable
+	 * @return string         value of the variable
 	 */
-	public static function get( $name ) {
+	public static function get(string $name ) {
 		// Check if the variable is in the appropriate array
 		if ( in_array( $name, self::$variables ) ) {
 			// If the variable is set, then return it
