@@ -35,7 +35,7 @@ class Globals {
 		 *
 		 * @var array
 		 */
-		private $variables = [
+		private static $variables = [
 			'alfred_theme_background',
 			'alfred_theme_subtext',
 			'alfred_version',
@@ -68,7 +68,7 @@ class Globals {
 	 * @param  string $name 	name of the variable
 	 * @return string         value of the variable
 	 */
-	public static function get(string $name ) {
+	public static function get( $name ) {
 		// Check if the variable is in the appropriate array
 		if ( in_array( $name, self::$variables ) ) {
 			// If the variable is set, then return it

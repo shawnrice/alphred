@@ -1,14 +1,59 @@
 <?php
+/**
+ * Contains Globals class for Alphred
+ *
+ * PHP version 5
+ *
+ * @package 	 Alphred
+ * @copyright  Shawn Patrick Rice 2014
+ * @license    http://opensource.org/licenses/MIT  MIT
+ * @version    1.0.0
+ * @author     Shawn Patrick Rice <rice@shawnrice.org>
+ * @link       http://www.github.com/shawnrice/alphred
+ * @link       http://shawnrice.github.io/alphred
+ * @since      File available since Release 1.0.0
+ *
+ */
+
+
 
 /**
  * Wrapper Class.
  *
- * This provides a simple wrapper for all of the important parts of the Alphred library
+ * This provides a simple wrapper for all of the important parts of the Alphred library.
+ *
+ * Most of the default wrapper functionality can easily be replaced with plugins. Currently, you
+ * need to create a `workflow.ini` file that will live next to the Alfred-generated `info.plist`
+ * in the workflow root. Create a section in the `ini` file called `[alphred:plugins]`. For each
+ * function you want to override in the wrapper, create a single line that maps onto the other function.
+ * For example:
+ * ````ini
+ * [alphred:plugins]
+ * get_password = my_new_get_password_function
+ * config_read = MyClass::config_read
+ * ````
+ * That will load a different function for `Alphred::get_password` and `Alphred::config_read`. An extra
+ * argument is available for most plugin functions called `$options` that you can use to pass any other
+ * variables.
+ *
+ * To run plugins on load, then pass them to the `Alphred` object on creation as the second argument. They
+ * should all be passed as an array defined as:
+ * ````php
+ * $alphred = new Alphred( [], [ 'my_on_load_plugin' => [ 'arg1', 'arg2' ], 'my_other_plugin' => null ] );
+ * ````
  *
  */
 class Alphred {
 
-
+	/**
+	 * Initializes the wrapper object
+	 *
+	 * @param array  				$options options that can be configured
+	 *                            currently, only two options are available:
+	 *                            1. error_on_empty - displays a script filter item when empty
+	 *                            2. no_filter      - initializes object without a script filter
+	 * @param array|boolean $plugins plugins to be run at load
+	 */
 	public function __construct( $options = [ 'error_on_empty' => true ], $plugins = false ) {
 
 		// We did already parse the INI file on a global scale when loading the library, but
@@ -28,38 +73,16 @@ class Alphred {
 
 	}
 
-
 	/**
-	 * Alias of to_xml
+	 * Execute a php script in the background
 	 *
-	 * @see Alphred::to_xml()
+	 * @todo Check this to make sure it fully works
+	 * @todo Work on argument escaping
+	 * @todo see if we can set ALPHRED_RUNNING_IN_BACKGROUND for background awareness
 	 *
-	 * @param  boolean $options [description]
-	 * @return [type]           [description]
+	 * @param  string  $script path to php script
+	 * @param  mixed 	 $args   args to pass to the script
 	 */
-	public function print_results( $options = false ) {
-		if ( $function = $this->get_plugin_function( __FUNCTION__ ) ) {
-			return call_user_func_array( $function, [ $options ] );
-		}
-		// Default functionality
-		$this->to_xml();
-	}
-
-
-	/**
-	 * Prints the script filter XML
-	 *
-	 * @param  boolean $options [description]
-	 * @return [type]           [description]
-	 */
-	public function to_xml( $options = false ) {
-		if ( $function = $this->get_plugin_function( __FUNCTION__ ) ) {
-			return call_user_func_array( $function, [ $options ] );
-		}
-		// Default functionality
-		$this->filter->to_xml();
-	}
-
 	public function background( $script, $args = false ) {
 		// Make sure that the script
 		if ( ! file_exists( $script ) ) {
@@ -87,12 +110,22 @@ class Alphred {
 
 	}
 
+
+	public function filter() {
+
+	}
+
+	/*****************************************************************************
+	 * Wrapper methods for script filters
+	 ****************************************************************************/
+
 	/**
-	 * [add description]
+	 * Adds a result to the script filter
+	 *
 	 * @param array $item an array of values to parse that construct an Alphred\Result object
+	 * @param array $options array of arguments if using a plugin
 	 */
 	public function add_result( $item, $options = [] ) {
-		// Adds items to a script filter
 		if ( $function = $this->get_plugin_function( __FUNCTION__ ) ) {
 			return call_user_func_array( $function, [ $item, $options ] );
 		}
@@ -100,6 +133,40 @@ class Alphred {
 		return $this->filter->add_result( new \Alphred\Result( $item ) );
 	}
 
+	/**
+	 * Prints the script filter XML
+	 *
+	 * @param  array|boolean $options options if using a plugin
+	 * @return mixed
+	 */
+	public function to_xml( $options = false ) {
+		if ( $function = $this->get_plugin_function( __FUNCTION__ ) ) {
+			return call_user_func_array( $function, [ $options ] );
+		}
+		// Default functionality
+		$this->filter->to_xml();
+	}
+
+	/**
+	 * Alias of to_xml
+	 *
+	 * @see Alphred::to_xml()
+	 *
+	 * @param  boolean $options
+	 * @return mixed
+	 */
+	public function print_results( $options = false ) {
+		if ( $function = $this->get_plugin_function( __FUNCTION__ ) ) {
+			return call_user_func_array( $function, [ $options ] );
+		}
+		// Default functionality
+		$this->to_xml();
+	}
+
+
+	/*****************************************************************************
+	 * Wrapper methods for requests ( GET / POST )
+	 ****************************************************************************/
 
 	public function request_get( $options, $cache_ttl = 600 ) {
 
@@ -112,15 +179,69 @@ class Alphred {
 	}
 
 
-	// Wrappers around the config class
-	public function config_get() {
+	/*****************************************************************************
+	 * Config functionality
+	 ****************************************************************************/
 
+	/**
+	 * [config_read description]
+	 * @param  [type] $key      [description]
+	 * @param  string $handler  [description]
+	 * @param  string $filename [description]
+	 * @return [type]           [description]
+	 */
+	public function config_read( $key, $handler = 'ini', $filename = 'config', $options = false ) {
+		// Check if a plugin is loaded to handle this functionality
+		if ( $function = $this->get_plugin_function( __FUNCTION__ ) ) {
+			return call_user_func_array( $function, [ $key, $handler, $filename, $options ] );
+		}
+		// Default functionality
+		// Create a new config object
+		$config = new Alphred\Config( $handler, $filename );
+		try {
+			// Try to read it, and catch the exception if it is not set
+			return $config->read( $key );
+		} catch ( Alphred\ConfigKeyNotSet $e ) {
+			// There is nothing, so return null
+			return null;
+		}
 	}
-	public function config_set() {
 
+	/**
+	 * [config_set description]
+	 * @param  [type]  $key      [description]
+	 * @param  [type]  $value    [description]
+	 * @param  string  $handler  [description]
+	 * @param  string  $filename [description]
+	 * @param  boolean $options  [description]
+	 * @return [type]            [description]
+	 */
+	public function config_set( $key, $value, $handler = 'ini', $filename = 'config', $options = false ) {
+		// Check if a plugin is loaded to handle this functionality
+		if ( $function = $this->get_plugin_function( __FUNCTION__ ) ) {
+			return call_user_func_array( $function, [ $key, $handler, $filename, $options ] );
+		}
+		// Default functionality
+		$config = new Alphred\Config( $handler, $filename );
+		$config->set( $key, $value );
 	}
-	public function config_reset() {
 
+	/**
+	 * [config_delete description]
+	 * @param  [type]  $key      [description]
+	 * @param  string  $handler  [description]
+	 * @param  string  $filename [description]
+	 * @param  boolean $options  [description]
+	 * @return [type]            [description]
+	 */
+	public function config_delete( $key, $handler = 'ini', $filename = 'config', $options = false ) {
+		// Check if a plugin is loaded to handle this functionality
+		if ( $function = $this->get_plugin_function( __FUNCTION__ ) ) {
+			return call_user_func_array( $function, [ $key, $handler, $filename, $options ] );
+		}
+		// Default functionality
+		$config = new Alphred\Config( $handler, $filename );
+		$config->delete( $key );
 	}
 
 
@@ -131,10 +252,22 @@ class Alphred {
 
 
 	/**
-	 * Sends a notification
+	 * Sends a system notification
 	 *
-	 * @param  [type] $options [description]
-	 * @return [type]          [description]
+	 * Use this for async notifications or when running code in the background. If you want
+	 * regular "end-of-workflow" notifications, then use Alfred's built-in set.
+	 *
+	 * Since this uses AppleScript notifications, all of them will, unfortunately, have the
+	 * icon for Script Editor in them, and this is not replaceable. If you want more control
+	 * over your notifications, then use something like CocoaDialog or Terminal-Notifier.
+	 *
+	 * @since 1.0.0
+	 * @uses Alphred\Notification::notify()
+	 * @todo Check that return value is correct
+	 * @see Alphred\Notification::notify() For more information on how to call with the correct options.
+	 *
+	 * @param  array $options   the list of options to construct the notification
+	 * @return boolean          success
 	 */
 	public function notification( $options ) {
 		if ( $function = $this->get_plugin_function( __FUNCTION__ ) ) {
@@ -145,8 +278,10 @@ class Alphred {
 	}
 
 
+	/*****************************************************************************
+	 * Keychain Wrapper functions
+	 ****************************************************************************/
 
-	// Wrappers around the Keychain Class
 	/**
 	 * Gets a password from the keychain
 	 *
@@ -164,7 +299,7 @@ class Alphred {
 		// exist. This wrapper returns false if the password has not been found.
 		try {
 			return \Alphred\Keychain::find_password( $account, null );
-		} catch ( \Alphred\PasswordNotFound $e) {
+		} catch ( \Alphred\PasswordNotFound $e ) {
 			\Alphred\Log::console( "No password for account `{$account}` was found. Returning false.", 2 );
 			return false;
 		}
@@ -208,6 +343,8 @@ class Alphred {
 	 *
 	 * Note: this will return 'canceled' if the user presses the 'cancel' button
 	 *
+	 * @uses Alphred\Dialog
+	 *
 	 * @param  string|boolean $text  		the text for the dialog
 	 * @param  string|boolean $title 		the title of the dialog; defaults to the workflow name
 	 * @param  string|boolean $icon  		An icon to use with the dialog box
@@ -243,17 +380,23 @@ class Alphred {
 		return $dialog->execute();
 	}
 
-	// Logging Functions
+	/*****************************************************************************
+	 * Logging Functions
+	 ****************************************************************************/
 
 	/**
-	 * [console description]
+	 * Sends a log message to the console
 	 *
-	 * @see \Alphred\Log::console()
+	 * If the log level is set higher than the level that this function is called with,
+	 * then nothing will happen.
 	 *
-	 * @param  [type]  $message [description]
-	 * @param  string  $level   [description]
-	 * @param  boolean $trace   [description]
-	 * @return [type]           [description]
+	 * @see \Alphred\Log::console() More information on the console log
+	 * @uses \Alphred\Log
+	 *
+	 * @param  string  					$message the message to log
+	 * @param  string|integer   $level   the log level
+	 * @param  integer|boolean  $trace   how far to go in the stacktrace. Defaults to the last level.
+	 * @return mixed            default returns nothing
 	 */
 	public function console( $message, $level = 'INFO', $trace = false, $options = false ) {
 		if ( $function = $this->get_plugin_function( __FUNCTION__ ) ) {
@@ -262,6 +405,7 @@ class Alphred {
 		// Default functionality
 		\Alphred\Log::console( $message, $level, $trace );
 	}
+
 
 	/**
 	 * [log description]
@@ -282,11 +426,21 @@ class Alphred {
 		\Alphred\Log::file( $message, $level, $filename, $trace );
 	}
 
+	/*****************************************************************************
+	 * FuzzySearch / Indexing Methods
+	 ****************************************************************************/
 
+	/*****************************************************************************
+	 * Text Processing Filters
+	 ****************************************************************************/
 
-	/**
-	 * These function create and define the plugin functionality.
-	 */
+	/*****************************************************************************
+	 * AppleScript Filters
+	 ****************************************************************************/
+
+	/*****************************************************************************
+	 * These methods create and define the plugin functionality.
+	 ****************************************************************************/
 
 	/**
 	 * Gets the name of the function to run when a plugin overrides default functionality

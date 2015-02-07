@@ -1,4 +1,19 @@
 <?php
+/**
+ * Contains ScriptFilter and Result class for Alphred to work with script filters
+ *
+ * PHP version 5
+ *
+ * @package 	 Alphred
+ * @copyright  Shawn Patrick Rice 2014
+ * @license    http://opensource.org/licenses/MIT  MIT
+ * @version    1.0.0
+ * @author     Shawn Patrick Rice <rice@shawnrice.org>
+ * @link       http://www.github.com/shawnrice/alphred
+ * @link       http://shawnrice.github.io/alphred
+ * @since      File available since Release 1.0.0
+ *
+ */
 
 namespace Alphred;
 
@@ -54,7 +69,6 @@ class ScriptFilter {
 
 	/**
 	 * Translates a string using the i18n class
-	 *
 	 *
 	 * @since 1.0.0
 	 * @see \Alphred\i18n
@@ -241,8 +255,7 @@ class ScriptFilter {
  */
 class Result {
 
-	public function __construct( $args ) {
-		$this->string_methods = [
+		private $string_methods = [
 			'title',
 			'icon',
 			'icon_filetype',
@@ -259,7 +272,9 @@ class Result {
 			'text_largetype',
 			'autocomplete'
 		];
-		$this->bool_methods = [ 'valid' ];
+		private $bool_methods = [ 'valid' ];
+
+	public function __construct( $args ) {
 
 		$this->data = [];
 
@@ -277,7 +292,7 @@ class Result {
 	/**
 	 * Sets a multiple values of a result object
 	 *
-	 * @param [type] $options [description]
+	 * @param array $options an array of possible options
 	 */
 	public function set( $options ) {
 		if ( ! is_array( $options ) ) {
