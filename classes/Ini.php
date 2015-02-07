@@ -1,8 +1,67 @@
 <?php
+/**
+ * Contains Ini class for Alphred
+ *
+ * PHP version 5
+ *
+ * @package    Alphred
+ * @copyright  Shawn Patrick Rice 2014
+ * @license    http://opensource.org/licenses/MIT  MIT
+ * @version    1.0.0
+ * @author     Shawn Patrick Rice <rice@shawnrice.org>
+ * @link       http://www.github.com/shawnrice/alphred
+ * @link       http://shawnrice.github.io/alphred
+ * @since      File available since Release 1.0.0
+ *
+ */
 
 namespace Alphred;
 
 
+/**
+ * Extends INI parsing and writing for PHP
+ *
+ * This class allows to read and write `ini` files. It translates `ini` files into
+ * associative PHP arrays and translates PHP arrays into `ini` files. It supports
+ * sectioning as well as a kind of subsectioning.
+ *
+ * Colons (`:`) are considered separators for sub-sections and are represented
+ * as multi-dimensional arrays. For instance, the following array:
+ * ````php
+ * $array = [
+ *  'Alphred' => [
+ *  'log_level' => 'DEBUG',
+ * 	'log_size' => 10000,
+ * 	'plugins'  => [ 'get_password' => 'my_new_function' ]
+ * ]];
+ * ````
+ * will be represented as
+ * ````ini
+ * [Alphred]
+ * log_level = DEBUG
+ * log_size = 10000
+ *
+ * [Alphred:plugins]
+ * get_password = my_new_function
+ * ````
+ *
+ * If you are concerned, then make sure that `\r\n` is removed from the array values
+ * before they move into the INI file, as they may break them.
+ *
+ * All of these are static functions. So, to use:
+ * ````php
+ * $ini_file = Alphred\Ini::read_ini( '/path/to/workflow.ini' );
+ * ````
+ * That's it.
+ *
+ * To write an `ini` file, just do:
+ * ````php
+ * Alphred\Ini::write_ini( $config_array, '/path/to/workflow.ini' );
+ * ````
+ *
+ * @since 1.0.0
+ *
+ */
 class Ini {
 
 	/**
@@ -10,6 +69,8 @@ class Ini {
 	 *
 	 * This is a slightly better INI parser in that will read a section title of
 	 * 'title:subtitle' 'subtitle' as a subsection of the section 'title'.
+	 *
+	 * @since 1.0.0
 	 *
 	 * @param  string  $file      path to the ini file to read
 	 * @param  boolean $exception whether or not to throw an exception on file not found
@@ -42,6 +103,7 @@ class Ini {
 	/**
 	 * Writes an INI file from an array
 	 *
+	 * @since 1.0.0
 	 * @todo Do filesystem checks
 	 *
 	 * @param  array  $array  the array to be translated into an ini file
@@ -73,6 +135,8 @@ class Ini {
 	/**
 	 * Prints the section of an INI file
 	 *
+	 * @since 1.0.0
+	 *
 	 * @param  array $section  an array
 	 * @return string          the array as an ini section
 	 */
@@ -90,12 +154,22 @@ class Ini {
 		return $contents;
 	}
 
+	/**
+	 * Collapses arrays into something that can be written in the ini
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param  array $array the array to be collapsed
+	 * @return array        the collapsed array
+	 */
 	private function collapse_sections( $array ) {
 		return self::step_back( self::flatten_array( $array ) );
 	}
 
 	/**
 	 * Flattens an associate array
+	 *
+	 * @since 1.0.0
 	 *
 	 * @param  array $array    an array to be flattened
 	 * @param  string $prefix  a prefix for a key
@@ -135,6 +209,8 @@ class Ini {
 	 * don't know how many levels down I need to flatten (2, 97?), so we just flatten
 	 * all the way and then step back one level, which is what this function does.
 	 *
+	 * @since 1.0.0
+	 *
 	 * @param  array $array a flattened array
 	 * @return array        a slightly less flat array
 	 */
@@ -157,6 +233,8 @@ class Ini {
 	/**
 	 * Parses an ini section into its subsections
 	 *
+	 * @since 1.0.0
+	 *
 	 * @param  string $name   a string that should be turned into an array
 	 * @param  mixed $values  the values for an array
 	 * @return array          the newly-dimensional array with $values
@@ -174,6 +252,8 @@ class Ini {
 	/**
 	 * Recursively nests an array
 	 *
+	 * @since 1.0.0
+	 *
 	 * @param  array $array   the pieces to nest
 	 * @param  mixed $values  the values for the bottom level of the newly dimensional array
 	 * @return array          a slightly more dimensional array than we received
@@ -189,6 +269,8 @@ class Ini {
 	 * Checks if an array is associative
 	 *
 	 * Shamelessly stolen from http://stackoverflow.com/a/14669600/1399574
+	 *
+	 * @since 1.0.0
 	 *
 	 * @param  array  	$array an array
 	 * @return boolean         whether it is associative
