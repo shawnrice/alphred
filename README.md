@@ -15,10 +15,26 @@ First and foremost: figure out where the line is between bloat and not bloat.
 ### Files
 
 Tentatively finshed:
-1. Globals.php
-2. Log.php
-3. Ini.php
-4. ScriptFilter.php
+
+1.  [ ] Alfred.php
+2.  [ ] Alphred.php
+3.  [ ] AppleScript.php
+4.  [x] Config.php
+5.  [ ] Database.php
+6.  [ ] Date.php
+7.  [ ] Exceptions.php
+8.  [ ] Filter.php
+9.  [ ] Globals.php
+10. [ ] i18n.php
+10. [ ] Index.php
+10. [x] Ini.php
+10. [x] Keychain.php
+10. [x] Log.php
+10. [ ] Request.php
+10. [x] ScriptFilter.php
+10. [ ] Text.php
+10. [ ] Web.php
+
 
 ### Classes
 
