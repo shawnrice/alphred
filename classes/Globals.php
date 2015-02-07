@@ -76,4 +76,12 @@ class Globals {
 		return self::get( 'alfred_workflow_bundleid' );
 	}
 
+	public static function data() {
+		return self::get( 'alfred_workflow_data' );
+	}
+
+	public static function cache() {
+		return self::get( 'alfred_workflow_cache' );
+	}
+
 }

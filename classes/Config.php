@@ -37,6 +37,32 @@ class Config {
 		}
 	}
 
+	/**
+	 * Creates the data directory
+	 *
+	 * @throws \Alphred\RunningOutsideOfAlfred
+	 *
+	 * @return bool Whether or not the directory was created or exists
+	 */
+	private function create_data_directory() {
+		// Get the data directory from the Globals array
+		if ( $dir = Globals::get( 'alfred_workflow_data' ) ) {
+			// If the directory does not exist, then make it
+			if ( ! file_exists( $dir ) ) {
+				// Debug-level log message
+				\Alphred\Log::log( "Creating data directory.", 0, 'debug' );
+
+				// Make the directory
+				return mkdir( $dir, 0775, true );
+			} else {
+				// Directory exists, so return true
+				return true;
+			}
+		}
+		// The workflow_data
+		throw new RunningOutsideOfAlfred( "Cannot use Alphred's Config outside of the workflow environment", 4 );
+	}
+
 	public function set( $key, $value ) {
 		if ( 'json' == $this->handler ) { return $this->set_json( $key, $value ); }
 		else if ( 'db' == $this->handler ) { return $this->set_db( $key, $value ); }

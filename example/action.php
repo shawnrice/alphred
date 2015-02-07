@@ -42,7 +42,7 @@ if ( 'set-password' == $action ) {
 	// Now we need some error checking. This is a placeholder, but, since we
 	// know that Github won't allow for an empty password, then we're doing
 	// to just exit the script with an error message.
-	if ( empty( $password ) ) {
+	if ( empty( $password ) || 'canceled' == $password ) {
 		die("Empty argument");
 	}
 	// So, there is a password. Let's go ahead and save it using Alphred's
