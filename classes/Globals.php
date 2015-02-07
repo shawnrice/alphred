@@ -45,7 +45,7 @@ class Globals {
 			'alfred_workflow_data',
 			'alfred_workflow_name',
 			'alfred_workflow_uid',
-			'ALPHRED_RUNNING_IN_BACKGROUND',
+			'ALPHRED_RUNNING_IN_BACKGROUND', // This is internal for background awareness
 			'PWD',
 			'USER'
 		];
@@ -74,6 +74,11 @@ class Globals {
 			// If the variable is set, then return it
 			if ( isset( $_SERVER[ $name ] ) ) {
 				return $_SERVER[ $name ];
+			}
+			// Special case for 'running in background': we do the workflow environment check otherwise,
+			// so we'll just return false if not set.
+			if ( 'ALPHRED_RUNNING_IN_BACKGROUND' == $name ) {
+				return false;
 			}
 			// The variable is not set, so we'll throw an exception
 			throw new RunningOutsideOfAlfred( 'The Globals can be accessed only within a workflow environment.', 4 );
@@ -114,6 +119,29 @@ class Globals {
 	 */
 	public static function cache() {
 		return self::get( 'alfred_workflow_cache' );
+	}
+
+	/**
+	 * Checks if the script is running in the background
+	 *
+	 * This is aware __only__ of a script running in the background if
+	 * it was launched by the Alphred wrapper's background() method.
+	 *
+	 * @since 1.0.0
+	 * @see \Alphred::background() To see how to launch a background script.
+	 *
+	 * @return boolean [description]
+	 */
+	public static function is_background() {
+		// This will trigger an exception if running outside of Alfred
+		self::get( 'alfred_workflow_data' );
+		if ( self::get( 'ALPHRED_RUNNING_IN_BACKGROUND' ) ) {
+			return true;
+		}
+		// The variable is not set, but we're running inside of a workflow
+		// environment, so that mean we aren't in the background, so return
+		// false
+		return false;
 	}
 
 }

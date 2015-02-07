@@ -17,6 +17,8 @@ First and foremost: figure out where the line is between bloat and not bloat.
 Tentatively finshed:
 1. Globals.php
 2. Log.php
+3. Ini.php
+4. ScriptFilter.php
 
 ### Classes
 

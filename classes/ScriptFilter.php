@@ -32,6 +32,7 @@ namespace Alphred;
  * ````
  *
  * @uses Result           Result items are stored in the script filter
+ * @since 1.0.0
  *
  */
 class ScriptFilter {
