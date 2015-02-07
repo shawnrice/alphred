@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Entry point for the library. Sets the environment.
  *
@@ -20,7 +19,7 @@
  */
 
 // Set the version of the library as a constant
-define( 'ALPHRED_VERSION',   '0.1.0' );
+define( 'ALPHRED_VERSION',   trim( file_get_contents( __DIR__ . '/commands/Version' ) ) );
 
 // Parse the INI file early, if it exists
 ALPHRED_PARSE_INI();

@@ -18,7 +18,7 @@ class Ini {
 	public function read_ini( $file, $exception = true ) {
 		if ( ! file_exists( $file ) ) {
 			if ( $exception ) {
-				throw new Exception( "File `{$file}` not found." );
+				throw new FileDoesNotExist( "File `{$file}` not found." );
 			} else {
 				return false;
 			}

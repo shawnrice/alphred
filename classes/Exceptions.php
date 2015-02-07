@@ -52,3 +52,6 @@ class ShouldBeBool			 			 extends Exception {}
 class FileDoesNotExist				 extends Exception {}
 
 class PluginFunctionNotFound   extends Exception {}
+
+
+class ConfigKeyNotSet 				 extends Exception {}
