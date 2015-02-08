@@ -3,12 +3,216 @@
 namespace Alphred;
 
 /**
+ * Provides text filters for date objects
+ *
+ *
  *
  * @todo Abstract the time dictionaries so that they can be translated
- *
+ * @todo Add in a less precise version of "seconds to human time"
+ * @todo Make these work with dates before Jan 1, 1970
  *
  */
 class Date {
+
+	private static $legend_english = [
+		'millenium' => [ 'multiple' => 'millenia',  'value' => 31536000000 ],
+		'century'   => [ 'multiple' => 'centuries', 'value' => 3153600000  ],
+		'decade'    => [ 'multiple' => 'decades',   'value' => 315360000   ],
+		'year'      => [ 'multiple' => 'years',     'value' => 31536000    ],
+		'month'     => [ 'multiple' => 'months',    'value' => 2592000     ],
+		'week'      => [ 'multiple' => 'weeks',     'value' => 604800      ],
+		'day'       => [ 'multiple' => 'days',      'value' => 86400       ],
+		'hour'      => [ 'multiple' => 'hours',     'value' => 3600        ],
+		'minute'    => [ 'multiple' => 'minutes',   'value' => 60          ],
+		'second'    => [ 'multiple' => 'seconds',   'value' => 1           ]
+	];
+
+	/**
+	 * Returns a slightly modified array of the difference between two dates
+	 *
+	 * @since 1.0.0
+	 * @todo Fix for values before Jan 1, 1970
+	 *
+	 * @param  int $date1 a date in seconds
+	 * @param  int $date2 a date in seconds
+	 * @return array  an array that represents the difference in granular units
+	 */
+	private function diff_a_date( $date1, $date2 ) {
+
+		$date1 = new \DateTime( date( 'D, d M Y H:i:s', $date1 ) );
+		$date2 = new \DateTime( date( 'D, d M Y H:i:s', $date2 ) );
+		$diff  = $date1->diff( $date2 );
+
+		$millenia = floor( $diff->y / 1000 );
+		$diff->y = $diff->y % 1000;
+		$centuries = floor( $diff->y / 100 );
+		$diff->y = $diff->y % 100;
+		$decades = floor( $diff->y / 10 );
+		$diff->y = $diff->y % 10;
+
+		return [
+			'units' => [
+				'decades' => $decades,
+				'years'   => $diff->y,
+				'months'  => $diff->m,
+				// Calculate weeks
+				'weeks'   => floor( $diff->d / 7 ),
+				// Calculate leftover days
+				'days'    => $diff->d % 7,
+				'hours'   => $diff->h,
+				'minutes' => $diff->i,
+				'seconds' => $diff->s
+			],
+			// Is the date in the past or the future?
+			'tense' => ( ( 0 === $diff->invert ) ? 'past' : 'future' )
+		];
+
+	}
+
+	/**
+	 * Converts a time diff into a human readable approximation
+	 *
+	 * @since 1.0.0
+	 * @todo Fix for values before Jan 1, 1970
+	 * @todo make available for non-English languages
+	 *
+	 * @param int     $seconds a date represented in seconds since the unix epoch
+	 * @param string  $dictionary what language to use (currently unsupported and ignored)
+	 * @return string       a fuzzy time
+	 */
+	public function fuzzy_ago( $seconds, $dictionary = 'english' ) {
+
+		if ( $seconds < 0 ) {
+			return false;
+		}
+
+		// Do a quick diff
+		$diff = self::diff_a_date( $seconds, time() );
+		// Get the tense
+		$tense = $diff['tense'];
+		// Get the units
+		$times = $diff['units'];
+		// We want it a bit more granular...
+
+		// Table of how many are in the next
+		$post_units = [
+			'seconds'   => 60, // 60 seconds in a minute
+			'minutes'   => 60, // 60 minutes in an hour
+			'hours'     => 24, // 24 hours in a day
+			'days'      => 7,  // 7 days in a week
+			'weeks'     => 4,  // 4 weeks in a month
+			'months'    => 12, // 12 months in a year
+			'years'     => 10, // 10 years in a decade
+			'decades'   => 10, // 10 decades in a century
+			'centuries' => 10, // 10 centuries in a millenia
+		];
+
+		// Plural => singular translation table
+		$singular = [
+			'seconds'   => 'second',
+			'minutes'   => 'minute',
+			'hours'     => 'hour',
+			'days'      => 'day',
+			'weeks'     => 'week',
+			'months'    => 'month',
+			'years'     => 'year',
+			'decades'   => 'decade',
+			'centuries' => 'century',
+		];
+
+		// It's weird to say "last minute," so we'll say "a minute ago," etc...
+		$special = [
+			'seconds' => [ 'past' => 'just now', 		 'future' => 'in a second' ],
+			'minutes' => [ 'past' => 'a minute ago', 'future' => 'in a minute' ],
+			'hours'   => [ 'past' => 'an hour ago',  'future' => 'in an hour'  ],
+			'days'    => [ 'past' => 'yesterday',  	 'future' => 'tomorrow'    ]
+		];
+
+		// Set preliminary tense prefix and suffix strings
+		if ( 'past' === $tense ) {
+			$tense_prefix = '';
+			$tense_suffix = ' ago';
+		} else {
+			$tense_prefix = 'in ';
+			$tense_suffix = '';
+		}
+
+		// We're going to define two thresholds to use. These will indicate whether or not we
+		// should use the next unit up to define the time.
+		$threshold1 = 0.6;
+		$threshold2 = 0.8;
+
+		// Cycle through the array to try to find the right values
+		foreach( $times as $unit => $value ) :
+			if ( ( 0 == $value ) && ( ! isset( $main_unit ) ) ) {
+				$previous_unit = $unit;
+			} else if ( isset( $main_unit ) ) {
+				$next_unit = $unit;
+				$next_value = $value;
+				break;
+			}
+			if ( ( 0 != $value ) && ( ! isset( $main_unit ) ) ) {
+				$main_unit = $unit;
+				$main_value = $value;
+			}
+		endforeach;
+
+		// Add on the remainder of the "next unit" so that we can get it in base 10
+		$main_value = $main_value + ( $next_value / $post_units[ $next_unit ] );
+
+		// So, we've defined two thresholds that will have us "round up" to the next
+		// unit (i.e. day -> week and week->month). Check, first, if they're close enough
+		// that we should use the greater unit.
+		if ( $main_value / $post_units[ $main_unit ] > $threshold2 ) {
+			// The first threshold ($threshold2) rounds to "almost a {next unit}"
+			// So, "almost a week" instead of "5 days ago"
+			if ( 'hours' == $singular[ $previous_unit ] ) {
+				$string = "almost an {$singular[ $previous_unit ]}";
+			} else {
+				$string = "almost a {$singular[ $previous_unit ]}";
+			}
+		} else if ( $main_value / $post_units[ $main_unit ] > $threshold1 ) {
+			// The second threshold rounds to "last {next unit}"
+			// So, "last week" or "next week" instead of "4 days ago"
+
+			if ( isset( $special[ $previous_unit ] ) ) {
+				$string = $special[ $previous_unit ][ $tense ];
+				$tense_prefix = '';
+				$tense_suffix = '';
+			} else {
+				$string = "{$singular[ $previous_unit ]}";
+				if ( $tense_prefix ) {
+					$tense_prefix = 'next ';
+				} else {
+					$tense_prefix = 'last ';
+					$tense_suffix = '';
+				}
+			}
+		} else {
+			// If it's close enough to 1, then we'll use a singular
+			if ( 1 == $main_value || 1 == round( $main_value ) ) {
+				if ( isset( $special[ $main_unit ] ) ) {
+					$string = $special[ $main_unit ][ $tense ];
+					$tense_prefix = '';
+					$tense_suffix = '';
+				} else {
+					$string = "a {$singular[ $main_unit ]}";
+				}
+			} else if ( 2 == $main_value || 2 == round( $main_value ) ) {
+				// If it's close enough to 2, then we'll use 'a couple'
+				$string = "a couple {$main_unit}";
+			} else {
+				// We'll default to 'a few' because other cases should have already been taken care of.
+				$string = "a few {$main_unit}";
+			}
+		}
+
+		// We're going to return a string that has a prefix, the main string, and a suffix.
+		// The prefix and suffix may be empty, but that depends on whether or not it's in the future
+		// or the past and a few other things.
+		return "{$tense_prefix}{$string}{$tense_suffix}";
+
+	}
 
 	/**
 	 * Converts seconds to a human readable string or an array
@@ -20,18 +224,7 @@ class Date {
 	 */
 	public function seconds_to_human_time( $seconds, $words = false, $type = 'string' ) {
 		$data = [];
-		$legend = [
-		'millenium' => [ 'multiple' => 'millenia',  'value' => 31536000000 ],
-		'century'   => [ 'multiple' => 'centuries', 'value' => 3153600000  ],
-		'decade'    => [ 'multiple' => 'decades',   'value' => 315360000   ],
-		'year'      => [ 'multiple' => 'years',     'value' => 31536000    ],
-		'month'     => [ 'multiple' => 'months',    'value' => 2592000     ],
-		'week'      => [ 'multiple' => 'weeks',     'value' => 604800      ],
-		'day'       => [ 'multiple' => 'days',      'value' => 86400       ],
-		'hour'      => [ 'multiple' => 'hours',     'value' => 3600        ],
-		'minute'    => [ 'multiple' => 'minutes',   'value' => 60          ],
-		'second'    => [ 'multiple' => 'seconds',   'value' => 1           ]
-		];
+		$legend = self::$legend_english;
 
 		// Start with the greatest values and whittle down until we're left with seconds
 		foreach ( $legend as $singular => $values ) :
@@ -64,35 +257,49 @@ class Date {
 		// We want a string, so let's convert it to one with an Oxford Comma
 		// because Oxford Commas are important. If you don't agree, then look here:
 		// http://stephentall.org/2011/09/19/oxford-comma/
-		// Otherwise, "fuck off," says the grammarian.
-		// This is not optional.
+		// If you still don't agree, "fuck off," says the grammarian.
+		// This. is. not. optional.
 		return Text::add_commas_to_list( $data, true );
 	}
 
 	/**
 	 * Explains how long ago something happened...
 	 *
+	 * This also works with the future.
+	 *
 	 * @since 1.0.0
+	 * @todo Make this work with values before 1 Jan, 1970
 	 *
 	 * @param  integer  $seconds  a number of seconds
 	 * @param  boolean 	$words   	whether or not to return numerals or the word-equivalent
 	 * @return string             a string indicating a time in words
 	 */
 	public function ago( $seconds, $words = false ) {
-		// Only goes back to the Unix Epoch (1-Jan 1970)
-		$seconds = ( $seconds - time() ) * - 1; // this needs to be converted with the date function
-		return Date::seconds_to_human_time( $seconds, $words, 'string' ) . ' ago';
+		$tense = 'past';
+		$seconds = ( $seconds - time() ); // this needs to be converted with the date function
+		if ( $seconds < 0 ) {
+			$tense = 'future';
+			$seconds = abs( $seconds ); // We need a positive number
+		}
+
+		$string = Date::seconds_to_human_time( $seconds, $words, 'string' );
+		if ( 'past' == $tense ) {
+			return "{$string} ago";
+		} else {
+			return "in {$string}";
+		}
 	}
 
 	/**
 	 * Converts a number to words
 	 *
 	 * @todo Add in an option for a shorter version...
+	 * @todo Add in translation options so that we don't support _only_ English
 	 *
-	 * @param  [type] $number [description]
-	 * @return [type]         [description]
+	 * @param  int $number a number
+	 * @return string      the number, but, as words
 	 */
-	public function convert_number_to_words( $number ) {
+	public function convert_number_to_words( $number, $dictionary = 'english' ) {
 		// This is a complex function, but I'm not sure if it can be simplified.
 		// adapted from http://www.karlrixon.co.uk/writing/convert-numbers-to-words-with-php/
 		$hyphen      = '-';

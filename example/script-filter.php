@@ -12,7 +12,10 @@ $_SERVER['alfred_workflow_cache'] =
 
 
 // Require Alphred
-require_once( __DIR__ . '/../build/Alphred.phar' );
+// use a phar
+// require_once( __DIR__ . '/../build/Alphred.phar' );
+// use the main entry point for the library
+require_once( __DIR__ . '/../Main.php' );
 
 $query = ''; // Initialize an empty query
 
@@ -102,7 +105,7 @@ if ( ! empty( $query ) ) {
 // Let's go ahead and add each to the script filter results
 foreach ( $matches as $match ) :
 	// Let's use one of the text filters to tell us how long ago something was updated.
-	$updated = "Last updated " . Alphred\Date::ago( strtotime( $match['updated_at'] ) ) . ".";
+	$updated = "Last updated " . $Alphred->fuzzy_time_diff( strtotime( $match['updated_at'] ) ) . ".";
 	// Alphred lets us add results by adding an Alphred\Result object. While we can create these and
 	// modify them over the course of the script, we'll just create the Result object in the `add_result`
 	// method call.

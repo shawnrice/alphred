@@ -2,7 +2,12 @@
 
 namespace Alphred;
 
-/*
+/**
+ * Translation library for Alphred
+ *
+ * Right now, this is sort of "proof-of-concept" and works well enough for static strings, but
+ * it does need to be improved _vastly_.
+ *
  * For internationalization:
  *
  * gettext() isn't compiled into OS X's PHP installation, so I've created my own hacky version.
@@ -29,7 +34,6 @@ namespace Alphred;
  *  Then just execute that PHP, and the json file will be created for you.
  *
 **/
-
 class i18n {
 
 	public function __construct() {

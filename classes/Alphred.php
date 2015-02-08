@@ -434,6 +434,30 @@ class Alphred {
 	 * Text Processing Filters
 	 ****************************************************************************/
 
+	public function time_ago( $seconds ) {
+		if ( $function = $this->get_plugin_function( __FUNCTION__ ) ) {
+			return call_user_func_array( $function, [ $seconds ] );
+		}
+		// Default functionality
+		return Alphred\Date::ago( $seconds );
+	}
+
+	/**
+	 *
+	 *
+	 *
+	 * @param  [type] $seconds [description]
+	 * @return string          a string that represents an approximate time
+	 */
+	public function fuzzy_time_diff( $seconds ) {
+		if ( $function = $this->get_plugin_function( __FUNCTION__ ) ) {
+			return call_user_func_array( $function, [ $seconds ] );
+		}
+		// Default functionality
+		return Alphred\Date::fuzzy_ago( $seconds );
+	}
+
+
 	/*****************************************************************************
 	 * AppleScript Filters
 	 ****************************************************************************/

@@ -1,25 +1,39 @@
 <?php
 /**
+ * Contains Text class for Alphred
  *
- * This file contains text manipulation functions, all of which are written to be called
- * statically.
+ * PHP version 5
  *
+ * @package    Alphred
+ * @copyright  Shawn Patrick Rice 2014
+ * @license    http://opensource.org/licenses/MIT  MIT
+ * @version    1.0.0
+ * @author     Shawn Patrick Rice <rice@shawnrice.org>
+ * @link       http://www.github.com/shawnrice/alphred
+ * @link       http://shawnrice.github.io/alphred
+ * @since      File available since Release 1.0.0
  *
  */
 
 namespace Alphred;
 
 
+/**
+ * Methods to apply "filters" to text to transform them
+ *
+ * @todo Brainstorm what other filters should be written
+ * @since 1.0.0
+ *
+ */
 class Text {
-
-	// What else needs to go here?
 
 	/**
 	 * Convert a string to Title Case
+	 *
 	 * @param  string $string string to be converted
 	 * @return string         the string in Title Case
 	 */
-	public function title_case( $string ) {
+	public static function title_case( $string ) {
 		// This needs to be improved upon. Basically, it needs to account for sentence ending punctuation.
 		// Words that are not capitalized. Well, articles, conjunctions, and prepositions.
 		$lower = [
@@ -59,10 +73,11 @@ class Text {
 
 	/**
 	 * Converts a string to CamelCase
+	 *
 	 * @param  string 	$string 	the string to be converted
 	 * @return string             the string in CamelCase
 	 */
-	public function camel_case( $string ) {
+	public static function camel_case( $string ) {
 		// converts spaces to camelcase
 		$words = explode( ' ', $string );
 		foreach ( $words as $k => $w ) :
@@ -73,12 +88,12 @@ class Text {
 		return implode( '', $words );
 	}
 
-	public function underscore( $string ) {
+	public static function underscore( $string ) {
 		// converts spaces to underscores
 		return str_replace( ' ', '_', $string );
 	}
 
-	public function hyphenate( $string ) {
+	public static function hyphenate( $string ) {
 		// converts spaces to hyphens
 		return str_replace( ' ', '-', $string );
 	}
@@ -91,7 +106,7 @@ class Text {
 	 * @param array  	$list   an array to be pushed into a comma-ified string
 	 * @param boolean $suffix a suffix to add
 	 */
-	public function add_commas_to_list( $list, $suffix = false ) {
+	public static function add_commas_to_list( $list, $suffix = false ) {
 		// We want a string, so let's convert it to one with an Oxford Comma
 		$string = '';
 		$count  = 1;
