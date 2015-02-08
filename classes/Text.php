@@ -21,6 +21,9 @@ namespace Alphred;
 /**
  * Methods to apply "filters" to text to transform them
  *
+ * Right now, this is, well, "special sauce" and not major. So use it with your own precaution.
+ * It is possibly, going to change.
+ *
  * @todo Brainstorm what other filters should be written
  * @since 1.0.0
  *

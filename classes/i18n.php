@@ -1,4 +1,19 @@
 <?php
+/**
+ * Contains i18n class for Alphred, providing basic translation functionality
+ *
+ * PHP version 5
+ *
+ * @package    Alphred
+ * @copyright  Shawn Patrick Rice 2014
+ * @license    http://opensource.org/licenses/MIT  MIT
+ * @version    1.0.0
+ * @author     Shawn Patrick Rice <rice@shawnrice.org>
+ * @link       http://www.github.com/shawnrice/alphred
+ * @link       http://shawnrice.github.io/alphred
+ * @since      File available since Release 1.0.0
+ *
+ */
 
 namespace Alphred;
 
@@ -7,6 +22,9 @@ namespace Alphred;
  *
  * Right now, this is sort of "proof-of-concept" and works well enough for static strings, but
  * it does need to be improved _vastly_.
+ *
+ * Right now, the best part about this library is that it will not break anything. So, if you
+ * try to implement it and fuck it up, it'll just do nothing rather than break things.
  *
  * For internationalization:
  *
@@ -38,6 +56,9 @@ class i18n {
 
 	public function __construct() {
 		if ( ! file_exists( 'i18n' ) || ! is_dir( 'i18n' ) ) { return false; }
+		// This is internal, for testing. If the "ALPHRED_TESTING" flag is set,
+		// then we'll pretend that our language is French rather than the system
+		// default (for me: English). Consider this testing code.
 		if ( ! defined( 'ALPHRED_TESTING' ) || ( true !== ALPHRED_TESTING ) ) {
 			$locale = exec( 'defaults read .GlobalPreferences AppleLanguages | tr -d [:space:] | cut -c2-3' );
 		} else {
@@ -49,9 +70,12 @@ class i18n {
 			return false;
 		}
 
+		// Try to load the translation "dictionary"
 		try {
 			$this->dictionary = json_decode( file_get_contents( "i18n/{$locale}.json" ), true );
 		} catch ( Exception $e ) {
+			// Well, the translation dictionary is not good JSON. So let's just log an error to the console
+			// and pretend this never happened.
 			file_put_contents( 'php://stderr', "Error: locale '{$locale}.json' file is not valid json." );
 			return false;
 		}
@@ -59,6 +83,12 @@ class i18n {
 		return $this;
 	}
 
+	/**
+	 * Translates a string from a dictionary
+	 *
+	 * @param  string $string a string to translate
+	 * @return string         a, possibly, translated string
+	 */
 	public function translate( $string ) {
 		if ( ! isset( $this->locale ) ) { return $string; }
 		if ( isset( $this->dictionary[ $string ] ) ) {
@@ -70,5 +100,3 @@ class i18n {
 
 // In the future, it would be pretty badass if I could give the option to do a background translation
 // using Google Translate or something akin to that.
-
-// I'd have to figure out how to cache it though...

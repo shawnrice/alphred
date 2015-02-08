@@ -1,11 +1,29 @@
 <?php
+/**
+ * Contains Date class for Alphred
+ *
+ * PHP version 5
+ *
+ * @package    Alphred
+ * @copyright  Shawn Patrick Rice 2014
+ * @license    http://opensource.org/licenses/MIT  MIT
+ * @version    1.0.0
+ * @author     Shawn Patrick Rice <rice@shawnrice.org>
+ * @link       http://www.github.com/shawnrice/alphred
+ * @link       http://shawnrice.github.io/alphred
+ * @since      File available since Release 1.0.0
+ *
+ */
 
 namespace Alphred;
 
 /**
  * Provides text filters for date objects
  *
- *
+ * This class should be cleaned up quite a bit, and it needs to be made pluggable
+ * so that it can be used by languages other than English. But, _I think_ right now
+ * it is good enough to be released because it falls into "special sauce" rather
+ * than necessary functionality.
  *
  * @todo Abstract the time dictionaries so that they can be translated
  * @todo Add in a less precise version of "seconds to human time"

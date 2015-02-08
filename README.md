@@ -24,7 +24,7 @@ Tentatively finshed:
 6.  [ ] Date.php
 7.  [ ] Exceptions.php
 8.  [ ] Filter.php
-9.  [ ] Globals.php
+9.  [x] Globals.php
 10. [ ] i18n.php
 10. [ ] Index.php
 10. [x] Ini.php

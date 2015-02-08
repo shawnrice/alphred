@@ -91,6 +91,16 @@ if ( ! ( isset( $argv ) && ( 'Alphred.phar' === basename( $argv[0] ) || 'Alphred
 	require_once( __DIR__ . '/classes/ScriptFilter.php' );
 	require_once( __DIR__ . '/classes/Text.php' );
 	require_once( __DIR__ . '/classes/Web.php' );
+
+	// So, we need some Alfred set enviromental variables for this to work.
+	// if ( $version = Alphred\Globals::get( 'alfred_version' ) ) {
+	// 	$version = explode( '.', $version );
+	// 	if ( $version[1] < 6 ) {
+	// 		Alphred\Notification::notify([ 'title' => 'Please upgrade '])
+	// 	}
+	// } else {
+	// 	throw new Alphred\RunningOutsideOfAlfred( "Alphred cannot run outside of a workflow enviroment. (Failed version check).", 4 );
+	// }
 } else {
 	// Alphred was invoked as a command, so let's include the cli-functions file that contains, well
 	// most of the functions for using Alphred.phar as a cli utility.

@@ -9,6 +9,7 @@ $_SERVER['alfred_workflow_data'] =
 	$_SERVER['HOME'] . '/Library/Application Support/Alfred 2/Workflow Data/com.spr.gh.repos';
 $_SERVER['alfred_workflow_cache'] =
 	$_SERVER['HOME'] . '/Library/Caches/com.runningwithcrayons.Alfred-2/Workflow Data/com.spr.gh.repos';
+$_SERVER['alfred_version'] = 2.6;
 
 
 // Require Alphred
@@ -16,6 +17,9 @@ $_SERVER['alfred_workflow_cache'] =
 // require_once( __DIR__ . '/../build/Alphred.phar' );
 // use the main entry point for the library
 require_once( __DIR__ . '/../Main.php' );
+
+
+
 
 $query = ''; // Initialize an empty query
 
