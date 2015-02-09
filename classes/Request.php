@@ -16,6 +16,8 @@ namespace Alphred;
  * With this, you can easily make GET or POST requests. Set extra headers. Easily set
  * a user-agent. Set parameters. And cache the data for later retrieval.
  *
+ * @todo Add in methods to clear cache bins.
+ *
  */
 class Request {
 
@@ -32,7 +34,7 @@ class Request {
 	private $object;
 
 	/**
-	 * [__construct description]
+	 * Creates a request object
 	 *
 	 * Currently, all the options apply to caching. So the three that are understood are:
 	 * 1. `cache`,
@@ -269,6 +271,8 @@ class Request {
 
 	/**
 	 * Builds the post fields array
+	 *
+	 * @since 1.0.0
 	 */
 	private function build_post_fields() {
 		curl_setopt( $this->handler, CURLOPT_POSTFIELDS, http_build_query( $this->parameters ) );
@@ -279,6 +283,8 @@ class Request {
 	 *
 	 * If you need more advanced authorization methods, and if you cannot make them happen with
 	 * headers, then use a different library. I recommend Guzzle.
+	 *
+	 * @since 1.0.0
 	 *
 	 * @param string $username a username
 	 * @param string $password a password
@@ -293,6 +299,7 @@ class Request {
 	 * Sets the URL for the cURL request
 	 *
 	 * @todo 		Add in custom exception
+	 * @since 1.0.0
 	 *
 	 * @throws 	Exception when $url is not a valid URL
 	 * @param 	string $url a valid URL
@@ -309,6 +316,8 @@ class Request {
 	/**
 	 * Sets the `user agent` for the cURL request
 	 *
+	 * @since 1.0.0
+	 *
 	 * @param string $agent a user agent
 	 */
 	public function set_user_agent( $agent ) {
@@ -318,6 +327,8 @@ class Request {
 
 	/**
 	 * Sets the headers on a cURL request
+	 *
+	 * @since 1.0.0
 	 *
 	 * @param string|array $headers sets extra headers for the cURL request
 	 */
@@ -331,6 +342,16 @@ class Request {
 
 	}
 
+	/**
+	 * Adds a header into the headers array
+	 *
+	 * You can actually pass multiple headers with an array, or just pass a single
+	 * header with a string.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string|array $header the header to add
+	 */
 	public function add_header( $header ) {
 		// Check the variable. We expect string, but let's be sure.
 		if ( is_string( $header ) ) {
@@ -346,6 +367,9 @@ class Request {
 					// have to deal with failure later if they aren't.
 					array_push( $this->headers, $h );
 				} else {
+					// We're going to assume it's an array, so we'll push them together
+					// for the error message.
+					$h = implode( "|", $h );
 					// Bad header. Throw an exception.
 					throw new Exception( "You can't push these headers ({$h}).", 4 );
 				}
@@ -359,10 +383,14 @@ class Request {
 	}
 
   /**
-   * [set_post description]
+   * Sets the request to use `POST` rather than `GET`
+   *
+	 * @since 1.0.0
    */
 	public function use_post() {
+		// Update the curl handler to use post
 		curl_setopt( $this->handler, CURLOPT_POST, 1 );
+		// Update the internal object to use post
 		$this->object['request_type'] = 'post';
 	}
 
@@ -383,14 +411,47 @@ class Request {
 		$this->object['request_type'] = 'get';
 	}
 
-	public function set_opt( $opt, $value ) {
-		curl_setopt( $this->handler, $opt, $value );
+	/**
+	 * Adds a parameter to the parameters array
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $key   the name of the parameter
+	 * @param string $value the value of the parameter
+	 */
+	public function add_parameter( $key, $value ) {
+		$this->object['parameters'][$key] = $value;
 	}
 
+	/**
+	 * Adds parameters to the request
+	 *
+	 * @since 1.0.0
+	 *
+	 * @throws Exception when passed something other than an array
+	 * @param array $params an array of parameters
+	 */
+	public function add_parameters( $params ) {
+		if ( ! is_array( $params ) ) {
+			throw new Exception( 'Parameters must be defined as an array', 4 );
+		}
+		foreach( $params as $key => $value ) :
+			$this->add_parameter( $key, $value );
+		endforeach;
+	}
 
 	/**
-	 * [get_cached_data description]
-	 * @return [type] [description]
+	 * Gets cached data
+	 *
+	 * This method first checks if the cache file exists. If `$ignore_life` is true,
+	 * then it will return the data without checking the life. Otherwise, we'll check
+	 * to make sure that the `$cache_life` is set. Next, we check the age of the cache.
+	 * If any of these fail, then we return false, which indicates we should get new
+	 * data. Otherwise, we retrieve the cache.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string|boolean the data saved in the cache or false
 	 */
 	private function get_cached_data( $ignore_life = false ) {
 
@@ -424,7 +485,9 @@ class Request {
 	/**
 	 * Retrieves cached data regardless of cache life
 	 *
-	 * @return [type] [description]
+	 * @since 1.0.0
+	 *
+	 * @return string|boolean returns the cached data or `false` if none exists
 	 */
 	private function get_cached_data_anyway() {
 		return $this->get_cached_data( true );
@@ -446,6 +509,13 @@ class Request {
 		unlink( $this->get_cache_file() );
 	}
 
+	/**
+	 * Saves data to a cache file
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param  string $data the data to save to the cache
+	 */
 	private function save_cache_data( $data ) {
 		// Make sure that the cache directory exists
 		$this->create_cache_dir();
@@ -460,6 +530,8 @@ class Request {
 	/**
 	 * Creates a cache key based on the request object
 	 *
+	 * @since 1.0.0
+	 *
 	 * @return string 	a cache key
 	 */
 	private function get_cache_key() {
@@ -469,13 +541,21 @@ class Request {
 	/**
 	 * Returns the file cache
 	 *
-	 * @todo Allow for cache bins (basically, sub-folders that are specified)
-	 * @return [type] [description]
+	 * @since 1.0.0
+	 *
+	 * @return string the full path to the cache file
 	 */
 	private function get_cache_file() {
 		return $this->get_cache_dir() . '/' . $this->get_cache_key();
 	}
 
+	/**
+	 * Returns the directory for the cache
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string full path to cache directory
+	 */
 	private function get_cache_dir() {
 		$path = \Alphred\Globals::get( 'alfred_workflow_cache' );
 		if ( isset( $this->cache_bin ) && $this->cache_bin ) {
@@ -484,6 +564,14 @@ class Request {
 		return $path;
 	}
 
+	/**
+	 * Creates a cache directory if it does not exist
+	 *
+	 * @since 1.0.0
+	 *
+	 * @throws \Alphred\RunningOutsideOfAlfred when environmental variables are not set
+	 * @return boolean success or failure if directory has been made
+	 */
 	private function create_cache_dir() {
 		if ( ! \Alphred\Globals::get( 'alfred_workflow_cache' ) ) {
 			throw new \Alphred\RunningOutsideOfAlfred( 'Cache directory unknown', 4 );
@@ -495,6 +583,13 @@ class Request {
 		}
 	}
 
+	/**
+	 * Gets the age of a cache file
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return integer the age of a file in seconds
+	 */
 	private function get_cache_age() {
 		if ( ! file_exists( $this->get_cache_file() ) ) {
 			// Cache does not exist
@@ -504,15 +599,5 @@ class Request {
 	}
 
 
-
-	public function add_parameter( $key, $value ) {
-		$this->object['parameters'][$key] = $value;
-	}
-
-	public function add_parameters( $params ) {
-		foreach( $params as $key => $value ) :
-			$this->add_parameter( $key, $value );
-		endforeach;
-	}
 
 }
