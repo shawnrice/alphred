@@ -30,7 +30,7 @@ Tentatively finshed:
 10. [x] Ini.php
 10. [x] Keychain.php
 10. [x] Log.php
-10. [ ] Request.php
+10. [x] Request.php
 10. [x] ScriptFilter.php
 10. [ ] Text.php
 10. [ ] Web.php

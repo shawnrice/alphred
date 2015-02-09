@@ -2,7 +2,7 @@
 
 namespace Alphred;
 
-require_once('classes/Alphred.php');
+require_once( 'Main.php' );
 
 // // require_once('build/alphred.phar');
 
@@ -41,7 +41,7 @@ require_once('classes/Alphred.php');
 //     ]
 // ));
 
-print_r( AppleScript\AppleScript::get_front() );
+print_r( AppleScript::get_front() );
 
 // print_r( AppleScript\ChooseFileName::execute([
 //     'text' => 'Choose a damn file!',
@@ -55,30 +55,3 @@ print_r( AppleScript\AppleScript::get_front() );
 //     'location' => "/Users/Sven/Desktop"
 // ]));
 // exit();
-
-// print_r( $date->ago( 315234220, true ) );
-// echo PHP_EOL;
-
-// $text = new Text;
-// $w = new ScriptFilter(['config' => 'db']);
-
-// $w->set( 'username', 'And sha-wn but: :considering: patrick rice' );
-// print_r( $text->titleCase( $w->config_read( 'username' ) ) );
-// $w->remove( 'username' );
-// echo "AND NOW: " . $w->config_read( 'username' );
-
-
-// $result = $w->item([
-//     'title' => 'This is a title',
-//     'subtitle' => 'Subtitle',
-//     'subtitle_alt' => 'Shifty!',
-//     'valid' => true,
-//     'args' => 'test',
-//     'text_copy' => 'text copy',
-//     'icon_filetype' => 'pdf',
-//     'icon_fileicon' => 'pdf',
-// ]);
-
-// $result->set_subtitle_cmd( 'testing' );
-
-// $w->to_xml();
