@@ -30,6 +30,12 @@ class Filter {
 		 * @todo Re-think about the way to call this function
 		 */
 
+		// Here, we make the assumption that, if the $needle or search string is empty, then the filter was a misfire, so
+		// we'll just return all of the results.
+		if ( empty( trim( $needle ) ) ) {
+			return $haystack;
+		}
+
 		// Initialize an empty results array
 		$results = [];
 

@@ -65,21 +65,27 @@ class Request {
 	 */
 	public function __construct(
 	  $url = false,
-	  $options = array( 'cache' => true, 'cache_life' => 3600, 'cache_bin' => true )
+	  $options = array( 'cache' => true, 'cache_ttl' => 600, 'cache_bin' => true )
 	) {
 
+		// Create the cURL handler
 		$this->handler = curl_init();
+		// Default to `GET`, which is, (not) coincidentally, the cURL default
 		$this->object['request_type'] = 'get';
+
+		// Empty parameters array
 		$this->parameters = [];
+		// Empty headers array
+		$this->headers = [];
 
 		// Here we can automatically set the cache bin to the URL hostname
-		if ( true == $options[ 'cache_bin' ] && $url ) {
+		if ( true === $options[ 'cache_bin' ] && $url ) {
 			$options[ 'cache_bin' ] = parse_url( $url, PHP_URL_HOST );
 		}
 
 		if ( isset( $options['cache'] ) && $options['cache'] ) {
-			if ( isset( $options['cache_life'] ) ) {
-				$this->cache_life = $options['cache_life'];
+			if ( isset( $options['cache_ttl'] ) ) {
+				$this->cache_life = $options['cache_ttl'];
 			}
 			if ( isset( $options['cache_bin'] ) ) {
 				$this->cache_bin = $options['cache_bin'];
@@ -162,7 +168,7 @@ class Request {
 		if ( isset( $this->cache_life ) ) {
 			if ( $data = $this->get_cached_data() ) {
 				// Debug-level log message
-				\Alphred\Log::log( "Getting the data from cache, aged " . $this->get_cache_age() . " seconds.", 0, 'debug' );
+				Log::console( "Getting the data from cache, aged " . $this->get_cache_age() . " seconds.", 0 );
 
 				// Close the cURL handler for good measure; we don't need it anymore
 				curl_close( $this->handler );
@@ -263,14 +269,20 @@ class Request {
 
 	/**
 	 * Builds the post fields array
-	 *
-	 * @return [type] [description]
 	 */
 	private function build_post_fields() {
 		curl_setopt( $this->handler, CURLOPT_POSTFIELDS, http_build_query( $this->parameters ) );
 	}
 
-
+	/**
+	 * Sets basic authorization for a cURL request
+	 *
+	 * If you need more advanced authorization methods, and if you cannot make them happen with
+	 * headers, then use a different library. I recommend Guzzle.
+	 *
+	 * @param string $username a username
+	 * @param string $password a password
+	 */
 	public function set_auth( $username, $password ) {
 		curl_setopt( $this->handler, CURLOPT_HTTPAUTH, CURLAUTH_BASIC );
 		curl_setopt( $this->handler, CURLOPT_USERPWD, "{$username}:{$password}" );
@@ -294,13 +306,21 @@ class Request {
 		$this->object['url'] = $url;
 	}
 
-
+	/**
+	 * Sets the `user agent` for the cURL request
+	 *
+	 * @param string $agent a user agent
+	 */
 	public function set_user_agent( $agent ) {
 		curl_setopt( $this->handler, CURLOPT_USERAGENT, $agent );
 		$this->object['agent'] = $agent;
 	}
 
-
+	/**
+	 * Sets the headers on a cURL request
+	 *
+	 * @param string|array $headers sets extra headers for the cURL request
+	 */
 	public function set_headers( $headers ) {
 		if ( ! is_array( $headers ) ) {
 			// Just transform it into an array
@@ -490,7 +510,7 @@ class Request {
 	}
 
 	public function add_parameters( $params ) {
-		foreach( $params as $key => $val ) :
+		foreach( $params as $key => $value ) :
 			$this->add_parameter( $key, $value );
 		endforeach;
 	}

@@ -61,6 +61,8 @@ class Alphred {
 		// loading the plugins.
 		$this->parse_ini_file();
 
+		// The plugins array is a list of plugins to run at load, so any functionality that would
+		// benefit from being run by hooking into object instantiation
 		if ( $plugins ) {
 			$this->run_on_load_plugins( $plugins );
 		}
@@ -86,34 +88,79 @@ class Alphred {
 	public function background( $script, $args = false ) {
 		// Make sure that the script
 		if ( ! file_exists( $script ) ) {
+			// File does not exist, so throw an exception
 			throw new Alphred\FileDoesNotExist( "Script `{$script}` does not exist.", 4 );
 		}
 		if ( $args ) {
 			if ( is_array( $args ) ) {
 				// Turn $args into a string if we were passed an array
-				$args = implode( ' ', $args );
+				$args = implode( "' '", $args );
+				// prepend and append the extra quotation marks... everything *should* be quoted now
+				$args = "'{$args}'";
 			} else {
 				// Quote args if it is a string
 				$args = "'{$args}'";
 			}
+			// Let's escape double-quotes
 			$args = str_replace( '"', '\"', $args );
 		}
 		exec( "/usr/bin/nohup php '{$script}' {$args}  >/dev/null 2>&1 &", $output, $return );
 	}
 
-	private function parse_ini_file() {
-		$ini = parse_ini_file( $_SERVER['PWD'] . '/workflow.ini', true );
-
-		if ( isset( $ini['alphred:plugins'] ) ) {
-			$this->load_plugins( $ini['alphred:plugins'] );
-		}
-
-	}
-
-
 	public function filter() {
 
 	}
+
+	/**
+	 * Parses the INI file to load plugins
+	 *
+	 * The `workflow.ini` file is parsed twice with Alphred. The first time, it's parsed
+	 * to load global variables, and that happens when the library is `included` or `required`.
+	 * The second time (this one) happens when a wrapper object is instantiated.
+	 *
+	 * @return boolean the value is worthless, just a way to exit the method early if necessary
+	 */
+	private function parse_ini_file() {
+		// The name of the file
+		$file = Alphred\Globals::get( 'PWD' ) . '/workflow.ini';
+		if ( ! file_exists( $file ) ) {
+			// File does not exist, so we assume that none is expected. Log a debug message
+			// and move along. Nothing to see here.
+			Alphred\Log::console( 'No `workflow.ini` file found in the workflow root.', 0 );
+			// Exit the method
+			return false;
+		}
+		// Parse the INI file and convert all the keys to lowercase
+		$ini = $this->lc_keys( parse_ini_file( $file, true ) );
+
+		// Load the plugins, if any are set
+		if ( isset( $ini['alphred:plugins'] ) ) {
+			$this->load_plugins( $ini['alphred:plugins'] );
+		}
+		// The
+		return true;
+
+	}
+
+	/**
+	 * Converts the keys of an array to lowercase
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param  array $array an array whose keys we need to alter
+	 * @return array        an altered array
+	 */
+	private function lc_keys( $array ) {
+		// Cycle through the array and convert the keys to lowercase, and set that
+		// in a new, temporary array
+		foreach( $array as $key => $value ) :
+			$return[ strtolower( $key ) ] = $value;
+		endforeach;
+		// Return the new array
+		return $return;
+	}
+
+
 
 	/*****************************************************************************
 	 * Wrapper methods for script filters
@@ -121,6 +168,8 @@ class Alphred {
 
 	/**
 	 * Adds a result to the script filter
+	 *
+	 * @since 1.0.0
 	 *
 	 * @param array $item an array of values to parse that construct an Alphred\Result object
 	 * @param array $options array of arguments if using a plugin
@@ -136,6 +185,8 @@ class Alphred {
 	/**
 	 * Prints the script filter XML
 	 *
+	 * @since 1.0.0
+	 *
 	 * @param  array|boolean $options options if using a plugin
 	 * @return mixed
 	 */
@@ -150,7 +201,7 @@ class Alphred {
 	/**
 	 * Alias of to_xml
 	 *
-	 * @see Alphred::to_xml()
+	 * @uses Alphred::to_xml()
 	 *
 	 * @param  boolean $options
 	 * @return mixed
@@ -168,12 +219,86 @@ class Alphred {
 	 * Wrapper methods for requests ( GET / POST )
 	 ****************************************************************************/
 
-	public function request_get( $options, $cache_ttl = 600 ) {
-
+	/**
+	 * [request_get description]
+	 *
+	 * Options:
+	 *  params     (array as $key => $value)
+	 *  auth       (array as [ username, password ] )
+	 *  user_agent (string)
+	 *  headers    (array as list of headers to add)
+	 *
+	 * @param  [type]  $url       [description]
+	 * @param  [type]  $options   [description]
+	 * @param  integer $cache_ttl [description]
+	 * @param  boolean $cache_bin [description]
+	 * @return [type]             [description]
+	 */
+	public function request_get( $url, $options = false, $cache_ttl = 600, $cache_bin = true ) {
+		$request = $this->create_request( $url, $options, $cache_ttl, $cache_bin, 'get' );
+		return $request->execute();
 	}
-	public function request_post( $options, $cache_ttl = 600 ) {
 
+	public function request_post( $url, $options = false, $cache_ttl = 600, $cache_bin = true ) {
+		$request = $this->create_request( $url, $options, $cache_ttl, $cache_bin, 'post' );
+		return $request->execute();
 	}
+
+	private function create_request( $url, $options, $cache_ttl, $cache_bin, $type ) {
+
+		if ( $cache_ttl > 0 ) {
+			// Create an object with caching on
+			$request = new Alphred\Request( $url, [ 'cache' => true,
+			                               					'cache_ttl' => $cache_ttl,
+			                               					'cache_bin' => $cache_bin ] );
+		} else {
+			// Create an object with caching off
+			$request = new Alphred\Request( $url, [ 'cache' => false ] );
+		}
+		// Set it to `POST` if that's what they want
+		if ( 'post' == $type ) {
+			$requst->use_post();
+		}
+		// If there are options, then go through them and set everything
+		if ( $options ) {
+			if ( isset( $options['params'] ) ) {
+				if ( ! is_array( $options['params'] ) ) {
+					throw new Alphred\Exception( 'Parameters must be passed as an array', 4 );
+				}
+				// Add the parameters
+				$request->add_parameters( $options['params'] );
+			}
+			// For basic http authentication
+			if ( isset( $options['auth'] ) ) {
+				// Make sure that there are two options in the auth array
+				if ( ! is_array( $options['auth'] ) || ( 2 !== count( $options['auth'] ) ) ) {
+					throw new Alphred\Exception( 'You need two arguments in the auth array.', 4 );
+				}
+				// Set the options
+				$request->set_auth( $options['auth'][0], $options['auth'][1] );
+			}
+			// If we need a user agent
+			if ( isset( $options['user_agent'] ) ) {
+				// Make sure that the user agent is a string
+				if ( ! is_string( $options['user_agent'] ) ) {
+					// It's not, so throw an exception
+					throw new Alphred\Exception( 'The user agent must be a string', 4 );
+				}
+				// Set the user agent
+				$request->set_user_agent( $options['user_agent'] );
+			}
+			// If we need to add headers
+			if ( isset( $options['headers'] ) ) {
+				if ( ! is_array( $options['headers'] ) ) {
+					throw new Alphred\Exception( 'Headers must be passed as an array', 4 );
+				} else {
+					$request->set_headers( $options['headers'] );
+				}
+			}
+		}
+		return $request;
+	}
+
 	public function request_clear_cache( $bin = false ) {
 
 	}
@@ -246,9 +371,7 @@ class Alphred {
 
 
 
-	public function add_commas( $list, $suffix = false ) {
-		return \Alphred\Text::add_commas_to_list( $list, $suffix );
-	}
+
 
 
 	/**
@@ -269,7 +392,7 @@ class Alphred {
 	 * @param  array $options   the list of options to construct the notification
 	 * @return boolean          success
 	 */
-	public function notification( $options ) {
+	public function send_notification( $options ) {
 		if ( $function = $this->get_plugin_function( __FUNCTION__ ) ) {
 			return call_user_func_array( $function, [ $options ] );
 		}
@@ -285,11 +408,14 @@ class Alphred {
 	/**
 	 * Gets a password from the keychain
 	 *
+	 * @uses \Alphred\Keychain::find_password()
+	 *
 	 * @param  [type]  $account [description]
 	 * @param  boolean $options [description]
 	 * @return [type]           [description]
 	 */
 	public function get_password( $account, $options = false ) {
+		// Check for plugin first
 		if ( $function = $this->get_plugin_function( __FUNCTION__ ) ) {
 			return call_user_func_array( $function, [ $account, $options ] );
 		}
@@ -408,9 +534,10 @@ class Alphred {
 
 
 	/**
-	 * [log description]
+	 * Writes a log message to a log file
 	 *
-	 * @see \Alphred\Log::file()
+	 *
+	 * @uses \Alphred\Log::file()
 	 *
 	 * @param  [type]  $message  [description]
 	 * @param  string  $level    [description]
@@ -457,10 +584,21 @@ class Alphred {
 		return Alphred\Date::fuzzy_ago( $seconds );
 	}
 
+	public function add_commas( $list, $suffix = false ) {
+		return \Alphred\Text::add_commas_to_list( $list, $suffix );
+	}
 
 	/*****************************************************************************
 	 * AppleScript Filters
 	 ****************************************************************************/
+
+	public function activate( $application ) {
+
+	}
+
+	public function get_active_window() {
+
+	}
 
 	/*****************************************************************************
 	 * These methods create and define the plugin functionality.

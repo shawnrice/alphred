@@ -1,7 +1,9 @@
 <?php
 
 // Example that connects to Github
-
+// https://developer.github.com/v3/
+//
+//
 // Just to test outside of the workflow environment
 $_SERVER['alfred_workflow_name'] = 'Github Repos';
 $_SERVER['alfred_workflow_bundleid'] = 'com.spr.gh.repos';
@@ -17,9 +19,6 @@ $_SERVER['alfred_version'] = 2.6;
 // require_once( __DIR__ . '/../build/Alphred.phar' );
 // use the main entry point for the library
 require_once( __DIR__ . '/../Main.php' );
-
-
-
 
 $query = ''; // Initialize an empty query
 
@@ -51,16 +50,10 @@ if ( ! $username ) {
 	exit(0);
 }
 
-// We're going to try to read the password from the Keychain. Since the Alphred's keychain
-// interface will throw an exception if the password is not found, we'll wrap this in a "try/catch"
-// block.
-//
-// Note, we're catching only the "Alphred\PasswordNotFound" exception.
-try {
-	$password = Alphred\Keychain::find_password( 'github.com' );
-} catch (Alphred\PasswordNotFound $e) {
-		// The password has not been set, so we'll provide only one option to set the password
-		$Alphred->add_result( new Alphred\Result([
+// We're going to try to read the password from the Keychain.
+if ( ! $password = $Alphred->get_password( 'github.com' ) ) {
+	// The password has not been set, so we'll provide only one option to set the password
+	$Alphred->add_result( new Alphred\Result([
 	    'title' => 'Press enter to set your password',
 	    'arg'   => 'set-password',
 	    'valid' => true
@@ -71,36 +64,46 @@ try {
 	exit(0);
 }
 
+
 // At this point, we now have the username and password set, so the workflow should be configured.
 // So we'll go ahead and start to construct a call to Github.
-// It isn't stated, but data caching is turned on by default with a set max-life of 600 seconds.
-// $request = new Alphred\Request( "https://api.github.com/users/{$username}/repos" );
-$request = new Alphred\Request( "https://api.github.com/users/{$username}/repos" );
+
+// It isn't stated, but data caching is turned on by default with a set max-life of 600 seconds,
+// which is ten minutes. The options are long, so we'll go ahead and set them one by one.
 
 // Github advises us to explicitly add the header below
-$request->set_headers([ 'Accept: application/vnd.github.v3+json' ]);
-
+$options['headers'] = [ 'Accept: application/vnd.github.v3+json' ];
 // Github also demands that we set a user-agent
-$request->set_user_agent( 'something goes here' );
-
-// Github gives us a default of 30 repos in the response, but we can push it to 100
-$request->add_parameter( 'per_page', 100 );
-
+$options['user_agent'] = 'alfred';
+// Github gives us a default of 30 repos in the response, but we can push it to 100. Let's get 100.
+$options['params'] = [ 'per_page' => 100 ];
 // Lastly, we're using basic authorization with Github rather than any Oauth or Access Tokens, so
 // we'll go ahead and add in the basic authorization with the username and password below.
-$request->set_auth( $username, $password );
+$options['auth'] = [ $username, $password ];
+// The request variables have been set, so let's execute it. If we wanted to adjust the caching options,
+// then we'd pass another argument.
+$repos = $Alphred->request_get( "https://api.github.com/users/{$username}/repos", $options );
+// We know that we're getting JSON data, so we'll also decode it into an easily accessible array.
+$repos = json_decode( $repos, true );
 
+/*
+ We could have just pushed all of that to this long, long call:
 
-// The request has been setup, so let's execute it. We know that we're getting JSON data, so we'll
-// also decode it into an easily accessible array.
-$repos =  json_decode( $request->execute(), true );
+ $repos = json_decode( $Alphred->request_get( "https://api.github.com/users/{$username}/repos", [
+	'params' => [ 'per_page' => 100 ],
+	'auth' => [ $username, $password ],
+	'user_agent' => 'alfred',
+	'headers' => [ 'Accept: application/vnd.github.v3+json' ]
+ ]), true );
+
+ */
 
 // Okay, now, if there is a query, then we'll use that to filter out the repos
 if ( ! empty( $query ) ) {
-	// So, Alpred's filter will filter out all things that don't match the query, and it will also
+	// So, Alphred's filter will filter out all things that don't match the query, and it will also
 	// reorganize the array so that the highest match is at the top. Granted, Alfred will override
 	// the sort order if a uid is present.
-	$matches = Alphred\Filter::Filter($repos, $query, 30, 'name', 37 );
+	$matches = Alphred\Filter::Filter( $repos, $query, 30, 'name', 37 );
 } else {
 	// There was no query, so the answer is the full set
 	$matches = $repos;
