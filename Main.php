@@ -75,6 +75,9 @@ if ( ! ( isset( $argv ) && ( 'Alphred.phar' === basename( $argv[0] ) || 'Alphred
 	require_once( __DIR__ . '/classes/Alfred.php' );
 	require_once( __DIR__ . '/classes/Alphred.php' );
 	require_once( __DIR__ . '/classes/AppleScript.php' );
+	require_once( __DIR__ . '/classes/Choose.php' );
+	require_once( __DIR__ . '/classes/Notification.php' );
+	require_once( __DIR__ . '/classes/Dialog.php' );
 	require_once( __DIR__ . '/classes/Config.php' );
 	require_once( __DIR__ . '/classes/Database.php' );
 	require_once( __DIR__ . '/classes/Date.php' );
