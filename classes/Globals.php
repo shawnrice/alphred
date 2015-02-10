@@ -45,7 +45,7 @@ class Globals {
 			'alfred_workflow_data',
 			'alfred_workflow_name',
 			'alfred_workflow_uid',
-			'ALPHRED_RUNNING_IN_BACKGROUND', // This is internal for background awareness
+			'ALPHRED_IN_BACKGROUND', // This is internal for background awareness
 			'PWD',
 			'USER'
 		];
@@ -77,7 +77,7 @@ class Globals {
 			}
 			// Special case for 'running in background': we do the workflow environment check otherwise,
 			// so we'll just return false if not set.
-			if ( 'ALPHRED_RUNNING_IN_BACKGROUND' == $name ) {
+			if ( 'ALPHRED_IN_BACKGROUND' == $name ) {
 				return false;
 			}
 			// The variable is not set, so we'll throw an exception
@@ -135,7 +135,7 @@ class Globals {
 	public static function is_background() {
 		// This will trigger an exception if running outside of Alfred
 		self::get( 'alfred_workflow_data' );
-		if ( self::get( 'ALPHRED_RUNNING_IN_BACKGROUND' ) ) {
+		if ( self::get( 'ALPHRED_IN_BACKGROUND' ) ) {
 			return true;
 		}
 		// The variable is not set, but we're running inside of a workflow

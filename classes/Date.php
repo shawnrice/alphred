@@ -294,7 +294,7 @@ class Date {
 	 */
 	public function ago( $seconds, $words = false ) {
 		$tense = 'past';
-		$seconds = ( $seconds - time() ); // this needs to be converted with the date function
+		$seconds = ( time() - $seconds ); // this needs to be converted with the date function
 		if ( $seconds < 0 ) {
 			$tense = 'future';
 			$seconds = abs( $seconds ); // We need a positive number

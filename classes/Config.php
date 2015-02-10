@@ -208,7 +208,7 @@ class Config {
 			 */
 			throw new Exception( "Method does not exist", 4 );
 		}
-		return $this->$method( $key, $value );
+		return $this->$method( $key );
 	}
 
 	/*****************************************************************************
@@ -315,7 +315,7 @@ class Config {
 	 * @param  mixed  $value the value to set
 	 * @return boolean success
 	 */
-	private function set_sqlite( $key, $value ) {
+	private function set_sqlite( $key, $value, $overwrite = true ) {
 		$key   = $this->db->escapeString( $key );
 		$value = $this->db->escapeString( $value );
 		if ( $overwrite ) {

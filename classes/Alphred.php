@@ -75,16 +75,37 @@ class Alphred {
 
 	}
 
+	/**
+	 * Calls an Alfred External Trigger
+	 *
+	 * @since 1.0.0
+	 * @uses Alphred::call_external_trigger()
+	 *
+	 * @param  string  				$bundle   the bundle id of the workflow to trigger
+	 * @param  string  				$trigger  the name of the trigger
+	 * @param  string|boolean $argument an argument to pass
+	 * @return null
+	 */
 	public function trigger( $bundle, $trigger, $argument = false ) {
 		return $this->call_external_trigger( $bundle, $trigger, $argument );
 	}
 
+	/**
+	 * Calls an Alfred External Trigger
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param  string  				$bundle   the bundle id of the workflow to trigger
+	 * @param  string  				$trigger  the name of the trigger
+	 * @param  string|boolean $argument an argument to pass
+	 */
 	private function call_external_trigger( $bundle, $trigger, $argument = false ) {
 		$script = "tell application \"Alfred 2\" to run trigger \"{$trigger}\" in workflow \"{$bundle}\"";
 		if ( false !== $argument ) {
 			$script .= "with argument \"{$argument}\"";
 		}
-		return exec( "osascript -e '$script'" );
+		// Execute the AppleScript to call the trigger
+		exec( "osascript -e '$script'" );
 	}
 
 	/**
@@ -116,7 +137,19 @@ class Alphred {
 			// Let's escape double-quotes
 			$args = str_replace( '"', '\"', $args );
 		}
-		exec( "/usr/bin/nohup php '{$script}' {$args}  >/dev/null 2>&1 &", $output, $return );
+		// Set a variable to let us know that we're in the background, and execute the script
+		exec( "ALPHRED_IN_BACKGROUND=1 /usr/bin/nohup php '{$script}' {$args}  >/dev/null 2>&1 &", $output, $return );
+	}
+
+	/**
+	 * Tells you whether or not a script is running in the background
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return boolean true if in the background; false if not
+	 */
+	public function is_background() {
+		return Alphred\Globals::is_background();
 	}
 
 	public function filter() {

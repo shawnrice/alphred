@@ -1,13 +1,16 @@
 <?php
 
+$_SERVER['alfred_workflow_name'] = 'Github Repos';
+$_SERVER['alfred_workflow_bundleid'] = 'com.spr.gh.repos';
+$_SERVER['alfred_workflow_data'] =
+	$_SERVER['HOME'] . '/Library/Application Support/Alfred 2/Workflow Data/com.spr.gh.repos';
+$_SERVER['alfred_workflow_cache'] =
+	$_SERVER['HOME'] . '/Library/Caches/com.runningwithcrayons.Alfred-2/Workflow Data/com.spr.gh.repos';
+$_SERVER['alfred_version'] = 2.6;
+
 require_once( '../Main.php' );
 
-// $string = "on Upon my arrival, and upon, my, on something else.";
-// print Alphred\Text::title_case( $string );
+print Alphred\Date::seconds_to_human_time( '123', true );
 
-$array = [ 'one' => 'two', 'three' => 'and four' ];
-print http_build_query( $array );
 
 exit(0);
-
-
