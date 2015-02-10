@@ -2,8 +2,8 @@
 
 require_once( '../Main.php' );
 
-$url = '/usr/bin/somethingelse';
-print filter_var( $url, FILTER_VALIDATE_URL );
+$string = "on Upon my arrival, and upon, my, on something else.";
+print Alphred\Text::title_case( $string );
 
 exit(0);
 

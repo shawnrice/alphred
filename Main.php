@@ -89,7 +89,6 @@ if ( ! ( isset( $argv ) && ( 'Alphred.phar' === basename( $argv[0] ) || 'Alphred
 	require_once( __DIR__ . '/classes/Request.php' );
 	require_once( __DIR__ . '/classes/ScriptFilter.php' );
 	require_once( __DIR__ . '/classes/Text.php' );
-	require_once( __DIR__ . '/classes/Web.php' );
 
 	// So, we need some Alfred set enviromental variables for this to work.
 	// if ( $version = Alphred\Globals::get( 'alfred_version' ) ) {

@@ -91,11 +91,27 @@ class Text {
 		return implode( '', $words );
 	}
 
+	/**
+	 * Adds underscores to a string
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param  string $string a string to add underscores to
+	 * @return string         a string with underscores
+	 */
 	public static function underscore( $string ) {
 		// converts spaces to underscores
 		return str_replace( ' ', '_', $string );
 	}
 
+	/**
+	 * Hyphenates a string
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param  string $string the string to hyphenate
+	 * @return string         a hyphenated string
+	 */
 	public static function hyphenate( $string ) {
 		// converts spaces to hyphens
 		return str_replace( ' ', '-', $string );
@@ -104,10 +120,11 @@ class Text {
 	/**
 	 * Adds commas to list (uses Oxford Commas, sorry, it's just proper)
 	 *
-	 * @todo Debug this... it doesn't quite make sense looking back on it
+	 * @since 1.0.0
 	 *
 	 * @param array  	$list   an array to be pushed into a comma-ified string
-	 * @param boolean $suffix a suffix to add
+	 * @param boolean whether or not there is a suffix
+	 * @return string a string with commas
 	 */
 	public static function add_commas_to_list( $list, $suffix = false ) {
 		// We want a string, so let's convert it to one with an Oxford Comma

@@ -32,7 +32,7 @@ Tentatively finshed:
 10. [x] Log.php
 10. [x] Request.php
 10. [x] ScriptFilter.php
-10. [ ] Text.php
+10. [x] Text.php
 10. [ ] Web.php
 
 

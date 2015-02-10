@@ -75,6 +75,18 @@ class Alphred {
 
 	}
 
+	public function trigger( $bundle, $trigger, $argument = false ) {
+		return $this->call_external_trigger( $bundle, $trigger, $argument );
+	}
+
+	private function call_external_trigger( $bundle, $trigger, $argument = false ) {
+		$script = "tell application \"Alfred 2\" to run trigger \"{$trigger}\" in workflow \"{$bundle}\"";
+		if ( false !== $argument ) {
+			$script .= "with argument \"{$argument}\"";
+		}
+		return exec( "osascript -e '$script'" );
+	}
+
 	/**
 	 * Execute a php script in the background
 	 *

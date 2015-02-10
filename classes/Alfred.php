@@ -82,18 +82,6 @@ class Alfred {
 		return Globals::get( 'alfred_theme_background' );
 	}
 
-	public function trigger( $bundle, $trigger, $argument = false ) {
-		return $this->call_external_trigger( $bundle, $trigger, $argument );
-	}
-
-	public function call_external_trigger( $bundle, $trigger, $argument = false ) {
-		$script = "tell application \"Alfred 2\" to run trigger \"$trigger\" in workflow \"$bundle\"";
-		if ( false !== $argument ) {
-			$script .= "with argument \"$argument\"";
-		}
-		return exec( "osascript -e '$script'" );
-	}
-
   public function light_or_dark() {
     // Regex pattern to parse the Alfred background variable
     $pattern = "/rgba\(([0-9]{1,3}),([0-9]{1,3}),([0-9]{1,3}),([0-9.]{4,})\)/";
