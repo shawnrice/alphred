@@ -13,3 +13,4 @@ todo/*
 vendor/*
 reports/*
 workflow.ini
+report_test_coverage.sh

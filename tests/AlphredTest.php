@@ -54,14 +54,17 @@ class AlphredTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function test_keychain() {
+
 		$Alphred = new Alphred;
 		$account  = 'averytestaccount';
 		$password = 'test';
+		$Alphred->delete_password( $account );
 		$test_password = $Alphred->get_password( $account );
 		$this->assertFalse( $test_password );
 		$this->assertEquals( $Alphred->get_password_dialog("Please enter: `{$password}`"), $password);
 		$Alphred->save_password( $account, $password );
 		$this->assertEquals( $password, $Alphred->get_password( $account ) );
+		$Alphred->delete_password( $account );
 	}
 
 }
