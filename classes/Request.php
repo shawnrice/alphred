@@ -77,11 +77,11 @@ class Request {
 	 * become the directory it will be saved under.
 	 *
 	 *
-	 * @param boolean $url     [description]
+	 * @param string $url     the URL to request
 	 * @param array   $options [description]
 	 */
 	public function __construct(
-	  $url = false,
+	  $url,
 	  $options = array( 'cache' => true, 'cache_ttl' => 600, 'cache_bin' => true )
 	) {
 
@@ -95,9 +95,26 @@ class Request {
 		// Empty headers array
 		$this->headers = [];
 
+		// If the request object was initialized with a URL, then set the URL
+		$this->set_url( $url );
+
+		// Set the cache options
+		$this->set_caches( $options );
+
+		// Set some reasonable defaults
+		curl_setopt_array( $this->handler, [ CURLOPT_RETURNTRANSFER => 1, CURLOPT_FAILONERROR => 1 ]);
+
+	}
+
+	/**
+	 * Sets the cache options
+	 *
+	 * @param array $options an array of cache options
+	 */
+	private function set_caches( $options ) {
 		// Here we can automatically set the cache bin to the URL hostname
-		if ( true === $options[ 'cache_bin' ] && $url ) {
-			$options[ 'cache_bin' ] = parse_url( $url, PHP_URL_HOST );
+		if ( true === $options[ 'cache_bin' ] ) {
+			$options[ 'cache_bin' ] = parse_url( $this->object['url'], PHP_URL_HOST );
 		}
 
 		if ( isset( $options['cache'] ) && $options['cache'] ) {
@@ -108,19 +125,8 @@ class Request {
 				$this->cache_bin = $options['cache_bin'];
 			}
 		}
-
-		// If the request object was initialized with a URL, then set the URL
-		if ( $url ) {
-			$this->set_url( $url );
-		}
-
-		// Set some reasonable defaults
-		curl_setopt_array( $this->handler, [
-			CURLOPT_RETURNTRANSFER => 1,
-			CURLOPT_FAILONERROR => 1,
-		]);
-
 	}
+
 
 	/**
 	 * Executes the cURL request
