@@ -91,7 +91,7 @@ class Request {
 		$this->object['request_type'] = 'get';
 
 		// Empty parameters array
-		$this->parameters = [];
+		$this->object['parameters'] = [];
 		// Empty headers array
 		$this->headers = [];
 
@@ -149,27 +149,8 @@ class Request {
 		// Set a preliminary HTTP response code of 0 (not defined)
 		$this->code = 0;
 
-		// If the method is `GET`, then we need to append the parameters to
-		// the URL to make sure that it goes alright. Post parameters are included
-		// separately and should already be set.
-		if ( 'get' == $this->object['request_type'] ) {
-			// If parameters are set, then append them
-			if ( isset( $this->object['parameters'] ) ) {
-				// Add the ? that is needed for an appropriate `GET` request, and append the params
-				$url = $this->object['url'] . '?' . http_build_query( $this->object['parameters'] );
-				// Set the new URL that will include the parameters.
-				curl_setopt( $this->handler, CURLOPT_URL, $url );
-			}
-		} else if ( 'post' == $this->object['request_type'] ) {
-			if ( count( $this->parameters ) > 0 ) {
-				// Build the post fields from the $object->parameters array.
-				$this->build_post_fields();
-			}
-		} else {
-			// This should never happen. I mean it. There is no way that I can think of that this exception will be
-			// thrown. If it is, then please report it, and send me the code you used to make it happen.
-			throw new Exception( "You should never see this, but somehow you are making an unsupported request", 4 );
-		}
+		// Build the fields
+		$this->build_fields();
 
 		// By now, the cURL request should be entirely built, so let's see proceed. First, we'll look to see if there
 		// is valid, cached data. If so, return that. If not, try to get new data. If that fails, try to return expired
@@ -189,10 +170,7 @@ class Request {
 				} else {
 					// They wanted an HTTP code, and we don't have a real one for them because we're getting this
 					// from the internal cache, so we'll just fake a 302 response code
-					return [
-						'code' => 302,
-						'data' => $data
-					];
+					return [ 'code' => 302, 'data' => $data ];
 				}
 			}
 		}
@@ -226,10 +204,7 @@ class Request {
 				return $data;
 			} else {
 				// The requested the code as well, so we'll return an array with the code:
-				return [
-					'code' => 0,
-					'data' => $data
-				];
+				return [ 'code' => 0, 'data' => $data ];
 			}
 		} else {
 			// Let them know what debuggin information follows
@@ -245,10 +220,7 @@ class Request {
 				return false;
 			} else {
 				// But they also wanted the code, so we'll return 0 for the code
-				return [
-					'code' => 0,
-					'data' => false
-				];
+				return [ 'code' => 0, 'data' => false ];
 			}
 		}
 
@@ -270,10 +242,7 @@ class Request {
 			return $this->results;
 		} else {
 			// The requested the code as well, so we'll return an array with the code:
-			return [
-				'code' => $this->code,
-				'data' => $this->results
-			];
+			return [ 'code' => $this->code, 'data' => $this->results ];
 		}
 	}
 
@@ -283,7 +252,44 @@ class Request {
 	 * @since 1.0.0
 	 */
 	private function build_post_fields() {
-		curl_setopt( $this->handler, CURLOPT_POSTFIELDS, http_build_query( $this->parameters ) );
+		if ( count( $this->object['parameters'] ) > 0 ) {
+			curl_setopt( $this->handler, CURLOPT_POSTFIELDS, http_build_query( $this->object['parameters'] ) );
+		}
+	}
+
+	/**
+	 * Builds the post fields array
+	 *
+	 * @since 1.0.0
+	 */
+	private function build_get_fields() {
+		// If parameters are set, then append them
+		if ( count( $this->object['parameters'] ) > 0 ) {
+			// Add the ? that is needed for an appropriate `GET` request, and append the params
+			$url = $this->object['url'] . '?' . http_build_query( $this->object['parameters'] );
+			// Set the new URL that will include the parameters.
+			curl_setopt( $this->handler, CURLOPT_URL, $url );
+		}
+	}
+
+	/**
+	 * Builds the fields out of parameters array
+	 *
+	 * @since 1.0.0
+	 */
+	private function build_fields() {
+		// If the method is `GET`, then we need to append the parameters to
+		// the URL to make sure that it goes alright. Post parameters are included
+		// separately and should already be set.
+		if ( 'get' == $this->object['request_type'] ) {
+			$this->build_get_fields();
+		} else if ( 'post' == $this->object['request_type'] ) {
+			$this->build_post_fields();
+		} else {
+			// This should never happen. I mean it. There is no way that I can think of that this exception will be
+			// thrown. If it is, then please report it, and send me the code you used to make it happen.
+			throw new Exception( "You should never see this, but somehow you are making an unsupported request", 4 );
+		}
 	}
 
 	/**
@@ -368,16 +374,16 @@ class Request {
 		} else if ( is_array( $header ) ) {
 			// Well, they sent an array, so let's just assume that they want to set
 			// multiple headers here.
-			foreach( $header as $h ) :
-				if ( is_string( $h ) ) {
+			foreach( $header as $head ) :
+				if ( is_string( $head ) ) {
 					// Push each header into the headers array. We can't really check
 					// to make sure that these headers are okay or fine. So we'll just
 					// have to deal with failure later if they aren't.
-					array_push( $this->headers, $h );
+					array_push( $this->headers, $head );
 				} else {
 					// We're going to assume it's an array, so we'll push them together
 					// for the error message.
-					$h = implode( "|", $h );
+					$head = implode( "|", $head );
 					// Bad header. Throw an exception.
 					throw new Exception( "You can't push these headers ({$h}).", 4 );
 				}
