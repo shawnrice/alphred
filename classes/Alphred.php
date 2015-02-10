@@ -220,30 +220,67 @@ class Alphred {
 	 ****************************************************************************/
 
 	/**
-	 * [request_get description]
+	 * Makes a `GET` Request
 	 *
-	 * Options:
+	 * This method is good for simple `GET` requests. By default, requests are cached for
+	 * 600 seconds (ten minutes), and all options are passed via the `$options` array. Here
+	 * are the options:
 	 *  params     (array as $key => $value)
 	 *  auth       (array as [ username, password ] )
 	 *  user_agent (string)
 	 *  headers    (array as list of headers to add)
 	 *
-	 * @param  [type]  $url       [description]
-	 * @param  [type]  $options   [description]
-	 * @param  integer $cache_ttl [description]
-	 * @param  boolean $cache_bin [description]
-	 * @return [type]             [description]
+	 * Set only the options that you need.
+	 *
+	 * To turn caching off, just set `$cache_ttl` to 0.
+	 *
+	 * The `$cache_bin` is the subfolder within the workflow's cache folder. If set to `true`,
+	 * then the cache bin will be named after the hostname of the URL. So, if you are requesting
+	 * something from `http://api.github.com/v3/shawnrice/repos`, the `cache bin` would be
+	 * `api.github.com`. If you were requesting `http://www.google.com`, then the `cache bin`
+	 * would be `www.google.com`.
+	 *
+	 * @uses Alphred\Request
+	 *
+	 * @param  string  				$url       the URL
+	 * @param  array|boolean  $options   an array of options for the request
+	 * @param  integer 				$cache_ttl cache time to live in seconds
+	 * @param  string|boolean $cache_bin cache bin
+	 * @return string         the results
 	 */
-	public function request_get( $url, $options = false, $cache_ttl = 600, $cache_bin = true ) {
+	public function get( $url, $options = false, $cache_ttl = 600, $cache_bin = true ) {
 		$request = $this->create_request( $url, $options, $cache_ttl, $cache_bin, 'get' );
 		return $request->execute();
 	}
 
-	public function request_post( $url, $options = false, $cache_ttl = 600, $cache_bin = true ) {
+	/**
+	 * Makes a `POST` request
+	 *
+	 * @see Alphred::get() See `get()` for details. The method is basically the same.
+	 *
+	 * @uses Alphred\Request
+	 *
+	 * @param  string  				$url       [description]
+	 * @param  array|boolean  $options   an array of options for the request
+	 * @param  integer 				$cache_ttl cache time to live in seconds
+	 * @param  string|boolean $cache_bin cache bin
+	 * @return string         the results
+	 */
+	public function post( $url, $options = false, $cache_ttl = 600, $cache_bin = true ) {
 		$request = $this->create_request( $url, $options, $cache_ttl, $cache_bin, 'post' );
 		return $request->execute();
 	}
 
+	/**
+	 * Creates a request object
+	 *
+	 * @param  string  				$url       the URL
+	 * @param  array|boolean  $options   an array of options for the request
+	 * @param  integer 				$cache_ttl cache time to live in seconds
+	 * @param  string|boolean $cache_bin cache bin
+	 * @param  string 				$type      either `get` or `post`
+	 * @return Alphred\Request           the request object
+	 */
 	private function create_request( $url, $options, $cache_ttl, $cache_bin, $type ) {
 
 		if ( $cache_ttl > 0 ) {
@@ -299,8 +336,24 @@ class Alphred {
 		return $request;
 	}
 
-	public function request_clear_cache( $bin = false ) {
-
+	/**
+	 * Clears a cache bin
+	 *
+	 * Clears a cache bin. If you send it with no argument (i.e.: `$bin = false`), then
+	 * it will attempt to clear the workflow's cache directory. Note: this will throw an
+	 * exception if it encounters a sub-directory. While it would be easy to make this
+	 * function clear sub-directories, it shouldn't. If you are storing data other than responses
+	 * in your cache directory, then use a cache-bin with the requests.
+	 *
+	 * @since 1.0.0
+	 * @throws Alphred\Exception when encountering a sub-directory
+	 * @uses Alphred\Request::clear_cache()
+	 *
+	 * @param  string|boolean $bin the cache bin to clear
+	 * @return null
+	 */
+	public function clear_cache( $bin = false, $options = false ) {
+		return Alphred\Request::clear_cache( $bin );
 	}
 
 

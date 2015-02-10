@@ -1,4 +1,20 @@
 <?php
+/**
+ * Contains the Request library for Alphred
+ *
+ * PHP version 5
+ *
+ * @package 	 Alphred
+ * @copyright  Shawn Patrick Rice 2014-2015
+ * @license    http://opensource.org/licenses/MIT  MIT
+ * @version    1.0.0
+ * @author     Shawn Patrick Rice <rice@shawnrice.org>
+ * @link       http://www.github.com/shawnrice/alphred
+ * @link       http://shawnrice.github.io/alphred
+ * @since      File available since Release 1.0.0
+ *
+ */
+
 
 namespace Alphred;
 
@@ -16,7 +32,6 @@ namespace Alphred;
  * With this, you can easily make GET or POST requests. Set extra headers. Easily set
  * a user-agent. Set parameters. And cache the data for later retrieval.
  *
- * @todo Add in methods to clear cache bins.
  *
  */
 class Request {
@@ -596,6 +611,61 @@ class Request {
 			return false;
 		}
 		return time() - filemtime( $this->get_cache_file() );
+	}
+
+	/**
+	 * Clears a cache bin
+	 *
+	 * Call the file with no arguments if you aren't using a cache bin; however, this
+	 * will choke on sub-directories.
+	 *
+	 * @throws Exception when encountering a sub-directory
+	 *
+	 * @param  string|boolean $bin the name of the cache bin (or a URL if you're setting them automatically)
+	 * @return null
+	 */
+	public function clear_cache( $bin = false ) {
+		// Get the cache directory
+		$dir = \Alphred\Globals::cache();
+		if ( ! $bin ) {
+			return self::clear_directory( $dir );
+		}
+		if ( filter_var( $bin, FILTER_VALIDATE_URL ) ) {
+			$dir = $dir . '/' . parse_url( $bin, PHP_URL_HOST );
+		} else {
+			$dir = "{$dir}/{$bin}";
+		}
+		// Clear the directory
+		return self::clear_directory( $dir );
+	}
+
+	/**
+	 * Clears all the files out of a directory
+	 *
+	 * @since 1.0.0
+	 * @throws Exception when encountering a sub-directory
+	 *
+	 * @param  string $dir a path to a directory
+	 */
+	private function clear_directory( $dir ) {
+		if ( ! file_exists( $dir ) || ! is_dir( $dir ) || '.' === $dir ) {
+			// Throw an exception because this is a bad request to clear the cache
+			throw new Exception( "Cannot clear directory: `{$dir}`", 3 );
+		}
+
+		$files = array_diff( scandir( $dir ), [ '.', '..' ] );
+		foreach( $files as $file ) :
+			// Do not delete sub-directories
+			if ( is_dir( $file ) ) {
+				// We could expand this to support deleting sub-directories by just calling this method
+				// recursively, but it is better just to use the cache_bin and keep the caches separate.
+				throw new Exception( "Cannot delete subdirectory `{$file}` in `{$dir}`", 3 );
+			} else {
+				// Delete the file
+				unlink( "{$dir}/{$file}" );
+			}
+
+		endforeach;
 	}
 
 

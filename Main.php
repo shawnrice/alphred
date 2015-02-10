@@ -8,7 +8,7 @@
  *
  *
  * @package    Alphred
- * @copyright  Shawn Patrick Rice 2014
+ * @copyright  Shawn Patrick Rice 2014-2015
  * @license    http://opensource.org/licenses/MIT  MIT
  * @version    1.0.0
  * @author     Shawn Patrick Rice <rice@shawnrice.org>

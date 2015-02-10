@@ -77,9 +77,10 @@ class InvalidSecurityAction		 extends Exception {}
 class UnknownSecurityException extends Exception {}
 
 /**
- *
+ * Thrown when giving too many arguments
  */
 class TooManyArguments  	     extends Exception {}
+
 /**
  * Thrown when trying to set an XML property that should not exist
  */

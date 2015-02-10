@@ -2,16 +2,8 @@
 
 require_once( '../Main.php' );
 
-class MyTestClass {
-
-	public static function test_method() {
-		return __METHOD__;
-	}
-
-}
-
-print MyTestClass::test_method();
-print "\n";
+$url = '/usr/bin/somethingelse';
+print filter_var( $url, FILTER_VALIDATE_URL );
 
 exit(0);
 

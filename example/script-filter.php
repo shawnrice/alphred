@@ -82,7 +82,7 @@ $options['params'] = [ 'per_page' => 100 ];
 $options['auth'] = [ $username, $password ];
 // The request variables have been set, so let's execute it. If we wanted to adjust the caching options,
 // then we'd pass another argument.
-$repos = $Alphred->request_get( "https://api.github.com/users/{$username}/repos", $options );
+$repos = $Alphred->get( "https://api.github.com/users/{$username}/repos", $options );
 // We know that we're getting JSON data, so we'll also decode it into an easily accessible array.
 $repos = json_decode( $repos, true );
 
