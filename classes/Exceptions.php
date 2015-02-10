@@ -3,7 +3,10 @@
 namespace Alphred;
 
 /**
- * This is the namespaced "Exception" class (i.e.: Alphred\Exception).
+ * This is the namespaced "Exception" class (i.e.: Alphred\Exception)
+ *
+ * Alphred's Exception interface adds in some standard logging functionality
+ * whenever any exception is thrown.
  */
 class Exception extends \Exception {
 
@@ -38,21 +41,72 @@ class UseOnlyAsStatic					 extends Exception {}
  */
 class RunningOutsideOfAlfred   extends Exception {}
 
+/**
+ * Thrown when trying to pass bad keys to a script filter
+ */
 class InvalidScriptFilterArgument extends Exception {}
 
+/**
+ * Keychain error
+ */
 class InvalidKeychainAccount   extends Exception {}
+
+/**
+ * Exception thrown when trying to set a password in the keychain without the `update` flag
+ */
 class PasswordExists   				 extends Exception {}
+
+/**
+ * Thrown when trying to get a password that has not been set
+ */
 class PasswordNotFound 				 extends Exception {}
+
+/**
+ * Thrown with a bad error code.
+ *
+ * If you use the library through the wrapper, then you should never see this; but if you
+ * extend it, then you might.
+ */
 class InvalidSecurityAction		 extends Exception {}
+/**
+ * Thrown when `security` doesn't know what to do
+ *
+ * If you use the library through the wrapper, then you should never see this; but if you
+ * extend it, then you might.
+ */
 class UnknownSecurityException extends Exception {}
 
-
+/**
+ *
+ */
 class TooManyArguments  	     extends Exception {}
+/**
+ * Thrown when trying to set an XML property that should not exist
+ */
 class InvalidXMLProperty			 extends Exception {}
+
+/**
+ * Thrown when sending something that should be a bool but isn't
+ */
 class ShouldBeBool			 			 extends Exception {}
+
+/**
+ * Thrown when trying to access a file that does not exist
+ */
 class FileDoesNotExist				 extends Exception {}
 
+/**
+ * Thrown when trying to load a plugin that has not been defined
+ *
+ * Usually, you can correct this by `including` or `requiring` the plugin code before either
+ * including the library or instantiating the Alphred wrapper. Otherwise, check for syntax
+ * or spelling errors.
+ */
 class PluginFunctionNotFound   extends Exception {}
 
-
+/**
+ * Thrown when trying to get a config key that has not been set
+ *
+ * This exists so that there is the difference between `not set` or `undefined` and `false`
+ */
 class ConfigKeyNotSet 				 extends Exception {}
