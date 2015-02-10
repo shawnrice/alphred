@@ -415,23 +415,6 @@ class Request {
 	}
 
 	/**
-	 * Revert back to a `GET` request
-	 *
-	 * Really, you shouldn't ever use this function. I mean, if you do, then
-	 * you have fucked up your code royally because we default to `GET`, and
-	 * then you set it to `POST` and now you want `GET` again? Seriously? Write
-	 * better code. Seriously. I mean it.
-	 *
-	 * @deprecated deprecated since version 0.0.0
-	 *
-	 */
-	public function use_get() {
-		curl_setopt( $this->handler, CURLOPT_POST, 0 );
-		curl_setopt( $this->handler, CURLOPT_HTTPGET, 1 );
-		$this->object['request_type'] = 'get';
-	}
-
-	/**
 	 * Adds a parameter to the parameters array
 	 *
 	 * @since 1.0.0
