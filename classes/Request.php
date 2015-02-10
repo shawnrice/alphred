@@ -155,15 +155,8 @@ class Request {
 		if ( 'get' == $this->object['request_type'] ) {
 			// If parameters are set, then append them
 			if ( isset( $this->object['parameters'] ) ) {
-				// Add the ? that is needed for an appropriate `GET` request
-				$url = $this->object['url'] . '?';
-				// Cycle through the set parameters and append them appropriately,
-				// separating them with an ampersand.
-				foreach ( $this->object['parameters'] as $key => $value ) :
-					$url .= urlencode($key) . '=' .  urlencode($value) . "&";
-				endforeach;
-				// strip off the last ampersand, otherwise, who knows what will happen.
-				$url = substr( $url, 0, -1 );
+				// Add the ? that is needed for an appropriate `GET` request, and append the params
+				$url = $this->object['url'] . '?' . http_build_query( $this->object['parameters'] );
 				// Set the new URL that will include the parameters.
 				curl_setopt( $this->handler, CURLOPT_URL, $url );
 			}
