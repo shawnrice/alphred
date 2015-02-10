@@ -12,9 +12,11 @@ class IniTest extends \PHPUnit_Framework_TestCase {
 		$ini = Alphred\Ini::read_ini( 'workflow.ini' );
 		Alphred\Ini::write_ini( $ini, 'workflow-new.ini' );
 		$ini2 = Alphred\Ini::read_ini( 'workflow-new.ini' );
-		$this->assertSame( $ini, $ini2 );
+		$this->assertEquals( $ini, $ini2 );
 		unlink( 'workflow-new.ini' );
 	}
+
+
 
 
 }

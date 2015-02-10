@@ -46,7 +46,7 @@ class ScriptFilter {
 	public function __construct( $options = [] ) {
 
 		$this->i18n = false;
-		foreach ( ['localize', 'localise', 'il8n' ] as $localize ) :
+		foreach ( ['localize', 'localise', 'i18n' ] as $localize ) :
 			if ( isset( $options[ $localize ] ) && $options[ $localize ] ) {
 				$this->initializei18n();
 				break;

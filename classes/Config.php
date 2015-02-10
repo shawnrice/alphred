@@ -141,12 +141,6 @@ class Config {
 	 */
 	private function load_handler( $handler ) {
 		$method = 'load_' . $this->handler;
-		if ( ! method_exists( $this, $method ) ) {
-			/**
-			 * @todo Redo exception
-			 */
-			throw new Exception( "Method does not exist", 4 );
-		}
 		\Alphred\Log::console( 'Loading config file `' . $this->get_config_file() . '`', 0 );
 		return $this->$method();
 	}
@@ -162,12 +156,6 @@ class Config {
 	 */
 	public function set( $key, $value ) {
 		$method = 'set_' . $this->handler;
-		if ( ! method_exists( $this, $method ) ) {
-			/**
-			 * @todo Redo exception
-			 */
-			throw new Exception( "Method does not exist", 4 );
-		}
 		return $this->$method( $key, $value );
 	}
 
@@ -181,12 +169,6 @@ class Config {
 	 */
 	public function read( $key ) {
 		$method = 'read_' . $this->handler;
-		if ( ! method_exists( $this, $method ) ) {
-			/**
-			 * @todo Redo exception
-			 */
-			throw new Exception( "Method does not exist", 4 );
-		}
 		return $this->$method( $key );
 	}
 
@@ -202,12 +184,6 @@ class Config {
 	 */
 	public function delete( $key ) {
 		$method = 'unset_' . $this->handler;
-		if ( ! method_exists( $this, $method ) ) {
-			/**
-			 * @todo Redo exception
-			 */
-			throw new Exception( "Method does not exist", 4 );
-		}
 		return $this->$method( $key );
 	}
 

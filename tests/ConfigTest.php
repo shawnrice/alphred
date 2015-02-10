@@ -10,6 +10,12 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
 		if ( file_exists( "{$data}/test.json" ) ) {
 			unlink( "{$data}/test.json" );
 		}
+		if ( file_exists( "{$data}/test.ini" ) ) {
+			unlink( "{$data}/test.ini" );
+		}
+		if ( file_exists( "{$data}/test.sqlite3" ) ) {
+			unlink( "{$data}/test.sqlite3" );
+		}
 	}
 
 	public function test_set_json() {
