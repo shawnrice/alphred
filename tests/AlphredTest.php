@@ -33,4 +33,35 @@ class AlphredTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals( $string, $test_value );
 	}
 
+	public function test_filter() {
+		$Alphred = new Alphred([ 'error_on_empty' => true ]);
+		$Alphred->add_result([ 'title' => 'This is a title' ]);
+		$Alphred->print_results();
+	}
+
+	/**
+	 * @covers Alphred::config_read()
+	 * @covers Alphred::config_delete()
+	 * @covers Alphred::config_set()
+	 */
+	public function test_config() {
+		$Alphred = new Alphred([ 'error_on_empty' => true ]);
+		$username = 'shawn';
+		$Alphred->config_set( 'username', $username );
+		$this->assertEquals( $Alphred->config_read( 'username' ), $username );
+		$Alphred->config_delete( 'username' );
+		$this->assertNull( $Alphred->config_read( 'username' ) );
+	}
+
+	public function test_keychain() {
+		$Alphred = new Alphred;
+		$account  = 'averytestaccount';
+		$password = 'test';
+		$test_password = $Alphred->get_password( $account );
+		$this->assertFalse( $test_password );
+		$this->assertEquals( $Alphred->get_password_dialog("Please enter: `{$password}`"), $password);
+		$Alphred->save_password( $account, $password );
+		$this->assertEquals( $password, $Alphred->get_password( $account ) );
+	}
+
 }

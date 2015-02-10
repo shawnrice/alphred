@@ -12,3 +12,4 @@ tmp/*
 todo/*
 vendor/*
 reports/*
+workflow.ini
