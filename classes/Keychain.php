@@ -93,7 +93,7 @@ class Keychain {
 			    'The action you just attempted will delete the entire keychain; please specify the account', 3
 			);
 		}
-		return self::call_security( 'delete-generic-password', $service, $account );
+		return self::call_security( 'delete-generic-password', $service, $account, '' );
 	}
 
 

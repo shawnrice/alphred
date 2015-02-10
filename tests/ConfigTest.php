@@ -55,8 +55,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
 		$config->read( 'somekeynotset' );
 	}
 
-
-
 	public function test_set_sqlite() {
 		$config = new Alphred\Config( 'sqlite', 'test' );
 		$config->set( 'username', 'shawnrice' );

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1423598621">
-  <project timestamp="1423598621">
+<coverage generated="1423599676">
+  <project timestamp="1423599676">
     <package name="Nette\Utils">
       <file name="/Users/Sven/.composer/vendor/nette/safe-stream/src/SafeStream/SafeStream.php">
         <class name="SafeStream" namespace="Nette\Utils">
@@ -848,14 +848,14 @@
         <class name="ConfigKeyNotSet" namespace="Alphred">
           <metrics methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
         </class>
-        <line num="20" type="method" name="__construct" crap="4.68" count="7"/>
-        <line num="22" type="stmt" count="7"/>
-        <line num="25" type="stmt" count="7"/>
+        <line num="20" type="method" name="__construct" crap="4.68" count="11"/>
+        <line num="22" type="stmt" count="11"/>
+        <line num="25" type="stmt" count="11"/>
         <line num="26" type="stmt" count="0"/>
         <line num="27" type="stmt" count="0"/>
         <line num="28" type="stmt" count="0"/>
         <line num="29" type="stmt" count="0"/>
-        <line num="30" type="stmt" count="7"/>
+        <line num="30" type="stmt" count="11"/>
         <metrics loc="112" ncloc="41" classes="15" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="3" elements="8" coveredelements="3"/>
       </file>
       <file name="/Users/Sven/Documents/Alfred2/alphred/classes/Filter.php">
@@ -960,16 +960,16 @@
         </class>
         <line num="58" type="method" name="__construct" crap="1" count="1"/>
         <line num="59" type="stmt" count="1"/>
-        <line num="71" type="method" name="get" crap="4.05" count="18"/>
-        <line num="73" type="stmt" count="18"/>
-        <line num="75" type="stmt" count="17"/>
-        <line num="76" type="stmt" count="17"/>
+        <line num="71" type="method" name="get" crap="4.05" count="19"/>
+        <line num="73" type="stmt" count="19"/>
+        <line num="75" type="stmt" count="18"/>
+        <line num="76" type="stmt" count="18"/>
         <line num="80" type="stmt" count="1"/>
         <line num="81" type="stmt" count="1"/>
         <line num="84" type="stmt" count="0"/>
         <line num="87" type="stmt" count="1"/>
-        <line num="98" type="method" name="bundle" crap="1" count="11"/>
-        <line num="99" type="stmt" count="11"/>
+        <line num="98" type="method" name="bundle" crap="1" count="12"/>
+        <line num="99" type="stmt" count="12"/>
         <line num="109" type="method" name="data" crap="1" count="11"/>
         <line num="110" type="stmt" count="11"/>
         <line num="120" type="method" name="cache" crap="1" count="1"/>
@@ -1097,52 +1097,52 @@
       </file>
       <file name="/Users/Sven/Documents/Alfred2/alphred/classes/Keychain.php">
         <class name="Keychain" namespace="Alphred">
-          <metrics methods="6" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="37" coveredstatements="0" elements="43" coveredelements="0"/>
+          <metrics methods="6" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="37" coveredstatements="31" elements="43" coveredelements="35"/>
         </class>
-        <line num="36" type="method" name="__construct" crap="2" count="0"/>
-        <line num="37" type="stmt" count="0"/>
-        <line num="53" type="method" name="save_password" crap="6" count="0"/>
-        <line num="54" type="stmt" count="0"/>
-        <line num="55" type="stmt" count="0"/>
-        <line num="56" type="stmt" count="0"/>
+        <line num="36" type="method" name="__construct" crap="1" count="1"/>
+        <line num="37" type="stmt" count="1"/>
+        <line num="53" type="method" name="save_password" crap="2.03" count="1"/>
+        <line num="54" type="stmt" count="1"/>
+        <line num="55" type="stmt" count="1"/>
+        <line num="56" type="stmt" count="1"/>
         <line num="57" type="stmt" count="0"/>
-        <line num="59" type="stmt" count="0"/>
-        <line num="73" type="method" name="find_password" crap="6" count="0"/>
-        <line num="75" type="stmt" count="0"/>
-        <line num="76" type="stmt" count="0"/>
-        <line num="79" type="stmt" count="0"/>
-        <line num="90" type="method" name="delete_password" crap="6" count="0"/>
-        <line num="91" type="stmt" count="0"/>
-        <line num="92" type="stmt" count="0"/>
-        <line num="93" type="stmt" count="0"/>
-        <line num="94" type="stmt" count="0"/>
-        <line num="96" type="stmt" count="0"/>
-        <line num="113" type="method" name="call_security" crap="42" count="0"/>
-        <line num="114" type="stmt" count="0"/>
+        <line num="59" type="stmt" count="1"/>
+        <line num="73" type="method" name="find_password" crap="2" count="2"/>
+        <line num="75" type="stmt" count="2"/>
+        <line num="76" type="stmt" count="1"/>
+        <line num="79" type="stmt" count="1"/>
+        <line num="90" type="method" name="delete_password" crap="2" count="2"/>
+        <line num="91" type="stmt" count="2"/>
+        <line num="92" type="stmt" count="1"/>
+        <line num="93" type="stmt" count="1"/>
+        <line num="94" type="stmt" count="1"/>
+        <line num="96" type="stmt" count="1"/>
+        <line num="113" type="method" name="call_security" crap="6.92" count="1"/>
+        <line num="114" type="stmt" count="1"/>
         <line num="115" type="stmt" count="0"/>
-        <line num="120" type="stmt" count="0"/>
-        <line num="123" type="stmt" count="0"/>
-        <line num="124" type="stmt" count="0"/>
-        <line num="125" type="stmt" count="0"/>
+        <line num="120" type="stmt" count="1"/>
+        <line num="123" type="stmt" count="1"/>
+        <line num="124" type="stmt" count="1"/>
+        <line num="125" type="stmt" count="1"/>
         <line num="127" type="stmt" count="0"/>
-        <line num="128" type="stmt" count="0"/>
-        <line num="130" type="stmt" count="0"/>
-        <line num="131" type="stmt" count="0"/>
-        <line num="134" type="stmt" count="0"/>
+        <line num="128" type="stmt" count="1"/>
+        <line num="130" type="stmt" count="1"/>
+        <line num="131" type="stmt" count="1"/>
+        <line num="134" type="stmt" count="1"/>
         <line num="135" type="stmt" count="0"/>
         <line num="136" type="stmt" count="0"/>
         <line num="137" type="stmt" count="0"/>
-        <line num="140" type="stmt" count="0"/>
-        <line num="144" type="stmt" count="0"/>
-        <line num="146" type="stmt" count="0"/>
-        <line num="152" type="method" name="set_service" crap="12" count="0"/>
-        <line num="155" type="stmt" count="0"/>
-        <line num="156" type="stmt" count="0"/>
-        <line num="157" type="stmt" count="0"/>
-        <line num="158" type="stmt" count="0"/>
-        <line num="159" type="stmt" count="0"/>
-        <line num="160" type="stmt" count="0"/>
-        <metrics loc="163" ncloc="69" classes="1" methods="6" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="37" coveredstatements="0" elements="43" coveredelements="0"/>
+        <line num="140" type="stmt" count="1"/>
+        <line num="144" type="stmt" count="1"/>
+        <line num="146" type="stmt" count="1"/>
+        <line num="152" type="method" name="set_service" crap="3" count="1"/>
+        <line num="155" type="stmt" count="1"/>
+        <line num="156" type="stmt" count="1"/>
+        <line num="157" type="stmt" count="1"/>
+        <line num="158" type="stmt" count="1"/>
+        <line num="159" type="stmt" count="1"/>
+        <line num="160" type="stmt" count="1"/>
+        <metrics loc="163" ncloc="69" classes="1" methods="6" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="37" coveredstatements="31" elements="43" coveredelements="35"/>
       </file>
       <file name="/Users/Sven/Documents/Alfred2/alphred/classes/Log.php">
         <class name="Log" namespace="Alphred" fullPackage="Alphred" package="Alphred">
@@ -1158,14 +1158,14 @@
         <line num="57" type="stmt" count="0"/>
         <line num="60" type="stmt" count="0"/>
         <line num="61" type="stmt" count="0"/>
-        <line num="72" type="method" name="console" crap="2" count="12"/>
-        <line num="78" type="stmt" count="12"/>
+        <line num="72" type="method" name="console" crap="2" count="16"/>
+        <line num="78" type="stmt" count="16"/>
         <line num="79" type="stmt" count="11"/>
-        <line num="83" type="stmt" count="1"/>
-        <line num="85" type="stmt" count="1"/>
-        <line num="87" type="stmt" count="1"/>
-        <line num="88" type="stmt" count="1"/>
-        <line num="89" type="stmt" count="1"/>
+        <line num="83" type="stmt" count="5"/>
+        <line num="85" type="stmt" count="5"/>
+        <line num="87" type="stmt" count="5"/>
+        <line num="88" type="stmt" count="5"/>
+        <line num="89" type="stmt" count="5"/>
         <line num="101" type="method" name="log" crap="6" count="0"/>
         <line num="106" type="stmt" count="0"/>
         <line num="107" type="stmt" count="0"/>
@@ -1200,41 +1200,41 @@
         <line num="184" type="stmt" count="0"/>
         <line num="187" type="stmt" count="0"/>
         <line num="188" type="stmt" count="0"/>
-        <line num="198" type="method" name="normalize_log_level" crap="8.74" count="1"/>
-        <line num="200" type="stmt" count="1"/>
-        <line num="202" type="stmt" count="1"/>
-        <line num="204" type="stmt" count="1"/>
+        <line num="198" type="method" name="normalize_log_level" crap="8.74" count="5"/>
+        <line num="200" type="stmt" count="5"/>
+        <line num="202" type="stmt" count="5"/>
+        <line num="204" type="stmt" count="5"/>
         <line num="208" type="stmt" count="0"/>
         <line num="209" type="stmt" count="0"/>
         <line num="213" type="stmt" count="0"/>
         <line num="215" type="stmt" count="0"/>
         <line num="219" type="stmt" count="0"/>
         <line num="220" type="stmt" count="0"/>
-        <line num="231" type="method" name="trace" crap="5.50" count="1"/>
-        <line num="234" type="stmt" count="1"/>
-        <line num="236" type="stmt" count="1"/>
+        <line num="231" type="method" name="trace" crap="5.50" count="5"/>
+        <line num="234" type="stmt" count="5"/>
+        <line num="236" type="stmt" count="5"/>
         <line num="238" type="stmt" count="0"/>
         <line num="240" type="stmt" count="0"/>
         <line num="241" type="stmt" count="0"/>
         <line num="243" type="stmt" count="0"/>
         <line num="244" type="stmt" count="0"/>
-        <line num="246" type="stmt" count="1"/>
-        <line num="250" type="stmt" count="1"/>
-        <line num="252" type="stmt" count="1"/>
-        <line num="254" type="stmt" count="1"/>
-        <line num="266" type="method" name="is_loggable" crap="2.50" count="12"/>
-        <line num="268" type="stmt" count="12"/>
+        <line num="246" type="stmt" count="5"/>
+        <line num="250" type="stmt" count="5"/>
+        <line num="252" type="stmt" count="5"/>
+        <line num="254" type="stmt" count="5"/>
+        <line num="266" type="method" name="is_loggable" crap="2.50" count="16"/>
+        <line num="268" type="stmt" count="16"/>
         <line num="270" type="stmt" count="0"/>
         <line num="271" type="stmt" count="0"/>
-        <line num="273" type="stmt" count="12"/>
-        <line num="284" type="method" name="get_threshold" crap="4.94" count="12"/>
-        <line num="286" type="stmt" count="12"/>
-        <line num="288" type="stmt" count="12"/>
+        <line num="273" type="stmt" count="16"/>
+        <line num="284" type="method" name="get_threshold" crap="4.94" count="16"/>
+        <line num="286" type="stmt" count="16"/>
+        <line num="288" type="stmt" count="16"/>
         <line num="289" type="stmt" count="0"/>
         <line num="292" type="stmt" count="0"/>
         <line num="296" type="stmt" count="0"/>
-        <line num="308" type="method" name="date_console" crap="1" count="1"/>
-        <line num="309" type="stmt" count="1"/>
+        <line num="308" type="method" name="date_console" crap="1" count="5"/>
+        <line num="309" type="stmt" count="5"/>
         <line num="319" type="method" name="date_file" crap="2" count="0"/>
         <line num="320" type="stmt" count="0"/>
         <metrics loc="321" ncloc="81" classes="1" methods="13" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="76" coveredstatements="21" elements="89" coveredelements="23"/>
@@ -2288,6 +2288,6 @@
         <metrics loc="821" ncloc="443" classes="1" methods="34" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="310" coveredstatements="0" elements="344" coveredelements="0"/>
       </file>
     </package>
-    <metrics files="21" loc="6610" ncloc="2769" classes="36" methods="237" coveredmethods="26" conditionals="0" coveredconditionals="0" statements="1873" coveredstatements="400" elements="2110" coveredelements="426"/>
+    <metrics files="21" loc="6610" ncloc="2769" classes="36" methods="237" coveredmethods="30" conditionals="0" coveredconditionals="0" statements="1873" coveredstatements="431" elements="2110" coveredelements="461"/>
   </project>
 </coverage>
