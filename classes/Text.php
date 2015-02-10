@@ -149,7 +149,7 @@ class Text {
 			$count++;
 		endforeach;
 
-		return $string;
+		// We return the string further up.
 
 	}
 
