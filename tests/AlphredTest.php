@@ -71,4 +71,9 @@ class AlphredTest extends \PHPUnit_Framework_TestCase {
 		$Alphred->get_password( $account );
 	}
 
+
+	public function test_notify() {
+		$Alphred = new Alphred;
+		$Alphred->send_notification(['text' => 'This is a test notification', 'title' => 'Test Notification' ]);
+	}
 }

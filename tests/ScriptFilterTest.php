@@ -13,7 +13,10 @@ class ScriptFilterTest extends \PHPUnit_Framework_TestCase {
 		$filter->print_results();
 	}
 
-
+	/**
+	* @expectedException PHPUnit_Framework_Error
+	* @expectedExceptionMessage  Argument 1 passed to Alphred\ScriptFilter::add_result() must be an instance of Alphred\Result, string given, called in /Users/Sven/Documents/Alfred2/alphred/tests/ScriptFilterTest.php on line 23 and defined
+	*/
 	public function test_empty() {
 		$filter = new Alphred\ScriptFilter(['error_on_empty' => true, 'i18n' => true ] );
 		$filter->to_xml();

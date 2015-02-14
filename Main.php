@@ -79,14 +79,12 @@ if ( ! ( isset( $argv ) && ( 'Alphred.phar' === basename( $argv[0] ) || 'Alphred
 	require_once( __DIR__ . '/classes/Notification.php' );
 	require_once( __DIR__ . '/classes/Dialog.php' );
 	require_once( __DIR__ . '/classes/Config.php' );
-	require_once( __DIR__ . '/classes/Database.php' );
 	require_once( __DIR__ . '/classes/Date.php' );
 	require_once( __DIR__ . '/classes/Exceptions.php' );
 	require_once( __DIR__ . '/classes/Filter.php' );
 	require_once( __DIR__ . '/classes/Globals.php' );
 	require_once( __DIR__ . '/classes/i18n.php' );
 	require_once( __DIR__ . '/classes/Ini.php' );
-	require_once( __DIR__ . '/classes/Index.php' );
 	require_once( __DIR__ . '/classes/Keychain.php' );
 	require_once( __DIR__ . '/classes/Log.php' );
 	require_once( __DIR__ . '/classes/Request.php' );

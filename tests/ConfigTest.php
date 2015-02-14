@@ -26,6 +26,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
 
 	public function test_unset_json() {
 		$config = new Alphred\Config( 'json', 'test' );
+		$this->assertFalse( $config->delete( 'keydoesnotexit' ) );
 		$config->set( 'username', 'shawnrice' );
 		$this->assertEquals( 'shawnrice', $config->read( 'username' ) );
 		$config->delete( 'username' );
@@ -48,6 +49,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase {
 
 	public function test_unset_ini() {
 		$config = new Alphred\Config( 'ini', 'test' );
+		$this->assertFalse( $config->delete( 'keydoesnotexit' ) );
 		$config->set( 'username', 'shawnrice' );
 		$this->assertEquals( 'shawnrice', $config->read( 'username' ) );
 		$config->delete( 'username' );
