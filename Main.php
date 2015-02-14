@@ -114,7 +114,8 @@ if ( ! ( isset( $argv ) && ( 'Alphred.phar' === basename( $argv[0] ) || 'Alphred
 	// An array of possible commands...
 	$commands = [
 		'create-server-scripts' => 'Creates the scripts to run your workflow through the CLI server SAPI',
-		'update-self-master'    => 'Updates Alphred.phar to the latest on the master branch'
+		'extract' 							=> 'Extracts Alphred to `./Alphred`',
+		'update-self-master'    => 'Updates Alphred.phar to the latest on the master branch',
 	];
 
 	// Parse the options
@@ -168,6 +169,12 @@ if ( ! ( isset( $argv ) && ( 'Alphred.phar' === basename( $argv[0] ) || 'Alphred
 
 	if ( 'update-self-master' == trim( $argv[1] ) ) {
 		update_alphred_from_master();
+		exit(0);
+	}
+
+	if ( 'extract' == trim( $argv[1] ) ) {
+		extract_alphred();
+		exit(0);
 	}
 
 }
