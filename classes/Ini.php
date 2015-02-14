@@ -131,7 +131,7 @@ class Ini {
 		$contents .= ";;;;;\r\n\r\n";
 
 		// Write things in the global space first
-		foreach( $global as $key => $value ) :
+		foreach( $global as $value ) :
 			// There should really be only one item in each array, but this is easy
 			foreach ( $value as $k => $v ) :
 				$contents .= "{$k} = {$v}\r\n";

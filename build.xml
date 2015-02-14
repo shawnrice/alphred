@@ -36,16 +36,13 @@
 
     <target name="build" depends="test">
         <echo msg="Building phar..."/>
-        <exec command="php phar.php" escape="false" />
+        <exec command="php build-phar.php" escape="false" />
     </target>
     <target name="test">
-        <phpunit printsummary="true" haltonfailure="true">
-            <batchtest>
-                <fileset dir="./tests">
-                    <include name="*Test.php"/>
-                </fileset>
-            </batchtest>
-        </phpunit>
+    	<phpunit configuration="phpunit.xml"/>
+<!--     	<phpunit codecoverage="true">
+    	<formatter type="clover" outfile="clover.xml"/>
+			</phpunit> -->
     </target>
     <target name="docs">
         <apigen source="classes" destination="docs" title="My Project API Documentation" deprecated="true"

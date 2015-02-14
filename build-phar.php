@@ -9,6 +9,14 @@ $phar = new Phar( 'build/Alphred.phar',
                   'Alphred.phar'
 );
 
+// Start buffering. Mandatory to modify stub.
+$phar->startBuffering();
+
+// We use 'Main.php' as the, well, main entry point for the library. It can understand if it is used as a
+// command line tool or included as a library.
+$defaultStub = $phar->createDefaultStub( 'Main.php' );
+
+
 $phar[ "Main.php" ] = file_get_contents( __DIR__ . "/Main.php" );
 
 // Cycle through these directories and include everything
@@ -25,13 +33,23 @@ $other_files = [
 	'build.xml',
 	'code-standards.xml',
 	'phpdoc.dist.xml',
-	'phpunit.xml.dist',
 	'README.md',
 ];
 
+	// 'phpunit.xml.dist', // Taking this out for now
+
+// Include the invidual files
 foreach ( $other_files as $file ) :
 	$phar[ $file ] = file_get_contents( __DIR__ . '/' . $file );
 endforeach;
 
-// Set "classes/Alphred.php" as the default
-$phar->setStub( $phar->createDefaultStub( 'Main.php' ) );
+// Create a custom stub to add the shebang
+$stub = "#!/usr/bin/php \n" . $defaultStub;
+
+// Add the stub
+$phar->setStub( $stub );
+
+$phar->stopBuffering();
+
+// I should use php's chmod() function, but I'm going to cheat here to make it executable
+exec( 'chmod +x build/Alphred.phar' );
