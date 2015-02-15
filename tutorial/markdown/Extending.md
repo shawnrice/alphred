@@ -1,0 +1,1 @@
+Every component of Alphred is a class, and so you can alter any of them by simply [extending](http://php.net/manual/en/language.oop5.basic.php) the class. The wrapper will not pick up on the changes automatically, so you'll have to extend the wrapper as well.
