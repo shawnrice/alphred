@@ -10,7 +10,7 @@ class ScriptFilterTest extends \PHPUnit_Framework_TestCase {
 		$filter->add_result(new Alphred\Result(['title' => 'this is a title', 'subtitle' => 'this is a subtitle', 'valid' => true ]));
 		$results = count( $filter->get_results() );
 		$this->assertEquals( 1, $results );
-		$filter->print_results();
+		$filter->to_xml();
 	}
 
 	/**

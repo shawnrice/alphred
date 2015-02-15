@@ -11,7 +11,7 @@ CLI-Server
 ===
 PHP is quick to run but slow to load. To help out with that, you can write your workflow to use the built-in PHP CLI server. But, remember, that the CLI-Server exists only with PHP 5.4+, so it will not work on stock systems below Mavericks (10.9).
 
-<!-- To "install" the scripts for your workflow, just run: `php  -->
+<!-- To "install" the scripts for your workflow, just run: `php Alphred.phar install-server-scripts` -->
 
 
 Contributing
@@ -25,8 +25,16 @@ phar.readonly = Off
 
 The mock requests tests will fail if you're running a version of PHP < `5.4`.
 
+
+Credit
+===
+This library was written keeping [Dean Jackson's](http://www.deanishe.net/) Python library, [Alfred Workflow](https://github.com/deanishe/alfred-workflow), as a standard. The `Filter` class is almost a direct translation of it.
+
+
 TODO
 ====
+
+* Add in the ability to set the config handler / filename via workflow.ini
 
 Generally,
 

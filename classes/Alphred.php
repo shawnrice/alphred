@@ -46,20 +46,8 @@ class Alphred {
 	/**
 	 * Calls an Alfred External Trigger
 	 *
-	 * @since 1.0.0
-	 * @uses Alphred::call_external_trigger()
-	 *
-	 * @param  string  				$bundle   the bundle id of the workflow to trigger
-	 * @param  string  				$trigger  the name of the trigger
-	 * @param  string|boolean $argument an argument to pass
-	 * @return null
-	 */
-	public function trigger( $bundle, $trigger, $argument = false ) {
-		return $this->call_external_trigger( $bundle, $trigger, $argument );
-	}
-
-	/**
-	 * Calls an Alfred External Trigger
+	 * Single and double-quotes in the argument might break this method, so make sure that you
+	 * escape them appropriately.
 	 *
 	 * @since 1.0.0
 	 *
@@ -67,7 +55,7 @@ class Alphred {
 	 * @param  string  				$trigger  the name of the trigger
 	 * @param  string|boolean $argument an argument to pass
 	 */
-	private function call_external_trigger( $bundle, $trigger, $argument = false ) {
+	public function call_external_trigger( $bundle, $trigger, $argument = false ) {
 		$script = "tell application \"Alfred 2\" to run trigger \"{$trigger}\" in workflow \"{$bundle}\"";
 		if ( false !== $argument ) {
 			$script .= "with argument \"{$argument}\"";
@@ -79,9 +67,7 @@ class Alphred {
 	/**
 	 * Execute a php script in the background
 	 *
-	 * @todo Check this to make sure it fully works
 	 * @todo Work on argument escaping
-	 * @todo see if we can set ALPHRED_RUNNING_IN_BACKGROUND for background awareness
 	 *
 	 * @param  string  $script path to php script
 	 * @param  mixed 	 $args   args to pass to the script
@@ -151,18 +137,6 @@ class Alphred {
 	public function to_xml() {
 		$this->filter->to_xml();
 	}
-
-	/**
-	 * Alias of to_xml
-	 *
-	 * @uses Alphred::to_xml()
-	 *
-	 * @return mixed
-	 */
-	public function print_results() {
-		$this->to_xml();
-	}
-
 
 	/*****************************************************************************
 	 * Wrapper methods for requests ( GET / POST )
@@ -387,7 +361,6 @@ class Alphred {
 	 * @uses \Alphred\Keychain::find_password()
 	 *
 	 * @param  [type]  $account [description]
-	 * @param  boolean $options [description]
 	 * @return [type]           [description]
 	 */
 	public function get_password( $account ) {
@@ -406,7 +379,6 @@ class Alphred {
 	 *
 	 *
 	 * @param  [type]  $account [description]
-	 * @param  boolean $options [description]
 	 * @return [type]           [description]
 	 */
 	public function delete_password( $account ) {
@@ -419,7 +391,6 @@ class Alphred {
 	 *
 	 * @param  [type]  $account  [description]
 	 * @param  [type]  $password [description]
-	 * @param  boolean $options  [description]
 	 * @return [type]            [description]
 	 */
 	public function save_password( $account, $password ) {
@@ -436,7 +407,6 @@ class Alphred {
 	 * @param  string|boolean $text  		the text for the dialog
 	 * @param  string|boolean $title 		the title of the dialog; defaults to the workflow name
 	 * @param  string|boolean $icon  		An icon to use with the dialog box
-	 * @param  array 					$options  Unused, but can be used by a plugin
 	 * @return string         the result of the user-input
 	 */
 	public function get_password_dialog( $text = false, $title = false, $icon = false ) {
@@ -503,10 +473,6 @@ class Alphred {
 	}
 
 	/*****************************************************************************
-	 * FuzzySearch / Indexing Methods
-	 ****************************************************************************/
-
-	/*****************************************************************************
 	 * Text Processing Filters
 	 ****************************************************************************/
 
@@ -534,11 +500,15 @@ class Alphred {
 	 ****************************************************************************/
 
 	public function activate( $application ) {
-
+		Alphred\AppleScript::activate( $application );
 	}
 
 	public function get_active_window() {
+		return Alphred\AppleScript::get_front();
+	}
 
+	public function bring_to_front( $application ) {
+		Alphred\AppleScript::bring_to_front( $application );
 	}
 
 
