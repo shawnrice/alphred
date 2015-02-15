@@ -6,8 +6,8 @@ require_once( 'setup.php' );
 class IniTest extends \PHPUnit_Framework_TestCase {
 
 	public function test_all() {
-		$new = __DIR__ . '/test-ini.ini';
-		$old = __DIR__ . '/resources/test.ini';
+		$new = __DIR__ . '/../test-ini.ini';
+		$old = __DIR__ . '/../resources/test.ini';
 		if ( file_exists( $new ) ) {
 			unlink( $new );
 		}
@@ -17,7 +17,10 @@ class IniTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals( $ini, $ini2 );
 		unlink( $new );
 	}
-
+	/**
+	* @expectedException PHPUnit_Framework_Error
+	* @expectedExceptionMessage  [ERROR] File `
+	 */
 	public function test_file_not_found() {
 		$this->assertFalse( Alphred\Ini::read_ini( 'thisfiledoesnotexist.ini', false ) );
 		$this->setExpectedException( 'Alphred\FileDoesNotExist' );

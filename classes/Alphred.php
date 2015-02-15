@@ -21,26 +21,6 @@
  *
  * This provides a simple wrapper for all of the important parts of the Alphred library.
  *
- * Most of the default wrapper functionality can easily be replaced with plugins. Currently, you
- * need to create a `workflow.ini` file that will live next to the Alfred-generated `info.plist`
- * in the workflow root. Create a section in the `ini` file called `[alphred:plugins]`. For each
- * function you want to override in the wrapper, create a single line that maps onto the other function.
- * For example:
- * ````ini
- * [alphred:plugins]
- * get_password = my_new_get_password_function
- * config_read = MyClass::config_read
- * ````
- * That will load a different function for `Alphred::get_password` and `Alphred::config_read`. An extra
- * argument is available for most plugin functions called `$options` that you can use to pass any other
- * variables.
- *
- * To run plugins on load, then pass them to the `Alphred` object on creation as the second argument. They
- * should all be passed as an array defined as:
- * ````php
- * $alphred = new Alphred( [], [ 'my_on_load_plugin' => [ 'arg1', 'arg2' ], 'my_other_plugin' => null ] );
- * ````
- *
  */
 class Alphred {
 
@@ -53,18 +33,7 @@ class Alphred {
 	 *                            2. no_filter      - initializes object without a script filter
 	 * @param array|boolean $plugins plugins to be run at load
 	 */
-	public function __construct( $options = [ 'error_on_empty' => true ], $plugins = false ) {
-
-		// We did already parse the INI file on a global scale when loading the library, but
-		// we're going to parse it again for some functionality that we need here, such as
-		// loading the plugins.
-		$this->parse_ini_file();
-
-		// The plugins array is a list of plugins to run at load, so any functionality that would
-		// benefit from being run by hooking into object instantiation
-		if ( $plugins ) {
-			$this->run_on_load_plugins( $plugins );
-		}
+	public function __construct( $options = [ 'error_on_empty' => true ] ) {
 
 		// Create a script filter object unless explicitly turned off
 		if ( ! isset( $options[ 'no_filter' ] ) || true !== $options[ 'no_filter' ] ) {
@@ -155,55 +124,6 @@ class Alphred {
 
 	}
 
-	/**
-	 * Parses the INI file to load plugins
-	 *
-	 * The `workflow.ini` file is parsed twice with Alphred. The first time, it's parsed
-	 * to load global variables, and that happens when the library is `included` or `required`.
-	 * The second time (this one) happens when a wrapper object is instantiated.
-	 *
-	 * @return boolean the value is worthless, just a way to exit the method early if necessary
-	 */
-	private function parse_ini_file() {
-		// The name of the file
-		$file = Alphred\Globals::get( 'PWD' ) . '/workflow.ini';
-		if ( ! file_exists( $file ) ) {
-			// File does not exist, so we assume that none is expected. Log a debug message
-			// and move along. Nothing to see here.
-			Alphred\Log::console( 'No `workflow.ini` file found in the workflow root.', 0 );
-			// Exit the method
-			return false;
-		}
-		// Parse the INI file and convert all the keys to lowercase
-		$ini = $this->lc_keys( parse_ini_file( $file, true ) );
-
-		// Load the plugins, if any are set
-		if ( isset( $ini['alphred:plugins'] ) ) {
-			$this->load_plugins( $ini['alphred:plugins'] );
-		}
-		// The
-		return true;
-
-	}
-
-	/**
-	 * Converts the keys of an array to lowercase
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param  array $array an array whose keys we need to alter
-	 * @return array        an altered array
-	 */
-	private function lc_keys( $array ) {
-		// Cycle through the array and convert the keys to lowercase, and set that
-		// in a new, temporary array
-		foreach( $array as $key => $value ) :
-			$return[ strtolower( $key ) ] = $value;
-		endforeach;
-		// Return the new array
-		return $return;
-	}
-
 
 
 	/*****************************************************************************
@@ -216,13 +136,8 @@ class Alphred {
 	 * @since 1.0.0
 	 *
 	 * @param array $item an array of values to parse that construct an Alphred\Result object
-	 * @param array $options array of arguments if using a plugin
 	 */
-	public function add_result( $item, $options = [] ) {
-		if ( $function = $this->get_plugin_function( __FUNCTION__ ) ) {
-			return call_user_func_array( $function, [ $item, $options ] );
-		}
-		// Default functionality
+	public function add_result( $item ) {
 		return $this->filter->add_result( new \Alphred\Result( $item ) );
 	}
 
@@ -231,14 +146,9 @@ class Alphred {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param  array|boolean $options options if using a plugin
 	 * @return mixed
 	 */
-	public function to_xml( $options = false ) {
-		if ( $function = $this->get_plugin_function( __FUNCTION__ ) ) {
-			return call_user_func_array( $function, [ $options ] );
-		}
-		// Default functionality
+	public function to_xml() {
 		$this->filter->to_xml();
 	}
 
@@ -247,14 +157,9 @@ class Alphred {
 	 *
 	 * @uses Alphred::to_xml()
 	 *
-	 * @param  boolean $options
 	 * @return mixed
 	 */
-	public function print_results( $options = false ) {
-		if ( $function = $this->get_plugin_function( __FUNCTION__ ) ) {
-			return call_user_func_array( $function, [ $options ] );
-		}
-		// Default functionality
+	public function print_results() {
 		$this->to_xml();
 	}
 
@@ -396,7 +301,7 @@ class Alphred {
 	 * @param  string|boolean $bin the cache bin to clear
 	 * @return null
 	 */
-	public function clear_cache( $bin = false, $options = false ) {
+	public function clear_cache( $bin = false ) {
 		return Alphred\Request::clear_cache( $bin );
 	}
 
@@ -412,12 +317,7 @@ class Alphred {
 	 * @param  string $filename [description]
 	 * @return [type]           [description]
 	 */
-	public function config_read( $key, $handler = 'ini', $filename = 'config', $options = false ) {
-		// Check if a plugin is loaded to handle this functionality
-		if ( $function = $this->get_plugin_function( __FUNCTION__ ) ) {
-			return call_user_func_array( $function, [ $key, $handler, $filename, $options ] );
-		}
-		// Default functionality
+	public function config_read( $key, $handler = 'ini', $filename = 'config' ) {
 		// Create a new config object
 		$config = new Alphred\Config( $handler, $filename );
 		try {
@@ -435,15 +335,9 @@ class Alphred {
 	 * @param  [type]  $value    [description]
 	 * @param  string  $handler  [description]
 	 * @param  string  $filename [description]
-	 * @param  boolean $options  [description]
 	 * @return [type]            [description]
 	 */
-	public function config_set( $key, $value, $handler = 'ini', $filename = 'config', $options = false ) {
-		// Check if a plugin is loaded to handle this functionality
-		if ( $function = $this->get_plugin_function( __FUNCTION__ ) ) {
-			return call_user_func_array( $function, [ $key, $handler, $filename, $options ] );
-		}
-		// Default functionality
+	public function config_set( $key, $value, $handler = 'ini', $filename = 'config' ) {
 		$config = new Alphred\Config( $handler, $filename );
 		$config->set( $key, $value );
 	}
@@ -453,23 +347,12 @@ class Alphred {
 	 * @param  [type]  $key      [description]
 	 * @param  string  $handler  [description]
 	 * @param  string  $filename [description]
-	 * @param  boolean $options  [description]
 	 * @return [type]            [description]
 	 */
-	public function config_delete( $key, $handler = 'ini', $filename = 'config', $options = false ) {
-		// Check if a plugin is loaded to handle this functionality
-		if ( $function = $this->get_plugin_function( __FUNCTION__ ) ) {
-			return call_user_func_array( $function, [ $key, $handler, $filename, $options ] );
-		}
-		// Default functionality
+	public function config_delete( $key, $handler = 'ini', $filename = 'config' ) {
 		$config = new Alphred\Config( $handler, $filename );
 		$config->delete( $key );
 	}
-
-
-
-
-
 
 	/**
 	 * Sends a system notification
@@ -490,10 +373,6 @@ class Alphred {
 	 * @return boolean          success
 	 */
 	public function send_notification( $options ) {
-		if ( $function = $this->get_plugin_function( __FUNCTION__ ) ) {
-			return call_user_func_array( $function, [ $options ] );
-		}
-		// Default functionality
 		return \Alphred\Notification::notify( $options );
 	}
 
@@ -511,13 +390,7 @@ class Alphred {
 	 * @param  boolean $options [description]
 	 * @return [type]           [description]
 	 */
-	public function get_password( $account, $options = false ) {
-		// Check for plugin first
-		if ( $function = $this->get_plugin_function( __FUNCTION__ ) ) {
-			return call_user_func_array( $function, [ $account, $options ] );
-		}
-
-		// Default functionality
+	public function get_password( $account ) {
 		// \Alphred\Keychain::find_password throws an exception when the password does not
 		// exist. This wrapper returns false if the password has not been found.
 		try {
@@ -536,11 +409,7 @@ class Alphred {
 	 * @param  boolean $options [description]
 	 * @return [type]           [description]
 	 */
-	public function delete_password( $account, $options = false ) {
-		if ( $function = $this->get_plugin_function( __FUNCTION__ ) ) {
-			return call_user_func_array( $function, [ $account, $options ] );
-		}
-		// Default functionality
+	public function delete_password( $account ) {
 		return \Alphred\Keychain::delete_password( $account, null );
 	}
 
@@ -553,11 +422,7 @@ class Alphred {
 	 * @param  boolean $options  [description]
 	 * @return [type]            [description]
 	 */
-	public function save_password( $account, $password, $options = false ) {
-		if ( $function = $this->get_plugin_function( __FUNCTION__ ) ) {
-			return call_user_func_array( $function, [ $account, $password, $options ] );
-		}
-		// Default functionality
+	public function save_password( $account, $password ) {
 		return \Alphred\Keychain::save_password( $account, $password, true, null );
 	}
 
@@ -574,12 +439,7 @@ class Alphred {
 	 * @param  array 					$options  Unused, but can be used by a plugin
 	 * @return string         the result of the user-input
 	 */
-	public function get_password_dialog( $text = false, $title = false, $icon = false, $options = [] ) {
-		// This makes the function pluggable, (i.e. overrideable)
-		if ( $function = $this->get_plugin_function( __FUNCTION__ ) ) {
-			return call_user_func_array( $function, [ $text, $title, $icon, $options ] );
-		}
-		// Default functionality
+	public function get_password_dialog( $text = false, $title = false, $icon = false ) {
 		// Set the default text
 		if ( ! $text ) {
 			$text = 'Please enter the password.';
@@ -621,11 +481,7 @@ class Alphred {
 	 * @param  integer|boolean  $trace   how far to go in the stacktrace. Defaults to the last level.
 	 * @return mixed            default returns nothing
 	 */
-	public function console( $message, $level = 'INFO', $trace = false, $options = false ) {
-		if ( $function = $this->get_plugin_function( __FUNCTION__ ) ) {
-			return call_user_func_array( $function, [ $message, $level, $trace, $options ] );
-		}
-		// Default functionality
+	public function console( $message, $level = 'INFO', $trace = false ) {
 		\Alphred\Log::console( $message, $level, $trace );
 	}
 
@@ -642,11 +498,7 @@ class Alphred {
 	 * @param  boolean $trace    [description]
 	 * @return [type]            [description]
 	 */
-	public function log( $message, $level = 'INFO', $filename = 'workflow', $trace = false, $options = false ) {
-		if ( $function = $this->get_plugin_function( __FUNCTION__ ) ) {
-			return call_user_func_array( $function, [ $message, $level, $filename, $trace, $options ] );
-		}
-		// Default functionality
+	public function log( $message, $level = 'INFO', $filename = 'workflow', $trace = false ) {
 		\Alphred\Log::file( $message, $level, $filename, $trace );
 	}
 
@@ -659,10 +511,6 @@ class Alphred {
 	 ****************************************************************************/
 
 	public function time_ago( $seconds ) {
-		if ( $function = $this->get_plugin_function( __FUNCTION__ ) ) {
-			return call_user_func_array( $function, [ $seconds ] );
-		}
-		// Default functionality
 		return Alphred\Date::ago( $seconds );
 	}
 
@@ -674,10 +522,6 @@ class Alphred {
 	 * @return string          a string that represents an approximate time
 	 */
 	public function fuzzy_time_diff( $seconds ) {
-		if ( $function = $this->get_plugin_function( __FUNCTION__ ) ) {
-			return call_user_func_array( $function, [ $seconds ] );
-		}
-		// Default functionality
 		return Alphred\Date::fuzzy_ago( $seconds );
 	}
 
@@ -697,75 +541,5 @@ class Alphred {
 
 	}
 
-	/*****************************************************************************
-	 * These methods create and define the plugin functionality.
-	 ****************************************************************************/
-
-	/**
-	 * Gets the name of the function to run when a plugin overrides default functionality
-	 *
-	 *
-	 * @param  string  $function_call    the name of the function
-	 * @return string|boolean            the name of the function to call or false if no plugin is loaded
-	 */
-	private function get_plugin_function( $function_call ) {
-		if ( isset( $this->plugins[ $function_call ] ) ) {
-			return $this->plugins[ $function_call ];
-		} else {
-			return false;
-		}
-	}
-
-	/**
-	 * Loads a plugin to override default functionality
-	 *
-	 * @todo 	 Update for custom exception
-	 * @throws Alphred\PluginFunctionNotFound
-	 *
-	 * @param  string $function_call     the name of the function to override (name of method in this wrapper)
-	 * @param  string $function 				 the name of the new function to call
-	 */
-	private function load_plugin_function( $function_call, $function ) {
-		// Check to see if the function is callable. If so, set it in the plugins array;
-		// if not, throw an exception
-		if ( is_callable( $function ) ) {
-			$this->plugins[ $function_call ] = $function;
-		} else {
-			throw new Alphred\PluginFunctionNotFound( "Function `{$function}` is invalid.", 4 );
-		}
-	}
-
-	/**
-	 * Loads the plugins
-	 * @param  [type] $plugins [description]
-	 * @return [type]          [description]
-	 */
-	private function load_plugins( $plugins ) {
-		foreach( $plugins as $original => $new ) :
-			$this->load_plugin_function( $original, $new );
-		endforeach;
-
-	}
-
-	/**
-	 * [run_on_load_plugins description]
-	 *
-	 * @throws Alphred\PluginFunctionNotFound
-	 *
-	 * @param  [type] $plugins [description]
-	 * @return [type]          [description]
-	 */
-	private function run_on_load_plugins( $plugins ) {
-		if ( ! is_array( $plugins ) ) {
-			throw new Exception( "Plugins passed on load needs to be an array defined as function => [ args ].", 4 );
-		}
-		// Cycle through the plugins array and call each function
-		foreach ( $plugins as $function => $args ) :
-			if ( ! is_callable( $function ) ) {
-				throw new Alphred\PluginFunctionNotFound( "Function `{$function}` is invalid.", 4 );
-			}
-			call_user_func_array( $function, [ $args ] );
-		endforeach;
-	}
 
 }

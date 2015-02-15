@@ -19,11 +19,11 @@ if ( isset( $_SERVER['PHP_AUTH_USER'] ) ) {
 if ( isset( $_SERVER['PHP_AUTH_PW'] ) ) {
 	$array['user'] = $_SERVER['PHP_AUTH_PW'];
 }
+if ( count( $_GET ) > 0 ) {
+	$array = array_merge_recursive( $array, $_GET );
+}
+if ( count( $_POST ) > 0 ) {
+	$array = array_merge_recursive( $array, $_POST );
+}
 
-
-
-
-print_r( $_SERVER );
-print_r( $_GET );
-print_r( $_POST );
 print json_encode( $array, JSON_PRETTY_PRINT );
