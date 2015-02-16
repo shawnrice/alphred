@@ -265,7 +265,7 @@ class Alphred {
 		}
 		// Set it to `POST` if that's what they want
 		if ( 'post' == $type ) {
-			$requst->use_post();
+			$request->use_post();
 		}
 		// If there are options, then go through them and set everything
 		if ( $options ) {

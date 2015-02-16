@@ -112,6 +112,10 @@ class Request {
 	 * @param array $options an array of cache options
 	 */
 	private function set_caches( $options ) {
+		if ( ! isset( $options['cache_bin' ] ) ) {
+			// exit early if no cache bin is set
+			return;
+		}
 		// Here we can automatically set the cache bin to the URL hostname
 		if ( true === $options[ 'cache_bin' ] ) {
 			$options[ 'cache_bin' ] = parse_url( $this->object['url'], PHP_URL_HOST );

@@ -33,7 +33,7 @@ class AlphredTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals( $string, $test_value );
 	}
 
-	public function test_filter() {
+	public function test_scriptfilter() {
 		$Alphred = new Alphred([ 'error_on_empty' => true ]);
 		$Alphred->add_result([ 'title' => 'This is a title' ]);
 		$Alphred->to_xml();
@@ -75,5 +75,67 @@ class AlphredTest extends \PHPUnit_Framework_TestCase {
 	public function test_notify() {
 		$Alphred = new Alphred;
 		$Alphred->send_notification(['text' => 'This is a test notification', 'title' => 'Test Notification' ]);
+	}
+
+	public function test_get() {
+		$Alphred = new Alphred;
+		// $url, $options = false, $cache_ttl = 600, $cache_bin = true
+		$options['user_agent'] = 'agent';
+		$options['params'] = [ 'test' => 'what' ];
+		$options['headers'] = [ 'one', 'two' ];
+		$Alphred->get( 'http://localhost:8888', $options );
+
+	}
+
+	public function test_post() {
+		$Alphred = new Alphred;
+		$options = [];
+		$options['user_agent'] = 'agent';
+		$options['params'] = [ 'test' => 'what' ];
+
+
+		$Alphred->post( 'http://localhost:8888', $options, 0, 'something' );
+	}
+
+	public function test_get_bad_params() {
+		$this->setExpectedException( 'Alphred\Exception' );
+		$Alphred = new Alphred;
+		$options = [];
+		$options['user_agent'] = 'agent';
+		$options['params'] = 'this should be an array';
+		$options['headers'] = 'testing';
+		$Alphred->post( 'http://localhost:8888', $options, 0, 'something' );
+	}
+
+	public function test_bad_url() {
+		$this->setExpectedException( 'Alphred\Exception' );
+		$Alphred = new Alphred;
+		$Alphred->get( 'badurl' );
+	}
+
+	public function test_log_console() {
+		$Alphred = new Alphred;
+		$Alphred->console( 'testing' );
+	}
+
+	public function test_log_file() {
+		$Alphred = new Alphred;
+		$Alphred->log( 'testing' );
+		$Alphred->log( 'testing', 4 );
+		$Alphred->log( 'testing', 4, 'a_unique_file', -1 );
+	}
+
+	public function test_filter() {
+		$Alphred = new Alphred;
+		$array = [ 'uber', 'uber2' ];
+		$results = $Alphred->filter( $array, 'ub' );
+		$this->assertEquals( $array, $results );
+	}
+
+	public function test_empty_filter() {
+		$Alphred = new Alphred;
+		$array = [ 'uber', 'uber2' ];
+		$results = $Alphred->filter( $array, '' );
+		$this->assertEquals( $array, $results );
 	}
 }

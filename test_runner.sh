@@ -8,7 +8,8 @@ if [ ! $(which phpunit) ]; then
 fi
 
 function start_server() {
-	php -S localhost:8888 resources/router.php  >/dev/null 2>&1 &
+	nohup /usr/bin/php -S localhost:8888 resources/router.php  >/dev/null 2>&1 &
+	# php -S localhost:8888 resources/router.php &
 	echo $!
 }
 
@@ -16,7 +17,7 @@ function kill_server() {
 	kill $SERVER_PID
 }
 
-SERVER_PID=$(start_server) # Starts the server and returns the PID
+
 
 
 echo "Do remember that your computer is going to start bouncing through some windows."
@@ -27,7 +28,8 @@ echo "----------------------------"
 echo "Ready to start running tests."
 echo "----------------------------"
 cd tests
+SERVER_PID=$(start_server) # Starts the server and returns the PID
+sleep 1
 phpunit
-
 
 kill_server

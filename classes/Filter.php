@@ -159,7 +159,7 @@ class Filter {
 	 * @param  array $b an array
 	 * @return bool
 	 */
-	private function sort_by_score( $a, $b ) {
+	public function sort_by_score( $a, $b ) {
 		return $a[0] < $b[0];
 	}
 
