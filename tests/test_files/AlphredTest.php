@@ -36,7 +36,7 @@ class AlphredTest extends \PHPUnit_Framework_TestCase {
 	public function test_filter() {
 		$Alphred = new Alphred([ 'error_on_empty' => true ]);
 		$Alphred->add_result([ 'title' => 'This is a title' ]);
-		$Alphred->print_results();
+		$Alphred->to_xml();
 	}
 
 	/**

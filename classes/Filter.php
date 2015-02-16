@@ -16,19 +16,54 @@ namespace Alphred;
 class Filter {
 
 	/**
-	 * Filters items
-	 * @param array    	$haystack [description]
-	 * @param string   	$needle   [description]
-	 * @param integer  	$max      [description]
-	 * @param string  	$key      [description]
-	 * @param [type]  	$flags    [description]
+	 * Filters an array based on a query
+	 *
+	 * Passing an empty query ($needle) to this method will simply return the initial array.
+	 * If you have `fold` on, then this will fail on characters that cannot be translitered
+	 * into regular ASCII, so most Asian languages.
+	 *
+	 * The options to be set are:
+	 * 	* max_results  -- the maximum number of results to return (default: false)
+	 * 	* min_score    -- the minimum score to return (0-100) (default: false)
+	 * 	* return_score -- whether or not to return the score along with the results (default: false)
+	 * 	* fold         -- whether or not to fold diacritical marks, thus making
+	 * 										`über` into `uber`. (default: true)
+	 * 	* flags 			 -- the type of filters to run. (default: MATCH_ALL)
+	 *
+	 *  The flags are defined as constants, and so you can call them by the flags or by
+	 *  the integer value. Options:
+	 *    Match items that start with the query
+	 *    1: MATCH_STARTSWITH
+	 *    Match items whose capital letters start with ``query``
+	 *    2: MATCH_CAPITALS
+	 *    Match items with a component "word" that matches ``query``
+	 *    4: MATCH_ATOM
+	 *    Match items whose initials (based on atoms) start with ``query``
+	 *    8: MATCH_INITIALS_STARTSWITH
+	 *    Match items whose initials (based on atoms) contain ``query``
+	 *    16: MATCH_INITIALS_CONTAIN
+	 *    Combination of MATCH_INITIALS_STARTSWITH and MATCH_INITIALS_CONTAIN
+	 *    24: MATCH_INITIALS
+	 *    Match items if ``query`` is a substring
+	 *    32: MATCH_SUBSTRING
+	 *    Match items if all characters in ``query`` appear in the item in order
+	 *    64: MATCH_ALLCHARS
+	 *    Combination of all other ``MATCH_*`` constants
+	 *    127: MATCH_ALL
+	 *
+	 * @param  array  				$haystack the array of items to filter
+	 * @param  string  				$needle   the search query to filter against
+	 * @param  string|boolean $key      the name of the key to filter on if array is associative
+	 * @param  array 					$options  a list of options to configure the filter
+	 * @return array          an array of filtered items
 	 */
-	public function Filter( $haystack, $needle, $max = false, $key = false, $flags = MATCH_ALLCHARS, $fold_diacritics = true ) {
-		/**
-		 * @todo Add in min-score
-		 * @todo Add in return score option
-		 * @todo Re-think about the way to call this function
-		 */
+	public function Filter( $haystack, $needle, $key = false, $options = [] ) {
+		// Set the defaults if not already set
+		$max             = ( isset( $options['max_results'] ) ) ? $options['max_results'] : false;
+		$fold_diacritics = ( isset( $options['fold'] ) ) ? $options['fold'] : true;
+		$flags           = ( isset( $options['flags'] ) ) ? $options['flags'] : MATCH_ALL;
+		$min             = ( isset( $options['min_score'] ) ) ? $options['min_score'] : false;
+		$return_score    = ( isset( $options['return_score'] ) ) ? $options['return_score'] : false;
 
 		// Here, we make the assumption that, if the $needle or search string is empty, then the filter was a misfire, so
 		// we'll just return all of the results.
@@ -52,7 +87,7 @@ class Filter {
 
 			// If a key was specified, use that; otherwise, just use the value of the row
 			if ( $key ) {
-				$value = $row[$key];
+				$value = $row[ $key ];
 			} else {
 				$value = $row;
 			}
@@ -90,13 +125,28 @@ class Filter {
 		// Sort the array by score
 		usort( $results, 'self::sort_by_score' );
 		// If we have a max result set, then take the top results
-		if ( isset( $max ) && ( count( $results ) > $max ) ) {
+		if ( $max && ( count( $results ) > $max ) ) {
 			$results = array_slice( $results, 0, $max );
 		}
 
-		// Right now, we're just returning the values without the scores.
+		// If min_score is set, then unset any values that have
+		// a score less than min
+		if ( $min ) {
+			foreach ( $results as $key => $value ) :
+				if ( $value[0] < $min ) {
+					unset( $results[ $key ] );
+				}
+			endforeach;
+		}
+
+		// If they want the score, then return it
+		if ( $return_score ) {
+			return $results;
+		}
+
+		// They don't want the score, so just remove them and simply the array
 		foreach ($results as $key => $value ) :
-			$results[$key] = $value[1];
+			$results[ $key ] = $value[1];
 		endforeach;
 		// Return the sorted results
 		return $results;
@@ -104,6 +154,7 @@ class Filter {
 
 	/**
 	 * Callback function to help sort the results array
+	 *
 	 * @param  array $a an array
 	 * @param  array $b an array
 	 * @return bool
@@ -114,6 +165,7 @@ class Filter {
 
 	/**
 	 * Removes all non-capital characters and non-digit characters frmo a string
+	 *
 	 * @param  string $string 	a string to process
 	 * @return string         	the processed string
 	 */
@@ -123,6 +175,7 @@ class Filter {
 
 	/**
 	 * Converts and transliterates a string to ascii
+	 *
 	 * @param  string $string a string to transliterate
 	 * @return string         the transliterated string
 	 */
@@ -136,10 +189,13 @@ class Filter {
  	}
 
  	/**
- 	 * [filter_item description]
+ 	 * Runs the filter rules
+ 	 *
+ 	 * @todo Refactor this
+ 	 *
  	 * @param  string $value           the value string (haystack)
  	 * @param  string $query           the query string (needle)
- 	 * @param  [type] $match_on        [description]
+ 	 * @param  mixed  $match_on        the search flags, so constants or integers
  	 * @param  bool   $fold_diacritics whether or not to transliterate to ascii
  	 * @return array                   an array that is score and then the rule matched
  	 */
@@ -220,7 +276,7 @@ class Filter {
     	foreach( str_split( $query ) as $character ) :
     		$position[] = strpos( $value, $character );
   		endforeach;
-  		$divisor = ( ( 1 + reset($position) ) * ( ( abs( end($position) - reset($position) ) ) ) );
+  		$divisor = ( ( 1 + reset( $position ) ) * ( ( abs( end( $position ) - reset( $position ) ) ) ) );
   		// protect from divide by 0 warnings
   		if ( $divisor == 0 ) {
   			$divisor = 1;

@@ -477,7 +477,6 @@ class Request {
 
 		// Has the has expired?
 		if ( $this->cache_life < $this->get_cache_age() ) {
-			// Yes.... but, we'll expire the cache only if we can get new data
 			return false;
 		}
 
@@ -494,22 +493,6 @@ class Request {
 	 */
 	private function get_cached_data_anyway() {
 		return $this->get_cached_data( true );
-	}
-
-	/**
-	 * [expire_cache_data description]
-	 *
-	 * I moved this into its own function, but I'm not yet sure when to call it. Should
-	 * we just let the caches exist until forcibly cleared or overwritten?
-	 *
-	 * @return [type] [description]
-	 */
-	private function expire_cache_data() {
-		// Debug-level log message
-		\Alphred\Log::log( "Expiring cache file `" . $this->get_cache_file() . "`", 0, 'debug' );
-
-		// Delete the old cached entry
-		unlink( $this->get_cache_file() );
 	}
 
 	/**
@@ -640,6 +623,8 @@ class Request {
 			// Throw an exception because this is a bad request to clear the cache
 			throw new Exception( "Cannot clear directory: `{$dir}`", 3 );
 		}
+
+		\Alphred\Log::console( "Clearing cache directory `{$dir}`.", 1 );
 
 		$files = array_diff( scandir( $dir ), [ '.', '..' ] );
 		foreach( $files as $file ) :

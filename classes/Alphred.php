@@ -20,6 +20,12 @@
  * Wrapper Class.
  *
  * This provides a simple wrapper for all of the important parts of the Alphred library.
+ * It also simplifies the usage of some of the internal components, so calls to this class
+ * do not always mirror calls to the internal components.
+ *
+ * @todo make it so that config handler and filename can be set from workflow.ini
+ * @todo possibly instantiate object with a config so that we don't have to create the object
+ *       with each config call
  *
  */
 class Alphred {
@@ -106,8 +112,50 @@ class Alphred {
 		return Alphred\Globals::is_background();
 	}
 
-	public function filter() {
-
+	/**
+	 * Filters an array based on a query
+	 *
+	 * Passing an empty query ($needle) to this method will simply return the initial array.
+	 * If you have `fold` on, then this will fail on characters that cannot be translitered
+	 * into regular ASCII, so most Asian languages.
+	 *
+	 * The options to be set are:
+	 * 	* max_results  -- the maximum number of results to return (default: false)
+	 * 	* min_score    -- the minimum score to return (0-100) (default: false)
+	 * 	* return_score -- whether or not to return the score along with the results (default: false)
+	 * 	* fold         -- whether or not to fold diacritical marks, thus making
+	 * 										`über` into `uber`. (default: true)
+	 * 	* flags 			 -- the type of filters to run. (default: MATCH_ALL)
+	 *
+	 *  The flags are defined as constants, and so you can call them by the flags or by
+	 *  the integer value. Options:
+	 *    Match items that start with the query
+	 *    1: MATCH_STARTSWITH
+	 *    Match items whose capital letters start with ``query``
+	 *    2: MATCH_CAPITALS
+	 *    Match items with a component "word" that matches ``query``
+	 *    4: MATCH_ATOM
+	 *    Match items whose initials (based on atoms) start with ``query``
+	 *    8: MATCH_INITIALS_STARTSWITH
+	 *    Match items whose initials (based on atoms) contain ``query``
+	 *    16: MATCH_INITIALS_CONTAIN
+	 *    Combination of MATCH_INITIALS_STARTSWITH and MATCH_INITIALS_CONTAIN
+	 *    24: MATCH_INITIALS
+	 *    Match items if ``query`` is a substring
+	 *    32: MATCH_SUBSTRING
+	 *    Match items if all characters in ``query`` appear in the item in order
+	 *    64: MATCH_ALLCHARS
+	 *    Combination of all other ``MATCH_*`` constants
+	 *    127: MATCH_ALL
+	 *
+	 * @param  array  				$haystack the array of items to filter
+	 * @param  string  				$needle   the search query to filter against
+	 * @param  string|boolean $key      the name of the key to filter on if array is associative
+	 * @param  array 					$options  a list of options to configure the filter
+	 * @return array          an array of filtered items
+	 */
+	public function filter( $haystack, $needle, $key = false, $options = [] ) {
+		return Alphred\Filter::Filter( $haystack, $needle, $key, $options );
 	}
 
 
@@ -285,11 +333,12 @@ class Alphred {
 	 ****************************************************************************/
 
 	/**
-	 * [config_read description]
-	 * @param  [type] $key      [description]
-	 * @param  string $handler  [description]
-	 * @param  string $filename [description]
-	 * @return [type]           [description]
+	 * Reads a configuration value
+	 *
+	 * @param  string $key      name of key
+	 * @param  string $handler  type of config handler to use
+	 * @param  string $filename the name of the config file with no extension
+	 * @return mixed            the value of the key or null if not set
 	 */
 	public function config_read( $key, $handler = 'ini', $filename = 'config' ) {
 		// Create a new config object
@@ -304,12 +353,12 @@ class Alphred {
 	}
 
 	/**
-	 * [config_set description]
-	 * @param  [type]  $key      [description]
-	 * @param  [type]  $value    [description]
-	 * @param  string  $handler  [description]
-	 * @param  string  $filename [description]
-	 * @return [type]            [description]
+	 * Sets a configuration value
+	 *
+	 * @param  string  $key      the name of the key
+	 * @param  mixed   $value    the value for the key
+	 * @param  string  $handler  type of config handler to use
+	 * @param  string  $filename the name of the config file with no extension
 	 */
 	public function config_set( $key, $value, $handler = 'ini', $filename = 'config' ) {
 		$config = new Alphred\Config( $handler, $filename );
@@ -317,11 +366,11 @@ class Alphred {
 	}
 
 	/**
-	 * [config_delete description]
-	 * @param  [type]  $key      [description]
-	 * @param  string  $handler  [description]
-	 * @param  string  $filename [description]
-	 * @return [type]            [description]
+	 * Deletes a config value
+	 *
+	 * @param  string  $key      name of the key
+	 * @param  string  $handler  type of config handler to use
+	 * @param  string  $filename the name of the config file with no extension
 	 */
 	public function config_delete( $key, $handler = 'ini', $filename = 'config' ) {
 		$config = new Alphred\Config( $handler, $filename );
@@ -360,8 +409,8 @@ class Alphred {
 	 *
 	 * @uses \Alphred\Keychain::find_password()
 	 *
-	 * @param  [type]  $account [description]
-	 * @return [type]           [description]
+	 * @param  string  $account the name of the account (key) for the password
+	 * @return string|boolean   the password or false if not found
 	 */
 	public function get_password( $account ) {
 		// \Alphred\Keychain::find_password throws an exception when the password does not
@@ -377,9 +426,10 @@ class Alphred {
 	/**
 	 * Deletes a password from the keychain
 	 *
+	 * @uses \Alphred\Keychain::delete_password()
 	 *
-	 * @param  [type]  $account [description]
-	 * @return [type]           [description]
+	 * @param  string  $account the name of the account (key) for the password
+	 * @return boolean          true if it existed and was deleted, false if it didn't exist
 	 */
 	public function delete_password( $account ) {
 		return \Alphred\Keychain::delete_password( $account, null );
@@ -388,10 +438,11 @@ class Alphred {
 	/**
 	 * Saves a password to the keychain
 	 *
+	 * @uses \Alphred\Keychain::save_password()
 	 *
-	 * @param  [type]  $account  [description]
-	 * @param  [type]  $password [description]
-	 * @return [type]            [description]
+	 * @param  string  $account  the name of the account (key) for the password
+	 * @param  string  $password the password
+	 * @return boolean
 	 */
 	public function save_password( $account, $password ) {
 		return \Alphred\Keychain::save_password( $account, $password, true, null );
@@ -459,14 +510,13 @@ class Alphred {
 	/**
 	 * Writes a log message to a log file
 	 *
+	 * @see \Alphred\Log::file() More information on the file log
+	 * @uses \Alphred\Log
 	 *
-	 * @uses \Alphred\Log::file()
-	 *
-	 * @param  [type]  $message  [description]
-	 * @param  string  $level    [description]
-	 * @param  string  $filename [description]
-	 * @param  boolean $trace    [description]
-	 * @return [type]            [description]
+	 * @param  string  		 $message  message to log
+	 * @param  string|int  $level    log level
+	 * @param  string  		 $filename filename with no extension
+	 * @param  boolean|int $trace    how far back to trace
 	 */
 	public function log( $message, $level = 'INFO', $filename = 'workflow', $trace = false ) {
 		\Alphred\Log::file( $message, $level, $filename, $trace );
@@ -476,37 +526,86 @@ class Alphred {
 	 * Text Processing Filters
 	 ****************************************************************************/
 
-	public function time_ago( $seconds ) {
-		return Alphred\Date::ago( $seconds );
+	/**
+	 * Takes a unix epoch time and renders it as a string
+	 *
+	 * This also works for future times. If you set `$words` to `true`, then you will
+	 * get "one" instead of "1". Past times are appended with "ago"; future times are
+	 * prepended with "in ".
+	 *
+	 * @param  integer  $seconds unix epoch time value
+	 * @param  boolean $words    whether to use words or numerals
+	 * @return string
+	 */
+	public function time_ago( $seconds, $words = false ) {
+		return Alphred\Date::ago( $seconds, $words );
 	}
 
 	/**
+	 * Takes a time and gives you a fuzzy description of when it is/was relative to now
 	 *
+	 * So, something like "5 days, 16 hours, and 34 minutes ago" turns into "almost a week ago";
+	 * Something like "16 hours from now" turns into "yesterday"; and something like "1 month from now"
+	 * turns into "in a month"; it's fuzzy. Also, the first strings need to be a unix epoch time,
+	 * so the number of seconds since 1 Jan, 1970 12:00AM.
 	 *
-	 *
-	 * @param  [type] $seconds [description]
+	 * @param  int $seconds    a unix epoch time
 	 * @return string          a string that represents an approximate time
 	 */
 	public function fuzzy_time_diff( $seconds ) {
 		return Alphred\Date::fuzzy_ago( $seconds );
 	}
 
+	/**
+	 * Implodes an array into a string with commas (uses an Oxford comma)
+	 *
+	 * If you set `$suffix` to `true`, then the function expects an associative array
+	 * as 'suffix' => 'word', so an array like:
+	 * ````php
+	 * $list = [ 'penny' => 'one', 'quarters' => 'three', 'dollars' => 'five' ];
+	 * ````
+	 * will render as: "one penny, three quarters, and five dollars"
+	 *
+	 * @param array   $list    the array to add commas to
+	 * @param boolean $suffix whether or not there is a suffix
+	 * @return string 				the array, but as a string with commas
+	 */
 	public function add_commas( $list, $suffix = false ) {
 		return \Alphred\Text::add_commas_to_list( $list, $suffix );
 	}
 
 	/*****************************************************************************
-	 * AppleScript Filters
+	 * AppleScript Actions
 	 ****************************************************************************/
 
+	/**
+	 * Activates an application
+	 *
+	 * Brings an application to the front, launching it if necessary
+	 *
+	 * @param  string $application the name of the application
+	 */
 	public function activate( $application ) {
 		Alphred\AppleScript::activate( $application );
 	}
 
+	/**
+	 * Gets the active window
+	 *
+	 * @return array an array of [ 'app_name' => $name, 'window_name' => $name ]
+	 */
 	public function get_active_window() {
 		return Alphred\AppleScript::get_front();
 	}
 
+	/**
+	 * Brings an application to the front
+	 *
+	 * This is like `activate`, but it does not open the application if it is
+	 * not already open.
+	 *
+	 * @param  string $application the name of an application
+	 */
 	public function bring_to_front( $application ) {
 		Alphred\AppleScript::bring_to_front( $application );
 	}
