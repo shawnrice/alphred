@@ -57,9 +57,6 @@ This library was written keeping [Dean Jackson's](http://www.deanishe.net/) Pyth
 
 TODO
 ====
-
-* Add in the ability to set the config handler / filename via workflow.ini
-
 Generally,
 
 1. finish / add to command-line functionality,
@@ -71,23 +68,3 @@ I should also automate all the build-scripts.
 
 I've decided to delay a more robust Indexer class that lies on top of Sqlite3 because it's just such a mess trying
 to support the number of versions of FTS and the changing implementation. It can be added later.
-
-### Files
-
-Tentatively finshed:
-
-1.  [ ] Alfred.php
-2.  [ ] Alphred.php
-3.  [ ] AppleScript.php
-4.  [x] Config.php
-6.  [ ] Date.php
-7.  [ ] Exceptions.php
-8.  [ ] Filter.php
-9.  [x] Globals.php
-10. [ ] i18n.php
-10. [x] Ini.php
-10. [x] Keychain.php
-10. [x] Log.php
-10. [x] Request.php
-10. [x] ScriptFilter.php
-10. [x] Text.php
