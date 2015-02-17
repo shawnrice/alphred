@@ -35,32 +35,50 @@ class Alphred {
 	 *
 	 * @param array  				$options options that can be configured
 	 *                            currently, only two options are available:
-	 *                            1. error_on_empty - displays a script filter item when empty
-	 *                            2. no_filter      - initializes object without a script filter
-	 *                            3. no_config      - creates without a config item
+	 *                            1. error_on_empty  - displays a script filter item when empty
+	 *                            2. no_filter       - initializes object without a script filter
+	 *                            3. no_config       - creates without a config item
+	 *                            4. config_filename - sets filename for the config (default: `config`)
+	 *                            5. config_handler  - sets the handler for the config (default: `ini`)
 	 * @param array|boolean $plugins plugins to be run at load
 	 */
-	public function __construct( $options = [ 'error_on_empty' => true, 'config' => true ] ) {
+	public function __construct( $options = [ 'error_on_empty' => true ] ) {
+
+		// We're going to parse the ini file (if it exists) and just merge what we find there
+		// with the $options array. The original $options array will override the workflow.ini file.
+		$options = array_merge( $options, $this->parse_ini_file() );
 
 		// Create a script filter object unless explicitly turned off
 		if ( ! isset( $options[ 'no_filter' ] ) || true !== $options[ 'no_filter' ] ) {
-			$this->filter = new \Alphred\ScriptFilter( $options );
+			$this->filter = new Alphred\ScriptFilter( $options );
 		}
 
-
+		if ( ! isset( $options[ 'no_config' ] ) || true !== $options[ 'no_config' ] ) {
+			// Use `ini` as the default handler and `config` as the default filename
+			$handler  = ( isset( $options['config_handler'] ) ) ? $options['config_handler'] : 'ini';
+			$filename = ( isset( $options['config_filename'] ) ) ? $options['config_filename'] : 'config';
+			// Create the config object
+			$this->config = new Alphred\Config( $handler, $filename );
+		}
 	}
 
+	/**
+	 * Reads the `workflow.ini` file if it exists
+	 *
+	 * @return array an array of config values
+	 */
 	private function parse_ini_file() {
+		// If the file does not exist, then exit early with an empty array
 		if ( ! file_exists( 'workflow.ini' ) ) {
-			return;
+			return [];
 		}
+
+		// Read the ini file
 		$ini = Alphred\Ini::read_ini( 'workflow.ini' );
-		// Reads the config filename and handler from workflow.ini if set.
-		$handler = ( isset( $ini['alphred']['config_handler'] ) ) ?
-			trim( $ini['alphred']['config_handler'] ) : 'ini';
-		$filename = ( isset( $ini['alphred']['config_filename'] ) ) ?
-			trim( $ini['alphred']['config_filename'] ) : 'config';
-		$this->config = new Alphred\Config( $handler, $filename );
+
+		// Just return the alphred bit
+		return $ini['alphred'];
+
 	}
 
 	/**
@@ -139,9 +157,9 @@ class Alphred {
 	 * 	* return_score -- whether or not to return the score along with the results (default: false)
 	 * 	* fold         -- whether or not to fold diacritical marks, thus making
 	 * 										`über` into `uber`. (default: true)
-	 * 	* flags 			 -- the type of filters to run. (default: MATCH_ALL)
+	 * 	* match_type	 -- the type of filters to run. (default: MATCH_ALL)
 	 *
-	 *  The flags are defined as constants, and so you can call them by the flags or by
+	 *  The match_type is defined as constants, and so you can call them by the flags or by
 	 *  the integer value. Options:
 	 *    Match items that start with the query
 	 *    1: MATCH_STARTSWITH
@@ -350,16 +368,12 @@ class Alphred {
 	 * Reads a configuration value
 	 *
 	 * @param  string $key      name of key
-	 * @param  string $handler  type of config handler to use
-	 * @param  string $filename the name of the config file with no extension
 	 * @return mixed            the value of the key or null if not set
 	 */
-	public function config_read( $key, $handler = 'ini', $filename = 'config' ) {
-		// Create a new config object
-		$config = new Alphred\Config( $handler, $filename );
+	public function config_read( $key ) {
 		try {
 			// Try to read it, and catch the exception if it is not set
-			return $config->read( $key );
+			return $this->config->read( $key );
 		} catch ( Alphred\ConfigKeyNotSet $e ) {
 			// There is nothing, so return null
 			return null;
@@ -371,24 +385,18 @@ class Alphred {
 	 *
 	 * @param  string  $key      the name of the key
 	 * @param  mixed   $value    the value for the key
-	 * @param  string  $handler  type of config handler to use
-	 * @param  string  $filename the name of the config file with no extension
 	 */
-	public function config_set( $key, $value, $handler = 'ini', $filename = 'config' ) {
-		$config = new Alphred\Config( $handler, $filename );
-		$config->set( $key, $value );
+	public function config_set( $key, $value ) {
+		$this->config->set( $key, $value );
 	}
 
 	/**
 	 * Deletes a config value
 	 *
 	 * @param  string  $key      name of the key
-	 * @param  string  $handler  type of config handler to use
-	 * @param  string  $filename the name of the config file with no extension
 	 */
-	public function config_delete( $key, $handler = 'ini', $filename = 'config' ) {
-		$config = new Alphred\Config( $handler, $filename );
-		$config->delete( $key );
+	public function config_delete( $key ) {
+		$this->config->delete( $key );
 	}
 
 	/**

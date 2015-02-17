@@ -28,9 +28,9 @@ class Filter {
 	 * 	* return_score -- whether or not to return the score along with the results (default: false)
 	 * 	* fold         -- whether or not to fold diacritical marks, thus making
 	 * 										`über` into `uber`. (default: true)
-	 * 	* flags 			 -- the type of filters to run. (default: MATCH_ALL)
+	 * 	* match_type 	 -- the type of filters to run. (default: MATCH_ALL)
 	 *
-	 *  The flags are defined as constants, and so you can call them by the flags or by
+	 *  The match_type is defined as constants, and so you can call them by the flags or by
 	 *  the integer value. Options:
 	 *    Match items that start with the query
 	 *    1: MATCH_STARTSWITH

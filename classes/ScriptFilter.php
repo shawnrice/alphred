@@ -182,7 +182,6 @@ class ScriptFilter {
 	 * Writes out the Alfred XML
 	 *
 	 * @since 1.0.0
-	 * @todo Verify this works with icon filetype
 	 *
 	 * @param object $item An \Alphred\Result object
 	 */

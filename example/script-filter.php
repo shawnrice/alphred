@@ -2,16 +2,10 @@
 
 // Example that connects to Github
 // https://developer.github.com/v3/
-//
-//
-// Just to test outside of the workflow environment
-$_SERVER['alfred_workflow_name'] = 'Github Repos';
-$_SERVER['alfred_workflow_bundleid'] = 'com.spr.gh.repos';
-$_SERVER['alfred_workflow_data'] =
-	$_SERVER['HOME'] . '/Library/Application Support/Alfred 2/Workflow Data/com.spr.gh.repos';
-$_SERVER['alfred_workflow_cache'] =
-	$_SERVER['HOME'] . '/Library/Caches/com.runningwithcrayons.Alfred-2/Workflow Data/com.spr.gh.repos';
-$_SERVER['alfred_version'] = 2.6;
+
+// For quicker development purposes, I'm setting some of the variables here so that it
+// can run via the command line. Don't do this in a real workflow.
+require_once( __DIR__ . '/test_vars.php' );
 
 
 // Require Alphred
@@ -27,8 +21,6 @@ unset( $argv[0] ); // unset the path
 if ( isset( $argv[1] ) ) {
 	$query = trim( implode(' ', $argv ) ); // Make argv $query for now.
 }
-
-// print "Query: '{$query}'\n";
 
 $Alphred = new Alphred(['error_on_empty' => true ]);
 
