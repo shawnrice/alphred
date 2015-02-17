@@ -1,92 +1,41 @@
 <?php
-/**
- *
- * @package Alphred
- *
- *
- */
-
-
-// Right now, some of this code should just be in alphred.php... we'll see.
 
 namespace Alphred;
 
-/**
- *
- * What is the purpose of this class? Is there any real good purpose?
- *
- */
 class Alfred {
 
-	public function __construct( $options = [ 'create_directories' => false ] ) {
-		if ( true === $options['create_directories'] ) {
-			$this->create_directories();
+	/**
+	 * Calls an Alfred External Trigger
+	 *
+	 * Single and double-quotes in the argument might break this method, so make sure that you
+	 * escape them appropriately.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param  string  				$bundle   the bundle id of the workflow to trigger
+	 * @param  string  				$trigger  the name of the trigger
+	 * @param  string|boolean $argument an argument to pass
+	 */
+	public static function call_external_trigger( $bundle, $trigger, $argument = false ) {
+		$script = "tell application \"Alfred 2\" to run trigger \"{$trigger}\" in workflow \"{$bundle}\"";
+		if ( false !== $argument ) {
+			$script .= "with argument \"{$argument}\"";
 		}
+		// Execute the AppleScript to call the trigger
+		exec( "osascript -e '$script'" );
 	}
 
-	private function create_directories() {
-		if ( ! self::data() ) {
-			return false;
-		}
-		if ( ! file_exists( self::data() ) ) {
-			mkdir( self::data(), 0775, true );
-		}
-		if ( ! file_exists( self::cache() ) ) {
-			mkdir( self::cache(), 0775, true );
-		}
-
-		return true;
-	}
-
-	public function user() {
-		return Globals::get( 'USER' );
-	}
-
-	public function bundle() {
-		return Globals::get( 'alfred_workflow_bundleid' );
-	}
-
-	public function data() {
-		return Globals::get( 'alfred_workflow_data' );
-	}
-
-	public function cache() {
-		return Globals::get( 'alfred_workflow_cache' );
-	}
-
-	public function uid() {
-		return Globals::get( 'alfred_workflow_uid' );
-	}
-
-	public function workflow_name() {
-		return Globals::get( 'alfred_workflow_name' );
-	}
-
-	public function theme_subtext() {
-		return Globals::get( 'alfred_theme_subtext' );
-	}
-
-	public function alfred_version() {
-		return Globals::get( 'alfred_version' );
-	}
-
-	public function alfred_build() {
-		return Globals::get( 'alfred_version_build' );
-	}
-
-	public function dir() {
-		return Globals::get( 'PWD' );
-	}
-
-	public function theme_background() {
-		return Globals::get( 'alfred_theme_background' );
-	}
-
-  public function light_or_dark() {
+	/**
+	 * Tells you if the current theme is `light` or `dark`
+	 *
+	 * @uses Alphred\Globals::get()
+	 * @return string either 'light' or 'dark'
+	 */
+  public static function light_or_dark() {
     // Regex pattern to parse the Alfred background variable
     $pattern = "/rgba\(([0-9]{1,3}),([0-9]{1,3}),([0-9]{1,3}),([0-9.]{4,})\)/";
     // Do the regex, matching everything in the $matches variable
-    preg_match_all( $pattern, Globals::get( 'alfred_theme_background' ), $matches );
+    preg_match_all( $pattern, \Alphred\Globals::get( 'alfred_theme_background' ), $matches );
     // Pull the values into an $rgb array
     $rgb = array( 'r' => $matches[1][0], 'g' => $matches[2][0], 'b' => $matches[3][0] );
 
@@ -100,8 +49,3 @@ class Alfred {
   }
 
 }
-
-
-
-
-

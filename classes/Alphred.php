@@ -82,27 +82,6 @@ class Alphred {
 	}
 
 	/**
-	 * Calls an Alfred External Trigger
-	 *
-	 * Single and double-quotes in the argument might break this method, so make sure that you
-	 * escape them appropriately.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param  string  				$bundle   the bundle id of the workflow to trigger
-	 * @param  string  				$trigger  the name of the trigger
-	 * @param  string|boolean $argument an argument to pass
-	 */
-	public function call_external_trigger( $bundle, $trigger, $argument = false ) {
-		$script = "tell application \"Alfred 2\" to run trigger \"{$trigger}\" in workflow \"{$bundle}\"";
-		if ( false !== $argument ) {
-			$script .= "with argument \"{$argument}\"";
-		}
-		// Execute the AppleScript to call the trigger
-		exec( "osascript -e '$script'" );
-	}
-
-	/**
 	 * Execute a php script in the background
 	 *
 	 * @todo Work on argument escaping
@@ -143,6 +122,34 @@ class Alphred {
 	public function is_background() {
 		return Alphred\Globals::is_background();
 	}
+
+	/**
+	 * Calls an Alfred External Trigger
+	 *
+	 * Single and double-quotes in the argument might break this method, so make sure that you
+	 * escape them appropriately.
+	 *
+	 * @since 1.0.0
+	 * @uses Alphred\Alfred::call_external_trigger()
+	 *
+	 * @param  string  				$bundle   the bundle id of the workflow to trigger
+	 * @param  string  				$trigger  the name of the trigger
+	 * @param  string|boolean $argument an argument to pass
+	 */
+	public function call_external_trigger( $bundle, $trigger, $argument = false ) {
+		Alphred\Alfred::call_external_trigger( $bundle, $trigger, $argument );
+	}
+
+	/**
+	 * Tells you if the current theme is `light` or `dark`
+	 *
+	 * @uses Alphred\Alfred::light_or_dark()
+	 * @return string either 'light' or 'dark'
+	 */
+	public function theme_background() {
+		return Alphred\Alfred::light_or_dark();
+	}
+
 
 	/**
 	 * Filters an array based on a query
@@ -631,6 +638,7 @@ class Alphred {
 	public function bring_to_front( $application ) {
 		Alphred\AppleScript::bring_to_front( $application );
 	}
+
 
 
 }
