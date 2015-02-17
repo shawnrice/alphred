@@ -6,12 +6,12 @@ commands/*
 composer.json
 composer.lock
 docs/*
+meta
 misc/*
 output/*
+report_test_coverage.sh
+reports/*
 tmp/*
 todo/*
 vendor/*
-reports/*
 workflow.ini
-report_test_coverage.sh
-meta

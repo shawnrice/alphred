@@ -155,6 +155,10 @@ class Filter {
 	/**
 	 * Callback function to help sort the results array
 	 *
+	 * @internal I made this `public` because there was an error using filter()
+	 *           through the wrapper. This is a temporary measure and should
+	 *           be remedied.
+	 *
 	 * @param  array $a an array
 	 * @param  array $b an array
 	 * @return bool
