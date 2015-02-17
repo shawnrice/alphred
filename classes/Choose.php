@@ -1,14 +1,29 @@
 <?php
+/**
+ * Contains Choose class for Alphred
+ *
+ * PHP version 5
+ *
+ * @package 	 Alphred
+ * @copyright  Shawn Patrick Rice 2014
+ * @license    http://opensource.org/licenses/MIT  MIT
+ * @version    1.0.0
+ * @author     Shawn Patrick Rice <rice@shawnrice.org>
+ * @link       http://www.github.com/shawnrice/alphred
+ * @link       http://shawnrice.github.io/alphred
+ * @since      File available since Release 1.0.0
+ *
+ */
+
 
 namespace Alphred;
 
 /**
+ * Creates and executes AppleScript "Choose from..." dialogs.
  *
- * Creates and executes AppleScript "Choose from..." dialogs. The ones that aren't included
- * can be better served by regular PHP scripting.
+ * The ones that aren't included can be better served by regular PHP scripting.
  *
  * @since 1.0.0
- *
  */
 class Choose {
 

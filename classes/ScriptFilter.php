@@ -21,6 +21,7 @@ namespace Alphred;
  * Creates Script Filter XML for Alfred
  *
  * Example usage:
+ *
  * ````php
  * $script_filter = new Alphred\ScriptFilter( ['error_on_empty'] => true );
  * $script_filter->add_result( new Alphred\Result([

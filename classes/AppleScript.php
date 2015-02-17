@@ -1,14 +1,34 @@
 <?php
+/**
+ * Contains AppleScript class for Alphred, just some php wrappers around some AppleScript
+ *
+ * PHP version 5
+ *
+ * @package 	 Alphred
+ * @copyright  Shawn Patrick Rice 2014
+ * @license    http://opensource.org/licenses/MIT  MIT
+ * @version    1.0.0
+ * @author     Shawn Patrick Rice <rice@shawnrice.org>
+ * @link       http://www.github.com/shawnrice/alphred
+ * @link       http://shawnrice.github.io/alphred
+ * @since      File available since Release 1.0.0
+ *
+ */
 
 namespace Alphred;
 
-// So this file is an absolute mess.
-// I might need to rethink if I will / should reorganize all the classes
-// into something a bit better....
-
+/**
+ * Provides limited functionality to AppleScript
+ *
+ * Think of this as a wrapper for some AppleScript
+ */
 class AppleScript {
 
-	// Returns the frontmost application and window name
+	/**
+	 * Gets the frontmost window name and application
+	 *
+	 * @return array an array with the front application name and window name
+	 */
 	public function get_front() {
 		// This is just inelegantly embedding a long AppleScript into the library
 		// https://stackoverflow.com/questions/5292204/macosx-get-foremost-window-title
@@ -33,18 +53,34 @@ class AppleScript {
 
 	}
 
+	/**
+	 * Brings an application to the front, opening it if necessary
+	 *
+	 * @param  string $application the name of the application
+	 */
 	public function activate( $application ) {
 		return self::exec(
 			'tell application "' . addslashes( $application ) . '" to activate'
 		);
 	}
 
+	/**
+	 * Brings an application to the front, but only if it is open
+	 *
+	 * @param  string $process name of application
+	 */
 	public function bring_to_front( $process ) {
 		return self::exec(
 			"try\ntell application \"System Events\" to set frontmost of process \"{$process}\" to true\nend try"
 		);
 	}
 
+	/**
+	 * Executes some AppleScript code
+	 *
+	 * @param  string $script the script to execute
+	 * @return mixed          whatever the script returns
+	 */
 	private function exec( $script ) {
 		return exec( "osascript -e '{$script}'" );
 	}

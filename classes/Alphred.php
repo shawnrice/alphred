@@ -1,6 +1,6 @@
 <?php
 /**
- * Contains Globals class for Alphred
+ * Contains wrapper class for Alphred, the main entry point to use the library
  *
  * PHP version 5
  *
@@ -22,10 +22,6 @@
  * This provides a simple wrapper for all of the important parts of the Alphred library.
  * It also simplifies the usage of some of the internal components, so calls to this class
  * do not always mirror calls to the internal components.
- *
- * @todo make it so that config handler and filename can be set from workflow.ini
- * @todo possibly instantiate object with a config so that we don't have to create the object
- *       with each config call
  *
  */
 class Alphred {
