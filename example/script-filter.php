@@ -108,7 +108,7 @@ foreach ( $matches as $match ) :
 	// Alphred lets us add results by adding an Alphred\Result object. While we can create these and
 	// modify them over the course of the script, we'll just create the Result object in the `add_result`
 	// method call.
-	$icon = 'icons/octoface-light.png';
+	$icon = __DIR__ . '/icons/octoface-light.png';
 	$Alphred->add_result( [
 	    // I want Alfred to show the name of the repo as the ttle
 	    'title' 	 			 => $match['name'],
