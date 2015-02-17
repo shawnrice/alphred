@@ -30,13 +30,14 @@ endforeach;
 $other_files = [
 	'apigen.neon',
 	'build-phar.php',
-	'build.xml',
+	// 'build.xml',
+	'Changelog.md',
 	'code-standards.xml',
 	'phpdoc.dist.xml',
+	// 'phpunit.xml.dist', // Taking this out for now
 	'README.md',
 ];
 
-	// 'phpunit.xml.dist', // Taking this out for now
 
 // Include the invidual files
 foreach ( $other_files as $file ) :
@@ -52,4 +53,10 @@ $phar->setStub( $stub );
 $phar->stopBuffering();
 
 // I should use php's chmod() function, but I'm going to cheat here to make it executable
-exec( 'chmod +x build/Alphred.phar' );
+exec( 'chmod +x build/Alphred.phar', $return, $code );
+if ( 0 == $code ) {
+	print "Built Phar\n";
+} else {
+	print "Problem occured building phar.\n";
+}
+exit( $code );

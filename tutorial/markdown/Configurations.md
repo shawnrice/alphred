@@ -1,5 +1,9 @@
 Many workflows need to be configured, and Alphred provides an easy way for you to manage simple configurations. Out of the box, it provides methods to write configuration files as `json`, `ini`, or `sqlite3`. They provide simple key-value pairs.
 
+# Note
+This is outdated. You can no longer set the handler or the filename through the individual methods. Instead, you have
+set them either when you instantiate the Alphred object or in a `workflow.ini` file.
+
 #### Methods
 > `config_set( $key, $value, $handler, $filename )`
 > `config_read( $key, $handler, $filename )`
