@@ -13,6 +13,9 @@ The library will be released after there is 100% test coverage (or what is pract
 
 CLI-Server
 ===
+
+> This is an experimental feature. Let me know how it works.
+
 PHP is quick to run but slow to load. To help out with that, you can write your workflow to use the built-in PHP CLI server. But, remember, that the CLI-Server exists only with PHP 5.4+, so it will not work on stock systems below Mavericks (10.9).
 
 To "install" the scripts for your workflow, just run: `php Alphred.phar create-server-scripts`. Doing so will create (or unpack) three files:

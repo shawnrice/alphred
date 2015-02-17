@@ -101,6 +101,9 @@ if ( ! empty( $query ) ) {
 	$matches = $repos;
 }
 
+// Let's get the inverse of the background of the theme so that we can assign the right icon
+$color = ( 'light' == $Alphred->theme_background() ) ? 'dark' : 'light';
+
 // Let's go ahead and add each to the script filter results
 foreach ( $matches as $match ) :
 	// Let's use one of the text filters to tell us how long ago something was updated.
@@ -108,8 +111,10 @@ foreach ( $matches as $match ) :
 	// Alphred lets us add results by adding an Alphred\Result object. While we can create these and
 	// modify them over the course of the script, we'll just create the Result object in the `add_result`
 	// method call.
-	$icon = __DIR__ . '/icons/octoface-light.png';
-	$Alphred->add_result( [
+
+	// Figure out the icon with the color from above
+	$icon = __DIR__ . "/icons/mark-github-{$color}.png";
+	$Alphred->add_result([
 	    // I want Alfred to show the name of the repo as the ttle
 	    'title' 	 			 => $match['name'],
 	    // We'll add in the appropriate icon
