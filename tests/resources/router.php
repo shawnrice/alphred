@@ -1,14 +1,13 @@
 <?php
 // Just a router file to help with the testing...
 
-$array = [
-	'item1' => 'this is some testing framework stuff',
-	'item2' => 'yet another string',
-	'item3' => 'totally another string',
-	'item4' => 'Lorem Ipsum Stuff',
-	'item5' => 'ABCs of Alphabet City',
-	'item6' => 'All Bucolic Cattle Do Eat Fate'
-];
+$array = [];
+$array['items'][] = 'this is some testing framework stuff';
+$array['items'][] = 'yet another string';
+$array['items'][] = 'totally another string';
+$array['items'][] = 'Lorem Ipsum Stuff';
+$array['items'][] = 'ABCs of Alphabet City';
+$array['items'][] = 'All Bucolic Cattle Do Eat Fate';
 
 $array['agent'] = $_SERVER['HTTP_USER_AGENT'];
 $array['method'] = $_SERVER['REQUEST_METHOD'];
