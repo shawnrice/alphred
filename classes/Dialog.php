@@ -1,10 +1,26 @@
 <?php
+/**
+ * Contains Dialog class for Alphred
+ *
+ * PHP version 5
+ *
+ * @package 	 Alphred
+ * @copyright  Shawn Patrick Rice 2014
+ * @license    http://opensource.org/licenses/MIT  MIT
+ * @version    1.0.0
+ * @author     Shawn Patrick Rice <rice@shawnrice.org>
+ * @link       http://www.github.com/shawnrice/alphred
+ * @link       http://shawnrice.github.io/alphred
+ * @since      File available since Release 1.0.0
+ *
+ */
 
 namespace Alphred;
 
 /**
+ * Class to create standard AppleScript dialogs.
  *
- * Class to create standard AppleScript dialogs. This class is awkward.
+ * This class is awkward.
  *
  * @todo Revisit developer experience of creating dialogs
  *

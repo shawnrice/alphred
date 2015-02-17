@@ -1,5 +1,6 @@
 <?php
 /**
+ * Contains Filter class for Alphred
  *
  * This file contains the functions for filtering arrays of text
  *
@@ -9,10 +10,25 @@
  *
  * Also, if you are folding diacritics, then you can work only with
  * characters that can be transliterated to ASCII.
+ *
+ * PHP version 5
+ *
+ * @package 	 Alphred
+ * @copyright  Shawn Patrick Rice 2014
+ * @license    http://opensource.org/licenses/MIT  MIT
+ * @version    1.0.0
+ * @author     Shawn Patrick Rice <rice@shawnrice.org>
+ * @link       http://www.github.com/shawnrice/alphred
+ * @link       http://shawnrice.github.io/alphred
+ * @since      File available since Release 1.0.0
+ *
  */
 
 namespace Alphred;
 
+/**
+ * Filters arrays to match a query
+ */
 class Filter {
 
 	/**

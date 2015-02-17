@@ -17,6 +17,9 @@
 
 namespace Alphred;
 
+/**
+ * Basic interaction with Alfred
+ */
 class Alfred {
 
 	/**
