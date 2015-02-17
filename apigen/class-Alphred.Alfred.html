@@ -3,74 +3,110 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class Alphred\Alfred</title>
+	<title>Class Alphred\Alfred | Alphred</title>
 
-	<link rel="stylesheet" href="resources/style.css?2174713577">
+	<link rel="stylesheet" href="resources/bootstrap.min.css?08b23951ef4599ca9cbf1f902d0e8290c9653ddd">
+	<link rel="stylesheet" href="resources/style.css?062e9e59e0b8c44fbaaded5b7ffc21f907b78669">
 
 </head>
 
 <body>
-<div id="left">
+	<div id="navigation" class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a href="index.html" class="brand">Alphred</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li>
+							<a href="namespace-Alphred.html" title="Summary of Alphred"><span>Namespace</span></a>
+						</li>
+						<li class="active">
+<span>Class</span>						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+						</li>
+						<li>
+							<a href="deprecated.html" title="List of deprecated elements"><span>Deprecated</span></a>
+						</li>
+						<li>
+							<a href="todo.html" title="Todo list"><span>Todo</span></a>
+						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="-API-documentation.zip" title="Download documentation as ZIP archive"><span>Download</span></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="left">
 	<div id="menu">
-		<a href="index.html" title="Overview"><span>Overview</span></a>
+		<form id="search" class="form-search">
+			<input type="hidden" name="cx" value="">
+			<input type="hidden" name="ie" value="UTF-8">
+			<input type="text" name="q" class="search-query" placeholder="Search">
+		</form>
 
 
 		<div id="groups">
 				<h3>Namespaces</h3>
 			<ul>
-				<li class="active">
-					<a href="namespace-Alphred.html">
-						Alphred<span></span>
-					</a>
-
-						<ul>
-				<li>
-					<a href="namespace-Alphred.AppleScript.html">
-						AppleScript					</a>
-
-						</li>
-				<li>
-					<a href="namespace-Alphred.Database.html">
-						Database					</a>
-
-						</li>
-							</ul></li>
-				<li>
-					<a href="namespace-PHP.html">
-						PHP					</a>
-
-						</li>
+					<li class="active main">
+						<a href="namespace-Alphred.html">
+							Alphred						</a>
+							</li>
+					<li>
+						<a href="namespace-None.html">
+							None						</a>
+							</li>
 			</ul>
 		</div>
-
-		<hr>
 
 
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
 				<li class="active"><a href="class-Alphred.Alfred.html">Alfred</a></li>
+				<li><a href="class-Alphred.AppleScript.html">AppleScript</a></li>
+				<li><a href="class-Alphred.Choose.html">Choose</a></li>
 				<li><a href="class-Alphred.Config.html">Config</a></li>
 				<li><a href="class-Alphred.Date.html">Date</a></li>
+				<li><a href="class-Alphred.Dialog.html">Dialog</a></li>
+				<li><a href="class-Alphred.Filter.html">Filter</a></li>
 				<li><a href="class-Alphred.Globals.html">Globals</a></li>
-				<li><a href="class-Alphred.http.html">http</a></li>
 				<li><a href="class-Alphred.i18n.html">i18n</a></li>
+				<li><a href="class-Alphred.Ini.html">Ini</a></li>
 				<li><a href="class-Alphred.Keychain.html">Keychain</a></li>
 				<li><a href="class-Alphred.Log.html">Log</a></li>
+				<li><a href="class-Alphred.Notification.html">Notification</a></li>
+				<li><a href="class-Alphred.Request.html">Request</a></li>
 				<li><a href="class-Alphred.Result.html">Result</a></li>
 				<li><a href="class-Alphred.ScriptFilter.html">ScriptFilter</a></li>
-				<li><a href="class-Alphred.Server.html">Server</a></li>
 				<li><a href="class-Alphred.Text.html">Text</a></li>
-				<li><a href="class-Alphred.Workflows.html">Workflows</a></li>
 			</ul>
 
 			<h3>Interfaces</h3>
 			<ul>
+				<li><a href="class-Alphred.ConfigKeyNotSet.html">ConfigKeyNotSet</a></li>
 				<li><a href="class-Alphred.Exception.html">Exception</a></li>
+				<li><a href="class-Alphred.FileDoesNotExist.html">FileDoesNotExist</a></li>
 				<li><a href="class-Alphred.InvalidKeychainAccount.html">InvalidKeychainAccount</a></li>
+				<li><a href="class-Alphred.InvalidScriptFilterArgument.html">InvalidScriptFilterArgument</a></li>
 				<li><a href="class-Alphred.InvalidSecurityAction.html">InvalidSecurityAction</a></li>
+				<li><a href="class-Alphred.InvalidXMLProperty.html">InvalidXMLProperty</a></li>
 				<li><a href="class-Alphred.PasswordExists.html">PasswordExists</a></li>
 				<li><a href="class-Alphred.PasswordNotFound.html">PasswordNotFound</a></li>
+				<li><a href="class-Alphred.PluginFunctionNotFound.html">PluginFunctionNotFound</a></li>
+				<li><a href="class-Alphred.RunningOutsideOfAlfred.html">RunningOutsideOfAlfred</a></li>
+				<li><a href="class-Alphred.ShouldBeBool.html">ShouldBeBool</a></li>
+				<li><a href="class-Alphred.TooManyArguments.html">TooManyArguments</a></li>
 				<li><a href="class-Alphred.UnknownSecurityException.html">UnknownSecurityException</a></li>
 				<li><a href="class-Alphred.UseOnlyAsStatic.html">UseOnlyAsStatic</a></li>
 			</ul>
@@ -85,40 +121,14 @@
 <div id="splitter"></div>
 
 <div id="right">
-<div id="rightInner">
-	<form id="search">
-		<input type="hidden" name="cx" value="">
-		<input type="hidden" name="ie" value="UTF-8">
-		<input type="text" name="q" class="text" placeholder="Search">
-	</form>
-
-	<div id="navigation">
-		<ul>
-			<li>
-				<a href="index.html" title="Overview"><span>Overview</span></a>
-			</li>
-			<li>
-				<a href="namespace-Alphred.html" title="Summary of Alphred"><span>Namespace</span></a>
-			</li>
-			<li class="active">
-<span>Class</span>			</li>
-		</ul>
-		<ul>
-			<li>
-				<a href="deprecated.html" title="List of deprecated elements"><span>Deprecated</span></a>
-			</li>
-			<li>
-				<a href="todo.html" title="Todo list"><span>Todo</span></a>
-			</li>
-		</ul>
-		<ul>
-		</ul>
-	</div>
-
+	<div id="rightInner">
 <div id="content" class="class">
 	<h1>Class Alfred</h1>
 
 
+	<div class="description">
+	<p>Basic interaction with Alfred</p>
+	</div>
 
 
 
@@ -128,451 +138,115 @@
 
 
 
-	<div class="info">
+	<div class="alert alert-info">
 		
 		
-		<b>Namespace:</b> Alphred<br>
-		<b>Package:</b> Alphred<br>
+		<b>Namespace:</b> <a href="namespace-Alphred.html">Alphred</a><br>
+		
 
-			<b>Located at</b> <a href="source-class-Alphred.Alfred.html#14-97" title="Go to source code">Alfred.php</a>
+			<b>Located at</b> <a href="source-class-Alphred.Alfred.html#20-69" title="Go to source code">Alfred.php</a>
 		<br>
 	</div>
 
 
 
-	<table class="summary methods" id="methods">
-	<caption>Methods summary</caption>
-	<tr data-order="__construct" id="___construct">
+		<h2>Methods summary</h2>
+		<table class="summary table table-bordered table-striped methods" id="methods">
+		<tr data-order="call_external_trigger" id="_call_external_trigger">
 
-		<td class="attributes"><code>
-			 public 
+			<td class="attributes"><code>
+				 public static
+				
+				
+				</code>
+			</td>
 
-			
-			
-			</code>
-		</td>
+			<td class="name"><div>
+			<a class="anchor" href="#_call_external_trigger">#</a>
+			<code><a href="source-class-Alphred.Alfred.html#25-44" title="Go to source code">call_external_trigger</a>( <span>string <var>$bundle</var></span>, <span>string <var>$trigger</var></span>, <span>string|boolean <var>$argument</var> = <span class="php-keyword1">false</span> </span> )</code>
 
-		<td class="name"><div>
-		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Alphred.Alfred.html#21-25" title="Go to source code">__construct</a>( <span> <var>$options</var> = [ <span class="php-quote">'create_directories'</span> =&gt; <span class="php-keyword1">false</span> ] </span> )</code>
+			<div class="description short">
+				<p>Calls an Alfred External Trigger</p>
+			</div>
 
-		<div class="description short">
-			
-		</div>
+			<div class="description detailed hidden">
+				<p>Calls an Alfred External Trigger</p>
 
-		<div class="description detailed hidden">
-			
+<p>Single and double-quotes in the argument might break this method, so make sure that you
+escape them appropriately.</p>
 
 
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$bundle</var></dt>
+						<dd>the bundle id of the workflow to trigger</dd>
+						<dt><var>$trigger</var></dt>
+						<dd>the name of the trigger</dd>
+						<dt><var>$argument</var></dt>
+						<dd>an argument to pass</dd>
+					</dl></div>
 
 
 
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+					<h4>Used by</h4>
+					<div class="list">
+							<code><a href="class-Alphred.html#_call_external_trigger">Alphred::call_external_trigger()</a></code><br>
+					</div>
 
 
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="user" id="_user">
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="light_or_dark" id="_light_or_dark">
 
-		<td class="attributes"><code>
-			 public 
+			<td class="attributes"><code>
+				 public static
+				string
+				
+				</code>
+			</td>
 
-			
-			
-			</code>
-		</td>
+			<td class="name"><div>
+			<a class="anchor" href="#_light_or_dark">#</a>
+			<code><a href="source-class-Alphred.Alfred.html#46-67" title="Go to source code">light_or_dark</a>( )</code>
 
-		<td class="name"><div>
-		<a class="anchor" href="#_user">#</a>
-		<code><a href="source-class-Alphred.Alfred.html#41-43" title="Go to source code">user</a>( )</code>
+			<div class="description short">
+				<p>Tells you if the current theme is <code>light</code> or <code>dark</code></p>
+			</div>
 
-		<div class="description short">
-			
-		</div>
+			<div class="description detailed hidden">
+				<p>Tells you if the current theme is <code>light</code> or <code>dark</code></p>
 
-		<div class="description detailed hidden">
-			
 
 
+					<h4>Returns</h4>
+					<div class="list">
+						string<br>either 'light' or 'dark'
+					</div>
 
 
+					<h4>Uses</h4>
+					<div class="list">
+							<code><a href="class-Alphred.Globals.html#_get">Alphred\Globals::get()</a></code><br>
+					</div>
+					<h4>Used by</h4>
+					<div class="list">
+							<code><a href="class-Alphred.html#_theme_background">Alphred::theme_background()</a></code><br>
+					</div>
 
 
+			</div>
+			</div></td>
+		</tr>
+		</table>
 
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="bundle" id="_bundle">
 
-		<td class="attributes"><code>
-			 public 
 
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_bundle">#</a>
-		<code><a href="source-class-Alphred.Alfred.html#45-47" title="Go to source code">bundle</a>( )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="data" id="_data">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_data">#</a>
-		<code><a href="source-class-Alphred.Alfred.html#49-51" title="Go to source code">data</a>( )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="cache" id="_cache">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_cache">#</a>
-		<code><a href="source-class-Alphred.Alfred.html#53-55" title="Go to source code">cache</a>( )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="uid" id="_uid">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_uid">#</a>
-		<code><a href="source-class-Alphred.Alfred.html#57-59" title="Go to source code">uid</a>( )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="workflow_name" id="_workflow_name">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_workflow_name">#</a>
-		<code><a href="source-class-Alphred.Alfred.html#61-63" title="Go to source code">workflow_name</a>( )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="theme_subtext" id="_theme_subtext">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_theme_subtext">#</a>
-		<code><a href="source-class-Alphred.Alfred.html#65-67" title="Go to source code">theme_subtext</a>( )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="alfred_version" id="_alfred_version">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_alfred_version">#</a>
-		<code><a href="source-class-Alphred.Alfred.html#69-71" title="Go to source code">alfred_version</a>( )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="alfred_build" id="_alfred_build">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_alfred_build">#</a>
-		<code><a href="source-class-Alphred.Alfred.html#73-75" title="Go to source code">alfred_build</a>( )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="dir" id="_dir">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_dir">#</a>
-		<code><a href="source-class-Alphred.Alfred.html#77-79" title="Go to source code">dir</a>( )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="theme_background" id="_theme_background">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_theme_background">#</a>
-		<code><a href="source-class-Alphred.Alfred.html#81-83" title="Go to source code">theme_background</a>( )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="trigger" id="_trigger">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_trigger">#</a>
-		<code><a href="source-class-Alphred.Alfred.html#85-87" title="Go to source code">trigger</a>( <span> <var>$bundle</var></span>, <span> <var>$trigger</var></span>, <span> <var>$argument</var> = <span class="php-keyword1">false</span> </span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="call_external_trigger" id="_call_external_trigger">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_call_external_trigger">#</a>
-		<code><a href="source-class-Alphred.Alfred.html#89-95" title="Go to source code">call_external_trigger</a>( <span> <var>$bundle</var></span>, <span> <var>$trigger</var></span>, <span> <var>$argument</var> = <span class="php-keyword1">false</span> </span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	</table>
-
-
-
-
-
-
-
-
-
-
+		<h3>Magic methods summary</h3>
 
 
 
@@ -582,11 +256,11 @@
 
 
 </div>
+	</div>
 
 	<div id="footer">
-		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
+		Alphred API documentation generated by <a href="http://apigen.org">ApiGen</a>
 	</div>
-</div>
 </div>
 <script src="resources/combined.js"></script>
 <script src="elementlist.js"></script>

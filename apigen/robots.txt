@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: http://api.apigen.org/sitemap.xml

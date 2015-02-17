@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Alphred\Choose | Alphred</title>
+
+	<link rel="stylesheet" href="resources/bootstrap.min.css?08b23951ef4599ca9cbf1f902d0e8290c9653ddd">
+	<link rel="stylesheet" href="resources/style.css?062e9e59e0b8c44fbaaded5b7ffc21f907b78669">
+
+</head>
+
+<body>
+	<div id="navigation" class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a href="index.html" class="brand">Alphred</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li>
+							<a href="namespace-Alphred.html" title="Summary of Alphred"><span>Namespace</span></a>
+						</li>
+						<li class="active">
+<span>Class</span>						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+						</li>
+						<li>
+							<a href="deprecated.html" title="List of deprecated elements"><span>Deprecated</span></a>
+						</li>
+						<li>
+							<a href="todo.html" title="Todo list"><span>Todo</span></a>
+						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="-API-documentation.zip" title="Download documentation as ZIP archive"><span>Download</span></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="left">
+	<div id="menu">
+		<form id="search" class="form-search">
+			<input type="hidden" name="cx" value="">
+			<input type="hidden" name="ie" value="UTF-8">
+			<input type="text" name="q" class="search-query" placeholder="Search">
+		</form>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+					<li class="active main">
+						<a href="namespace-Alphred.html">
+							Alphred						</a>
+							</li>
+					<li>
+						<a href="namespace-None.html">
+							None						</a>
+							</li>
+			</ul>
+		</div>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Alphred.Alfred.html">Alfred</a></li>
+				<li><a href="class-Alphred.AppleScript.html">AppleScript</a></li>
+				<li class="active"><a href="class-Alphred.Choose.html">Choose</a></li>
+				<li><a href="class-Alphred.Config.html">Config</a></li>
+				<li><a href="class-Alphred.Date.html">Date</a></li>
+				<li><a href="class-Alphred.Dialog.html">Dialog</a></li>
+				<li><a href="class-Alphred.Filter.html">Filter</a></li>
+				<li><a href="class-Alphred.Globals.html">Globals</a></li>
+				<li><a href="class-Alphred.i18n.html">i18n</a></li>
+				<li><a href="class-Alphred.Ini.html">Ini</a></li>
+				<li><a href="class-Alphred.Keychain.html">Keychain</a></li>
+				<li><a href="class-Alphred.Log.html">Log</a></li>
+				<li><a href="class-Alphred.Notification.html">Notification</a></li>
+				<li><a href="class-Alphred.Request.html">Request</a></li>
+				<li><a href="class-Alphred.Result.html">Result</a></li>
+				<li><a href="class-Alphred.ScriptFilter.html">ScriptFilter</a></li>
+				<li><a href="class-Alphred.Text.html">Text</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-Alphred.ConfigKeyNotSet.html">ConfigKeyNotSet</a></li>
+				<li><a href="class-Alphred.Exception.html">Exception</a></li>
+				<li><a href="class-Alphred.FileDoesNotExist.html">FileDoesNotExist</a></li>
+				<li><a href="class-Alphred.InvalidKeychainAccount.html">InvalidKeychainAccount</a></li>
+				<li><a href="class-Alphred.InvalidScriptFilterArgument.html">InvalidScriptFilterArgument</a></li>
+				<li><a href="class-Alphred.InvalidSecurityAction.html">InvalidSecurityAction</a></li>
+				<li><a href="class-Alphred.InvalidXMLProperty.html">InvalidXMLProperty</a></li>
+				<li><a href="class-Alphred.PasswordExists.html">PasswordExists</a></li>
+				<li><a href="class-Alphred.PasswordNotFound.html">PasswordNotFound</a></li>
+				<li><a href="class-Alphred.PluginFunctionNotFound.html">PluginFunctionNotFound</a></li>
+				<li><a href="class-Alphred.RunningOutsideOfAlfred.html">RunningOutsideOfAlfred</a></li>
+				<li><a href="class-Alphred.ShouldBeBool.html">ShouldBeBool</a></li>
+				<li><a href="class-Alphred.TooManyArguments.html">TooManyArguments</a></li>
+				<li><a href="class-Alphred.UnknownSecurityException.html">UnknownSecurityException</a></li>
+				<li><a href="class-Alphred.UseOnlyAsStatic.html">UseOnlyAsStatic</a></li>
+			</ul>
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+	<div id="rightInner">
+<div id="content" class="class">
+	<h1>Class Choose</h1>
+
+
+	<div class="description">
+	<p>Creates and executes AppleScript "Choose from..." dialogs.</p>
+
+<p>The ones that aren't included can be better served by regular PHP scripting.</p>
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="alert alert-info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Alphred.html">Alphred</a><br>
+		
+
+				<b>Since:</b>
+				1.0.0<br>
+			<b>Located at</b> <a href="source-class-Alphred.Choose.html#21-283" title="Go to source code">Choose.php</a>
+		<br>
+	</div>
+
+
+
+		<h2>Methods summary</h2>
+		<table class="summary table table-bordered table-striped methods" id="methods">
+		<tr data-order="from_list" id="_from_list">
+
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_from_list">#</a>
+			<code><a href="source-class-Alphred.Choose.html#30-74" title="Go to source code">from_list</a>( <span>array <var>$list</var></span>, <span>array|boolean <var>$options</var> = <span class="php-keyword1">false</span> </span> )</code>
+
+			<div class="description short">
+				<p>Creates and executes a "Choose from list" AppleScript dialog</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates and executes a "Choose from list" AppleScript dialog</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$list</var></dt>
+						<dd>An array of list items</dd>
+						<dt><var>$options</var></dt>
+						<dd>An array of options to customize the dialog</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						array<br>an array of items chosen
+					</div>
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+					<h4>Todo</h4>
+					<div class="list">
+							Inure this to single-quote, double-quotes, and commas<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="file" id="_file">
+
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_file">#</a>
+			<code><a href="source-class-Alphred.Choose.html#77-110" title="Go to source code">file</a>( <span>array|boolean <var>$options</var> = <span class="php-keyword1">false</span> </span> )</code>
+
+			<div class="description short">
+				<p>Creates and executes a "Choose file(s)" AppleScript dialog</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates and executes a "Choose file(s)" AppleScript dialog</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$options</var></dt>
+						<dd>An array of options to customize the dialog</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						array<br>an array of file path(s)
+					</div>
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="filename" id="_filename">
+
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_filename">#</a>
+			<code><a href="source-class-Alphred.Choose.html#112-142" title="Go to source code">filename</a>( <span>array|boolean <var>$options</var> = <span class="php-keyword1">false</span> </span> )</code>
+
+			<div class="description short">
+				<p>Creates and executes a "Choose filename" AppleScript dialog</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates and executes a "Choose filename" AppleScript dialog</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$options</var></dt>
+						<dd>An array of options to customize the dialog</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						array<br>an array with the single item being a filename
+					</div>
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="folder" id="_folder">
+
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_folder">#</a>
+			<code><a href="source-class-Alphred.Choose.html#145-177" title="Go to source code">folder</a>( <span>array|boolean <var>$options</var> = <span class="php-keyword1">false</span> </span> )</code>
+
+			<div class="description short">
+				<p>Creates and executes a "Choose folder(s)" AppleScript dialog</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates and executes a "Choose folder(s)" AppleScript dialog</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$options</var></dt>
+						<dd>An array of options to customize the dialog</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						array<br>an array of folder path(s)
+					</div>
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="create" id="_create">
+
+			<td class="attributes"><code>
+				 private 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_create">#</a>
+			<code><a href="source-class-Alphred.Choose.html#179-224" title="Go to source code">create</a>( <span>string <var>$start</var></span>, <span>array <var>$options</var></span>, <span>array <var>$selections</var></span> )</code>
+
+			<div class="description short">
+				<p>Factory function to create "Choose from..." dialogs.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Factory function to create "Choose from..." dialogs.</p>
+
+<p>This function will take a few arrays and magically create the AppleScript code necessary
+for osascript to run a "Choose from..." dialog.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$start</var></dt>
+						<dd>the start of the script</dd>
+						<dt><var>$options</var></dt>
+						<dd>all possible options</dd>
+						<dt><var>$selections</var></dt>
+						<dd>the selected options</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						string<br>the bash command to run an osascript for a "Choose from..." dialog
+					</div>
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="process" id="_process">
+
+			<td class="attributes"><code>
+				 private 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_process">#</a>
+			<code><a href="source-class-Alphred.Choose.html#226-268" title="Go to source code">process</a>( <span>string <var>$result</var></span>, <span>mixed <var>$strip</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$path</var> = <span class="php-keyword1">false</span> </span> )</code>
+
+			<div class="description short">
+				<p>Processes the returned text from an AppleScript interaction</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Processes the returned text from an AppleScript interaction</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$result</var></dt>
+						<dd>the text that comes out of the AppleScript interaction</dd>
+						<dt><var>$strip</var></dt>
+						<dd>text to strip out of the result</dd>
+						<dt><var>$path</var></dt>
+						<dd>whether or not the result is a path</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						array<br>the processed response
+					</div>
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="to_posix_path" id="_to_posix_path">
+
+			<td class="attributes"><code>
+				 private 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_to_posix_path">#</a>
+			<code><a href="source-class-Alphred.Choose.html#270-281" title="Go to source code">to_posix_path</a>( <span>string <var>$path</var></span> )</code>
+
+			<div class="description short">
+				<p>Converts to a POSIX path</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Converts to a POSIX path</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$path</var></dt>
+						<dd>the path</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						string<br>the path as POSIX
+					</div>
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		</table>
+
+
+
+		<h3>Magic methods summary</h3>
+
+
+
+
+
+
+
+
+</div>
+	</div>
+
+	<div id="footer">
+		Alphred API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

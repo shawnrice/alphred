@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/Alphred.html">\Alphred</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">148</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">26</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1152931799"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-1152931799" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-537858467"></a>
+                                <a href="../namespaces/Alphred.html" style="margin-left: 30px; padding-left: 0">Alphred</a>
+            </div>
+            <div id="namespace-537858467" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Alphred.Alfred.html">Alfred</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.AppleScript.html">AppleScript</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Choose.html">Choose</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Config.html">Config</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.ConfigKeyNotSet.html">ConfigKeyNotSet</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Date.html">Date</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Dialog.html">Dialog</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Exception.html">Exception</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.FileDoesNotExist.html">FileDoesNotExist</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Filter.html">Filter</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Globals.html">Globals</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.i18n.html">i18n</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Ini.html">Ini</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.InvalidKeychainAccount.html">InvalidKeychainAccount</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.InvalidScriptFilterArgument.html">InvalidScriptFilterArgument</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.InvalidSecurityAction.html">InvalidSecurityAction</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.InvalidXMLProperty.html">InvalidXMLProperty</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Keychain.html">Keychain</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Log.html">Log</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Notification.html">Notification</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.PasswordExists.html">PasswordExists</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.PasswordNotFound.html">PasswordNotFound</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.PluginFunctionNotFound.html">PluginFunctionNotFound</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Request.html">Request</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Result.html">Result</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.RunningOutsideOfAlfred.html">RunningOutsideOfAlfred</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.ScriptFilter.html">ScriptFilter</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.ShouldBeBool.html">ShouldBeBool</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Text.html">Text</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.TooManyArguments.html">TooManyArguments</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.UnknownSecurityException.html">UnknownSecurityException</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.UseOnlyAsStatic.html">UseOnlyAsStatic</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Alphred.html">Alphred</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/Alphred.html">\Alphred</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\Alphred</small>Ini</h1>
+                    <p><em>Extends INI parsing and writing for PHP</em></p>
+                    <p>This class allows to read and write <code>ini</code> files. It translates <code>ini</code> files into
+associative PHP arrays and translates PHP arrays into <code>ini</code> files. It supports
+sectioning as well as a kind of subsectioning.</p>
+<p>Colons (<code>:</code>) are considered separators for sub-sections and are represented
+as multi-dimensional arrays. For instance, the following array:</p>
+<pre><code class="language-php">$array = [
+ 'Alphred' =&gt; [
+ 'log_level' =&gt; 'DEBUG',
+    'log_size' =&gt; 10000,
+    'plugins'  =&gt; [ 'get_password' =&gt; 'my_new_function' ]
+]];</code></pre>
+<p>will be represented as</p>
+<pre><code class="language-ini">[Alphred]
+log_level = DEBUG
+log_size = 10000
+
+[Alphred:plugins]
+get_password = my_new_function</code></pre>
+<p>If you are concerned, then make sure that <code>\r\n</code> is removed from the array values
+before they move into the INI file, as they may break them.</p>
+<p>All of these are static functions. So, to use:</p>
+<pre><code class="language-php">$ini_file = Alphred\Ini::read_ini( '/path/to/workflow.ini' );</code></pre>
+<p>That's it.</p>
+<p>To write an <code>ini</code> file, just do:</p>
+<pre><code class="language-php">Alphred\Ini::write_ini( $config_array, '/path/to/workflow.ini' );</code></pre>
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/Alphred.Ini.html#method_read_ini" class="">read_ini()</a><br />
+                                                                    <a href="../classes/Alphred.Ini.html#method_write_ini" class="">write_ini()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <a href="../classes/Alphred.Ini.html#method_separate_non_sections" class="">separate_non_sections()</a><br />
+                                                                    <a href="../classes/Alphred.Ini.html#method_print_section" class="">print_section()</a><br />
+                                                                    <a href="../classes/Alphred.Ini.html#method_collapse_sections" class="">collapse_sections()</a><br />
+                                                                    <a href="../classes/Alphred.Ini.html#method_flatten_array" class="">flatten_array()</a><br />
+                                                                    <a href="../classes/Alphred.Ini.html#method_step_back" class="">step_back()</a><br />
+                                                                    <a href="../classes/Alphred.Ini.html#method_parse_section" class="">parse_section()</a><br />
+                                                                    <a href="../classes/Alphred.Ini.html#method_nest_array" class="">nest_array()</a><br />
+                                                                    <a href="../classes/Alphred.Ini.html#method_is_assoc" class="">is_assoc()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No private properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/Ini.html"><div class="path-wrapper">Ini.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">Alphred</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\Alphred\Ini</div>
+                            </dd>
+
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr>
+                            <th>
+                                since
+                            </th>
+                            <td>
+                                                                    
+                                                            </td>
+                        </tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                        
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_read_ini" name="method_read_ini" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">read_ini()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">read_ini(string  <span class="argument">$file</span>, boolean  <span class="argument">$exception = true</span>) : array|boolean</pre>
+                <p><em>Parses an INI</em></p>
+                <p>This is a slightly better INI parser in that will read a section title of
+'title:subtitle' 'subtitle' as a subsection of the section 'title'.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$file </td>
+                                <td><p>path to the ini file to read</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$exception </td>
+                                <td><p>whether or not to throw an exception on file not found</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array|boolean
+                                            &mdash; <p>an array that represents the ini file</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            1.0.0                                
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_write_ini" name="method_write_ini" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">write_ini()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">write_ini(array  <span class="argument">$array</span>, string  <span class="argument">$file</span>) </pre>
+                <p><em>Writes an INI file from an array</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$array </td>
+                                <td><p>the array to be translated into an ini file</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$file </td>
+                                <td><p>the full path to the ini file, should have '.ini'</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            1.0.0                                
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                                                            <p>Do filesystem checks</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_separate_non_sections" name="method_separate_non_sections" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">separate_non_sections()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">separate_non_sections(array  <span class="argument">$array</span>) : array</pre>
+                <p><em>Separates out bits from the global space and from sections</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$array </td>
+                                <td><p>array of values to write to an ini file</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>a sorted array</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_print_section" name="method_print_section" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">print_section()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">print_section(array  <span class="argument">$section</span>) : string</pre>
+                <p><em>Prints the section of an INI file</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$section </td>
+                                <td><p>an array</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>the array as an ini section</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            1.0.0                                
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_collapse_sections" name="method_collapse_sections" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">collapse_sections()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">collapse_sections(array  <span class="argument">$array</span>) : array</pre>
+                <p><em>Collapses arrays into something that can be written in the ini</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$array </td>
+                                <td><p>the array to be collapsed</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>the collapsed array</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            1.0.0                                
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_flatten_array" name="method_flatten_array" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">flatten_array()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">flatten_array(array  <span class="argument">$array</span>, string  <span class="argument">$prefix = &#039;&#039;</span>) : array</pre>
+                <p><em>Flattens an associate array</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$array </td>
+                                <td><p>an array to be flattened</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$prefix </td>
+                                <td><p>a prefix for a key</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>the array, but flattened</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            1.0.0                                
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                                                            <p>Better tests for numeric keys</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_step_back" name="method_step_back" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">step_back()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">step_back(array  <span class="argument">$array</span>) : array</pre>
+                <p><em>Slightly unflattens an array</em></p>
+                <p>So, flatten_array goes one step too far with the flattening, but I
+don't know how many levels down I need to flatten (2, 97?), so we just flatten
+all the way and then step back one level, which is what this function does.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$array </td>
+                                <td><p>a flattened array</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>a slightly less flat array</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            1.0.0                                
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_parse_section" name="method_parse_section" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">parse_section()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">parse_section(string  <span class="argument">$name</span>, mixed  <span class="argument">$values</span>) : array</pre>
+                <p><em>Parses an ini section into its subsections</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$name </td>
+                                <td><p>a string that should be turned into an array</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$values </td>
+                                <td><p>the values for an array</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>the newly-dimensional array with $values</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            1.0.0                                
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_nest_array" name="method_nest_array" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">nest_array()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">nest_array(array  <span class="argument">$array</span>, mixed  <span class="argument">$values</span>) : array</pre>
+                <p><em>Recursively nests an array</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$array </td>
+                                <td><p>the pieces to nest</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$values </td>
+                                <td><p>the values for the bottom level of the newly dimensional array</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>a slightly more dimensional array than we received</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            1.0.0                                
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_is_assoc" name="method_is_assoc" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">is_assoc()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">is_assoc(array  <span class="argument">$array</span>) : boolean</pre>
+                <p><em>Checks if an array is associative</em></p>
+                <p>Shamelessly stolen from <a href="http://stackoverflow.com/a/14669600/1399574">http://stackoverflow.com/a/14669600/1399574</a></p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$array </td>
+                                <td><p>an array</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p>whether it is associative</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            1.0.0                                
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">Ini.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/Ini.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/Alphred.html">\Alphred</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on February 17th, 2015 at 05:01.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>

@@ -3,374 +3,370 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <meta charset="utf-8"/>
-    <title>     &raquo; \Alphred
-</title>
+    <title>API Documentation</title>
     <meta name="author" content=""/>
     <meta name="description" content=""/>
 
-            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
     
-            <!--[if lt IE 9]>
-        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
-        <![endif]-->
-        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
-        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
-        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
-        <script src="../js/bootstrap.js" type="text/javascript"></script>
-        <script src="../js/template.js" type="text/javascript"></script>
-        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
     
-            <link rel="shortcut icon" href="../img/favicon.ico"/>
-        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
-        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
-        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
-    </head>
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
 <body>
 
-        <div class="navbar navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container">
-                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="icon-bar"></span> <span class="icon-bar"></span>
-                    <span class="icon-bar"></span> </a>
-                <a class="brand" href="../index.html">API Documentation</a>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
 
-                <div class="nav-collapse">
-                    <ul class="nav">
-                        <li class="dropdown">
-                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
-                                API Documentation <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                                                    <li><a>Namespaces</a></li>
-                                                                        <li><a href="../namespaces/Alphred.html">Alphred</a></li>
-                                                                                                                                </ul>
-                        </li>
-                        <li class="dropdown" id="charts-menu">
-                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
-                                Charts <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="../graph_class.html">
-                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="dropdown" id="reports-menu">
-                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
-                                Reports <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="../errors.html">
-                                        <i class="icon-list-alt"></i>&#160;Errors
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="../markers.html">
-                                        <i class="icon-list-alt"></i>&#160;Markers
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="../deprecated.html">
-                                        <i class="icon-list-alt"></i>&#160;Deprecated
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/Alphred.html">\Alphred</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">148</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">26</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1114545486"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-1114545486" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1305574388"></a>
+                                <a href="../namespaces/Alphred.html" style="margin-left: 30px; padding-left: 0">Alphred</a>
+            </div>
+            <div id="namespace-1305574388" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Alphred.Alfred.html">Alfred</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.AppleScript.html">AppleScript</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Choose.html">Choose</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Config.html">Config</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.ConfigKeyNotSet.html">ConfigKeyNotSet</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Date.html">Date</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Dialog.html">Dialog</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Exception.html">Exception</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.FileDoesNotExist.html">FileDoesNotExist</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Filter.html">Filter</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Globals.html">Globals</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.i18n.html">i18n</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Ini.html">Ini</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.InvalidKeychainAccount.html">InvalidKeychainAccount</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.InvalidScriptFilterArgument.html">InvalidScriptFilterArgument</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.InvalidSecurityAction.html">InvalidSecurityAction</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.InvalidXMLProperty.html">InvalidXMLProperty</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Keychain.html">Keychain</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Log.html">Log</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Notification.html">Notification</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.PasswordExists.html">PasswordExists</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.PasswordNotFound.html">PasswordNotFound</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.PluginFunctionNotFound.html">PluginFunctionNotFound</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Request.html">Request</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Result.html">Result</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.RunningOutsideOfAlfred.html">RunningOutsideOfAlfred</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.ScriptFilter.html">ScriptFilter</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.ShouldBeBool.html">ShouldBeBool</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Text.html">Text</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.TooManyArguments.html">TooManyArguments</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.UnknownSecurityException.html">UnknownSecurityException</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.UseOnlyAsStatic.html">UseOnlyAsStatic</a></li>
+                                            </ul>
                 </div>
             </div>
         </div>
-        <div class="go_to_top">
-            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
-        </div>
     </div>
-    
-    <div id="___" class="container">
-        <noscript>
-            <div class="alert alert-warning">
-                Javascript is disabled; several features are only available if Javascript is enabled.
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Alphred.html">Alphred</a></li>
+                                            </ul>
+                </div>
             </div>
-        </noscript>
+        </div>
+    </div>
 
-        
-            
-    <div class="row">
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content namespace">
+                    <nav>
+                                                <a href="../namespaces/default.html">\</a>
+                                            </nav>
+                    <h1><small>\</small>Alphred</h1>
 
-        <div class="span4">
-            <div class="btn-group view pull-right" data-toggle="buttons-radio">
-                <button class="btn details" title="Show descriptions and method names">
-                    <i class="icon-list"></i></button><button class="btn simple" title="Show only method names">
-                    <i class="icon-align-justify"></i>
-                </button>
+                    
+                    
+                    
+                                        <h2>Classes</h2>
+                    <table class="table table-hover">
+                                            <tr>
+                            <td><a href="../classes/Alphred.Alfred.html">Alfred</a></td>
+                            <td><em>Basic interaction with Alfred</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/Alphred.AppleScript.html">AppleScript</a></td>
+                            <td><em>Provides limited functionality to AppleScript</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/Alphred.Choose.html">Choose</a></td>
+                            <td><em>Creates and executes AppleScript &quot;Choose from.</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/Alphred.Config.html">Config</a></td>
+                            <td><em>A simple class to manage configuration for workflows</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/Alphred.ConfigKeyNotSet.html">ConfigKeyNotSet</a></td>
+                            <td><em>Thrown when trying to get a config key that has not been set</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/Alphred.Date.html">Date</a></td>
+                            <td><em>Provides text filters for date objects</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/Alphred.Dialog.html">Dialog</a></td>
+                            <td><em>Class to create standard AppleScript dialogs.</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/Alphred.Exception.html">Exception</a></td>
+                            <td><em>This is the namespaced &quot;Exception&quot; class (i.e.: Alphred\Exception)</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/Alphred.FileDoesNotExist.html">FileDoesNotExist</a></td>
+                            <td><em>Thrown when trying to access a file that does not exist</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/Alphred.Filter.html">Filter</a></td>
+                            <td><em>Filters arrays to match a query</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/Alphred.Globals.html">Globals</a></td>
+                            <td><em>A class to reteive certain Global variables</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/Alphred.i18n.html">i18n</a></td>
+                            <td><em>Translation library for Alphred</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/Alphred.Ini.html">Ini</a></td>
+                            <td><em>Extends INI parsing and writing for PHP</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/Alphred.InvalidKeychainAccount.html">InvalidKeychainAccount</a></td>
+                            <td><em>Keychain error</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/Alphred.InvalidScriptFilterArgument.html">InvalidScriptFilterArgument</a></td>
+                            <td><em>Thrown when trying to pass bad keys to a script filter</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/Alphred.InvalidSecurityAction.html">InvalidSecurityAction</a></td>
+                            <td><em>Thrown with a bad error code.</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/Alphred.InvalidXMLProperty.html">InvalidXMLProperty</a></td>
+                            <td><em>Thrown when trying to set an XML property that should not exist</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/Alphred.Keychain.html">Keychain</a></td>
+                            <td><em>Enables easy access to parts of the Keychain for secure password storage / retrieval</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/Alphred.Log.html">Log</a></td>
+                            <td><em>Simple static logging functionality that writes to files or STDERR</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/Alphred.Notification.html">Notification</a></td>
+                            <td><em>Creates simple notifications on OS X 10.8+</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/Alphred.PasswordExists.html">PasswordExists</a></td>
+                            <td><em>Exception thrown when trying to set a password in the keychain without the `update` flag</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/Alphred.PasswordNotFound.html">PasswordNotFound</a></td>
+                            <td><em>Thrown when trying to get a password that has not been set</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/Alphred.PluginFunctionNotFound.html">PluginFunctionNotFound</a></td>
+                            <td><em>Thrown when trying to load a plugin that has not been defined</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/Alphred.Request.html">Request</a></td>
+                            <td><em>Generic, light-weight, low-functionality wrapper around PHP&#039;s cURL library</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/Alphred.Result.html">Result</a></td>
+                            <td><em>Result class</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/Alphred.RunningOutsideOfAlfred.html">RunningOutsideOfAlfred</a></td>
+                            <td><em>This is thrown when trying to use functions that require variables set by Alfred</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/Alphred.ScriptFilter.html">ScriptFilter</a></td>
+                            <td><em>Creates Script Filter XML for Alfred</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/Alphred.ShouldBeBool.html">ShouldBeBool</a></td>
+                            <td><em>Thrown when sending something that should be a bool but isn&#039;t</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/Alphred.Text.html">Text</a></td>
+                            <td><em>Methods to apply &quot;filters&quot; to text to transform them</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/Alphred.TooManyArguments.html">TooManyArguments</a></td>
+                            <td><em>Thrown when giving too many arguments</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/Alphred.UnknownSecurityException.html">UnknownSecurityException</a></td>
+                            <td><em>Thrown when `security` doesn&#039;t know what to do</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/Alphred.UseOnlyAsStatic.html">UseOnlyAsStatic</a></td>
+                            <td><em>Thrown when trying to instantiate a class that is written to be used as static only.</em></td>
+                        </tr>
+                                        </table>
+                                    </div>
+
+                <aside class="span4 detailsbar">
+                    <dl>
+                        <dt>Namespace hierarchy</dt>
+                        <dd class="hierarchy">
+                                                                                                                                                                                                                                                                
+                                    <div class="namespace-wrapper"><a href="../namespaces/default.html">\</a></div>
+                                                                                        <div class="namespace-wrapper">\Alphred</div>
+                        </dd>
+                    </dl>
+                </aside>
             </div>
-            <ul class="side-nav nav nav-list">
-                <li class="nav-header">
-                    <i class="icon-map-marker"></i> Namespaces
-                </li>
-                <a href="../namespaces/Alphred.html" title="Alphred">
-                    <i class="icon-th"></i> Alphred
-                </a>
-                <ul class="nav nav-list nav-namespaces">
-                        
-        <li>
-        <a href="../namespaces/Alphred.Database.html" title="Database">
-            <i class="icon-th"></i> Database
-        </a>
-        <ul class="nav nav-list nav-namespaces">
-                
-    
-        </ul>
-    </li>
-    
-                </ul>
-            </ul>
-        </div>
 
-        <div class="span8 namespace-contents">
-                
-    
-        <ul class="breadcrumb">
-            <li><a href="../index.html"><i class="icon-th"></i></a></li>
-                
-    
-    <li>
-        <span class="divider">\</span><a href="../namespaces/Alphred.html">Alphred</a>
-    </li>
-
-        </ul>
-
-        
-        
-                    <div class="namespace-indent">
-                <h3><i class="icon-custom icon-class"></i> Classes, interfaces and traits</h3>
-                
-                
-                                        <div id="class_Alfred" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Alfred .collapse">
-        <h1>Alfred<a href="../classes/Alphred.Alfred.html">¶</a></h1>
-        <p class="short_description"></p>
-        <div class="details collapse">
-                            
-                    </div>
-        <a href="../classes/Alphred.Alfred.html" class="more">« More »</a>    </div>
-
-                                        <div id="class_Config" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Config .collapse">
-        <h1>Config<a href="../classes/Alphred.Config.html">¶</a></h1>
-        <p class="short_description"></p>
-        <div class="details collapse">
-                            
-                    </div>
-        <a href="../classes/Alphred.Config.html" class="more">« More »</a>    </div>
-
-                                        <div id="class_Date" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Date .collapse">
-        <h1>Date<a href="../classes/Alphred.Date.html">¶</a></h1>
-        <p class="short_description"></p>
-        <div class="details collapse">
-                            
-                    </div>
-        <a href="../classes/Alphred.Date.html" class="more">« More »</a>    </div>
-
-                                        <div id="class_Exception" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Exception .collapse">
-        <h1>Exception<a href="../classes/Alphred.Exception.html">¶</a></h1>
-        <p class="short_description"></p>
-        <div class="details collapse">
-                            
-                    </div>
-        <a href="../classes/Alphred.Exception.html" class="more">« More »</a>    </div>
-
-                                        <div id="class_Globals" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Globals .collapse">
-        <h1>Globals<a href="../classes/Alphred.Globals.html">¶</a></h1>
-        <p class="short_description">A class to reteive certain Global variables</p>
-        <div class="details collapse">
-                            <p>Basically, it gives you access
-to the subset</p>
-<p>This class was written so that CodeClimate would stop throwing a fit because
-I was accessing the $_SERVER variable directly.</p>
-                    </div>
-        <a href="../classes/Alphred.Globals.html" class="more">« More »</a>    </div>
-
-                                        <div id="class_http" class="element ajax clickable class" data-toggle="collapse" data-target="#class_http .collapse">
-        <h1>http<a href="../classes/Alphred.http.html">¶</a></h1>
-        <p class="short_description"></p>
-        <div class="details collapse">
-                            
-                    </div>
-        <a href="../classes/Alphred.http.html" class="more">« More »</a>    </div>
-
-                                        <div id="class_i18n" class="element ajax clickable class" data-toggle="collapse" data-target="#class_i18n .collapse">
-        <h1>i18n<a href="../classes/Alphred.i18n.html">¶</a></h1>
-        <p class="short_description"></p>
-        <div class="details collapse">
-                            
-                    </div>
-        <a href="../classes/Alphred.i18n.html" class="more">« More »</a>    </div>
-
-                                        <div id="class_InvalidKeychainAccount" class="element ajax clickable class" data-toggle="collapse" data-target="#class_InvalidKeychainAccount .collapse">
-        <h1>InvalidKeychainAccount<a href="../classes/Alphred.InvalidKeychainAccount.html">¶</a></h1>
-        <p class="short_description"></p>
-        <div class="details collapse">
-                            
-                    </div>
-        <a href="../classes/Alphred.InvalidKeychainAccount.html" class="more">« More »</a>    </div>
-
-                                        <div id="class_InvalidSecurityAction" class="element ajax clickable class" data-toggle="collapse" data-target="#class_InvalidSecurityAction .collapse">
-        <h1>InvalidSecurityAction<a href="../classes/Alphred.InvalidSecurityAction.html">¶</a></h1>
-        <p class="short_description"></p>
-        <div class="details collapse">
-                            
-                    </div>
-        <a href="../classes/Alphred.InvalidSecurityAction.html" class="more">« More »</a>    </div>
-
-                                        <div id="class_Keychain" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Keychain .collapse">
-        <h1>Keychain<a href="../classes/Alphred.Keychain.html">¶</a></h1>
-        <p class="short_description">Enables easy access to parts of the Keychain for secure password storage / retrieval</p>
-        <div class="details collapse">
-                            <p>Uses the <code>security</code> command in order to add / retrieve / delete passwords. Note: we use
-only the "generic" password functions and not the "internet" password functions.</p>
-                    </div>
-        <a href="../classes/Alphred.Keychain.html" class="more">« More »</a>    </div>
-
-                                        <div id="class_Log" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Log .collapse">
-        <h1>Log<a href="../classes/Alphred.Log.html">¶</a></h1>
-        <p class="short_description">Simple logging functionality that writes to files or STDERR</p>
-        <div class="details collapse">
-                            <p>Usage: just create a single object and reuse it solely. Initialize the
-object with a full path to the log file (no log extension)</p>
-                    </div>
-        <a href="../classes/Alphred.Log.html" class="more">« More »</a>    </div>
-
-                                        <div id="class_PasswordExists" class="element ajax clickable class" data-toggle="collapse" data-target="#class_PasswordExists .collapse">
-        <h1>PasswordExists<a href="../classes/Alphred.PasswordExists.html">¶</a></h1>
-        <p class="short_description"></p>
-        <div class="details collapse">
-                            
-                    </div>
-        <a href="../classes/Alphred.PasswordExists.html" class="more">« More »</a>    </div>
-
-                                        <div id="class_PasswordNotFound" class="element ajax clickable class" data-toggle="collapse" data-target="#class_PasswordNotFound .collapse">
-        <h1>PasswordNotFound<a href="../classes/Alphred.PasswordNotFound.html">¶</a></h1>
-        <p class="short_description"></p>
-        <div class="details collapse">
-                            
-                    </div>
-        <a href="../classes/Alphred.PasswordNotFound.html" class="more">« More »</a>    </div>
-
-                                        <div id="class_Result" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Result .collapse">
-        <h1>Result<a href="../classes/Alphred.Result.html">¶</a></h1>
-        <p class="short_description">Result class</p>
-        <div class="details collapse">
-                            
-                    </div>
-        <a href="../classes/Alphred.Result.html" class="more">« More »</a>    </div>
-
-                                        <div id="class_ScriptFilter" class="element ajax clickable class" data-toggle="collapse" data-target="#class_ScriptFilter .collapse">
-        <h1>ScriptFilter<a href="../classes/Alphred.ScriptFilter.html">¶</a></h1>
-        <p class="short_description"></p>
-        <div class="details collapse">
-                            
-                    </div>
-        <a href="../classes/Alphred.ScriptFilter.html" class="more">« More »</a>    </div>
-
-                                        <div id="class_Server" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Server .collapse">
-        <h1>Server<a href="../classes/Alphred.Server.html">¶</a></h1>
-        <p class="short_description"></p>
-        <div class="details collapse">
-                            
-                    </div>
-        <a href="../classes/Alphred.Server.html" class="more">« More »</a>    </div>
-
-                                        <div id="class_Text" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Text .collapse">
-        <h1>Text<a href="../classes/Alphred.Text.html">¶</a></h1>
-        <p class="short_description"></p>
-        <div class="details collapse">
-                            
-                    </div>
-        <a href="../classes/Alphred.Text.html" class="more">« More »</a>    </div>
-
-                                        <div id="class_UnknownSecurityException" class="element ajax clickable class" data-toggle="collapse" data-target="#class_UnknownSecurityException .collapse">
-        <h1>UnknownSecurityException<a href="../classes/Alphred.UnknownSecurityException.html">¶</a></h1>
-        <p class="short_description"></p>
-        <div class="details collapse">
-                            
-                    </div>
-        <a href="../classes/Alphred.UnknownSecurityException.html" class="more">« More »</a>    </div>
-
-                                        <div id="class_UseOnlyAsStatic" class="element ajax clickable class" data-toggle="collapse" data-target="#class_UseOnlyAsStatic .collapse">
-        <h1>UseOnlyAsStatic<a href="../classes/Alphred.UseOnlyAsStatic.html">¶</a></h1>
-        <p class="short_description">Thrown when trying to instantiate a class that is written to be used as static only.</p>
-        <div class="details collapse">
-                            
-                    </div>
-        <a href="../classes/Alphred.UseOnlyAsStatic.html" class="more">« More »</a>    </div>
-
-                                        <div id="class_Workflows" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Workflows .collapse">
-        <h1>Workflows<a href="../classes/Alphred.Workflows.html">¶</a></h1>
-        <p class="short_description"></p>
-        <div class="details collapse">
-                            
-                    </div>
-        <a href="../classes/Alphred.Workflows.html" class="more">« More »</a>    </div>
-
-                            </div>
             
-                
-    
-        <ul class="breadcrumb">
-            <li><a href="../index.html"><i class="icon-th"></i></a></li>
-                
-                
-    
-    <li>
-        <span class="divider">\</span><a href="../namespaces/Alphred.html">Alphred</a>
-    </li>
-
-    
-    <li>
-        <span class="divider">\</span><a href="../namespaces/Alphred.Database.html">Database</a>
-    </li>
-
-        </ul>
-
-        
-        
-                    <div class="namespace-indent">
-                <h3><i class="icon-custom icon-class"></i> Classes, interfaces and traits</h3>
-                
-                
-                                        <div id="class_Data" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Data .collapse">
-        <h1>Data<a href="../classes/Alphred.Database.Data.html">¶</a></h1>
-        <p class="short_description">A Data Indexer Class</p>
-        <div class="details collapse">
-                            
-                    </div>
-        <a href="../classes/Alphred.Database.Data.html" class="more">« More »</a>    </div>
-
-                                        <div id="class_Index" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Index .collapse">
-        <h1>Index<a href="../classes/Alphred.Database.Index.html">¶</a></h1>
-        <p class="short_description">A data indexer class</p>
-        <div class="details collapse">
-                            <p>Feed objects of this class JSON objects, and it will automagically organize them
-into searchable data. The data need not been uniform either.</p>
-<p>It is better to have a single data structure, however.</p>
-                    </div>
-        <a href="../classes/Alphred.Database.Index.html" class="more">« More »</a>    </div>
-
-                            </div>
             
-    
-    
         </div>
-    </div>
-    </div>
+    </section>
 
-        <footer class="span12">
-            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
-            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
-            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
-            generated on Tue, 23 Dec 2014 22:11:40 -0500.<br/>
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/Alphred.html">\Alphred</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on February 17th, 2015 at 05:01.
+                </section>
+            </section>
+        </section>
     </footer>
-    </body>
+</div>
+
+</body>
 </html>

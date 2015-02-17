@@ -3,273 +3,467 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <meta charset="utf-8"/>
-    <title>    API Documentation &raquo; \Alphred\i18n
-</title>
+    <title>API Documentation</title>
     <meta name="author" content=""/>
     <meta name="description" content=""/>
 
-            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
     
-            <!--[if lt IE 9]>
-        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
-        <![endif]-->
-        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
-        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
-        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
-        <script src="../js/bootstrap.js" type="text/javascript"></script>
-        <script src="../js/template.js" type="text/javascript"></script>
-        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
-    
-            <link rel="shortcut icon" href="../img/favicon.ico"/>
-        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
-        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
-        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
-    </head>
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
 <body>
 
-        <div class="navbar navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container">
-                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="icon-bar"></span> <span class="icon-bar"></span>
-                    <span class="icon-bar"></span> </a>
-                <a class="brand" href="../index.html">API Documentation</a>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
 
-                <div class="nav-collapse">
-                    <ul class="nav">
-                        <li class="dropdown">
-                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
-                                API Documentation <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                                                    <li><a>Namespaces</a></li>
-                                                                        <li><a href="../namespaces/Alphred.html">Alphred</a></li>
-                                                                                                                                </ul>
-                        </li>
-                        <li class="dropdown" id="charts-menu">
-                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
-                                Charts <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="../graph_class.html">
-                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="dropdown" id="reports-menu">
-                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
-                                Reports <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="../errors.html">
-                                        <i class="icon-list-alt"></i>&#160;Errors
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="../markers.html">
-                                        <i class="icon-list-alt"></i>&#160;Markers
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="../deprecated.html">
-                                        <i class="icon-list-alt"></i>&#160;Deprecated
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/Alphred.html">\Alphred</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">148</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">26</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-785763513"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-785763513" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1599547806"></a>
+                                <a href="../namespaces/Alphred.html" style="margin-left: 30px; padding-left: 0">Alphred</a>
+            </div>
+            <div id="namespace-1599547806" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Alphred.Alfred.html">Alfred</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.AppleScript.html">AppleScript</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Choose.html">Choose</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Config.html">Config</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.ConfigKeyNotSet.html">ConfigKeyNotSet</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Date.html">Date</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Dialog.html">Dialog</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Exception.html">Exception</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.FileDoesNotExist.html">FileDoesNotExist</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Filter.html">Filter</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Globals.html">Globals</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.i18n.html">i18n</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Ini.html">Ini</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.InvalidKeychainAccount.html">InvalidKeychainAccount</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.InvalidScriptFilterArgument.html">InvalidScriptFilterArgument</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.InvalidSecurityAction.html">InvalidSecurityAction</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.InvalidXMLProperty.html">InvalidXMLProperty</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Keychain.html">Keychain</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Log.html">Log</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Notification.html">Notification</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.PasswordExists.html">PasswordExists</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.PasswordNotFound.html">PasswordNotFound</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.PluginFunctionNotFound.html">PluginFunctionNotFound</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Request.html">Request</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Result.html">Result</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.RunningOutsideOfAlfred.html">RunningOutsideOfAlfred</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.ScriptFilter.html">ScriptFilter</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.ShouldBeBool.html">ShouldBeBool</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Text.html">Text</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.TooManyArguments.html">TooManyArguments</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.UnknownSecurityException.html">UnknownSecurityException</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.UseOnlyAsStatic.html">UseOnlyAsStatic</a></li>
+                                            </ul>
                 </div>
             </div>
         </div>
-        <div class="go_to_top">
-            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
-        </div>
     </div>
-    
-    <div id="___" class="container">
-        <noscript>
-            <div class="alert alert-warning">
-                Javascript is disabled; several features are only available if Javascript is enabled.
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Alphred.html">Alphred</a></li>
+                                            </ul>
+                </div>
             </div>
-        </noscript>
-
-        
-            <style>
-        .deprecated h2 {
-            text-decoration: line-through;
-        }
-    </style>
-    <div class="row">
-        <div class="span4">
-                    <div class="btn-group view pull-right" data-toggle="buttons-radio">
-        <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button>
-        <button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+        </div>
     </div>
-    <div class="btn-group visibility" data-toggle="buttons-checkbox">
-        <button class="btn public active" title="Show public elements">Public</button>
-        <button class="btn protected" title="Show protected elements">Protected</button>
-        <button class="btn private" title="Show private elements">Private</button>
-        <button class="btn inherited active" title="Show inherited elements">Inherited</button>
-    </div>
-
-        <ul class="side-nav nav nav-list">
-        <li class="nav-header">
-            <i class="icon-custom icon-method"></i> Methods
-            <ul>
-                                                                                                    <li class="method public">
-        <a href="#method___construct" title="__construct :: ">
-            <span class="description"></span><pre>__construct</pre>
-        </a>
-    </li>
-
-                                                                                                        <li class="method public">
-        <a href="#method_translate" title="translate :: ">
-            <span class="description"></span><pre>translate</pre>
-        </a>
-    </li>
-
-                                                </ul>
-        </li>
-        <li class="nav-header protected">» Protected
-            <ul>
-                                                                                                                    </ul>
-        </li>
-        <li class="nav-header private">» Private
-            <ul>
-                                                                                                                    </ul>
-        </li>
-        <li class="nav-header">
-            <i class="icon-custom icon-constant"></i> Constants
-            <ul>
-                            </ul>
-        </li>
-    </ul>
-
 
         </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/Alphred.html">\Alphred</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
 
-        <div class="span8">
-            <div class="element class">
-                <h1>i18n</h1>
-                <small style="display: block; text-align: right">
-                                                        </small>
-                <p class="short_description"></p>
-                <div class="details">
-                    <div class="long_description">
+                    <h1><small>\Alphred</small>i18n</h1>
+                    <p><em>Translation library for Alphred</em></p>
+                    <p>Right now, this is sort of &quot;proof-of-concept&quot; and works well enough for static strings, but
+it does need to be improved <em>vastly</em>.</p>
+<p>Right now, the best part about this library is that it will not break anything. So, if you
+try to implement it and fuck it up, it'll just do nothing rather than break things.</p>
+<p>For internationalization:</p>
+<p>gettext() isn't compiled into OS X's PHP installation, so I've created my own hacky version.</p>
+<p>(1) Create a directory called &quot;i18n&quot; in your workflow folder.
+(2) For each language you want to use, create a file called ln.json (lowercase) where
+&quot;ln&quot; is the two-letter language code: i.e. en = English, de = German, etc...
+(3) In that json, make the original string as the key and the value as the translated test.
+i.e., a file called i18n/fr.json would contain:
+{
+&quot;Hello&quot;: &quot;Bonjour&quot;,
+&quot;Do you speak French?&quot;: &quot;Parlez-vous Français?&quot;,
+&quot;I am a grapefruit&quot;: &quot;Je suis un pamplemousse&quot;,
+}</p>
+<p>(4) Make sure you escape the string if necessary.</p>
+<p>Tip: if you'd rather have the json created for you, then just do something like...
+file_put_contents( 'i18n/fr.json', json_encode( [
+'string'  =&gt; 'translated',
+'string2' =&gt; 'second translation'
+], JSON_PRETTY_PRINT );</p>
+<p>Then just execute that PHP, and the json file will be created for you.</p>
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/Alphred.i18n.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/Alphred.i18n.html#method_translate" class="">translate()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No private properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/i18n.html"><div class="path-wrapper">i18n.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">Alphred</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\Alphred\i18n</div>
+                            </dd>
+
                         
-                    </div>
-                    <table class="table table-bordered">
-                                                                                    <tr>
-                                    <th>
-                                        package
-                                                                            </th>
-                                    <td>
-                                                                                    
-                                                                                <p>Default</p>
-                                    </td>
-                                </tr>
-                                                                                                                                                                                </table>
-
-                    <h3><i class="icon-custom icon-method"></i> Methods</h3>
-                                                                <a id="method___construct"></a>
-                        <div class="element clickable method public  method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
-                            <h2>__construct</h2>
-                            <pre>__construct() </pre>
-                            <div class="labels">
-                                                                                                                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
-
-                                    
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method_translate"></a>
-                        <div class="element clickable method public  method_translate" data-toggle="collapse" data-target=".method_translate .collapse">
-                            <h2>translate</h2>
-                            <pre>translate( $string) </pre>
-                            <div class="labels">
-                                                                                                                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$string</h4>
-                                                <code></code><p></p>
-                                            </div>
-                                                                            
-                                                                    </div>
-                            </div>
-
-                        </div>
-                    
-                    
-                                                        </div>
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr><td colspan="2"><em>None found</em></td></tr>
+                                        </table>
+                </aside>
             </div>
-            <a id="\Alphred\i18n"></a>
-            <ul class="breadcrumb">
-                <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
-                    
-    
-    <li><span class="divider">\</span><a href="../namespaces/Alphred.html">Alphred</a></li>
 
-                <li class="active"><span class="divider">\</span><a href="../classes/Alphred.i18n.html">i18n</a></li>
-            </ul>
+                        
+                        
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct(string  <span class="argument">$engine = &#039;json&#039;</span>) </pre>
+                <p><em>Constructs the i18n object to use for translation, setting language</em></p>
+                <p>Right now $engine is unused, but it's there to open for expansion for
+other translation methods that can be popped in or out. <code>Json</code> is just
+what is described above.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$engine </td>
+                                <td><p>translation utility; json is the only option</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_translate" name="method_translate" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">translate()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">translate(string  <span class="argument">$string</span>) : string</pre>
+                <p><em>Translates a string from a dictionary</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$string </td>
+                                <td><p>a string to translate</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>a, possibly, translated string</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                                                            <p>use &quot;engines&quot; instead of a single method</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">i18n.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/i18n.php.txt" class="language-php line-numbers"></pre>
         </div>
     </div>
 
-    </div>
-
-        <footer class="span12">
-            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
-            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
-            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
-            generated on Tue, 23 Dec 2014 22:11:41 -0500.<br/>
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/Alphred.html">\Alphred</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on February 17th, 2015 at 05:01.
+                </section>
+            </section>
+        </section>
     </footer>
-    </body>
+</div>
+
+</body>
 </html>

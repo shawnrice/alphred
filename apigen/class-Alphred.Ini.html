@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Alphred\Ini | Alphred</title>
+
+	<link rel="stylesheet" href="resources/bootstrap.min.css?08b23951ef4599ca9cbf1f902d0e8290c9653ddd">
+	<link rel="stylesheet" href="resources/style.css?062e9e59e0b8c44fbaaded5b7ffc21f907b78669">
+
+</head>
+
+<body>
+	<div id="navigation" class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a href="index.html" class="brand">Alphred</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li>
+							<a href="namespace-Alphred.html" title="Summary of Alphred"><span>Namespace</span></a>
+						</li>
+						<li class="active">
+<span>Class</span>						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+						</li>
+						<li>
+							<a href="deprecated.html" title="List of deprecated elements"><span>Deprecated</span></a>
+						</li>
+						<li>
+							<a href="todo.html" title="Todo list"><span>Todo</span></a>
+						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="-API-documentation.zip" title="Download documentation as ZIP archive"><span>Download</span></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="left">
+	<div id="menu">
+		<form id="search" class="form-search">
+			<input type="hidden" name="cx" value="">
+			<input type="hidden" name="ie" value="UTF-8">
+			<input type="text" name="q" class="search-query" placeholder="Search">
+		</form>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+					<li class="active main">
+						<a href="namespace-Alphred.html">
+							Alphred						</a>
+							</li>
+					<li>
+						<a href="namespace-None.html">
+							None						</a>
+							</li>
+			</ul>
+		</div>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Alphred.Alfred.html">Alfred</a></li>
+				<li><a href="class-Alphred.AppleScript.html">AppleScript</a></li>
+				<li><a href="class-Alphred.Choose.html">Choose</a></li>
+				<li><a href="class-Alphred.Config.html">Config</a></li>
+				<li><a href="class-Alphred.Date.html">Date</a></li>
+				<li><a href="class-Alphred.Dialog.html">Dialog</a></li>
+				<li><a href="class-Alphred.Filter.html">Filter</a></li>
+				<li><a href="class-Alphred.Globals.html">Globals</a></li>
+				<li><a href="class-Alphred.i18n.html">i18n</a></li>
+				<li class="active"><a href="class-Alphred.Ini.html">Ini</a></li>
+				<li><a href="class-Alphred.Keychain.html">Keychain</a></li>
+				<li><a href="class-Alphred.Log.html">Log</a></li>
+				<li><a href="class-Alphred.Notification.html">Notification</a></li>
+				<li><a href="class-Alphred.Request.html">Request</a></li>
+				<li><a href="class-Alphred.Result.html">Result</a></li>
+				<li><a href="class-Alphred.ScriptFilter.html">ScriptFilter</a></li>
+				<li><a href="class-Alphred.Text.html">Text</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-Alphred.ConfigKeyNotSet.html">ConfigKeyNotSet</a></li>
+				<li><a href="class-Alphred.Exception.html">Exception</a></li>
+				<li><a href="class-Alphred.FileDoesNotExist.html">FileDoesNotExist</a></li>
+				<li><a href="class-Alphred.InvalidKeychainAccount.html">InvalidKeychainAccount</a></li>
+				<li><a href="class-Alphred.InvalidScriptFilterArgument.html">InvalidScriptFilterArgument</a></li>
+				<li><a href="class-Alphred.InvalidSecurityAction.html">InvalidSecurityAction</a></li>
+				<li><a href="class-Alphred.InvalidXMLProperty.html">InvalidXMLProperty</a></li>
+				<li><a href="class-Alphred.PasswordExists.html">PasswordExists</a></li>
+				<li><a href="class-Alphred.PasswordNotFound.html">PasswordNotFound</a></li>
+				<li><a href="class-Alphred.PluginFunctionNotFound.html">PluginFunctionNotFound</a></li>
+				<li><a href="class-Alphred.RunningOutsideOfAlfred.html">RunningOutsideOfAlfred</a></li>
+				<li><a href="class-Alphred.ShouldBeBool.html">ShouldBeBool</a></li>
+				<li><a href="class-Alphred.TooManyArguments.html">TooManyArguments</a></li>
+				<li><a href="class-Alphred.UnknownSecurityException.html">UnknownSecurityException</a></li>
+				<li><a href="class-Alphred.UseOnlyAsStatic.html">UseOnlyAsStatic</a></li>
+			</ul>
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+	<div id="rightInner">
+<div id="content" class="class">
+	<h1>Class Ini</h1>
+
+
+	<div class="description">
+	<p>Extends INI parsing and writing for PHP</p>
+
+<p>This class allows to read and write <code>ini</code> files. It translates <code>ini</code> files into
+associative PHP arrays and translates PHP arrays into <code>ini</code> files. It supports
+sectioning as well as a kind of subsectioning.</p>
+
+<p>Colons (<code>:</code>) are considered separators for sub-sections and are represented
+as multi-dimensional arrays. For instance, the following array:
+<code>&lt;pre&gt;&lt;span class="php-var"&gt;$array&lt;/span&gt; = [ &lt;span class="php-quote"&gt;'Alphred'&lt;/span&gt; =&amp;gt; [ &lt;span class="php-quote"&gt;'log_level'&lt;/span&gt; =&amp;gt; &lt;span class="php-quote"&gt;'DEBUG'&lt;/span&gt;, &lt;span class="php-quote"&gt;'log_size'&lt;/span&gt; =&amp;gt; &lt;span class="php-num"&gt;10000&lt;/span&gt;, &lt;span class="php-quote"&gt;'plugins'&lt;/span&gt;  =&amp;gt; [ &lt;span class="php-quote"&gt;'get_password'&lt;/span&gt; =&amp;gt; &lt;span class="php-quote"&gt;'my_new_function'&lt;/span&gt; ]
+]];&lt;/pre&gt;</code>
+will be represented as</p>
+
+<pre><code class="ini">[Alphred]
+log_level = DEBUG
+log_size = 10000
+
+[Alphred:plugins]
+get_password = my_new_function
+</code></pre>
+
+<p>If you are concerned, then make sure that <code>\r\n</code> is removed from the array values
+before they move into the INI file, as they may break them.</p>
+
+<p>All of these are static functions. So, to use:
+<code>&lt;pre&gt;&lt;span class="php-var"&gt;$ini_file&lt;/span&gt; = Alphred\Ini::read_ini( &lt;span class="php-quote"&gt;'/path/to/workflow.ini'&lt;/span&gt; );&lt;/pre&gt;</code>
+That's it.</p>
+
+<p>To write an <code>ini</code> file, just do:
+<code>&lt;pre&gt;Alphred\Ini::write_ini( &lt;span class="php-var"&gt;$config_array&lt;/span&gt;, &lt;span class="php-quote"&gt;'/path/to/workflow.ini'&lt;/span&gt; );&lt;/pre&gt;</code></p>
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="alert alert-info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Alphred.html">Alphred</a><br>
+		
+
+				<b>Since:</b>
+				1.0.0<br>
+			<b>Located at</b> <a href="source-class-Alphred.Ini.html#21-348" title="Go to source code">Ini.php</a>
+		<br>
+	</div>
+
+
+
+		<h2>Methods summary</h2>
+		<table class="summary table table-bordered table-striped methods" id="methods">
+		<tr data-order="read_ini" id="_read_ini">
+
+			<td class="attributes"><code>
+				 public 
+				array|boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_read_ini">#</a>
+			<code><a href="source-class-Alphred.Ini.html#67-102" title="Go to source code">read_ini</a>( <span>string <var>$file</var></span>, <span>boolean <var>$exception</var> = <span class="php-keyword1">true</span> </span> )</code>
+
+			<div class="description short">
+				<p>Parses an INI</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Parses an INI</p>
+
+<p>This is a slightly better INI parser in that will read a section title of
+'title:subtitle' 'subtitle' as a subsection of the section 'title'.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$file</var></dt>
+						<dd>path to the ini file to read</dd>
+						<dt><var>$exception</var></dt>
+						<dd>whether or not to throw an exception on file not found</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						array|boolean<br>an array that represents the ini file
+					</div>
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="write_ini" id="_write_ini">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_write_ini">#</a>
+			<code><a href="source-class-Alphred.Ini.html#104-161" title="Go to source code">write_ini</a>( <span>array <var>$array</var></span>, <span>string <var>$file</var></span> )</code>
+
+			<div class="description short">
+				<p>Writes an INI file from an array</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Writes an INI file from an array</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$array</var></dt>
+						<dd>the array to be translated into an ini file</dd>
+						<dt><var>$file</var></dt>
+						<dd>the full path to the ini file, should have '.ini'</dd>
+					</dl></div>
+
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+					<h4>Todo</h4>
+					<div class="list">
+							Do filesystem checks<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="separate_non_sections" id="_separate_non_sections">
+
+			<td class="attributes"><code>
+				 private 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_separate_non_sections">#</a>
+			<code><a href="source-class-Alphred.Ini.html#163-191" title="Go to source code">separate_non_sections</a>( <span>array <var>$array</var></span> )</code>
+
+			<div class="description short">
+				<p>Separates out bits from the global space and from sections</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Separates out bits from the global space and from sections</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$array</var></dt>
+						<dd>array of values to write to an ini file</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						array<br>a sorted array
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="print_section" id="_print_section">
+
+			<td class="attributes"><code>
+				 private 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_print_section">#</a>
+			<code><a href="source-class-Alphred.Ini.html#193-213" title="Go to source code">print_section</a>( <span>array <var>$section</var></span> )</code>
+
+			<div class="description short">
+				<p>Prints the section of an INI file</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Prints the section of an INI file</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$section</var></dt>
+						<dd>an array</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						string<br>the array as an ini section
+					</div>
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="collapse_sections" id="_collapse_sections">
+
+			<td class="attributes"><code>
+				 private 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_collapse_sections">#</a>
+			<code><a href="source-class-Alphred.Ini.html#215-225" title="Go to source code">collapse_sections</a>( <span>array <var>$array</var></span> )</code>
+
+			<div class="description short">
+				<p>Collapses arrays into something that can be written in the ini</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Collapses arrays into something that can be written in the ini</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$array</var></dt>
+						<dd>the array to be collapsed</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						array<br>the collapsed array
+					</div>
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="flatten_array" id="_flatten_array">
+
+			<td class="attributes"><code>
+				 private 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_flatten_array">#</a>
+			<code><a href="source-class-Alphred.Ini.html#227-265" title="Go to source code">flatten_array</a>( <span>array <var>$array</var></span>, <span>string <var>$prefix</var> = <span class="php-quote">''</span> </span> )</code>
+
+			<div class="description short">
+				<p>Flattens an associate array</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Flattens an associate array</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$array</var></dt>
+						<dd>an array to be flattened</dd>
+						<dt><var>$prefix</var></dt>
+						<dd>a prefix for a key</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						array<br>the array, but flattened
+					</div>
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+					<h4>Todo</h4>
+					<div class="list">
+							Better tests for numeric keys<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="step_back" id="_step_back">
+
+			<td class="attributes"><code>
+				 private 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_step_back">#</a>
+			<code><a href="source-class-Alphred.Ini.html#267-292" title="Go to source code">step_back</a>( <span>array <var>$array</var></span> )</code>
+
+			<div class="description short">
+				<p>Slightly unflattens an array</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Slightly unflattens an array</p>
+
+<p>So, flatten_array goes one step too far with the flattening, but I
+don't know how many levels down I need to flatten (2, 97?), so we just flatten
+all the way and then step back one level, which is what this function does.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$array</var></dt>
+						<dd>a flattened array</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						array<br>a slightly less flat array
+					</div>
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="parse_section" id="_parse_section">
+
+			<td class="attributes"><code>
+				 private 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_parse_section">#</a>
+			<code><a href="source-class-Alphred.Ini.html#295-312" title="Go to source code">parse_section</a>( <span>string <var>$name</var></span>, <span>mixed <var>$values</var></span> )</code>
+
+			<div class="description short">
+				<p>Parses an ini section into its subsections</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Parses an ini section into its subsections</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$name</var></dt>
+						<dd>a string that should be turned into an array</dd>
+						<dt><var>$values</var></dt>
+						<dd>the values for an array</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						array<br>the newly-dimensional array with $values
+					</div>
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="nest_array" id="_nest_array">
+
+			<td class="attributes"><code>
+				 private 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_nest_array">#</a>
+			<code><a href="source-class-Alphred.Ini.html#314-328" title="Go to source code">nest_array</a>( <span>array <var>$array</var></span>, <span>mixed <var>$values</var></span> )</code>
+
+			<div class="description short">
+				<p>Recursively nests an array</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Recursively nests an array</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$array</var></dt>
+						<dd>the pieces to nest</dd>
+						<dt><var>$values</var></dt>
+						<dd>the values for the bottom level of the newly dimensional array</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						array<br>a slightly more dimensional array than we received
+					</div>
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="is_assoc" id="_is_assoc">
+
+			<td class="attributes"><code>
+				 private 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_is_assoc">#</a>
+			<code><a href="source-class-Alphred.Ini.html#330-347" title="Go to source code">is_assoc</a>( <span>array <var>$array</var></span> )</code>
+
+			<div class="description short">
+				<p>Checks if an array is associative</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Checks if an array is associative</p>
+
+<p>Shamelessly stolen from http://stackoverflow.com/a/14669600/1399574</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$array</var></dt>
+						<dd>an array</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						boolean<br>whether it is associative
+					</div>
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		</table>
+
+
+
+		<h3>Magic methods summary</h3>
+
+
+
+
+
+
+
+
+</div>
+	</div>
+
+	<div id="footer">
+		Alphred API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

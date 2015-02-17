@@ -3,532 +3,702 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <meta charset="utf-8"/>
-    <title>    API Documentation &raquo; \Alphred\ScriptFilter
-</title>
+    <title>API Documentation</title>
     <meta name="author" content=""/>
     <meta name="description" content=""/>
 
-            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
     
-            <!--[if lt IE 9]>
-        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
-        <![endif]-->
-        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
-        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
-        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
-        <script src="../js/bootstrap.js" type="text/javascript"></script>
-        <script src="../js/template.js" type="text/javascript"></script>
-        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
-    
-            <link rel="shortcut icon" href="../img/favicon.ico"/>
-        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
-        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
-        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
-    </head>
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
 <body>
 
-        <div class="navbar navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container">
-                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="icon-bar"></span> <span class="icon-bar"></span>
-                    <span class="icon-bar"></span> </a>
-                <a class="brand" href="../index.html">API Documentation</a>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
 
-                <div class="nav-collapse">
-                    <ul class="nav">
-                        <li class="dropdown">
-                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
-                                API Documentation <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                                                    <li><a>Namespaces</a></li>
-                                                                        <li><a href="../namespaces/Alphred.html">Alphred</a></li>
-                                                                                                                                </ul>
-                        </li>
-                        <li class="dropdown" id="charts-menu">
-                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
-                                Charts <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="../graph_class.html">
-                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="dropdown" id="reports-menu">
-                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
-                                Reports <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="../errors.html">
-                                        <i class="icon-list-alt"></i>&#160;Errors
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="../markers.html">
-                                        <i class="icon-list-alt"></i>&#160;Markers
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="../deprecated.html">
-                                        <i class="icon-list-alt"></i>&#160;Deprecated
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/Alphred.html">\Alphred</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">148</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">26</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-934100314"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-934100314" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-474015271"></a>
+                                <a href="../namespaces/Alphred.html" style="margin-left: 30px; padding-left: 0">Alphred</a>
+            </div>
+            <div id="namespace-474015271" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Alphred.Alfred.html">Alfred</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.AppleScript.html">AppleScript</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Choose.html">Choose</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Config.html">Config</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.ConfigKeyNotSet.html">ConfigKeyNotSet</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Date.html">Date</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Dialog.html">Dialog</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Exception.html">Exception</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.FileDoesNotExist.html">FileDoesNotExist</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Filter.html">Filter</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Globals.html">Globals</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.i18n.html">i18n</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Ini.html">Ini</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.InvalidKeychainAccount.html">InvalidKeychainAccount</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.InvalidScriptFilterArgument.html">InvalidScriptFilterArgument</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.InvalidSecurityAction.html">InvalidSecurityAction</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.InvalidXMLProperty.html">InvalidXMLProperty</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Keychain.html">Keychain</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Log.html">Log</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Notification.html">Notification</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.PasswordExists.html">PasswordExists</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.PasswordNotFound.html">PasswordNotFound</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.PluginFunctionNotFound.html">PluginFunctionNotFound</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Request.html">Request</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Result.html">Result</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.RunningOutsideOfAlfred.html">RunningOutsideOfAlfred</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.ScriptFilter.html">ScriptFilter</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.ShouldBeBool.html">ShouldBeBool</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Text.html">Text</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.TooManyArguments.html">TooManyArguments</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.UnknownSecurityException.html">UnknownSecurityException</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.UseOnlyAsStatic.html">UseOnlyAsStatic</a></li>
+                                            </ul>
                 </div>
             </div>
         </div>
-        <div class="go_to_top">
-            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
-        </div>
     </div>
-    
-    <div id="___" class="container">
-        <noscript>
-            <div class="alert alert-warning">
-                Javascript is disabled; several features are only available if Javascript is enabled.
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Alphred.html">Alphred</a></li>
+                                            </ul>
+                </div>
             </div>
-        </noscript>
-
-        
-            <style>
-        .deprecated h2 {
-            text-decoration: line-through;
-        }
-    </style>
-    <div class="row">
-        <div class="span4">
-                    <div class="btn-group view pull-right" data-toggle="buttons-radio">
-        <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button>
-        <button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+        </div>
     </div>
-    <div class="btn-group visibility" data-toggle="buttons-checkbox">
-        <button class="btn public active" title="Show public elements">Public</button>
-        <button class="btn protected" title="Show protected elements">Protected</button>
-        <button class="btn private" title="Show private elements">Private</button>
-        <button class="btn inherited active" title="Show inherited elements">Inherited</button>
-    </div>
-
-        <ul class="side-nav nav nav-list">
-        <li class="nav-header">
-            <i class="icon-custom icon-method"></i> Methods
-            <ul>
-                                                                                                    <li class="method public">
-        <a href="#method___construct" title="__construct :: Constructs a script filter container">
-            <span class="description">Constructs a script filter container</span><pre>__construct</pre>
-        </a>
-    </li>
-
-                                                                                                        <li class="method public">
-        <a href="#method_add_result" title="add_result :: Adds a result into the script filter">
-            <span class="description">Adds a result into the script filter</span><pre>add_result</pre>
-        </a>
-    </li>
-
-                                                                                                        <li class="method public">
-        <a href="#method_get_results" title="get_results :: ">
-            <span class="description"></span><pre>get_results</pre>
-        </a>
-    </li>
-
-                                                                                                                                                                <li class="method public">
-        <a href="#method_item" title="item :: ">
-            <span class="description"></span><pre>item</pre>
-        </a>
-    </li>
-
-                                                                                                                                                                <li class="method public">
-        <a href="#method_to_xml" title="to_xml :: Outputs the script filter in Alfred XML">
-            <span class="description">Outputs the script filter in Alfred XML</span><pre>to_xml</pre>
-        </a>
-    </li>
-
-                                                                                                        </ul>
-        </li>
-        <li class="nav-header protected">» Protected
-            <ul>
-                                                                                                                                                                                                                                                                                                                                            </ul>
-        </li>
-        <li class="nav-header private">» Private
-            <ul>
-                                                                                                                                                                                        <li class="method private">
-                            <a href="#method_initializei18n" title="initializei18n :: Initializes a i18n Alphred object to use internally">
-                                <span class="description">Initializes a i18n Alphred object to use internally</span><pre>initializei18n</pre>
-                            </a>
-                        </li>
-                                                                                                                    <li class="method private">
-                            <a href="#method_t" title="t :: Translates a string using the i18n class">
-                                <span class="description">Translates a string using the i18n class</span><pre>t</pre>
-                            </a>
-                        </li>
-                                                                                                                    <li class="method private">
-                            <a href="#method_write_item" title="write_item :: ">
-                                <span class="description"></span><pre>write_item</pre>
-                            </a>
-                        </li>
-                                                </ul>
-        </li>
-        <li class="nav-header">
-            <i class="icon-custom icon-constant"></i> Constants
-            <ul>
-                            </ul>
-        </li>
-    </ul>
-
 
         </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/Alphred.html">\Alphred</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
 
-        <div class="span8">
-            <div class="element class">
-                <h1>ScriptFilter</h1>
-                <small style="display: block; text-align: right">
-                                                        </small>
-                <p class="short_description"></p>
-                <div class="details">
-                    <div class="long_description">
+                    <h1><small>\Alphred</small>ScriptFilter</h1>
+                    <p><em>Creates Script Filter XML for Alfred</em></p>
+                    <p>Example usage:</p>
+<pre><code class="language-php">$script_filter = new Alphred\ScriptFilter( ['error_on_empty'] =&gt; true );
+$script_filter-&gt;add_result( new Alphred\Result([
+    'title' =&gt; 'This is a title',
+ 'subtitle' =&gt; 'This is a subtitle',
+ 'valid' =&gt; false
+]));
+$script_filter-&gt;to_xml();</code></pre>
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/Alphred.ScriptFilter.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/Alphred.ScriptFilter.html#method_add_result" class="">add_result()</a><br />
+                                                                    <a href="../classes/Alphred.ScriptFilter.html#method_get_results" class="">get_results()</a><br />
+                                                                    <a href="../classes/Alphred.ScriptFilter.html#method_print_results" class="">print_results()</a><br />
+                                                                    <a href="../classes/Alphred.ScriptFilter.html#method_to_xml" class="">to_xml()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <a href="../classes/Alphred.ScriptFilter.html#method_initializei18n" class="">initializei18n()</a><br />
+                                                                    <a href="../classes/Alphred.ScriptFilter.html#method_translate" class="">translate()</a><br />
+                                                                    <a href="../classes/Alphred.ScriptFilter.html#method_write_item" class="">write_item()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No private properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/ScriptFilter.html"><div class="path-wrapper">ScriptFilter.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">Alphred</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\Alphred\ScriptFilter</div>
+                            </dd>
+
                         
-                    </div>
-                    <table class="table table-bordered">
-                                                                                    <tr>
-                                    <th>
-                                        uses
-                                                                            </th>
-                                    <td>
-                                                                                    
-                                                                                <p>Result items are stored in the script filter</p>
-                                    </td>
-                                </tr>
-                                                                                                                <tr>
-                                    <th>
-                                        package
-                                                                            </th>
-                                    <td>
-                                                                                    
-                                                                                <p>Alphred</p>
-                                    </td>
-                                </tr>
-                                                            <tr>
-                                    <th>
-                                        package
-                                                                            </th>
-                                    <td>
-                                                                                    
-                                                                                <p>Alphred</p>
-                                    </td>
-                                </tr>
-                                                                                                                                                                                </table>
-
-                    <h3><i class="icon-custom icon-method"></i> Methods</h3>
-                                                                <a id="method___construct"></a>
-                        <div class="element clickable method public  method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
-                            <h2>Constructs a script filter container</h2>
-                            <pre>__construct(array $options = array()) </pre>
-                            <div class="labels">
-                                                                                                                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$options</h4>
-                                                <code>array</code><p><p>specify options:... see>>>?</p></p>
-                                            </div>
-                                                                            
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method_add_result"></a>
-                        <div class="element clickable method public  method_add_result" data-toggle="collapse" data-target=".method_add_result .collapse">
-                            <h2>Adds a result into the script filter</h2>
-                            <pre>add_result(\Alphred\Result $result) </pre>
-                            <div class="labels">
-                                                                                                                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    see
-                                                </th>
-                                                <td>
-                                                                                                                                                                        
-                                                                                                                                                                            <a href="../classes/Alphred.Result.html">\Alphred\Result</a>
-                                                                                                                
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$result</h4>
-                                                <code><a href="../classes/Alphred.Result.html">\Alphred\Result</a></code><p><p>[description]</p></p>
-                                            </div>
-                                                                            
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method_get_results"></a>
-                        <div class="element clickable method public  method_get_results" data-toggle="collapse" data-target=".method_get_results .collapse">
-                            <h2>get_results</h2>
-                            <pre>get_results() </pre>
-                            <div class="labels">
-                                                                                                                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
-
-                                    
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method_initializei18n"></a>
-                        <div class="element clickable method private  method_initializei18n" data-toggle="collapse" data-target=".method_initializei18n .collapse">
-                            <h2>Initializes a i18n Alphred object to use internally</h2>
-                            <pre>initializei18n() : \Alphred\i18n</pre>
-                            <div class="labels">
-                                                                                                                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
-
-                                    
-                                                                            <h3>Response</h3>
-                                        <code><a href="../classes/Alphred.i18n.html">\Alphred\i18n</a></code><p><p>object [description]</p></p>
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method_item"></a>
-                        <div class="element clickable method public  method_item" data-toggle="collapse" data-target=".method_item .collapse">
-                            <h2>item</h2>
-                            <pre>item( $props) </pre>
-                            <div class="labels">
-                                                                                                                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$props</h4>
-                                                <code></code><p></p>
-                                            </div>
-                                                                            
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method_t"></a>
-                        <div class="element clickable method private  method_t" data-toggle="collapse" data-target=".method_t .collapse">
-                            <h2>Translates a string using the i18n class</h2>
-                            <pre>t(\Alphred\[type] $string) : \Alphred\[type]</pre>
-                            <div class="labels">
-                                                                                                                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    see
-                                                </th>
-                                                <td>
-                                                                                                                                                                        
-                                                                                                                                                                            <a href="../classes/Alphred.i18n.html">\Alphred\i18n</a>
-                                                                                                                
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$string</h4>
-                                                <code>\Alphred\[type]</code><p><p>[description]</p></p>
-                                            </div>
-                                                                            
-                                                                            <h3>Response</h3>
-                                        <code>\Alphred\[type]</code><p><p>[description]</p></p>
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method_to_xml"></a>
-                        <div class="element clickable method public  method_to_xml" data-toggle="collapse" data-target=".method_to_xml .collapse">
-                            <h2>Outputs the script filter in Alfred XML</h2>
-                            <pre>to_xml() : \Alphred\[type]</pre>
-                            <div class="labels">
-                                                                                                                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
-
-                                    
-                                                                            <h3>Response</h3>
-                                        <code>\Alphred\[type]</code><p><p>[description]</p></p>
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method_write_item"></a>
-                        <div class="element clickable method private  method_write_item" data-toggle="collapse" data-target=".method_write_item .collapse">
-                            <h2>write_item</h2>
-                            <pre>write_item( $item) </pre>
-                            <div class="labels">
-                                                                                                                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$item</h4>
-                                                <code></code><p></p>
-                                            </div>
-                                                                            
-                                                                    </div>
-                            </div>
-
-                        </div>
-                    
-                    
-                                                        </div>
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr>
+                            <th>
+                                uses
+                            </th>
+                            <td>
+                                                                    <p>Result items are stored in the script filter</p>
+                                                            </td>
+                        </tr>
+                                            <tr>
+                            <th>
+                                since
+                            </th>
+                            <td>
+                                                                    
+                                                            </td>
+                        </tr>
+                                        </table>
+                </aside>
             </div>
-            <a id="\Alphred\ScriptFilter"></a>
-            <ul class="breadcrumb">
-                <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
-                    
-    
-    <li><span class="divider">\</span><a href="../namespaces/Alphred.html">Alphred</a></li>
 
-                <li class="active"><span class="divider">\</span><a href="../classes/Alphred.ScriptFilter.html">ScriptFilter</a></li>
-            </ul>
+                        
+                        
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct(array  <span class="argument">$options = array()</span>) </pre>
+                <p><em>Constructs a script filter container</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$options </td>
+                                <td><p>specify options:... see&gt;&gt;&gt;?</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            1.0.0                                
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_add_result" name="method_add_result" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">add_result()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">add_result(\Alphred\Result  <span class="argument">$result</span>) </pre>
+                <p><em>Adds a result into the script filter</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/Alphred.Result.html">\Alphred\Result</a></td>
+                                <td>$result </td>
+                                <td><p>an Alphred\Result object</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Alphred.Result.html"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            1.0.0                                
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_results" name="method_get_results" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_results()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_results() : array</pre>
+                <p><em>Returns an array of the results</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>an array of the current result items</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            1.0.0                                
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_print_results" name="method_print_results" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">print_results()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">print_results() </pre>
+                <p><em>Alias of to_xml()</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Alphred.ScriptFilter.html#method_to_xml"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            1.0.0                                
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_to_xml" name="method_to_xml" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">to_xml()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">to_xml() </pre>
+                <p><em>Outputs the script filter in Alfred XML</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            1.0.0                                
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_initializei18n" name="method_initializei18n" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">initializei18n()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">initializei18n() </pre>
+                <p><em>Initializes a i18n Alphred object to use internally</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Alphred.i18n.html"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            1.0.0                                
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_translate" name="method_translate" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">translate()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">translate(string  <span class="argument">$string</span>) : string</pre>
+                <p><em>Translates a string using the i18n class</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$string </td>
+                                <td><p>a string to translate</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>the string, translated if possible</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Alphred.i18n.html"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            1.0.0                                
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_write_item" name="method_write_item" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">write_item()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">write_item(object  <span class="argument">$item</span>) </pre>
+                <p><em>Writes out the Alfred XML</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>object</td>
+                                <td>$item </td>
+                                <td><p>An \Alphred\Result object</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            1.0.0                                
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">ScriptFilter.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/ScriptFilter.php.txt" class="language-php line-numbers"></pre>
         </div>
     </div>
 
-    </div>
-
-        <footer class="span12">
-            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
-            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
-            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
-            generated on Tue, 23 Dec 2014 22:11:41 -0500.<br/>
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/Alphred.html">\Alphred</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on February 17th, 2015 at 05:01.
+                </section>
+            </section>
+        </section>
     </footer>
-    </body>
+</div>
+
+</body>
 </html>

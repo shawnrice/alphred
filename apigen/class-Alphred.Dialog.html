@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Alphred\Dialog | Alphred</title>
+
+	<link rel="stylesheet" href="resources/bootstrap.min.css?08b23951ef4599ca9cbf1f902d0e8290c9653ddd">
+	<link rel="stylesheet" href="resources/style.css?062e9e59e0b8c44fbaaded5b7ffc21f907b78669">
+
+</head>
+
+<body>
+	<div id="navigation" class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a href="index.html" class="brand">Alphred</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li>
+							<a href="namespace-Alphred.html" title="Summary of Alphred"><span>Namespace</span></a>
+						</li>
+						<li class="active">
+<span>Class</span>						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+						</li>
+						<li>
+							<a href="deprecated.html" title="List of deprecated elements"><span>Deprecated</span></a>
+						</li>
+						<li>
+							<a href="todo.html" title="Todo list"><span>Todo</span></a>
+						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="-API-documentation.zip" title="Download documentation as ZIP archive"><span>Download</span></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="left">
+	<div id="menu">
+		<form id="search" class="form-search">
+			<input type="hidden" name="cx" value="">
+			<input type="hidden" name="ie" value="UTF-8">
+			<input type="text" name="q" class="search-query" placeholder="Search">
+		</form>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+					<li class="active main">
+						<a href="namespace-Alphred.html">
+							Alphred						</a>
+							</li>
+					<li>
+						<a href="namespace-None.html">
+							None						</a>
+							</li>
+			</ul>
+		</div>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Alphred.Alfred.html">Alfred</a></li>
+				<li><a href="class-Alphred.AppleScript.html">AppleScript</a></li>
+				<li><a href="class-Alphred.Choose.html">Choose</a></li>
+				<li><a href="class-Alphred.Config.html">Config</a></li>
+				<li><a href="class-Alphred.Date.html">Date</a></li>
+				<li class="active"><a href="class-Alphred.Dialog.html">Dialog</a></li>
+				<li><a href="class-Alphred.Filter.html">Filter</a></li>
+				<li><a href="class-Alphred.Globals.html">Globals</a></li>
+				<li><a href="class-Alphred.i18n.html">i18n</a></li>
+				<li><a href="class-Alphred.Ini.html">Ini</a></li>
+				<li><a href="class-Alphred.Keychain.html">Keychain</a></li>
+				<li><a href="class-Alphred.Log.html">Log</a></li>
+				<li><a href="class-Alphred.Notification.html">Notification</a></li>
+				<li><a href="class-Alphred.Request.html">Request</a></li>
+				<li><a href="class-Alphred.Result.html">Result</a></li>
+				<li><a href="class-Alphred.ScriptFilter.html">ScriptFilter</a></li>
+				<li><a href="class-Alphred.Text.html">Text</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-Alphred.ConfigKeyNotSet.html">ConfigKeyNotSet</a></li>
+				<li><a href="class-Alphred.Exception.html">Exception</a></li>
+				<li><a href="class-Alphred.FileDoesNotExist.html">FileDoesNotExist</a></li>
+				<li><a href="class-Alphred.InvalidKeychainAccount.html">InvalidKeychainAccount</a></li>
+				<li><a href="class-Alphred.InvalidScriptFilterArgument.html">InvalidScriptFilterArgument</a></li>
+				<li><a href="class-Alphred.InvalidSecurityAction.html">InvalidSecurityAction</a></li>
+				<li><a href="class-Alphred.InvalidXMLProperty.html">InvalidXMLProperty</a></li>
+				<li><a href="class-Alphred.PasswordExists.html">PasswordExists</a></li>
+				<li><a href="class-Alphred.PasswordNotFound.html">PasswordNotFound</a></li>
+				<li><a href="class-Alphred.PluginFunctionNotFound.html">PluginFunctionNotFound</a></li>
+				<li><a href="class-Alphred.RunningOutsideOfAlfred.html">RunningOutsideOfAlfred</a></li>
+				<li><a href="class-Alphred.ShouldBeBool.html">ShouldBeBool</a></li>
+				<li><a href="class-Alphred.TooManyArguments.html">TooManyArguments</a></li>
+				<li><a href="class-Alphred.UnknownSecurityException.html">UnknownSecurityException</a></li>
+				<li><a href="class-Alphred.UseOnlyAsStatic.html">UseOnlyAsStatic</a></li>
+			</ul>
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+	<div id="rightInner">
+<div id="content" class="class">
+	<h1>Class Dialog</h1>
+
+
+	<div class="description">
+	<p>Class to create standard AppleScript dialogs.</p>
+
+<p>This class is awkward.</p>
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="alert alert-info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Alphred.html">Alphred</a><br>
+		
+
+				<b>Used by:</b>
+				<code><a href="class-Alphred.html#_get_password_dialog">Alphred::get_password_dialog()</a></code><br>
+				<b>Todo:</b>
+				Revisit developer experience of creating dialogs<br>
+			<b>Located at</b> <a href="source-class-Alphred.Dialog.html#20-251" title="Go to source code">Dialog.php</a>
+		<br>
+	</div>
+
+
+
+		<h2>Methods summary</h2>
+		<table class="summary table table-bordered table-striped methods" id="methods">
+		<tr data-order="__construct" id="___construct">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#___construct">#</a>
+			<code><a href="source-class-Alphred.Dialog.html#30-52" title="Go to source code">__construct</a>( <span>array <var>$values</var> = [] </span> )</code>
+
+			<div class="description short">
+				<p>Initializes the AppleScript dialog, optionally setting values necessary</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Initializes the AppleScript dialog, optionally setting values necessary</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$values</var></dt>
+						<dd>an array of values to set</dd>
+					</dl></div>
+
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+					<h4>Todo</h4>
+					<div class="list">
+							Add in better error checking<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="create_dialog" id="_create_dialog">
+
+			<td class="attributes"><code>
+				 private 
+				[type]
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_create_dialog">#</a>
+			<code><a href="source-class-Alphred.Dialog.html#54-91" title="Go to source code">create_dialog</a>( )</code>
+
+			<div class="description short">
+				<p>Assembles the AppleScript code for the dialog based on the object's values</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Assembles the AppleScript code for the dialog based on the object's values</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						[type]<br>[description]
+					</div>
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="execute" id="_execute">
+
+			<td class="attributes"><code>
+				 public 
+				text
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_execute">#</a>
+			<code><a href="source-class-Alphred.Dialog.html#93-121" title="Go to source code">execute</a>( )</code>
+
+			<div class="description short">
+				<p>Executes the dialog</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Executes the dialog</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						text<br>the text returned from the dialog (button press/answer)
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="set_icon" id="_set_icon">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_set_icon">#</a>
+			<code><a href="source-class-Alphred.Dialog.html#123-149" title="Go to source code">set_icon</a>( <span>string <var>$icon</var></span> )</code>
+
+			<div class="description short">
+				<p>Sets an icon to use in the dialog box</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Sets an icon to use in the dialog box</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$icon</var></dt>
+						<dd>the path to the icon or the name of the icon</dd>
+					</dl></div>
+
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+					<h4>Todo</h4>
+					<div class="list">
+							Add in exceptions?<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="set_text" id="_set_text">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_set_text">#</a>
+			<code><a href="source-class-Alphred.Dialog.html#151-161" title="Go to source code">set_text</a>( <span>string <var>$text</var></span> )</code>
+
+			<div class="description short">
+				<p>Sets the text for the dialog and adds slashes to ensure the dialog code does not break</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Sets the text for the dialog and adds slashes to ensure the dialog code does not break</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$text</var></dt>
+						<dd>the text for the AppleScript dialog</dd>
+					</dl></div>
+
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+					<h4>Todo</h4>
+					<div class="list">
+							Check to make sure that this is necessary<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="set_buttons" id="_set_buttons">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_set_buttons">#</a>
+			<code><a href="source-class-Alphred.Dialog.html#163-193" title="Go to source code">set_buttons</a>( <span>array <var>$buttons</var></span>, <span>string <var>$default</var> = <span class="php-quote">''</span> </span> )</code>
+
+			<div class="description short">
+				<p>Sets the buttons for the dialog box</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Sets the buttons for the dialog box</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$buttons</var></dt>
+						<dd>[description]</dd>
+						<dt><var>$default</var></dt>
+						<dd>[description]</dd>
+					</dl></div>
+
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+					<h4>Todo</h4>
+					<div class="list">
+							Check for what I need to do to santize these<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="set_default_button" id="_set_default_button">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_set_default_button">#</a>
+			<code><a href="source-class-Alphred.Dialog.html#195-212" title="Go to source code">set_default_button</a>( <span>sting <var>$button</var></span> )</code>
+
+			<div class="description short">
+				<p>Sets the default button</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Sets the default button</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$button</var></dt>
+						<dd>the name of the button to set as default</dd>
+					</dl></div>
+
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="set_title" id="_set_title">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_set_title">#</a>
+			<code><a href="source-class-Alphred.Dialog.html#214-225" title="Go to source code">set_title</a>( <span>string <var>$title</var></span> )</code>
+
+			<div class="description short">
+				<p>Sets the title of the dialog</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Sets the title of the dialog</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$title</var></dt>
+						<dd>title for the dialog</dd>
+					</dl></div>
+
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="set_default_answer" id="_set_default_answer">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_set_default_answer">#</a>
+			<code><a href="source-class-Alphred.Dialog.html#227-229" title="Go to source code">set_default_answer</a>( <span> <var>$text</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="set_timeout" id="_set_timeout">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_set_timeout">#</a>
+			<code><a href="source-class-Alphred.Dialog.html#231-233" title="Go to source code">set_timeout</a>( <span> <var>$seconds</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="set_cancel" id="_set_cancel">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_set_cancel">#</a>
+			<code><a href="source-class-Alphred.Dialog.html#235-237" title="Go to source code">set_cancel</a>( <span> <var>$cancel</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="set_hidden_answer" id="_set_hidden_answer">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_set_hidden_answer">#</a>
+			<code><a href="source-class-Alphred.Dialog.html#239-249" title="Go to source code">set_hidden_answer</a>( <span> <var>$hidden</var> = <span class="php-keyword1">false</span> </span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		</table>
+
+
+
+		<h3>Magic methods summary</h3>
+
+
+
+
+
+
+
+
+</div>
+	</div>
+
+	<div id="footer">
+		Alphred API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

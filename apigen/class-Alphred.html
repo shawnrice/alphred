@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Alphred | Alphred</title>
+
+	<link rel="stylesheet" href="resources/bootstrap.min.css?08b23951ef4599ca9cbf1f902d0e8290c9653ddd">
+	<link rel="stylesheet" href="resources/style.css?062e9e59e0b8c44fbaaded5b7ffc21f907b78669">
+
+</head>
+
+<body>
+	<div id="navigation" class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a href="index.html" class="brand">Alphred</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li>
+							<a href="namespace-None.html" title="Summary of None"><span>Namespace</span></a>
+						</li>
+						<li class="active">
+<span>Class</span>						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+						</li>
+						<li>
+							<a href="deprecated.html" title="List of deprecated elements"><span>Deprecated</span></a>
+						</li>
+						<li>
+							<a href="todo.html" title="Todo list"><span>Todo</span></a>
+						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="-API-documentation.zip" title="Download documentation as ZIP archive"><span>Download</span></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="left">
+	<div id="menu">
+		<form id="search" class="form-search">
+			<input type="hidden" name="cx" value="">
+			<input type="hidden" name="ie" value="UTF-8">
+			<input type="text" name="q" class="search-query" placeholder="Search">
+		</form>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+					<li class="main">
+						<a href="namespace-Alphred.html">
+							Alphred						</a>
+							</li>
+					<li class="active">
+						<a href="namespace-None.html">
+							None						</a>
+							</li>
+			</ul>
+		</div>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li class="active"><a href="class-Alphred.html">Alphred</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+	<div id="rightInner">
+<div id="content" class="class">
+	<h1>Class Alphred</h1>
+
+
+	<div class="description">
+	<p>Wrapper Class.</p>
+
+<p>This provides a simple wrapper for all of the important parts of the Alphred library.
+It also simplifies the usage of some of the internal components, so calls to this class
+do not always mirror calls to the internal components.</p>
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="alert alert-info">
+		
+		
+		
+		<b>Package:</b> Alphred<br>
+
+				<b>Copyright:</b>
+				Shawn Patrick Rice 2014<br>
+				<b>License:</b>
+				<a href="http://opensource.org/licenses/MIT">MIT</a><br>
+				<b>Author:</b>
+				Shawn Patrick Rice <a href="&#109;&#97;&#105;&#x6c;&#x74;o&#58;&#114;&#x69;&#x63;&#x65;&#64;&#115;&#104;&#x61;&#x77;n&#114;&#105;&#x63;&#x65;&#x2e;&#111;&#114;&#103;">&#114;&#x69;&#x63;&#x65;&#64;&#115;&#104;&#x61;&#x77;n&#114;&#105;&#x63;&#x65;&#x2e;&#111;&#114;&#103;</a><br>
+			<b>Located at</b> <a href="source-class-Alphred.html#19-640" title="Go to source code">Alphred.php</a>
+		<br>
+	</div>
+
+
+
+		<h2>Methods summary</h2>
+		<table class="summary table table-bordered table-striped methods" id="methods">
+		<tr data-order="__construct" id="___construct">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#___construct">#</a>
+			<code><a href="source-class-Alphred.html#29-59" title="Go to source code">__construct</a>( <span>array <var>$options</var> = [ <span class="php-quote">'error_on_empty'</span> =&gt; <span class="php-keyword1">true</span> ] </span>, <span>array|boolean <var>$plugins</var>,…</span> )</code>
+
+			<div class="description short">
+				<p>Initializes the wrapper object</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Initializes the wrapper object</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$options</var></dt>
+						<dd><p>options that can be configured
+                           currently, only two options are available:
+                           1. error_on_empty  - displays a script filter item when empty
+                           2. no_filter       - initializes object without a script filter
+                           3. no_config       - creates without a config item
+                           4. config_filename - sets filename for the config (default: <code>config</code>)
+                           5. config_handler  - sets the handler for the config (default: <code>ini</code>)</p></dd>
+						<dt><var>$plugins</var>,…</dt>
+						<dd>plugins to be run at load</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="parse_ini_file" id="_parse_ini_file">
+
+			<td class="attributes"><code>
+				 private 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_parse_ini_file">#</a>
+			<code><a href="source-class-Alphred.html#61-78" title="Go to source code">parse_ini_file</a>( )</code>
+
+			<div class="description short">
+				<p>Reads the <code>workflow.ini</code> file if it exists</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Reads the <code>workflow.ini</code> file if it exists</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						array<br>an array of config values
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="background" id="_background">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_background">#</a>
+			<code><a href="source-class-Alphred.html#80-109" title="Go to source code">background</a>( <span>string <var>$script</var></span>, <span>mixed <var>$args</var> = <span class="php-keyword1">false</span> </span> )</code>
+
+			<div class="description short">
+				<p>Execute a php script in the background</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Execute a php script in the background</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$script</var></dt>
+						<dd>path to php script</dd>
+						<dt><var>$args</var></dt>
+						<dd>args to pass to the script</dd>
+					</dl></div>
+
+
+
+					<h4>Todo</h4>
+					<div class="list">
+							Work on argument escaping<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="is_background" id="_is_background">
+
+			<td class="attributes"><code>
+				 public 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_is_background">#</a>
+			<code><a href="source-class-Alphred.html#111-120" title="Go to source code">is_background</a>( )</code>
+
+			<div class="description short">
+				<p>Tells you whether or not a script is running in the background</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Tells you whether or not a script is running in the background</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						boolean<br>true if in the background; false if not
+					</div>
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="call_external_trigger" id="_call_external_trigger">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_call_external_trigger">#</a>
+			<code><a href="source-class-Alphred.html#122-137" title="Go to source code">call_external_trigger</a>( <span>string <var>$bundle</var></span>, <span>string <var>$trigger</var></span>, <span>string|boolean <var>$argument</var> = <span class="php-keyword1">false</span> </span> )</code>
+
+			<div class="description short">
+				<p>Calls an Alfred External Trigger</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Calls an Alfred External Trigger</p>
+
+<p>Single and double-quotes in the argument might break this method, so make sure that you
+escape them appropriately.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$bundle</var></dt>
+						<dd>the bundle id of the workflow to trigger</dd>
+						<dt><var>$trigger</var></dt>
+						<dd>the name of the trigger</dd>
+						<dt><var>$argument</var></dt>
+						<dd>an argument to pass</dd>
+					</dl></div>
+
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+					<h4>Uses</h4>
+					<div class="list">
+							<code><a href="class-Alphred.Alfred.html#_call_external_trigger">Alphred\Alfred::call_external_trigger()</a></code><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="theme_background" id="_theme_background">
+
+			<td class="attributes"><code>
+				 public 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_theme_background">#</a>
+			<code><a href="source-class-Alphred.html#139-147" title="Go to source code">theme_background</a>( )</code>
+
+			<div class="description short">
+				<p>Tells you if the current theme is <code>light</code> or <code>dark</code></p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Tells you if the current theme is <code>light</code> or <code>dark</code></p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						string<br>either 'light' or 'dark'
+					</div>
+
+
+					<h4>Uses</h4>
+					<div class="list">
+							<code><a href="class-Alphred.Alfred.html#_light_or_dark">Alphred\Alfred::light_or_dark()</a></code><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="filter" id="_filter">
+
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_filter">#</a>
+			<code><a href="source-class-Alphred.html#150-194" title="Go to source code">filter</a>( <span>array <var>$haystack</var></span>, <span>string <var>$needle</var></span>, <span>string|boolean <var>$key</var> = <span class="php-keyword1">false</span></span>, <span>array <var>$options</var> = [] </span> )</code>
+
+			<div class="description short">
+				<p>Filters an array based on a query</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Filters an array based on a query</p>
+
+<p>Passing an empty query ($needle) to this method will simply return the initial array.
+If you have <code>fold</code> on, then this will fail on characters that cannot be translitered
+into regular ASCII, so most Asian languages.</p>
+
+<p>The options to be set are: * max_results  -- the maximum number of results to return (default: false) * min_score    -- the minimum score to return (0-100) (default: false) * return_score -- whether or not to return the score along with the results (default: false) * fold         -- whether or not to fold diacritical marks, thus making <code>über</code> into <code>uber</code>. (default: true) * match_type   -- the type of filters to run. (default: MATCH_ALL)
+ The match_type is defined as constants, and so you can call them by the flags or by the integer value. Options: Match items that start with the query 1: MATCH_STARTSWITH Match items whose capital letters start with <code>query</code> 2: MATCH_CAPITALS Match items with a component "word" that matches <code>query</code> 4: MATCH_ATOM Match items whose initials (based on atoms) start with <code>query</code> 8: MATCH_INITIALS_STARTSWITH Match items whose initials (based on atoms) contain <code>query</code> 16: MATCH_INITIALS_CONTAIN Combination of MATCH_INITIALS_STARTSWITH and MATCH_INITIALS_CONTAIN 24: MATCH_INITIALS Match items if <code>query</code> is a substring 32: MATCH_SUBSTRING Match items if all characters in <code>query</code> appear in the item in order 64: MATCH_ALLCHARS Combination of all other <code>MATCH_*</code> constants 127: MATCH_ALL</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$haystack</var></dt>
+						<dd>the array of items to filter</dd>
+						<dt><var>$needle</var></dt>
+						<dd>the search query to filter against</dd>
+						<dt><var>$key</var></dt>
+						<dd>the name of the key to filter on if array is associative</dd>
+						<dt><var>$options</var></dt>
+						<dd>a list of options to configure the filter</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						array<br>an array of filtered items
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="add_result" id="_add_result">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_add_result">#</a>
+			<code><a href="source-class-Alphred.html#202-211" title="Go to source code">add_result</a>( <span>array <var>$item</var></span> )</code>
+
+			<div class="description short">
+				<p>Adds a result to the script filter</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Adds a result to the script filter</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$item</var></dt>
+						<dd>an array of values to parse that construct an Alphred\Result object</dd>
+					</dl></div>
+
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="to_xml" id="_to_xml">
+
+			<td class="attributes"><code>
+				 public 
+				mixed
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_to_xml">#</a>
+			<code><a href="source-class-Alphred.html#213-222" title="Go to source code">to_xml</a>( )</code>
+
+			<div class="description short">
+				<p>Prints the script filter XML</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Prints the script filter XML</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						mixed
+					</div>
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="get" id="_get">
+
+			<td class="attributes"><code>
+				 public 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_get">#</a>
+			<code><a href="source-class-Alphred.html#228-260" title="Go to source code">get</a>( <span>string <var>$url</var></span>, <span>array|boolean <var>$options</var> = <span class="php-keyword1">false</span></span>, <span>integer <var>$cache_ttl</var> = <span class="php-num">600</span></span>, <span>string|boolean <var>$cache_bin</var> = <span class="php-keyword1">true</span> </span> )</code>
+
+			<div class="description short">
+				<p>Makes a <code>GET</code> Request</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Makes a <code>GET</code> Request</p>
+
+<p>This method is good for simple <code>GET</code> requests. By default, requests are cached for
+600 seconds (ten minutes), and all options are passed via the <code>$options</code> array. Here
+are the options: params     (array as $key => $value) auth       (array as [ username, password ] ) user_agent (string) headers    (array as list of headers to add)</p>
+
+<p>Set only the options that you need.</p>
+
+<p>To turn caching off, just set <code>$cache_ttl</code> to 0.</p>
+
+<p>The <code>$cache_bin</code> is the subfolder within the workflow's cache folder. If set to <code>true</code>,
+then the cache bin will be named after the hostname of the URL. So, if you are requesting
+something from <code>http://api.github.com/v3/shawnrice/repos</code>, the <code>cache bin</code> would be
+<code>api.github.com</code>. If you were requesting <code>http://www.google.com</code>, then the <code>cache bin</code>
+would be <code>www.google.com</code>.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$url</var></dt>
+						<dd>the URL</dd>
+						<dt><var>$options</var></dt>
+						<dd>an array of options for the request</dd>
+						<dt><var>$cache_ttl</var></dt>
+						<dd>cache time to live in seconds</dd>
+						<dt><var>$cache_bin</var></dt>
+						<dd>cache bin</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						string<br>the results
+					</div>
+
+
+					<h4>Uses</h4>
+					<div class="list">
+							<code><a href="class-Alphred.Request.html">Alphred\Request</a></code><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="post" id="_post">
+
+			<td class="attributes"><code>
+				 public 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_post">#</a>
+			<code><a href="source-class-Alphred.html#262-278" title="Go to source code">post</a>( <span>string <var>$url</var></span>, <span>array|boolean <var>$options</var> = <span class="php-keyword1">false</span></span>, <span>integer <var>$cache_ttl</var> = <span class="php-num">600</span></span>, <span>string|boolean <var>$cache_bin</var> = <span class="php-keyword1">true</span> </span> )</code>
+
+			<div class="description short">
+				<p>Makes a <code>POST</code> request</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Makes a <code>POST</code> request</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$url</var></dt>
+						<dd>[description]</dd>
+						<dt><var>$options</var></dt>
+						<dd>an array of options for the request</dd>
+						<dt><var>$cache_ttl</var></dt>
+						<dd>cache time to live in seconds</dd>
+						<dt><var>$cache_bin</var></dt>
+						<dd>cache bin</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						string<br>the results
+					</div>
+
+
+					<h4>See</h4>
+					<div class="list">
+							Alphred::get() See <code>get()</code> for details. The method is basically the same.<br>
+					</div>
+					<h4>Uses</h4>
+					<div class="list">
+							<code><a href="class-Alphred.Request.html">Alphred\Request</a></code><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="create_request" id="_create_request">
+
+			<td class="attributes"><code>
+				 private 
+				<code><a href="class-Alphred.Request.html">Alphred\Request</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_create_request">#</a>
+			<code><a href="source-class-Alphred.html#280-343" title="Go to source code">create_request</a>( <span>string <var>$url</var></span>, <span>array|boolean <var>$options</var></span>, <span>integer <var>$cache_ttl</var></span>, <span>string|boolean <var>$cache_bin</var></span>, <span>string <var>$type</var></span> )</code>
+
+			<div class="description short">
+				<p>Creates a request object</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a request object</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$url</var></dt>
+						<dd>the URL</dd>
+						<dt><var>$options</var></dt>
+						<dd>an array of options for the request</dd>
+						<dt><var>$cache_ttl</var></dt>
+						<dd>cache time to live in seconds</dd>
+						<dt><var>$cache_bin</var></dt>
+						<dd>cache bin</dd>
+						<dt><var>$type</var></dt>
+						<dd>either <code>get</code> or <code>post</code></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Alphred.Request.html">Alphred\Request</a></code><br>the request object
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="clear_cache" id="_clear_cache">
+
+			<td class="attributes"><code>
+				 public 
+				null
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_clear_cache">#</a>
+			<code><a href="source-class-Alphred.html#345-363" title="Go to source code">clear_cache</a>( <span>string|boolean <var>$bin</var> = <span class="php-keyword1">false</span> </span> )</code>
+
+			<div class="description short">
+				<p>Clears a cache bin</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Clears a cache bin</p>
+
+<p>Clears a cache bin. If you send it with no argument (i.e.: <code>$bin = false</code>), then
+it will attempt to clear the workflow's cache directory. Note: this will throw an
+exception if it encounters a sub-directory. While it would be easy to make this
+function clear sub-directories, it shouldn't. If you are storing data other than responses
+in your cache directory, then use a cache-bin with the requests.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$bin</var></dt>
+						<dd>the cache bin to clear</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						null
+					</div>
+
+					<h4>Throws</h4>
+					<div class="list">
+						<code><a href="class-Alphred.Exception.html">Alphred\Exception</a></code><br>when encountering a sub-directory
+					</div>
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+					<h4>Uses</h4>
+					<div class="list">
+							<code><a href="class-Alphred.Request.html#_clear_cache">Alphred\Request::clear_cache()</a></code><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="config_read" id="_config_read">
+
+			<td class="attributes"><code>
+				 public 
+				mixed
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_config_read">#</a>
+			<code><a href="source-class-Alphred.html#370-384" title="Go to source code">config_read</a>( <span>string <var>$key</var></span> )</code>
+
+			<div class="description short">
+				<p>Reads a configuration value</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Reads a configuration value</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$key</var></dt>
+						<dd>name of key</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						mixed<br>the value of the key or null if not set
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="config_set" id="_config_set">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_config_set">#</a>
+			<code><a href="source-class-Alphred.html#386-394" title="Go to source code">config_set</a>( <span>string <var>$key</var></span>, <span>mixed <var>$value</var></span> )</code>
+
+			<div class="description short">
+				<p>Sets a configuration value</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Sets a configuration value</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$key</var></dt>
+						<dd>the name of the key</dd>
+						<dt><var>$value</var></dt>
+						<dd>the value for the key</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="config_delete" id="_config_delete">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_config_delete">#</a>
+			<code><a href="source-class-Alphred.html#396-403" title="Go to source code">config_delete</a>( <span>string <var>$key</var></span> )</code>
+
+			<div class="description short">
+				<p>Deletes a config value</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Deletes a config value</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$key</var></dt>
+						<dd>name of the key</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="send_notification" id="_send_notification">
+
+			<td class="attributes"><code>
+				 public 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_send_notification">#</a>
+			<code><a href="source-class-Alphred.html#405-425" title="Go to source code">send_notification</a>( <span>array <var>$options</var></span> )</code>
+
+			<div class="description short">
+				<p>Sends a system notification</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Sends a system notification</p>
+
+<p>Use this for async notifications or when running code in the background. If you want
+regular "end-of-workflow" notifications, then use Alfred's built-in set.</p>
+
+<p>Since this uses AppleScript notifications, all of them will, unfortunately, have the
+icon for Script Editor in them, and this is not replaceable. If you want more control
+over your notifications, then use something like CocoaDialog or Terminal-Notifier.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$options</var></dt>
+						<dd>the list of options to construct the notification</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						boolean<br>success
+					</div>
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+					<h4>See</h4>
+					<div class="list">
+							Alphred\Notification::notify() For more information on how to call with the correct options.<br>
+					</div>
+					<h4>Uses</h4>
+					<div class="list">
+							<code><a href="class-Alphred.Notification.html#_notify">Alphred\Notification::notify()</a></code><br>
+					</div>
+					<h4>Todo</h4>
+					<div class="list">
+							Check that return value is correct<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="get_password" id="_get_password">
+
+			<td class="attributes"><code>
+				 public 
+				string|boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_get_password">#</a>
+			<code><a href="source-class-Alphred.html#432-449" title="Go to source code">get_password</a>( <span>string <var>$account</var></span> )</code>
+
+			<div class="description short">
+				<p>Gets a password from the keychain</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Gets a password from the keychain</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$account</var></dt>
+						<dd>the name of the account (key) for the password</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						string|boolean<br>the password or false if not found
+					</div>
+
+
+					<h4>Uses</h4>
+					<div class="list">
+							<code><a href="class-Alphred.Keychain.html#_find_password">Alphred\Keychain::find_password()</a></code><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="delete_password" id="_delete_password">
+
+			<td class="attributes"><code>
+				 public 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_delete_password">#</a>
+			<code><a href="source-class-Alphred.html#451-461" title="Go to source code">delete_password</a>( <span>string <var>$account</var></span> )</code>
+
+			<div class="description short">
+				<p>Deletes a password from the keychain</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Deletes a password from the keychain</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$account</var></dt>
+						<dd>the name of the account (key) for the password</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						boolean<br>true if it existed and was deleted, false if it didn't exist
+					</div>
+
+
+					<h4>Uses</h4>
+					<div class="list">
+							<code><a href="class-Alphred.Keychain.html#_delete_password">Alphred\Keychain::delete_password()</a></code><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="save_password" id="_save_password">
+
+			<td class="attributes"><code>
+				 public 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_save_password">#</a>
+			<code><a href="source-class-Alphred.html#463-474" title="Go to source code">save_password</a>( <span>string <var>$account</var></span>, <span>string <var>$password</var></span> )</code>
+
+			<div class="description short">
+				<p>Saves a password to the keychain</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Saves a password to the keychain</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$account</var></dt>
+						<dd>the name of the account (key) for the password</dd>
+						<dt><var>$password</var></dt>
+						<dd>the password</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						boolean
+					</div>
+
+
+					<h4>Uses</h4>
+					<div class="list">
+							<code><a href="class-Alphred.Keychain.html#_save_password">Alphred\Keychain::save_password()</a></code><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="get_password_dialog" id="_get_password_dialog">
+
+			<td class="attributes"><code>
+				 public 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_get_password_dialog">#</a>
+			<code><a href="source-class-Alphred.html#476-510" title="Go to source code">get_password_dialog</a>( <span>string|boolean <var>$text</var> = <span class="php-keyword1">false</span></span>, <span>string|boolean <var>$title</var> = <span class="php-keyword1">false</span></span>, <span>string|boolean <var>$icon</var> = <span class="php-keyword1">false</span> </span> )</code>
+
+			<div class="description short">
+				<p>Creates an AppleScript dialog to enter a password securely</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates an AppleScript dialog to enter a password securely</p>
+
+<p>Note: this will return 'canceled' if the user presses the 'cancel' button</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$text</var></dt>
+						<dd>the text for the dialog</dd>
+						<dt><var>$title</var></dt>
+						<dd>the title of the dialog; defaults to the workflow name</dd>
+						<dt><var>$icon</var></dt>
+						<dd>An icon to use with the dialog box</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						string<br>the result of the user-input
+					</div>
+
+
+					<h4>Uses</h4>
+					<div class="list">
+							<code><a href="class-Alphred.Dialog.html">Alphred\Dialog</a></code><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="console" id="_console">
+
+			<td class="attributes"><code>
+				 public 
+				mixed
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_console">#</a>
+			<code><a href="source-class-Alphred.html#516-532" title="Go to source code">console</a>( <span>string <var>$message</var></span>, <span>string|integer <var>$level</var> = <span class="php-quote">'INFO'</span></span>, <span>integer|boolean <var>$trace</var> = <span class="php-keyword1">false</span> </span> )</code>
+
+			<div class="description short">
+				<p>Sends a log message to the console</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Sends a log message to the console</p>
+
+<p>If the log level is set higher than the level that this function is called with,
+then nothing will happen.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$message</var></dt>
+						<dd>the message to log</dd>
+						<dt><var>$level</var></dt>
+						<dd>the log level</dd>
+						<dt><var>$trace</var></dt>
+						<dd>how far to go in the stacktrace. Defaults to the last level.</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						mixed<br>default returns nothing
+					</div>
+
+
+					<h4>See</h4>
+					<div class="list">
+							\Alphred\Log::console() More information on the console log<br>
+					</div>
+					<h4>Uses</h4>
+					<div class="list">
+							<code><a href="class-Alphred.Log.html">Alphred\Log</a></code><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="log" id="_log">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_log">#</a>
+			<code><a href="source-class-Alphred.html#535-548" title="Go to source code">log</a>( <span>string <var>$message</var></span>, <span>string|integer <var>$level</var> = <span class="php-quote">'INFO'</span></span>, <span>string <var>$filename</var> = <span class="php-quote">'workflow'</span></span>, <span>boolean|integer <var>$trace</var> = <span class="php-keyword1">false</span> </span> )</code>
+
+			<div class="description short">
+				<p>Writes a log message to a log file</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Writes a log message to a log file</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$message</var></dt>
+						<dd>message to log</dd>
+						<dt><var>$level</var></dt>
+						<dd>log level</dd>
+						<dt><var>$filename</var></dt>
+						<dd>filename with no extension</dd>
+						<dt><var>$trace</var></dt>
+						<dd>how far back to trace</dd>
+					</dl></div>
+
+
+
+					<h4>See</h4>
+					<div class="list">
+							\Alphred\Log::file() More information on the file log<br>
+					</div>
+					<h4>Uses</h4>
+					<div class="list">
+							<code><a href="class-Alphred.Log.html">Alphred\Log</a></code><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="time_ago" id="_time_ago">
+
+			<td class="attributes"><code>
+				 public 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_time_ago">#</a>
+			<code><a href="source-class-Alphred.html#554-567" title="Go to source code">time_ago</a>( <span>integer <var>$seconds</var></span>, <span>boolean <var>$words</var> = <span class="php-keyword1">false</span> </span> )</code>
+
+			<div class="description short">
+				<p>Takes a unix epoch time and renders it as a string</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Takes a unix epoch time and renders it as a string</p>
+
+<p>This also works for future times. If you set <code>$words</code> to <code>true</code>, then you will
+get "one" instead of "1". Past times are appended with "ago"; future times are
+prepended with "in ".</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$seconds</var></dt>
+						<dd>unix epoch time value</dd>
+						<dt><var>$words</var></dt>
+						<dd>whether to use words or numerals</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						string
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="fuzzy_time_diff" id="_fuzzy_time_diff">
+
+			<td class="attributes"><code>
+				 public 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_fuzzy_time_diff">#</a>
+			<code><a href="source-class-Alphred.html#569-582" title="Go to source code">fuzzy_time_diff</a>( <span>integer <var>$seconds</var></span> )</code>
+
+			<div class="description short">
+				<p>Takes a time and gives you a fuzzy description of when it is/was relative to now</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Takes a time and gives you a fuzzy description of when it is/was relative to now</p>
+
+<p>So, something like "5 days, 16 hours, and 34 minutes ago" turns into "almost a week ago";
+Something like "16 hours from now" turns into "yesterday"; and something like "1 month from now"
+turns into "in a month"; it's fuzzy. Also, the first strings need to be a unix epoch time,
+so the number of seconds since 1 Jan, 1970 12:00AM.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$seconds</var></dt>
+						<dd>a unix epoch time</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						string<br>a string that represents an approximate time
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="add_commas" id="_add_commas">
+
+			<td class="attributes"><code>
+				 public 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_add_commas">#</a>
+			<code><a href="source-class-Alphred.html#584-600" title="Go to source code">add_commas</a>( <span>array <var>$list</var></span>, <span>boolean <var>$suffix</var> = <span class="php-keyword1">false</span> </span> )</code>
+
+			<div class="description short">
+				<p>Implodes an array into a string with commas (uses an Oxford comma)</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Implodes an array into a string with commas (uses an Oxford comma)</p>
+
+<p>If you set <code>$suffix</code> to <code>true</code>, then the function expects an associative array
+as 'suffix' => 'word', so an array like:
+<code>&lt;pre&gt;&lt;span class="php-var"&gt;$list&lt;/span&gt; = [ &lt;span class="php-quote"&gt;'penny'&lt;/span&gt; =&amp;gt; &lt;span class="php-quote"&gt;'one'&lt;/span&gt;, &lt;span class="php-quote"&gt;'quarters'&lt;/span&gt; =&amp;gt; &lt;span class="php-quote"&gt;'three'&lt;/span&gt;, &lt;span class="php-quote"&gt;'dollars'&lt;/span&gt; =&amp;gt; &lt;span class="php-quote"&gt;'five'&lt;/span&gt; ];&lt;/pre&gt;</code>
+will render as: "one penny, three quarters, and five dollars"</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$list</var></dt>
+						<dd>the array to add commas to</dd>
+						<dt><var>$suffix</var></dt>
+						<dd>whether or not there is a suffix</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						string<br>the array, but as a string with commas
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="activate" id="_activate">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_activate">#</a>
+			<code><a href="source-class-Alphred.html#606-615" title="Go to source code">activate</a>( <span>string <var>$application</var></span> )</code>
+
+			<div class="description short">
+				<p>Activates an application</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Activates an application</p>
+
+<p>Brings an application to the front, launching it if necessary</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$application</var></dt>
+						<dd>the name of the application</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="get_active_window" id="_get_active_window">
+
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_get_active_window">#</a>
+			<code><a href="source-class-Alphred.html#617-624" title="Go to source code">get_active_window</a>( )</code>
+
+			<div class="description short">
+				<p>Gets the active window</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Gets the active window</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						array<br>an array of [ 'app_name' => $name, 'window_name' => $name ]
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="bring_to_front" id="_bring_to_front">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_bring_to_front">#</a>
+			<code><a href="source-class-Alphred.html#626-636" title="Go to source code">bring_to_front</a>( <span>string <var>$application</var></span> )</code>
+
+			<div class="description short">
+				<p>Brings an application to the front</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Brings an application to the front</p>
+
+<p>This is like <code>activate</code>, but it does not open the application if it is
+not already open.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$application</var></dt>
+						<dd>the name of an application</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		</table>
+
+
+
+		<h3>Magic methods summary</h3>
+
+
+
+
+
+
+
+
+</div>
+	</div>
+
+	<div id="footer">
+		Alphred API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

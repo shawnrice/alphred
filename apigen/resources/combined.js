@@ -1,6 +1,6 @@
 
 var ApiGen = ApiGen || {};
-ApiGen.config = {"options":{"elementDetailsCollapsed":true,"elementsOrder":"natural"},"name":"ApiGen theme","templatesPath":"\/Users\/Sven\/.composer\/vendor\/apigen\/apigen\/src\/templates\/default","resources":{"\/Users\/Sven\/.composer\/vendor\/apigen\/apigen\/src\/templates\/default\/resources":"resources"},"templates":{"overview":{"filename":"index.html","template":"\/Users\/Sven\/.composer\/vendor\/apigen\/apigen\/src\/templates\/default\/overview.latte"},"combined":{"filename":"resources\/combined.js","template":"\/Users\/Sven\/.composer\/vendor\/apigen\/apigen\/src\/templates\/default\/combined.js.latte"},"elementlist":{"filename":"elementlist.js","template":"\/Users\/Sven\/.composer\/vendor\/apigen\/apigen\/src\/templates\/default\/elementlist.js.latte"},"404":{"filename":"404.html","template":"\/Users\/Sven\/.composer\/vendor\/apigen\/apigen\/src\/templates\/default\/404.latte"},"package":{"filename":"package-%s.html","template":"\/Users\/Sven\/.composer\/vendor\/apigen\/apigen\/src\/templates\/default\/package.latte"},"namespace":{"filename":"namespace-%s.html","template":"\/Users\/Sven\/.composer\/vendor\/apigen\/apigen\/src\/templates\/default\/namespace.latte"},"class":{"filename":"class-%s.html","template":"\/Users\/Sven\/.composer\/vendor\/apigen\/apigen\/src\/templates\/default\/class.latte"},"constant":{"filename":"constant-%s.html","template":"\/Users\/Sven\/.composer\/vendor\/apigen\/apigen\/src\/templates\/default\/constant.latte"},"function":{"filename":"function-%s.html","template":"\/Users\/Sven\/.composer\/vendor\/apigen\/apigen\/src\/templates\/default\/function.latte"},"source":{"filename":"source-%s.html","template":"\/Users\/Sven\/.composer\/vendor\/apigen\/apigen\/src\/templates\/default\/source.latte"},"tree":{"filename":"tree.html","template":"\/Users\/Sven\/.composer\/vendor\/apigen\/apigen\/src\/templates\/default\/tree.latte"},"deprecated":{"filename":"deprecated.html","template":"\/Users\/Sven\/.composer\/vendor\/apigen\/apigen\/src\/templates\/default\/deprecated.latte"},"todo":{"filename":"todo.html","template":"\/Users\/Sven\/.composer\/vendor\/apigen\/apigen\/src\/templates\/default\/todo.latte"},"sitemap":{"filename":"sitemap.xml","template":"\/Users\/Sven\/.composer\/vendor\/apigen\/apigen\/src\/templates\/default\/sitemap.xml.latte"},"opensearch":{"filename":"opensearch.xml","template":"\/Users\/Sven\/.composer\/vendor\/apigen\/apigen\/src\/templates\/default\/opensearch.xml.latte"},"robots":{"filename":"robots.txt","template":"\/Users\/Sven\/.composer\/vendor\/apigen\/apigen\/src\/templates\/default\/robots.txt.latte"}}};
+ApiGen.config = {"options":{"elementDetailsCollapsed":true,"elementsOrder":"natural"},"name":"Twitter Bootstrap theme","templatesPath":"phar:\/\/\/Users\/Sven\/.composer\/vendor\/bin\/apigen\/src\/templates\/bootstrap","resources":{"phar:\/\/\/Users\/Sven\/.composer\/vendor\/bin\/apigen\/src\/templates\/bootstrap\/resources":"resources"},"templates":{"overview":{"filename":"index.html","template":"phar:\/\/\/Users\/Sven\/.composer\/vendor\/bin\/apigen\/src\/templates\/bootstrap\/overview.latte"},"combined":{"filename":"resources\/combined.js","template":"phar:\/\/\/Users\/Sven\/.composer\/vendor\/bin\/apigen\/src\/templates\/bootstrap\/combined.js.latte"},"elementlist":{"filename":"elementlist.js","template":"phar:\/\/\/Users\/Sven\/.composer\/vendor\/bin\/apigen\/src\/templates\/bootstrap\/elementlist.js.latte"},"404":{"filename":"404.html","template":"phar:\/\/\/Users\/Sven\/.composer\/vendor\/bin\/apigen\/src\/templates\/bootstrap\/404.latte"},"package":{"filename":"package-%s.html","template":"phar:\/\/\/Users\/Sven\/.composer\/vendor\/bin\/apigen\/src\/templates\/bootstrap\/package.latte"},"namespace":{"filename":"namespace-%s.html","template":"phar:\/\/\/Users\/Sven\/.composer\/vendor\/bin\/apigen\/src\/templates\/bootstrap\/namespace.latte"},"class":{"filename":"class-%s.html","template":"phar:\/\/\/Users\/Sven\/.composer\/vendor\/bin\/apigen\/src\/templates\/bootstrap\/class.latte"},"constant":{"filename":"constant-%s.html","template":"phar:\/\/\/Users\/Sven\/.composer\/vendor\/bin\/apigen\/src\/templates\/bootstrap\/constant.latte"},"function":{"filename":"function-%s.html","template":"phar:\/\/\/Users\/Sven\/.composer\/vendor\/bin\/apigen\/src\/templates\/bootstrap\/function.latte"},"source":{"filename":"source-%s.html","template":"phar:\/\/\/Users\/Sven\/.composer\/vendor\/bin\/apigen\/src\/templates\/bootstrap\/source.latte"},"tree":{"filename":"tree.html","template":"phar:\/\/\/Users\/Sven\/.composer\/vendor\/bin\/apigen\/src\/templates\/bootstrap\/tree.latte"},"deprecated":{"filename":"deprecated.html","template":"phar:\/\/\/Users\/Sven\/.composer\/vendor\/bin\/apigen\/src\/templates\/bootstrap\/deprecated.latte"},"todo":{"filename":"todo.html","template":"phar:\/\/\/Users\/Sven\/.composer\/vendor\/bin\/apigen\/src\/templates\/bootstrap\/todo.latte"},"sitemap":{"filename":"sitemap.xml","template":"phar:\/\/\/Users\/Sven\/.composer\/vendor\/bin\/apigen\/src\/templates\/bootstrap\/sitemap.xml.latte"},"opensearch":{"filename":"opensearch.xml","template":"phar:\/\/\/Users\/Sven\/.composer\/vendor\/bin\/apigen\/src\/templates\/bootstrap\/opensearch.xml.latte"},"robots":{"filename":"robots.txt","template":"phar:\/\/\/Users\/Sven\/.composer\/vendor\/bin\/apigen\/src\/templates\/bootstrap\/robots.txt.latte"}}};
 
 
 	/*! jQuery v1.10.2 | (c) 2005, 2013 jQuery Foundation, Inc. | jquery.org/license
@@ -295,7 +295,6 @@ $.Autocompleter = function(input, options) {
   		}
 		}
 	}).bind("search", function() {
-		// TODO why not just specifying both arguments?
 		var fn = (arguments.length > 1) ? arguments[1] : null;
 		function findValueCallback(q, data) {
 			var result;
@@ -350,7 +349,6 @@ $.Autocompleter = function(input, options) {
 					progress += seperator;
 				});
 				words[wordAt] = v;
-				// TODO this should set the cursor to the right position, but it gets overriden somewhere
 				//$.Autocompleter.Selection(input, progress + seperator, progress + seperator);
 				v = words.join( options.multipleSeparator );
 			}
@@ -1022,19 +1020,10 @@ jQuery.fn.sortElements = (function(){
     };
 
 })();
-	/*!
- * ApiGen 2.8.0 - API documentation generator for PHP 5.3+
- *
- * Copyright (c) 2010-2011 David Grudl (http://davidgrudl.com)
- * Copyright (c) 2011-2012 Jaroslav Hanslík (https://github.com/kukulich)
- * Copyright (c) 2011-2012 Ondřej Nešpor (https://github.com/Andrewsville)
- *
- * For the full copyright and license information, please view
- * the file LICENSE.md that was distributed with this source code.
- */
-
-$(window).load(function() {
+	$(window).load(function() {
 	var $document = $(document);
+	var $navigation = $('#navigation');
+	var navigationHeight = $navigation.height();
 	var $left = $('#left');
 	var $right = $('#right');
 	var $rightInner = $('#rightInner');
@@ -1103,16 +1092,14 @@ $(window).load(function() {
 					return $(this).width();
 				}));
 				// 10px padding
-				$list
-					.width(Math.max(maxWidth + 10, $search.innerWidth()))
-					.css('left', $search.offset().left + $search.outerWidth() - $list.outerWidth());
+				$list.width(Math.max(maxWidth + 10, $search.innerWidth()));
 			}
 		}).result(function(event, data) {
 			autocompleteFound = true;
 			var location = window.location.href.split('/');
 			location.pop();
 			var parts = data[1].split(/::|$/);
-			var file = $.sprintf(ApiGen.config.templates.main[autocompleteFiles[data[0]]].filename, parts[0].replace(/\(\)/, '').replace(/[^\w]/g, '.'));
+			var file = $.sprintf(ApiGen.config.templates[autocompleteFiles[data[0]]].filename, parts[0].replace(/\(\)/, '').replace(/[^\w]/g, '.'));
 			if (parts[1]) {
 				file += '#' + ('mm' === data[0] || 'mp' === data[0] ? 'm' : '') + parts[1].replace(/([\w]+)\(\)/, '_$1');
 			}
@@ -1141,7 +1128,7 @@ $(window).load(function() {
 	// Switch between natural and alphabetical order
 	var $caption = $('table.summary', $content)
 		.filter(':has(tr[data-order])')
-			.find('caption');
+			.prev('h2');
 	$caption
 		.click(function() {
 			var $this = $(this);
@@ -1151,7 +1138,7 @@ $(window).load(function() {
 			$.cookie('order', order, {expires: 365});
 			var attr = 'alphabetical' === order ? 'data-order' : 'data-order-natural';
 			$this
-				.closest('table')
+				.next('table')
 					.find('tr').sortElements(function(a, b) {
 						return $(a).attr(attr) > $(b).attr(attr) ? 1 : -1;
 					});
@@ -1184,6 +1171,13 @@ $(window).load(function() {
 		$left.width(position);
 		$right.css('margin-left', position + splitterWidth);
 		$splitter.css('left', position);
+	}
+	function setNavigationPosition()
+	{
+		var height = $(window).height() - navigationHeight;
+		$left.height(height);
+		$splitter.height(height);
+		$right.height(height);
 	}
 	function setContentWidth()
 	{
@@ -1235,8 +1229,11 @@ $(window).load(function() {
 	if (null !== splitterPosition) {
 		setSplitterPosition(splitterPosition);
 	}
+	setNavigationPosition();
 	setContentWidth();
-	$(window).resize(setContentWidth);
+	$(window)
+		.resize(setNavigationPosition)
+		.resize(setContentWidth);
 
 	// Select selected lines
 	var matches = window.location.hash.substr(1).match(/^\d+(?:-\d+)?(?:,\d+(?:-\d+)?)*$/);
@@ -1259,7 +1256,7 @@ $(window).load(function() {
 
 	// Save selected lines
 	var lastLine;
-	$('a.l').click(function(event) {
+	$('.l a').click(function(event) {
 		event.preventDefault();
 
 		var $selectedLine = $(this).parent();

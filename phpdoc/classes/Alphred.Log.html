@@ -3,831 +3,991 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <meta charset="utf-8"/>
-    <title>    API Documentation &raquo; \Alphred\Log
-</title>
+    <title>API Documentation</title>
     <meta name="author" content=""/>
     <meta name="description" content=""/>
 
-            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
     
-            <!--[if lt IE 9]>
-        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
-        <![endif]-->
-        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
-        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
-        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
-        <script src="../js/bootstrap.js" type="text/javascript"></script>
-        <script src="../js/template.js" type="text/javascript"></script>
-        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
-    
-            <link rel="shortcut icon" href="../img/favicon.ico"/>
-        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
-        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
-        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
-    </head>
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
 <body>
 
-        <div class="navbar navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container">
-                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="icon-bar"></span> <span class="icon-bar"></span>
-                    <span class="icon-bar"></span> </a>
-                <a class="brand" href="../index.html">API Documentation</a>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
 
-                <div class="nav-collapse">
-                    <ul class="nav">
-                        <li class="dropdown">
-                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
-                                API Documentation <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                                                    <li><a>Namespaces</a></li>
-                                                                        <li><a href="../namespaces/Alphred.html">Alphred</a></li>
-                                                                                                                                </ul>
-                        </li>
-                        <li class="dropdown" id="charts-menu">
-                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
-                                Charts <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="../graph_class.html">
-                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="dropdown" id="reports-menu">
-                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
-                                Reports <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="../errors.html">
-                                        <i class="icon-list-alt"></i>&#160;Errors
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="../markers.html">
-                                        <i class="icon-list-alt"></i>&#160;Markers
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="../deprecated.html">
-                                        <i class="icon-list-alt"></i>&#160;Deprecated
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/Alphred.html">\Alphred</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">148</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">26</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-589847392"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-589847392" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-640204486"></a>
+                                <a href="../namespaces/Alphred.html" style="margin-left: 30px; padding-left: 0">Alphred</a>
+            </div>
+            <div id="namespace-640204486" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Alphred.Alfred.html">Alfred</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.AppleScript.html">AppleScript</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Choose.html">Choose</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Config.html">Config</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.ConfigKeyNotSet.html">ConfigKeyNotSet</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Date.html">Date</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Dialog.html">Dialog</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Exception.html">Exception</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.FileDoesNotExist.html">FileDoesNotExist</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Filter.html">Filter</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Globals.html">Globals</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.i18n.html">i18n</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Ini.html">Ini</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.InvalidKeychainAccount.html">InvalidKeychainAccount</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.InvalidScriptFilterArgument.html">InvalidScriptFilterArgument</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.InvalidSecurityAction.html">InvalidSecurityAction</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.InvalidXMLProperty.html">InvalidXMLProperty</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Keychain.html">Keychain</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Log.html">Log</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Notification.html">Notification</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.PasswordExists.html">PasswordExists</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.PasswordNotFound.html">PasswordNotFound</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.PluginFunctionNotFound.html">PluginFunctionNotFound</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Request.html">Request</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Result.html">Result</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.RunningOutsideOfAlfred.html">RunningOutsideOfAlfred</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.ScriptFilter.html">ScriptFilter</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.ShouldBeBool.html">ShouldBeBool</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.Text.html">Text</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.TooManyArguments.html">TooManyArguments</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.UnknownSecurityException.html">UnknownSecurityException</a></li>
+                                                    <li class="class"><a href="../classes/Alphred.UseOnlyAsStatic.html">UseOnlyAsStatic</a></li>
+                                            </ul>
                 </div>
             </div>
         </div>
-        <div class="go_to_top">
-            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
-        </div>
     </div>
-    
-    <div id="___" class="container">
-        <noscript>
-            <div class="alert alert-warning">
-                Javascript is disabled; several features are only available if Javascript is enabled.
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Alphred.html">Alphred</a></li>
+                                            </ul>
+                </div>
             </div>
-        </noscript>
-
-        
-            <style>
-        .deprecated h2 {
-            text-decoration: line-through;
-        }
-    </style>
-    <div class="row">
-        <div class="span4">
-                    <div class="btn-group view pull-right" data-toggle="buttons-radio">
-        <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button>
-        <button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+        </div>
     </div>
-    <div class="btn-group visibility" data-toggle="buttons-checkbox">
-        <button class="btn public active" title="Show public elements">Public</button>
-        <button class="btn protected" title="Show protected elements">Protected</button>
-        <button class="btn private" title="Show private elements">Private</button>
-        <button class="btn inherited active" title="Show inherited elements">Inherited</button>
-    </div>
-
-        <ul class="side-nav nav nav-list">
-        <li class="nav-header">
-            <i class="icon-custom icon-method"></i> Methods
-            <ul>
-                                                                                                    <li class="method public">
-        <a href="#method___construct" title="__construct :: Sets variables and ini settings to ensure there are no errors">
-            <span class="description">Sets variables and ini settings to ensure there are no errors</span><pre>__construct</pre>
-        </a>
-    </li>
-
-                                                                                                                                                                                                                        <li class="method public">
-        <a href="#method_log" title="log :: Logs a message to either a file or STDERR">
-            <span class="description">Logs a message to either a file or STDERR</span><pre>log</pre>
-        </a>
-    </li>
-
-                                                                                                        <li class="method public">
-        <a href="#method_log_console" title="log_console :: Writes a message to the console (STDERR)">
-            <span class="description">Writes a message to the console (STDERR)</span><pre>log_console</pre>
-        </a>
-    </li>
-
-                                                                                                        <li class="method public">
-        <a href="#method_log_file" title="log_file :: Writes message to log file">
-            <span class="description">Writes message to log file</span><pre>log_file</pre>
-        </a>
-    </li>
-
-                                                                                                        <li class="method public">
-        <a href="#method_normalize_log_level" title="normalize_log_level :: Ensures that the log level is valid">
-            <span class="description">Ensures that the log level is valid</span><pre>normalize_log_level</pre>
-        </a>
-    </li>
-
-                                                                                                        </ul>
-        </li>
-        <li class="nav-header protected">» Protected
-            <ul>
-                                                                                                                                                                                                                                                                                                                                            </ul>
-        </li>
-        <li class="nav-header private">» Private
-            <ul>
-                                                                                                                <li class="method private">
-                            <a href="#method_check_log" title="check_log :: Checks to see if the log needs to be rotated">
-                                <span class="description">Checks to see if the log needs to be rotated</span><pre>check_log</pre>
-                            </a>
-                        </li>
-                                                                                <li class="method private">
-                            <a href="#method_initialize_log" title="initialize_log :: Creates log directory and file if necessary">
-                                <span class="description">Creates log directory and file if necessary</span><pre>initialize_log</pre>
-                            </a>
-                        </li>
-                                                                                                                                                                                                                                <li class="method private">
-                            <a href="#method_rotate_log" title="rotate_log :: Rotates the log">
-                                <span class="description">Rotates the log</span><pre>rotate_log</pre>
-                            </a>
-                        </li>
-                                                </ul>
-        </li>
-        <li class="nav-header">
-            <i class="icon-custom icon-constant"></i> Constants
-            <ul>
-                            </ul>
-        </li>
-    </ul>
-
 
         </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/Alphred.html">\Alphred</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
 
-        <div class="span8">
-            <div class="element class">
-                <h1>Log</h1>
-                <small style="display: block; text-align: right">
-                                                        </small>
-                <p class="short_description">Simple logging functionality that writes to files or STDERR</p>
-                <div class="details">
-                    <div class="long_description">
-                        <p>Usage: just create a single object and reuse it solely. Initialize the
-object with a full path to the log file (no log extension)</p>
-                    </div>
-                    <table class="table table-bordered">
-                                                                                    <tr>
-                                    <th>
-                                        package
-                                                                            </th>
-                                    <td>
-                                                                                    
-                                                                                <p>Alphred</p>
-                                    </td>
-                                </tr>
-                                                                                                                <tr>
-                                    <th>
-                                        since
-                                                                            </th>
-                                    <td>
-                                                                                    
-                                                                                <p>Class available since 1.0.0</p>
-                                    </td>
-                                </tr>
-                                                                                                                                                                                </table>
-
-                    <h3><i class="icon-custom icon-method"></i> Methods</h3>
-                                                                <a id="method___construct"></a>
-                        <div class="element clickable method public  method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
-                            <h2>Sets variables and ini settings to ensure there are no errors</h2>
-                            <pre>__construct(string $log, string $destination = &#039;file&#039;) </pre>
-                            <div class="labels">
-                                                                                                                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    since
-                                                </th>
-                                                <td>
-                                                                                                                                                                        1.0.0
-                                                                                                                                                                        
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$log</h4>
-                                                <code>string</code><p><p>filename to use as a log</p></p>
-                                            </div>
-                                                                                    <div class="subelement argument">
-                                                <h4>$destination</h4>
-                                                <code>string</code><p><p>= 'file'  default destination for messages</p></p>
-                                            </div>
-                                                                            
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method_check_log"></a>
-                        <div class="element clickable method private  method_check_log" data-toggle="collapse" data-target=".method_check_log .collapse">
-                            <h2>Checks to see if the log needs to be rotated</h2>
-                            <pre>check_log() </pre>
-                            <div class="labels">
-                                                                                                                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    since
-                                                </th>
-                                                <td>
-                                                                                                                                                                        1.0.0
-                                                                                                                                                                        
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
-
-                                    
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method_initialize_log"></a>
-                        <div class="element clickable method private  method_initialize_log" data-toggle="collapse" data-target=".method_initialize_log .collapse">
-                            <h2>Creates log directory and file if necessary</h2>
-                            <pre>initialize_log() </pre>
-                            <div class="labels">
-                                                                                                                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    since
-                                                </th>
-                                                <td>
-                                                                                                                                                                        1.0.0
-                                                                                                                                                                        
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
-
-                                    
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method_log"></a>
-                        <div class="element clickable method public  method_log" data-toggle="collapse" data-target=".method_log .collapse">
-                            <h2>Logs a message to either a file or STDERR</h2>
-                            <pre>log(string $message, mixed $level = &#039;INFO&#039;, string $destination = &#039;&#039;,  $trace) </pre>
-                            <div class="labels">
-                                                                                                                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"><p>After initializing the log object, this should be the only
-method with which you interact.</p>
-<p><code>
-$log = new Log( '/full/path/to/mylog' );
-$log->log( 'Write this to a file', 'INFO' );
-$log->log( 'Warning message to console', 2, 'console' );
-$log->log( 'This message will go to both the console and the log', 3, 'both');
-</code></p></div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    since
-                                                </th>
-                                                <td>
-                                                                                                                                                                        1.0.0
-                                                                                                                                                                        
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$message</h4>
-                                                <code>string</code><p><p>message to log</p></p>
-                                            </div>
-                                                                                    <div class="subelement argument">
-                                                <h4>$level</h4>
-                                                <code>mixed</code><p><p>either int or string of log level</p></p>
-                                            </div>
-                                                                                    <div class="subelement argument">
-                                                <h4>$destination</h4>
-                                                <code>string</code><p><p>where the message should appear:</p>
-<pre><code>                           valid options: 'file', 'console', 'both'</code></pre></p>
-                                            </div>
-                                                                                    <div class="subelement argument">
-                                                <h4>$trace</h4>
-                                                <code></code><p></p>
-                                            </div>
-                                                                            
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method_log_console"></a>
-                        <div class="element clickable method public  method_log_console" data-toggle="collapse" data-target=".method_log_console .collapse">
-                            <h2>Writes a message to the console (STDERR)</h2>
-                            <pre>log_console(string $message) </pre>
-                            <div class="labels">
-                                                                                                                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    since
-                                                </th>
-                                                <td>
-                                                                                                                                                                        1.0.0
-                                                                                                                                                                        
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$message</h4>
-                                                <code>string</code><p><p>message to log</p></p>
-                                            </div>
-                                                                            
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method_log_file"></a>
-                        <div class="element clickable method public  method_log_file" data-toggle="collapse" data-target=".method_log_file .collapse">
-                            <h2>Writes message to log file</h2>
-                            <pre>log_file(string $message) </pre>
-                            <div class="labels">
-                                                                                                                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    since
-                                                </th>
-                                                <td>
-                                                                                                                                                                        1.0.0
-                                                                                                                                                                        
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$message</h4>
-                                                <code>string</code><p><p>message to log</p></p>
-                                            </div>
-                                                                            
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method_normalize_log_level"></a>
-                        <div class="element clickable method public  method_normalize_log_level" data-toggle="collapse" data-target=".method_normalize_log_level .collapse">
-                            <h2>Ensures that the log level is valid</h2>
-                            <pre>normalize_log_level(mixed $level) : string</pre>
-                            <div class="labels">
-                                                                                                                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    since
-                                                </th>
-                                                <td>
-                                                                                                                                                                        1.0.0
-                                                                                                                                                                        
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$level</h4>
-                                                <code>mixed</code><p><p>either an int or a string denoting log level</p></p>
-                                            </div>
-                                                                            
-                                                                            <h3>Response</h3>
-                                        <code>string</code><p><p>log level as string</p></p>
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method_rotate_log"></a>
-                        <div class="element clickable method private  method_rotate_log" data-toggle="collapse" data-target=".method_rotate_log .collapse">
-                            <h2>Rotates the log</h2>
-                            <pre>rotate_log() </pre>
-                            <div class="labels">
-                                                                                                                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    since
-                                                </th>
-                                                <td>
-                                                                                                                                                                        1.0.0
-                                                                                                                                                                        
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
-
-                                    
-                                                                    </div>
-                            </div>
-
-                        </div>
+                    <h1><small>\Alphred</small>Log</h1>
+                    <p><em>Simple static logging functionality that writes to files or STDERR</em></p>
                     
                     
-                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
-                                                    <a id="property_log"> </a>
-                            <div class="element clickable property  public property_log" data-toggle="collapse" data-target=".property_log .collapse">
-                                <h2>Log file</h2>
-                                <pre>log : string</pre>
-                                <div class="labels">
-                                                                                                        </div>
-                                <div class="row collapse">
-                                    <div class="detail-description">
-                                        <div class="long_description"><p>Full path to log file with no extension; set by user at instantiation</p></div>
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/Alphred.Log.html#method_file" class="">file()</a><br />
+                                                                    <a href="../classes/Alphred.Log.html#method_console" class="">console()</a><br />
+                                                                    <a href="../classes/Alphred.Log.html#method_log" class="">log()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/Alphred.Log.html#property_log_levels" class="">$log_levels</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <a href="../classes/Alphred.Log.html#method_get_log_filename" class="">get_log_filename()</a><br />
+                                                                    <a href="../classes/Alphred.Log.html#method_create_log_directory" class="">create_log_directory()</a><br />
+                                                                    <a href="../classes/Alphred.Log.html#method_check_log" class="">check_log()</a><br />
+                                                                    <a href="../classes/Alphred.Log.html#method_rotate_log" class="">rotate_log()</a><br />
+                                                                    <a href="../classes/Alphred.Log.html#method_normalize_log_level" class="">normalize_log_level()</a><br />
+                                                                    <a href="../classes/Alphred.Log.html#method_trace" class="">trace()</a><br />
+                                                                    <a href="../classes/Alphred.Log.html#method_is_loggable" class="">is_loggable()</a><br />
+                                                                    <a href="../classes/Alphred.Log.html#method_get_threshold" class="">get_threshold()</a><br />
+                                                                    <a href="../classes/Alphred.Log.html#method_date_console" class="">date_console()</a><br />
+                                                                    <a href="../classes/Alphred.Log.html#method_date_file" class="">date_file()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No private properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/Log.html"><div class="path-wrapper">Log.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">Alphred</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\Alphred\Log</div>
+                            </dd>
 
-                                        <table class="table">
-                                                                                            <tr>
-                                                    <th>
-                                                        var
-                                                    </th>
-                                                    <td>
-                                                                                                                    
-                                                                                                            </td>
-                                                </tr>
-                                                                                            <tr>
-                                                    <th>
-                                                        since
-                                                    </th>
-                                                    <td>
-                                                                                                                    
-                                                                                                            </td>
-                                                </tr>
-                                                                                    </table>
-
-                                                                                    <h3>Type(s)</h3>
-                                            <code>string</code>
-                                                                            </div>
-                                </div>
-                            </div>
-                                                    <a id="property_log_levels"> </a>
-                            <div class="element clickable property  protected property_log_levels" data-toggle="collapse" data-target=".property_log_levels .collapse">
-                                <h2>An array of log levels (int =&gt; string )</h2>
-                                <pre>log_levels : array</pre>
-                                <div class="labels">
-                                                                                                        </div>
-                                <div class="row collapse">
-                                    <div class="detail-description">
-                                        <div class="long_description"><p>0 => 'DEBUG'
-1 => 'INFO'
-2 => 'WARNING'
-3 => 'ERROR'
-4 => 'CRITICAL'</p></div>
-
-                                        <table class="table">
-                                                                                            <tr>
-                                                    <th>
-                                                        var
-                                                    </th>
-                                                    <td>
-                                                                                                                    
-                                                                                                            </td>
-                                                </tr>
-                                                                                            <tr>
-                                                    <th>
-                                                        since
-                                                    </th>
-                                                    <td>
-                                                                                                                    
-                                                                                                            </td>
-                                                </tr>
-                                                                                    </table>
-
-                                                                                    <h3>Type(s)</h3>
-                                            <code>array</code>
-                                                                            </div>
-                                </div>
-                            </div>
-                                                    <a id="property_trace"> </a>
-                            <div class="element clickable property  private property_trace" data-toggle="collapse" data-target=".property_trace .collapse">
-                                <h2>Stacktrace information; reset with each message</h2>
-                                <pre>trace : array</pre>
-                                <div class="labels">
-                                                                                                        </div>
-                                <div class="row collapse">
-                                    <div class="detail-description">
-                                        <div class="long_description"></div>
-
-                                        <table class="table">
-                                                                                            <tr>
-                                                    <th>
-                                                        var
-                                                    </th>
-                                                    <td>
-                                                                                                                    
-                                                                                                            </td>
-                                                </tr>
-                                                                                            <tr>
-                                                    <th>
-                                                        since
-                                                    </th>
-                                                    <td>
-                                                                                                                    
-                                                                                                            </td>
-                                                </tr>
-                                                                                    </table>
-
-                                                                                    <h3>Type(s)</h3>
-                                            <code>array</code>
-                                                                            </div>
-                                </div>
-                            </div>
-                                                    <a id="property_file"> </a>
-                            <div class="element clickable property  private property_file" data-toggle="collapse" data-target=".property_file .collapse">
-                                <h2>File from stacktrace; reset with each message</h2>
-                                <pre>file : string</pre>
-                                <div class="labels">
-                                                                                                        </div>
-                                <div class="row collapse">
-                                    <div class="detail-description">
-                                        <div class="long_description"></div>
-
-                                        <table class="table">
-                                                                                            <tr>
-                                                    <th>
-                                                        var
-                                                    </th>
-                                                    <td>
-                                                                                                                    
-                                                                                                            </td>
-                                                </tr>
-                                                                                            <tr>
-                                                    <th>
-                                                        since
-                                                    </th>
-                                                    <td>
-                                                                                                                    
-                                                                                                            </td>
-                                                </tr>
-                                                                                    </table>
-
-                                                                                    <h3>Type(s)</h3>
-                                            <code>string</code>
-                                                                            </div>
-                                </div>
-                            </div>
-                                                    <a id="property_line"> </a>
-                            <div class="element clickable property  private property_line" data-toggle="collapse" data-target=".property_line .collapse">
-                                <h2>Line from stacktrace; reset with each message</h2>
-                                <pre>line : integer</pre>
-                                <div class="labels">
-                                                                                                        </div>
-                                <div class="row collapse">
-                                    <div class="detail-description">
-                                        <div class="long_description"></div>
-
-                                        <table class="table">
-                                                                                            <tr>
-                                                    <th>
-                                                        var
-                                                    </th>
-                                                    <td>
-                                                                                                                    
-                                                                                                            </td>
-                                                </tr>
-                                                                                            <tr>
-                                                    <th>
-                                                        since
-                                                    </th>
-                                                    <td>
-                                                                                                                    
-                                                                                                            </td>
-                                                </tr>
-                                                                                    </table>
-
-                                                                                    <h3>Type(s)</h3>
-                                            <code>integer</code>
-                                                                            </div>
-                                </div>
-                            </div>
-                                                    <a id="property_level"> </a>
-                            <div class="element clickable property  private property_level" data-toggle="collapse" data-target=".property_level .collapse">
-                                <h2>Log level; reset with each message</h2>
-                                <pre>level : mixed</pre>
-                                <div class="labels">
-                                                                                                        </div>
-                                <div class="row collapse">
-                                    <div class="detail-description">
-                                        <div class="long_description"></div>
-
-                                        <table class="table">
-                                                                                            <tr>
-                                                    <th>
-                                                        var
-                                                    </th>
-                                                    <td>
-                                                                                                                    
-                                                                                                            </td>
-                                                </tr>
-                                                                                            <tr>
-                                                    <th>
-                                                        since
-                                                    </th>
-                                                    <td>
-                                                                                                                    
-                                                                                                            </td>
-                                                </tr>
-                                                                                    </table>
-
-                                                                                    <h3>Type(s)</h3>
-                                            <code>mixed</code>
-                                                                            </div>
-                                </div>
-                            </div>
-                                                    <a id="property_default_destination"> </a>
-                            <div class="element clickable property  private property_default_destination" data-toggle="collapse" data-target=".property_default_destination .collapse">
-                                <h2>Default destination to send a log message to</h2>
-                                <pre>default_destination : string</pre>
-                                <div class="labels">
-                                                                                                        </div>
-                                <div class="row collapse">
-                                    <div class="detail-description">
-                                        <div class="long_description"></div>
-
-                                        <table class="table">
-                                                                                            <tr>
-                                                    <th>
-                                                        var
-                                                    </th>
-                                                    <td>
-                                                                                                                    <p>options: file, console, both</p>
-                                                                                                            </td>
-                                                </tr>
-                                                                                    </table>
-
-                                                                                    <h3>Type(s)</h3>
-                                            <code>string</code>
-                                                                            </div>
-                                </div>
-                            </div>
-                                                            </div>
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr>
+                            <th>
+                                since
+                            </th>
+                            <td>
+                                                                    <p>Class available since 1.0.0</p>
+                                                            </td>
+                        </tr>
+                                        </table>
+                </aside>
             </div>
-            <a id="\Alphred\Log"></a>
-            <ul class="breadcrumb">
-                <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
-                    
-    
-    <li><span class="divider">\</span><a href="../namespaces/Alphred.html">Alphred</a></li>
 
-                <li class="active"><span class="divider">\</span><a href="../classes/Alphred.Log.html">Log</a></li>
-            </ul>
+                        
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_log_levels" name="property_log_levels" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$log_levels</h3>
+                <pre class="signature">$log_levels : array</pre>
+                <p><em>An array that contans the valid log levels</em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_file" name="method_file" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">file()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">file(string  <span class="argument">$message</span>, integer|string  <span class="argument">$level = 1</span>, string  <span class="argument">$filename = &#039;workflow&#039;</span>, boolean|integer  <span class="argument">$trace = false</span>) </pre>
+                <p><em>Log a message to a file</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$message </td>
+                                <td><p>the message to log</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer|string</td>
+                                <td>$level </td>
+                                <td><p>the log level</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$filename </td>
+                                <td><p>the filename of the log without an extension</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean|integer</td>
+                                <td>$trace </td>
+                                <td><p>how far back to trace</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            1.0.0                                
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_console" name="method_console" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">console()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">console(string  <span class="argument">$message</span>, string|integer  <span class="argument">$level = 1</span>, boolean|integer  <span class="argument">$trace = false</span>) </pre>
+                <p><em>Log a message to the console (STDERR)</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$message </td>
+                                <td><p>the message to log</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string|integer</td>
+                                <td>$level </td>
+                                <td><p>the log level</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean|integer</td>
+                                <td>$trace </td>
+                                <td><p>how far back to trace</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            1.0.0                                
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_log" name="method_log" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">log()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">log(string  <span class="argument">$message</span>, integer|string  <span class="argument">$level = 1</span>, string  <span class="argument">$filename = &#039;workflow&#039;</span>, boolean|integer  <span class="argument">$trace = false</span>) </pre>
+                <p><em>Log a message to both a file and the console</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$message </td>
+                                <td><p>the message to log</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer|string</td>
+                                <td>$level </td>
+                                <td><p>the log level</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$filename </td>
+                                <td><p>the filename of the log without an extension</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean|integer</td>
+                                <td>$trace </td>
+                                <td><p>how far back to trace</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            1.0.0                                
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_log_filename" name="method_get_log_filename" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">get_log_filename()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_log_filename(string  <span class="argument">$filename</span>) : string</pre>
+                <p><em>Gets the full filepath to the log file</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$filename </td>
+                                <td><p>a filename for a log file</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>the full filepath for a log file</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            1.0.0                                
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_create_log_directory" name="method_create_log_directory" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">create_log_directory()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">create_log_directory() </pre>
+                <p><em>Creates the workflow&#039;s data directory if it does not exist.</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            1.0.0                                
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_check_log" name="method_check_log" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">check_log()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">check_log(  <span class="argument">$filename</span>) </pre>
+                <p><em>Checks to see if the log needs to be rotated</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$filename </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            1.0.0                                
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_rotate_log" name="method_rotate_log" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">rotate_log()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">rotate_log(  <span class="argument">$filename</span>) </pre>
+                <p><em>Rotates the log</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$filename </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            1.0.0                                
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_normalize_log_level" name="method_normalize_log_level" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">normalize_log_level()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">normalize_log_level(integer|string  <span class="argument">$level</span>) : string</pre>
+                <p><em>Normalizes the log level, returning &#039;INFO&#039; or 1 if invalid</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer|string</td>
+                                <td>$level </td>
+                                <td><p>the level represented as either a string or an integer</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>the name of the log level</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            1.0.0                                
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_trace" name="method_trace" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">trace()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">trace(boolean|integer  <span class="argument">$depth = false</span>) : string</pre>
+                <p><em>Fetches information from a stack trace</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>boolean|integer</td>
+                                <td>$depth </td>
+                                <td><p>How far to do the trace, default is the last</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>the file and line number of the trace</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            1.0.0                                
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_is_loggable" name="method_is_loggable" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">is_loggable()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">is_loggable(mixed  <span class="argument">$level</span>) : boolean</pre>
+                <p><em>Checks if a log level is within a display threshold</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$level </td>
+                                <td><p>Either a string or a</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p>Whether or not a value is above the logging threshold</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            1.0.0                                
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_threshold" name="method_get_threshold" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">get_threshold()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_threshold() : integer</pre>
+                <p><em>Gets the threshold for log messages</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    integer
+                                            &mdash; <p>an integer matching a log level</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                                                            <p>Implement exception for bad log level</p>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            1.0.0                                
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_date_console" name="method_date_console" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">date_console()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">date_console() : string</pre>
+                <p><em>Gets the time formatted for a console display log</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>the time as HH:MM:SS</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            1.0.0                                
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_date_file" name="method_date_file" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">date_file()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">date_file() : string</pre>
+                <p><em>Gets a datestamp formatted for a file log</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>Formatted as YYYY-MM-DD HH:MM:SS</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            1.0.0                                
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">Log.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/Log.php.txt" class="language-php line-numbers"></pre>
         </div>
     </div>
 
-    </div>
-
-        <footer class="span12">
-            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
-            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
-            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
-            generated on Tue, 23 Dec 2014 22:11:41 -0500.<br/>
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/Alphred.html">\Alphred</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on February 17th, 2015 at 05:01.
+                </section>
+            </section>
+        </section>
     </footer>
-    </body>
+</div>
+
+</body>
 </html>

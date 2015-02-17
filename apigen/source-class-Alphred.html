@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="robots" content="noindex">
+
+	<title>File Alphred.php | Alphred</title>
+
+	<link rel="stylesheet" href="resources/bootstrap.min.css?08b23951ef4599ca9cbf1f902d0e8290c9653ddd">
+	<link rel="stylesheet" href="resources/style.css?062e9e59e0b8c44fbaaded5b7ffc21f907b78669">
+
+</head>
+
+<body>
+	<div id="navigation" class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a href="index.html" class="brand">Alphred</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li>
+<span>Namespace</span>						</li>
+						<li>
+							<a href="class-Alphred.UseOnlyAsStatic.html" title="Summary of Alphred\UseOnlyAsStatic"><span>Class</span></a>
+						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+						</li>
+						<li>
+							<a href="deprecated.html" title="List of deprecated elements"><span>Deprecated</span></a>
+						</li>
+						<li>
+							<a href="todo.html" title="Todo list"><span>Todo</span></a>
+						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="-API-documentation.zip" title="Download documentation as ZIP archive"><span>Download</span></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="left">
+	<div id="menu">
+		<form id="search" class="form-search">
+			<input type="hidden" name="cx" value="">
+			<input type="hidden" name="ie" value="UTF-8">
+			<input type="text" name="q" class="search-query" placeholder="Search">
+		</form>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+					<li class="main">
+						<a href="namespace-Alphred.html">
+							Alphred						</a>
+							</li>
+					<li>
+						<a href="namespace-None.html">
+							None						</a>
+							</li>
+			</ul>
+		</div>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Alphred.html">Alphred</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+	<div id="rightInner">
+<pre id="source"><code><span id="1" class="l"><a href="#1">  1 </a><span class="xlang">&lt;?php</span>
+</span><span id="2" class="l"><a href="#2">  2 </a><span class="php-comment">/**
+</span></span><span id="3" class="l"><a href="#3">  3 </a><span class="php-comment"> * Contains wrapper class for Alphred, the main entry point to use the library
+</span></span><span id="4" class="l"><a href="#4">  4 </a><span class="php-comment"> *
+</span></span><span id="5" class="l"><a href="#5">  5 </a><span class="php-comment"> * PHP version 5
+</span></span><span id="6" class="l"><a href="#6">  6 </a><span class="php-comment"> *
+</span></span><span id="7" class="l"><a href="#7">  7 </a><span class="php-comment"> * @package      Alphred
+</span></span><span id="8" class="l"><a href="#8">  8 </a><span class="php-comment"> * @copyright  Shawn Patrick Rice 2014
+</span></span><span id="9" class="l"><a href="#9">  9 </a><span class="php-comment"> * @license    http://opensource.org/licenses/MIT  MIT
+</span></span><span id="10" class="l"><a href="#10"> 10 </a><span class="php-comment"> * @version    1.0.0
+</span></span><span id="11" class="l"><a href="#11"> 11 </a><span class="php-comment"> * @author     Shawn Patrick Rice &lt;rice@shawnrice.org&gt;
+</span></span><span id="12" class="l"><a href="#12"> 12 </a><span class="php-comment"> * @link       http://www.github.com/shawnrice/alphred
+</span></span><span id="13" class="l"><a href="#13"> 13 </a><span class="php-comment"> * @link       http://shawnrice.github.io/alphred
+</span></span><span id="14" class="l"><a href="#14"> 14 </a><span class="php-comment"> * @since      File available since Release 1.0.0
+</span></span><span id="15" class="l"><a href="#15"> 15 </a><span class="php-comment"> *
+</span></span><span id="16" class="l"><a href="#16"> 16 </a><span class="php-comment"> */</span>
+</span><span id="17" class="l"><a href="#17"> 17 </a>
+</span><span id="18" class="l"><a href="#18"> 18 </a>
+</span><span id="19" class="l"><a href="#19"> 19 </a><span class="php-comment">/**
+</span></span><span id="20" class="l"><a href="#20"> 20 </a><span class="php-comment"> * Wrapper Class.
+</span></span><span id="21" class="l"><a href="#21"> 21 </a><span class="php-comment"> *
+</span></span><span id="22" class="l"><a href="#22"> 22 </a><span class="php-comment"> * This provides a simple wrapper for all of the important parts of the Alphred library.
+</span></span><span id="23" class="l"><a href="#23"> 23 </a><span class="php-comment"> * It also simplifies the usage of some of the internal components, so calls to this class
+</span></span><span id="24" class="l"><a href="#24"> 24 </a><span class="php-comment"> * do not always mirror calls to the internal components.
+</span></span><span id="25" class="l"><a href="#25"> 25 </a><span class="php-comment"> *
+</span></span><span id="26" class="l"><a href="#26"> 26 </a><span class="php-comment"> */</span>
+</span><span id="27" class="l"><a href="#27"> 27 </a><span class="php-keyword1">class</span> Alphred {
+</span><span id="28" class="l"><a href="#28"> 28 </a>
+</span><span id="29" class="l"><a href="#29"> 29 </a>    <span class="php-comment">/**
+</span></span><span id="30" class="l"><a href="#30"> 30 </a><span class="php-comment">     * Initializes the wrapper object
+</span></span><span id="31" class="l"><a href="#31"> 31 </a><span class="php-comment">     *
+</span></span><span id="32" class="l"><a href="#32"> 32 </a><span class="php-comment">     * @param array                 $options options that can be configured
+</span></span><span id="33" class="l"><a href="#33"> 33 </a><span class="php-comment">     *                            currently, only two options are available:
+</span></span><span id="34" class="l"><a href="#34"> 34 </a><span class="php-comment">     *                            1. error_on_empty  - displays a script filter item when empty
+</span></span><span id="35" class="l"><a href="#35"> 35 </a><span class="php-comment">     *                            2. no_filter       - initializes object without a script filter
+</span></span><span id="36" class="l"><a href="#36"> 36 </a><span class="php-comment">     *                            3. no_config       - creates without a config item
+</span></span><span id="37" class="l"><a href="#37"> 37 </a><span class="php-comment">     *                            4. config_filename - sets filename for the config (default: `config`)
+</span></span><span id="38" class="l"><a href="#38"> 38 </a><span class="php-comment">     *                            5. config_handler  - sets the handler for the config (default: `ini`)
+</span></span><span id="39" class="l"><a href="#39"> 39 </a><span class="php-comment">     * @param array|boolean $plugins plugins to be run at load
+</span></span><span id="40" class="l"><a href="#40"> 40 </a><span class="php-comment">     */</span>
+</span><span id="41" class="l"><a href="#41"> 41 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> __construct( <span class="php-var">$options</span> = [ <span class="php-quote">'error_on_empty'</span> =&gt; <span class="php-keyword1">true</span> ] ) {
+</span><span id="42" class="l"><a href="#42"> 42 </a>
+</span><span id="43" class="l"><a href="#43"> 43 </a>        <span class="php-comment">// We're going to parse the ini file (if it exists) and just merge what we find there</span>
+</span><span id="44" class="l"><a href="#44"> 44 </a>        <span class="php-comment">// with the $options array. The original $options array will override the workflow.ini file.</span>
+</span><span id="45" class="l"><a href="#45"> 45 </a>        <span class="php-var">$options</span> = <span class="php-keyword2">array_merge</span>( <span class="php-var">$options</span>, <span class="php-var">$this</span>-&gt;<span class="php-keyword2">parse_ini_file</span>() );
+</span><span id="46" class="l"><a href="#46"> 46 </a>
+</span><span id="47" class="l"><a href="#47"> 47 </a>        <span class="php-comment">// Create a script filter object unless explicitly turned off</span>
+</span><span id="48" class="l"><a href="#48"> 48 </a>        <span class="php-keyword1">if</span> ( ! <span class="php-keyword1">isset</span>( <span class="php-var">$options</span>[ <span class="php-quote">'no_filter'</span> ] ) || <span class="php-keyword1">true</span> !== <span class="php-var">$options</span>[ <span class="php-quote">'no_filter'</span> ] ) {
+</span><span id="49" class="l"><a href="#49"> 49 </a>            <span class="php-var">$this</span>-&gt;filter = <span class="php-keyword1">new</span> Alphred\ScriptFilter( <span class="php-var">$options</span> );
+</span><span id="50" class="l"><a href="#50"> 50 </a>        }
+</span><span id="51" class="l"><a href="#51"> 51 </a>
+</span><span id="52" class="l"><a href="#52"> 52 </a>        <span class="php-keyword1">if</span> ( ! <span class="php-keyword1">isset</span>( <span class="php-var">$options</span>[ <span class="php-quote">'no_config'</span> ] ) || <span class="php-keyword1">true</span> !== <span class="php-var">$options</span>[ <span class="php-quote">'no_config'</span> ] ) {
+</span><span id="53" class="l"><a href="#53"> 53 </a>            <span class="php-comment">// Use `ini` as the default handler and `config` as the default filename</span>
+</span><span id="54" class="l"><a href="#54"> 54 </a>            <span class="php-var">$handler</span>  = ( <span class="php-keyword1">isset</span>( <span class="php-var">$options</span>[<span class="php-quote">'config_handler'</span>] ) ) ? <span class="php-var">$options</span>[<span class="php-quote">'config_handler'</span>] : <span class="php-quote">'ini'</span>;
+</span><span id="55" class="l"><a href="#55"> 55 </a>            <span class="php-var">$filename</span> = ( <span class="php-keyword1">isset</span>( <span class="php-var">$options</span>[<span class="php-quote">'config_filename'</span>] ) ) ? <span class="php-var">$options</span>[<span class="php-quote">'config_filename'</span>] : <span class="php-quote">'config'</span>;
+</span><span id="56" class="l"><a href="#56"> 56 </a>            <span class="php-comment">// Create the config object</span>
+</span><span id="57" class="l"><a href="#57"> 57 </a>            <span class="php-var">$this</span>-&gt;config = <span class="php-keyword1">new</span> Alphred\Config( <span class="php-var">$handler</span>, <span class="php-var">$filename</span> );
+</span><span id="58" class="l"><a href="#58"> 58 </a>        }
+</span><span id="59" class="l"><a href="#59"> 59 </a>    }
+</span><span id="60" class="l"><a href="#60"> 60 </a>
+</span><span id="61" class="l"><a href="#61"> 61 </a>    <span class="php-comment">/**
+</span></span><span id="62" class="l"><a href="#62"> 62 </a><span class="php-comment">     * Reads the `workflow.ini` file if it exists
+</span></span><span id="63" class="l"><a href="#63"> 63 </a><span class="php-comment">     *
+</span></span><span id="64" class="l"><a href="#64"> 64 </a><span class="php-comment">     * @return array an array of config values
+</span></span><span id="65" class="l"><a href="#65"> 65 </a><span class="php-comment">     */</span>
+</span><span id="66" class="l"><a href="#66"> 66 </a>    <span class="php-keyword1">private</span> <span class="php-keyword1">function</span> <span class="php-keyword2">parse_ini_file</span>() {
+</span><span id="67" class="l"><a href="#67"> 67 </a>        <span class="php-comment">// If the file does not exist, then exit early with an empty array</span>
+</span><span id="68" class="l"><a href="#68"> 68 </a>        <span class="php-keyword1">if</span> ( ! <span class="php-keyword2">file_exists</span>( <span class="php-quote">'workflow.ini'</span> ) ) {
+</span><span id="69" class="l"><a href="#69"> 69 </a>            <span class="php-keyword1">return</span> [];
+</span><span id="70" class="l"><a href="#70"> 70 </a>        }
+</span><span id="71" class="l"><a href="#71"> 71 </a>
+</span><span id="72" class="l"><a href="#72"> 72 </a>        <span class="php-comment">// Read the ini file</span>
+</span><span id="73" class="l"><a href="#73"> 73 </a>        <span class="php-var">$ini</span> = Alphred\Ini::read_ini( <span class="php-quote">'workflow.ini'</span> );
+</span><span id="74" class="l"><a href="#74"> 74 </a>
+</span><span id="75" class="l"><a href="#75"> 75 </a>        <span class="php-comment">// Just return the alphred bit</span>
+</span><span id="76" class="l"><a href="#76"> 76 </a>        <span class="php-keyword1">return</span> <span class="php-var">$ini</span>[<span class="php-quote">'alphred'</span>];
+</span><span id="77" class="l"><a href="#77"> 77 </a>
+</span><span id="78" class="l"><a href="#78"> 78 </a>    }
+</span><span id="79" class="l"><a href="#79"> 79 </a>
+</span><span id="80" class="l"><a href="#80"> 80 </a>    <span class="php-comment">/**
+</span></span><span id="81" class="l"><a href="#81"> 81 </a><span class="php-comment">     * Execute a php script in the background
+</span></span><span id="82" class="l"><a href="#82"> 82 </a><span class="php-comment">     *
+</span></span><span id="83" class="l"><a href="#83"> 83 </a><span class="php-comment">     * @todo Work on argument escaping
+</span></span><span id="84" class="l"><a href="#84"> 84 </a><span class="php-comment">     *
+</span></span><span id="85" class="l"><a href="#85"> 85 </a><span class="php-comment">     * @param  string  $script path to php script
+</span></span><span id="86" class="l"><a href="#86"> 86 </a><span class="php-comment">     * @param  mixed     $args   args to pass to the script
+</span></span><span id="87" class="l"><a href="#87"> 87 </a><span class="php-comment">     */</span>
+</span><span id="88" class="l"><a href="#88"> 88 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> background( <span class="php-var">$script</span>, <span class="php-var">$args</span> = <span class="php-keyword1">false</span> ) {
+</span><span id="89" class="l"><a href="#89"> 89 </a>        <span class="php-comment">// Make sure that the script</span>
+</span><span id="90" class="l"><a href="#90"> 90 </a>        <span class="php-keyword1">if</span> ( ! <span class="php-keyword2">file_exists</span>( <span class="php-var">$script</span> ) ) {
+</span><span id="91" class="l"><a href="#91"> 91 </a>            <span class="php-comment">// File does not exist, so throw an exception</span>
+</span><span id="92" class="l"><a href="#92"> 92 </a>            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> Alphred\FileDoesNotExist( <span class="php-quote">&quot;Script `</span><span class="php-var">{$script}</span><span class="php-quote">` does not exist.&quot;</span>, <span class="php-num">4</span> );
+</span><span id="93" class="l"><a href="#93"> 93 </a>        }
+</span><span id="94" class="l"><a href="#94"> 94 </a>        <span class="php-keyword1">if</span> ( <span class="php-var">$args</span> ) {
+</span><span id="95" class="l"><a href="#95"> 95 </a>            <span class="php-keyword1">if</span> ( <span class="php-keyword2">is_array</span>( <span class="php-var">$args</span> ) ) {
+</span><span id="96" class="l"><a href="#96"> 96 </a>                <span class="php-comment">// Turn $args into a string if we were passed an array</span>
+</span><span id="97" class="l"><a href="#97"> 97 </a>                <span class="php-var">$args</span> = <span class="php-keyword2">implode</span>( <span class="php-quote">&quot;' '&quot;</span>, <span class="php-var">$args</span> );
+</span><span id="98" class="l"><a href="#98"> 98 </a>                <span class="php-comment">// prepend and append the extra quotation marks... everything *should* be quoted now</span>
+</span><span id="99" class="l"><a href="#99"> 99 </a>                <span class="php-var">$args</span> = <span class="php-quote">&quot;'</span><span class="php-var">{$args}</span><span class="php-quote">'&quot;</span>;
+</span><span id="100" class="l"><a href="#100">100 </a>            } <span class="php-keyword1">else</span> {
+</span><span id="101" class="l"><a href="#101">101 </a>                <span class="php-comment">// Quote args if it is a string</span>
+</span><span id="102" class="l"><a href="#102">102 </a>                <span class="php-var">$args</span> = <span class="php-quote">&quot;'</span><span class="php-var">{$args}</span><span class="php-quote">'&quot;</span>;
+</span><span id="103" class="l"><a href="#103">103 </a>            }
+</span><span id="104" class="l"><a href="#104">104 </a>            <span class="php-comment">// Let's escape double-quotes</span>
+</span><span id="105" class="l"><a href="#105">105 </a>            <span class="php-var">$args</span> = <span class="php-keyword2">str_replace</span>( <span class="php-quote">'&quot;'</span>, <span class="php-quote">'\&quot;'</span>, <span class="php-var">$args</span> );
+</span><span id="106" class="l"><a href="#106">106 </a>        }
+</span><span id="107" class="l"><a href="#107">107 </a>        <span class="php-comment">// Set a variable to let us know that we're in the background, and execute the script</span>
+</span><span id="108" class="l"><a href="#108">108 </a>        <span class="php-keyword2">exec</span>( <span class="php-quote">&quot;ALPHRED_IN_BACKGROUND=1 /usr/bin/nohup php '</span><span class="php-var">{$script}</span><span class="php-quote">' </span><span class="php-var">{$args}</span><span class="php-quote">  &gt;/dev/null 2&gt;&amp;1 &amp;&quot;</span>, <span class="php-var">$output</span>, <span class="php-var">$return</span> );
+</span><span id="109" class="l"><a href="#109">109 </a>    }
+</span><span id="110" class="l"><a href="#110">110 </a>
+</span><span id="111" class="l"><a href="#111">111 </a>    <span class="php-comment">/**
+</span></span><span id="112" class="l"><a href="#112">112 </a><span class="php-comment">     * Tells you whether or not a script is running in the background
+</span></span><span id="113" class="l"><a href="#113">113 </a><span class="php-comment">     *
+</span></span><span id="114" class="l"><a href="#114">114 </a><span class="php-comment">     * @since 1.0.0
+</span></span><span id="115" class="l"><a href="#115">115 </a><span class="php-comment">     *
+</span></span><span id="116" class="l"><a href="#116">116 </a><span class="php-comment">     * @return boolean true if in the background; false if not
+</span></span><span id="117" class="l"><a href="#117">117 </a><span class="php-comment">     */</span>
+</span><span id="118" class="l"><a href="#118">118 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> is_background() {
+</span><span id="119" class="l"><a href="#119">119 </a>        <span class="php-keyword1">return</span> Alphred\Globals::is_background();
+</span><span id="120" class="l"><a href="#120">120 </a>    }
+</span><span id="121" class="l"><a href="#121">121 </a>
+</span><span id="122" class="l"><a href="#122">122 </a>    <span class="php-comment">/**
+</span></span><span id="123" class="l"><a href="#123">123 </a><span class="php-comment">     * Calls an Alfred External Trigger
+</span></span><span id="124" class="l"><a href="#124">124 </a><span class="php-comment">     *
+</span></span><span id="125" class="l"><a href="#125">125 </a><span class="php-comment">     * Single and double-quotes in the argument might break this method, so make sure that you
+</span></span><span id="126" class="l"><a href="#126">126 </a><span class="php-comment">     * escape them appropriately.
+</span></span><span id="127" class="l"><a href="#127">127 </a><span class="php-comment">     *
+</span></span><span id="128" class="l"><a href="#128">128 </a><span class="php-comment">     * @since 1.0.0
+</span></span><span id="129" class="l"><a href="#129">129 </a><span class="php-comment">     * @uses Alphred\Alfred::call_external_trigger()
+</span></span><span id="130" class="l"><a href="#130">130 </a><span class="php-comment">     *
+</span></span><span id="131" class="l"><a href="#131">131 </a><span class="php-comment">     * @param  string               $bundle   the bundle id of the workflow to trigger
+</span></span><span id="132" class="l"><a href="#132">132 </a><span class="php-comment">     * @param  string               $trigger  the name of the trigger
+</span></span><span id="133" class="l"><a href="#133">133 </a><span class="php-comment">     * @param  string|boolean $argument an argument to pass
+</span></span><span id="134" class="l"><a href="#134">134 </a><span class="php-comment">     */</span>
+</span><span id="135" class="l"><a href="#135">135 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> call_external_trigger( <span class="php-var">$bundle</span>, <span class="php-var">$trigger</span>, <span class="php-var">$argument</span> = <span class="php-keyword1">false</span> ) {
+</span><span id="136" class="l"><a href="#136">136 </a>        Alphred\Alfred::call_external_trigger( <span class="php-var">$bundle</span>, <span class="php-var">$trigger</span>, <span class="php-var">$argument</span> );
+</span><span id="137" class="l"><a href="#137">137 </a>    }
+</span><span id="138" class="l"><a href="#138">138 </a>
+</span><span id="139" class="l"><a href="#139">139 </a>    <span class="php-comment">/**
+</span></span><span id="140" class="l"><a href="#140">140 </a><span class="php-comment">     * Tells you if the current theme is `light` or `dark`
+</span></span><span id="141" class="l"><a href="#141">141 </a><span class="php-comment">     *
+</span></span><span id="142" class="l"><a href="#142">142 </a><span class="php-comment">     * @uses Alphred\Alfred::light_or_dark()
+</span></span><span id="143" class="l"><a href="#143">143 </a><span class="php-comment">     * @return string either 'light' or 'dark'
+</span></span><span id="144" class="l"><a href="#144">144 </a><span class="php-comment">     */</span>
+</span><span id="145" class="l"><a href="#145">145 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> theme_background() {
+</span><span id="146" class="l"><a href="#146">146 </a>        <span class="php-keyword1">return</span> Alphred\Alfred::light_or_dark();
+</span><span id="147" class="l"><a href="#147">147 </a>    }
+</span><span id="148" class="l"><a href="#148">148 </a>
+</span><span id="149" class="l"><a href="#149">149 </a>
+</span><span id="150" class="l"><a href="#150">150 </a>    <span class="php-comment">/**
+</span></span><span id="151" class="l"><a href="#151">151 </a><span class="php-comment">     * Filters an array based on a query
+</span></span><span id="152" class="l"><a href="#152">152 </a><span class="php-comment">     *
+</span></span><span id="153" class="l"><a href="#153">153 </a><span class="php-comment">     * Passing an empty query ($needle) to this method will simply return the initial array.
+</span></span><span id="154" class="l"><a href="#154">154 </a><span class="php-comment">     * If you have `fold` on, then this will fail on characters that cannot be translitered
+</span></span><span id="155" class="l"><a href="#155">155 </a><span class="php-comment">     * into regular ASCII, so most Asian languages.
+</span></span><span id="156" class="l"><a href="#156">156 </a><span class="php-comment">     *
+</span></span><span id="157" class="l"><a href="#157">157 </a><span class="php-comment">     * The options to be set are:
+</span></span><span id="158" class="l"><a href="#158">158 </a><span class="php-comment">     *  * max_results  -- the maximum number of results to return (default: false)
+</span></span><span id="159" class="l"><a href="#159">159 </a><span class="php-comment">     *  * min_score    -- the minimum score to return (0-100) (default: false)
+</span></span><span id="160" class="l"><a href="#160">160 </a><span class="php-comment">     *  * return_score -- whether or not to return the score along with the results (default: false)
+</span></span><span id="161" class="l"><a href="#161">161 </a><span class="php-comment">     *  * fold         -- whether or not to fold diacritical marks, thus making
+</span></span><span id="162" class="l"><a href="#162">162 </a><span class="php-comment">     *                                      `über` into `uber`. (default: true)
+</span></span><span id="163" class="l"><a href="#163">163 </a><span class="php-comment">     *  * match_type     -- the type of filters to run. (default: MATCH_ALL)
+</span></span><span id="164" class="l"><a href="#164">164 </a><span class="php-comment">     *
+</span></span><span id="165" class="l"><a href="#165">165 </a><span class="php-comment">     *  The match_type is defined as constants, and so you can call them by the flags or by
+</span></span><span id="166" class="l"><a href="#166">166 </a><span class="php-comment">     *  the integer value. Options:
+</span></span><span id="167" class="l"><a href="#167">167 </a><span class="php-comment">     *    Match items that start with the query
+</span></span><span id="168" class="l"><a href="#168">168 </a><span class="php-comment">     *    1: MATCH_STARTSWITH
+</span></span><span id="169" class="l"><a href="#169">169 </a><span class="php-comment">     *    Match items whose capital letters start with ``query``
+</span></span><span id="170" class="l"><a href="#170">170 </a><span class="php-comment">     *    2: MATCH_CAPITALS
+</span></span><span id="171" class="l"><a href="#171">171 </a><span class="php-comment">     *    Match items with a component &quot;word&quot; that matches ``query``
+</span></span><span id="172" class="l"><a href="#172">172 </a><span class="php-comment">     *    4: MATCH_ATOM
+</span></span><span id="173" class="l"><a href="#173">173 </a><span class="php-comment">     *    Match items whose initials (based on atoms) start with ``query``
+</span></span><span id="174" class="l"><a href="#174">174 </a><span class="php-comment">     *    8: MATCH_INITIALS_STARTSWITH
+</span></span><span id="175" class="l"><a href="#175">175 </a><span class="php-comment">     *    Match items whose initials (based on atoms) contain ``query``
+</span></span><span id="176" class="l"><a href="#176">176 </a><span class="php-comment">     *    16: MATCH_INITIALS_CONTAIN
+</span></span><span id="177" class="l"><a href="#177">177 </a><span class="php-comment">     *    Combination of MATCH_INITIALS_STARTSWITH and MATCH_INITIALS_CONTAIN
+</span></span><span id="178" class="l"><a href="#178">178 </a><span class="php-comment">     *    24: MATCH_INITIALS
+</span></span><span id="179" class="l"><a href="#179">179 </a><span class="php-comment">     *    Match items if ``query`` is a substring
+</span></span><span id="180" class="l"><a href="#180">180 </a><span class="php-comment">     *    32: MATCH_SUBSTRING
+</span></span><span id="181" class="l"><a href="#181">181 </a><span class="php-comment">     *    Match items if all characters in ``query`` appear in the item in order
+</span></span><span id="182" class="l"><a href="#182">182 </a><span class="php-comment">     *    64: MATCH_ALLCHARS
+</span></span><span id="183" class="l"><a href="#183">183 </a><span class="php-comment">     *    Combination of all other ``MATCH_*`` constants
+</span></span><span id="184" class="l"><a href="#184">184 </a><span class="php-comment">     *    127: MATCH_ALL
+</span></span><span id="185" class="l"><a href="#185">185 </a><span class="php-comment">     *
+</span></span><span id="186" class="l"><a href="#186">186 </a><span class="php-comment">     * @param  array                $haystack the array of items to filter
+</span></span><span id="187" class="l"><a href="#187">187 </a><span class="php-comment">     * @param  string               $needle   the search query to filter against
+</span></span><span id="188" class="l"><a href="#188">188 </a><span class="php-comment">     * @param  string|boolean $key      the name of the key to filter on if array is associative
+</span></span><span id="189" class="l"><a href="#189">189 </a><span class="php-comment">     * @param  array                    $options  a list of options to configure the filter
+</span></span><span id="190" class="l"><a href="#190">190 </a><span class="php-comment">     * @return array          an array of filtered items
+</span></span><span id="191" class="l"><a href="#191">191 </a><span class="php-comment">     */</span>
+</span><span id="192" class="l"><a href="#192">192 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> filter( <span class="php-var">$haystack</span>, <span class="php-var">$needle</span>, <span class="php-var">$key</span> = <span class="php-keyword1">false</span>, <span class="php-var">$options</span> = [] ) {
+</span><span id="193" class="l"><a href="#193">193 </a>        <span class="php-keyword1">return</span> Alphred\Filter::Filter( <span class="php-var">$haystack</span>, <span class="php-var">$needle</span>, <span class="php-var">$key</span>, <span class="php-var">$options</span> );
+</span><span id="194" class="l"><a href="#194">194 </a>    }
+</span><span id="195" class="l"><a href="#195">195 </a>
+</span><span id="196" class="l"><a href="#196">196 </a>
+</span><span id="197" class="l"><a href="#197">197 </a>
+</span><span id="198" class="l"><a href="#198">198 </a>    <span class="php-comment">/*****************************************************************************
+</span></span><span id="199" class="l"><a href="#199">199 </a><span class="php-comment">     * Wrapper methods for script filters
+</span></span><span id="200" class="l"><a href="#200">200 </a><span class="php-comment">     ****************************************************************************/</span>
+</span><span id="201" class="l"><a href="#201">201 </a>
+</span><span id="202" class="l"><a href="#202">202 </a>    <span class="php-comment">/**
+</span></span><span id="203" class="l"><a href="#203">203 </a><span class="php-comment">     * Adds a result to the script filter
+</span></span><span id="204" class="l"><a href="#204">204 </a><span class="php-comment">     *
+</span></span><span id="205" class="l"><a href="#205">205 </a><span class="php-comment">     * @since 1.0.0
+</span></span><span id="206" class="l"><a href="#206">206 </a><span class="php-comment">     *
+</span></span><span id="207" class="l"><a href="#207">207 </a><span class="php-comment">     * @param array $item an array of values to parse that construct an Alphred\Result object
+</span></span><span id="208" class="l"><a href="#208">208 </a><span class="php-comment">     */</span>
+</span><span id="209" class="l"><a href="#209">209 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> add_result( <span class="php-var">$item</span> ) {
+</span><span id="210" class="l"><a href="#210">210 </a>        <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;filter-&gt;add_result( <span class="php-keyword1">new</span> \Alphred\Result( <span class="php-var">$item</span> ) );
+</span><span id="211" class="l"><a href="#211">211 </a>    }
+</span><span id="212" class="l"><a href="#212">212 </a>
+</span><span id="213" class="l"><a href="#213">213 </a>    <span class="php-comment">/**
+</span></span><span id="214" class="l"><a href="#214">214 </a><span class="php-comment">     * Prints the script filter XML
+</span></span><span id="215" class="l"><a href="#215">215 </a><span class="php-comment">     *
+</span></span><span id="216" class="l"><a href="#216">216 </a><span class="php-comment">     * @since 1.0.0
+</span></span><span id="217" class="l"><a href="#217">217 </a><span class="php-comment">     *
+</span></span><span id="218" class="l"><a href="#218">218 </a><span class="php-comment">     * @return mixed
+</span></span><span id="219" class="l"><a href="#219">219 </a><span class="php-comment">     */</span>
+</span><span id="220" class="l"><a href="#220">220 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> to_xml() {
+</span><span id="221" class="l"><a href="#221">221 </a>        <span class="php-var">$this</span>-&gt;filter-&gt;to_xml();
+</span><span id="222" class="l"><a href="#222">222 </a>    }
+</span><span id="223" class="l"><a href="#223">223 </a>
+</span><span id="224" class="l"><a href="#224">224 </a>    <span class="php-comment">/*****************************************************************************
+</span></span><span id="225" class="l"><a href="#225">225 </a><span class="php-comment">     * Wrapper methods for requests ( GET / POST )
+</span></span><span id="226" class="l"><a href="#226">226 </a><span class="php-comment">     ****************************************************************************/</span>
+</span><span id="227" class="l"><a href="#227">227 </a>
+</span><span id="228" class="l"><a href="#228">228 </a>    <span class="php-comment">/**
+</span></span><span id="229" class="l"><a href="#229">229 </a><span class="php-comment">     * Makes a `GET` Request
+</span></span><span id="230" class="l"><a href="#230">230 </a><span class="php-comment">     *
+</span></span><span id="231" class="l"><a href="#231">231 </a><span class="php-comment">     * This method is good for simple `GET` requests. By default, requests are cached for
+</span></span><span id="232" class="l"><a href="#232">232 </a><span class="php-comment">     * 600 seconds (ten minutes), and all options are passed via the `$options` array. Here
+</span></span><span id="233" class="l"><a href="#233">233 </a><span class="php-comment">     * are the options:
+</span></span><span id="234" class="l"><a href="#234">234 </a><span class="php-comment">     *  params     (array as $key =&gt; $value)
+</span></span><span id="235" class="l"><a href="#235">235 </a><span class="php-comment">     *  auth       (array as [ username, password ] )
+</span></span><span id="236" class="l"><a href="#236">236 </a><span class="php-comment">     *  user_agent (string)
+</span></span><span id="237" class="l"><a href="#237">237 </a><span class="php-comment">     *  headers    (array as list of headers to add)
+</span></span><span id="238" class="l"><a href="#238">238 </a><span class="php-comment">     *
+</span></span><span id="239" class="l"><a href="#239">239 </a><span class="php-comment">     * Set only the options that you need.
+</span></span><span id="240" class="l"><a href="#240">240 </a><span class="php-comment">     *
+</span></span><span id="241" class="l"><a href="#241">241 </a><span class="php-comment">     * To turn caching off, just set `$cache_ttl` to 0.
+</span></span><span id="242" class="l"><a href="#242">242 </a><span class="php-comment">     *
+</span></span><span id="243" class="l"><a href="#243">243 </a><span class="php-comment">     * The `$cache_bin` is the subfolder within the workflow's cache folder. If set to `true`,
+</span></span><span id="244" class="l"><a href="#244">244 </a><span class="php-comment">     * then the cache bin will be named after the hostname of the URL. So, if you are requesting
+</span></span><span id="245" class="l"><a href="#245">245 </a><span class="php-comment">     * something from `http://api.github.com/v3/shawnrice/repos`, the `cache bin` would be
+</span></span><span id="246" class="l"><a href="#246">246 </a><span class="php-comment">     * `api.github.com`. If you were requesting `http://www.google.com`, then the `cache bin`
+</span></span><span id="247" class="l"><a href="#247">247 </a><span class="php-comment">     * would be `www.google.com`.
+</span></span><span id="248" class="l"><a href="#248">248 </a><span class="php-comment">     *
+</span></span><span id="249" class="l"><a href="#249">249 </a><span class="php-comment">     * @uses Alphred\Request
+</span></span><span id="250" class="l"><a href="#250">250 </a><span class="php-comment">     *
+</span></span><span id="251" class="l"><a href="#251">251 </a><span class="php-comment">     * @param  string               $url       the URL
+</span></span><span id="252" class="l"><a href="#252">252 </a><span class="php-comment">     * @param  array|boolean  $options   an array of options for the request
+</span></span><span id="253" class="l"><a href="#253">253 </a><span class="php-comment">     * @param  integer              $cache_ttl cache time to live in seconds
+</span></span><span id="254" class="l"><a href="#254">254 </a><span class="php-comment">     * @param  string|boolean $cache_bin cache bin
+</span></span><span id="255" class="l"><a href="#255">255 </a><span class="php-comment">     * @return string         the results
+</span></span><span id="256" class="l"><a href="#256">256 </a><span class="php-comment">     */</span>
+</span><span id="257" class="l"><a href="#257">257 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> get( <span class="php-var">$url</span>, <span class="php-var">$options</span> = <span class="php-keyword1">false</span>, <span class="php-var">$cache_ttl</span> = <span class="php-num">600</span>, <span class="php-var">$cache_bin</span> = <span class="php-keyword1">true</span> ) {
+</span><span id="258" class="l"><a href="#258">258 </a>        <span class="php-var">$request</span> = <span class="php-var">$this</span>-&gt;create_request( <span class="php-var">$url</span>, <span class="php-var">$options</span>, <span class="php-var">$cache_ttl</span>, <span class="php-var">$cache_bin</span>, <span class="php-quote">'get'</span> );
+</span><span id="259" class="l"><a href="#259">259 </a>        <span class="php-keyword1">return</span> <span class="php-var">$request</span>-&gt;execute();
+</span><span id="260" class="l"><a href="#260">260 </a>    }
+</span><span id="261" class="l"><a href="#261">261 </a>
+</span><span id="262" class="l"><a href="#262">262 </a>    <span class="php-comment">/**
+</span></span><span id="263" class="l"><a href="#263">263 </a><span class="php-comment">     * Makes a `POST` request
+</span></span><span id="264" class="l"><a href="#264">264 </a><span class="php-comment">     *
+</span></span><span id="265" class="l"><a href="#265">265 </a><span class="php-comment">     * @see Alphred::get() See `get()` for details. The method is basically the same.
+</span></span><span id="266" class="l"><a href="#266">266 </a><span class="php-comment">     *
+</span></span><span id="267" class="l"><a href="#267">267 </a><span class="php-comment">     * @uses Alphred\Request
+</span></span><span id="268" class="l"><a href="#268">268 </a><span class="php-comment">     *
+</span></span><span id="269" class="l"><a href="#269">269 </a><span class="php-comment">     * @param  string               $url       [description]
+</span></span><span id="270" class="l"><a href="#270">270 </a><span class="php-comment">     * @param  array|boolean  $options   an array of options for the request
+</span></span><span id="271" class="l"><a href="#271">271 </a><span class="php-comment">     * @param  integer              $cache_ttl cache time to live in seconds
+</span></span><span id="272" class="l"><a href="#272">272 </a><span class="php-comment">     * @param  string|boolean $cache_bin cache bin
+</span></span><span id="273" class="l"><a href="#273">273 </a><span class="php-comment">     * @return string         the results
+</span></span><span id="274" class="l"><a href="#274">274 </a><span class="php-comment">     */</span>
+</span><span id="275" class="l"><a href="#275">275 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> post( <span class="php-var">$url</span>, <span class="php-var">$options</span> = <span class="php-keyword1">false</span>, <span class="php-var">$cache_ttl</span> = <span class="php-num">600</span>, <span class="php-var">$cache_bin</span> = <span class="php-keyword1">true</span> ) {
+</span><span id="276" class="l"><a href="#276">276 </a>        <span class="php-var">$request</span> = <span class="php-var">$this</span>-&gt;create_request( <span class="php-var">$url</span>, <span class="php-var">$options</span>, <span class="php-var">$cache_ttl</span>, <span class="php-var">$cache_bin</span>, <span class="php-quote">'post'</span> );
+</span><span id="277" class="l"><a href="#277">277 </a>        <span class="php-keyword1">return</span> <span class="php-var">$request</span>-&gt;execute();
+</span><span id="278" class="l"><a href="#278">278 </a>    }
+</span><span id="279" class="l"><a href="#279">279 </a>
+</span><span id="280" class="l"><a href="#280">280 </a>    <span class="php-comment">/**
+</span></span><span id="281" class="l"><a href="#281">281 </a><span class="php-comment">     * Creates a request object
+</span></span><span id="282" class="l"><a href="#282">282 </a><span class="php-comment">     *
+</span></span><span id="283" class="l"><a href="#283">283 </a><span class="php-comment">     * @param  string               $url       the URL
+</span></span><span id="284" class="l"><a href="#284">284 </a><span class="php-comment">     * @param  array|boolean  $options   an array of options for the request
+</span></span><span id="285" class="l"><a href="#285">285 </a><span class="php-comment">     * @param  integer              $cache_ttl cache time to live in seconds
+</span></span><span id="286" class="l"><a href="#286">286 </a><span class="php-comment">     * @param  string|boolean $cache_bin cache bin
+</span></span><span id="287" class="l"><a href="#287">287 </a><span class="php-comment">     * @param  string               $type      either `get` or `post`
+</span></span><span id="288" class="l"><a href="#288">288 </a><span class="php-comment">     * @return Alphred\Request           the request object
+</span></span><span id="289" class="l"><a href="#289">289 </a><span class="php-comment">     */</span>
+</span><span id="290" class="l"><a href="#290">290 </a>    <span class="php-keyword1">private</span> <span class="php-keyword1">function</span> create_request( <span class="php-var">$url</span>, <span class="php-var">$options</span>, <span class="php-var">$cache_ttl</span>, <span class="php-var">$cache_bin</span>, <span class="php-var">$type</span> ) {
+</span><span id="291" class="l"><a href="#291">291 </a>
+</span><span id="292" class="l"><a href="#292">292 </a>        <span class="php-keyword1">if</span> ( <span class="php-var">$cache_ttl</span> &gt; <span class="php-num">0</span> ) {
+</span><span id="293" class="l"><a href="#293">293 </a>            <span class="php-comment">// Create an object with caching on</span>
+</span><span id="294" class="l"><a href="#294">294 </a>            <span class="php-var">$request</span> = <span class="php-keyword1">new</span> Alphred\Request( <span class="php-var">$url</span>, [ <span class="php-quote">'cache'</span> =&gt; <span class="php-keyword1">true</span>,
+</span><span id="295" class="l"><a href="#295">295 </a>                                                            <span class="php-quote">'cache_ttl'</span> =&gt; <span class="php-var">$cache_ttl</span>,
+</span><span id="296" class="l"><a href="#296">296 </a>                                                            <span class="php-quote">'cache_bin'</span> =&gt; <span class="php-var">$cache_bin</span> ] );
+</span><span id="297" class="l"><a href="#297">297 </a>        } <span class="php-keyword1">else</span> {
+</span><span id="298" class="l"><a href="#298">298 </a>            <span class="php-comment">// Create an object with caching off</span>
+</span><span id="299" class="l"><a href="#299">299 </a>            <span class="php-var">$request</span> = <span class="php-keyword1">new</span> Alphred\Request( <span class="php-var">$url</span>, [ <span class="php-quote">'cache'</span> =&gt; <span class="php-keyword1">false</span> ] );
+</span><span id="300" class="l"><a href="#300">300 </a>        }
+</span><span id="301" class="l"><a href="#301">301 </a>        <span class="php-comment">// Set it to `POST` if that's what they want</span>
+</span><span id="302" class="l"><a href="#302">302 </a>        <span class="php-keyword1">if</span> ( <span class="php-quote">'post'</span> == <span class="php-var">$type</span> ) {
+</span><span id="303" class="l"><a href="#303">303 </a>            <span class="php-var">$request</span>-&gt;use_post();
+</span><span id="304" class="l"><a href="#304">304 </a>        }
+</span><span id="305" class="l"><a href="#305">305 </a>        <span class="php-comment">// If there are options, then go through them and set everything</span>
+</span><span id="306" class="l"><a href="#306">306 </a>        <span class="php-keyword1">if</span> ( <span class="php-var">$options</span> ) {
+</span><span id="307" class="l"><a href="#307">307 </a>            <span class="php-keyword1">if</span> ( <span class="php-keyword1">isset</span>( <span class="php-var">$options</span>[<span class="php-quote">'params'</span>] ) ) {
+</span><span id="308" class="l"><a href="#308">308 </a>                <span class="php-keyword1">if</span> ( ! <span class="php-keyword2">is_array</span>( <span class="php-var">$options</span>[<span class="php-quote">'params'</span>] ) ) {
+</span><span id="309" class="l"><a href="#309">309 </a>                    <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> Alphred\Exception( <span class="php-quote">'Parameters must be passed as an array'</span>, <span class="php-num">4</span> );
+</span><span id="310" class="l"><a href="#310">310 </a>                }
+</span><span id="311" class="l"><a href="#311">311 </a>                <span class="php-comment">// Add the parameters</span>
+</span><span id="312" class="l"><a href="#312">312 </a>                <span class="php-var">$request</span>-&gt;add_parameters( <span class="php-var">$options</span>[<span class="php-quote">'params'</span>] );
+</span><span id="313" class="l"><a href="#313">313 </a>            }
+</span><span id="314" class="l"><a href="#314">314 </a>            <span class="php-comment">// For basic http authentication</span>
+</span><span id="315" class="l"><a href="#315">315 </a>            <span class="php-keyword1">if</span> ( <span class="php-keyword1">isset</span>( <span class="php-var">$options</span>[<span class="php-quote">'auth'</span>] ) ) {
+</span><span id="316" class="l"><a href="#316">316 </a>                <span class="php-comment">// Make sure that there are two options in the auth array</span>
+</span><span id="317" class="l"><a href="#317">317 </a>                <span class="php-keyword1">if</span> ( ! <span class="php-keyword2">is_array</span>( <span class="php-var">$options</span>[<span class="php-quote">'auth'</span>] ) || ( <span class="php-num">2</span> !== <span class="php-keyword2">count</span>( <span class="php-var">$options</span>[<span class="php-quote">'auth'</span>] ) ) ) {
+</span><span id="318" class="l"><a href="#318">318 </a>                    <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> Alphred\Exception( <span class="php-quote">'You need two arguments in the auth array.'</span>, <span class="php-num">4</span> );
+</span><span id="319" class="l"><a href="#319">319 </a>                }
+</span><span id="320" class="l"><a href="#320">320 </a>                <span class="php-comment">// Set the options</span>
+</span><span id="321" class="l"><a href="#321">321 </a>                <span class="php-var">$request</span>-&gt;set_auth( <span class="php-var">$options</span>[<span class="php-quote">'auth'</span>][<span class="php-num">0</span>], <span class="php-var">$options</span>[<span class="php-quote">'auth'</span>][<span class="php-num">1</span>] );
+</span><span id="322" class="l"><a href="#322">322 </a>            }
+</span><span id="323" class="l"><a href="#323">323 </a>            <span class="php-comment">// If we need a user agent</span>
+</span><span id="324" class="l"><a href="#324">324 </a>            <span class="php-keyword1">if</span> ( <span class="php-keyword1">isset</span>( <span class="php-var">$options</span>[<span class="php-quote">'user_agent'</span>] ) ) {
+</span><span id="325" class="l"><a href="#325">325 </a>                <span class="php-comment">// Make sure that the user agent is a string</span>
+</span><span id="326" class="l"><a href="#326">326 </a>                <span class="php-keyword1">if</span> ( ! <span class="php-keyword2">is_string</span>( <span class="php-var">$options</span>[<span class="php-quote">'user_agent'</span>] ) ) {
+</span><span id="327" class="l"><a href="#327">327 </a>                    <span class="php-comment">// It's not, so throw an exception</span>
+</span><span id="328" class="l"><a href="#328">328 </a>                    <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> Alphred\Exception( <span class="php-quote">'The user agent must be a string'</span>, <span class="php-num">4</span> );
+</span><span id="329" class="l"><a href="#329">329 </a>                }
+</span><span id="330" class="l"><a href="#330">330 </a>                <span class="php-comment">// Set the user agent</span>
+</span><span id="331" class="l"><a href="#331">331 </a>                <span class="php-var">$request</span>-&gt;set_user_agent( <span class="php-var">$options</span>[<span class="php-quote">'user_agent'</span>] );
+</span><span id="332" class="l"><a href="#332">332 </a>            }
+</span><span id="333" class="l"><a href="#333">333 </a>            <span class="php-comment">// If we need to add headers</span>
+</span><span id="334" class="l"><a href="#334">334 </a>            <span class="php-keyword1">if</span> ( <span class="php-keyword1">isset</span>( <span class="php-var">$options</span>[<span class="php-quote">'headers'</span>] ) ) {
+</span><span id="335" class="l"><a href="#335">335 </a>                <span class="php-keyword1">if</span> ( ! <span class="php-keyword2">is_array</span>( <span class="php-var">$options</span>[<span class="php-quote">'headers'</span>] ) ) {
+</span><span id="336" class="l"><a href="#336">336 </a>                    <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> Alphred\Exception( <span class="php-quote">'Headers must be passed as an array'</span>, <span class="php-num">4</span> );
+</span><span id="337" class="l"><a href="#337">337 </a>                } <span class="php-keyword1">else</span> {
+</span><span id="338" class="l"><a href="#338">338 </a>                    <span class="php-var">$request</span>-&gt;set_headers( <span class="php-var">$options</span>[<span class="php-quote">'headers'</span>] );
+</span><span id="339" class="l"><a href="#339">339 </a>                }
+</span><span id="340" class="l"><a href="#340">340 </a>            }
+</span><span id="341" class="l"><a href="#341">341 </a>        }
+</span><span id="342" class="l"><a href="#342">342 </a>        <span class="php-keyword1">return</span> <span class="php-var">$request</span>;
+</span><span id="343" class="l"><a href="#343">343 </a>    }
+</span><span id="344" class="l"><a href="#344">344 </a>
+</span><span id="345" class="l"><a href="#345">345 </a>    <span class="php-comment">/**
+</span></span><span id="346" class="l"><a href="#346">346 </a><span class="php-comment">     * Clears a cache bin
+</span></span><span id="347" class="l"><a href="#347">347 </a><span class="php-comment">     *
+</span></span><span id="348" class="l"><a href="#348">348 </a><span class="php-comment">     * Clears a cache bin. If you send it with no argument (i.e.: `$bin = false`), then
+</span></span><span id="349" class="l"><a href="#349">349 </a><span class="php-comment">     * it will attempt to clear the workflow's cache directory. Note: this will throw an
+</span></span><span id="350" class="l"><a href="#350">350 </a><span class="php-comment">     * exception if it encounters a sub-directory. While it would be easy to make this
+</span></span><span id="351" class="l"><a href="#351">351 </a><span class="php-comment">     * function clear sub-directories, it shouldn't. If you are storing data other than responses
+</span></span><span id="352" class="l"><a href="#352">352 </a><span class="php-comment">     * in your cache directory, then use a cache-bin with the requests.
+</span></span><span id="353" class="l"><a href="#353">353 </a><span class="php-comment">     *
+</span></span><span id="354" class="l"><a href="#354">354 </a><span class="php-comment">     * @since 1.0.0
+</span></span><span id="355" class="l"><a href="#355">355 </a><span class="php-comment">     * @throws Alphred\Exception when encountering a sub-directory
+</span></span><span id="356" class="l"><a href="#356">356 </a><span class="php-comment">     * @uses Alphred\Request::clear_cache()
+</span></span><span id="357" class="l"><a href="#357">357 </a><span class="php-comment">     *
+</span></span><span id="358" class="l"><a href="#358">358 </a><span class="php-comment">     * @param  string|boolean $bin the cache bin to clear
+</span></span><span id="359" class="l"><a href="#359">359 </a><span class="php-comment">     * @return null
+</span></span><span id="360" class="l"><a href="#360">360 </a><span class="php-comment">     */</span>
+</span><span id="361" class="l"><a href="#361">361 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> clear_cache( <span class="php-var">$bin</span> = <span class="php-keyword1">false</span> ) {
+</span><span id="362" class="l"><a href="#362">362 </a>        <span class="php-keyword1">return</span> Alphred\Request::clear_cache( <span class="php-var">$bin</span> );
+</span><span id="363" class="l"><a href="#363">363 </a>    }
+</span><span id="364" class="l"><a href="#364">364 </a>
+</span><span id="365" class="l"><a href="#365">365 </a>
+</span><span id="366" class="l"><a href="#366">366 </a>    <span class="php-comment">/*****************************************************************************
+</span></span><span id="367" class="l"><a href="#367">367 </a><span class="php-comment">     * Config functionality
+</span></span><span id="368" class="l"><a href="#368">368 </a><span class="php-comment">     ****************************************************************************/</span>
+</span><span id="369" class="l"><a href="#369">369 </a>
+</span><span id="370" class="l"><a href="#370">370 </a>    <span class="php-comment">/**
+</span></span><span id="371" class="l"><a href="#371">371 </a><span class="php-comment">     * Reads a configuration value
+</span></span><span id="372" class="l"><a href="#372">372 </a><span class="php-comment">     *
+</span></span><span id="373" class="l"><a href="#373">373 </a><span class="php-comment">     * @param  string $key      name of key
+</span></span><span id="374" class="l"><a href="#374">374 </a><span class="php-comment">     * @return mixed            the value of the key or null if not set
+</span></span><span id="375" class="l"><a href="#375">375 </a><span class="php-comment">     */</span>
+</span><span id="376" class="l"><a href="#376">376 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> config_read( <span class="php-var">$key</span> ) {
+</span><span id="377" class="l"><a href="#377">377 </a>        <span class="php-keyword1">try</span> {
+</span><span id="378" class="l"><a href="#378">378 </a>            <span class="php-comment">// Try to read it, and catch the exception if it is not set</span>
+</span><span id="379" class="l"><a href="#379">379 </a>            <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;config-&gt;read( <span class="php-var">$key</span> );
+</span><span id="380" class="l"><a href="#380">380 </a>        } <span class="php-keyword1">catch</span> ( Alphred\ConfigKeyNotSet <span class="php-var">$e</span> ) {
+</span><span id="381" class="l"><a href="#381">381 </a>            <span class="php-comment">// There is nothing, so return null</span>
+</span><span id="382" class="l"><a href="#382">382 </a>            <span class="php-keyword1">return</span> <span class="php-keyword1">null</span>;
+</span><span id="383" class="l"><a href="#383">383 </a>        }
+</span><span id="384" class="l"><a href="#384">384 </a>    }
+</span><span id="385" class="l"><a href="#385">385 </a>
+</span><span id="386" class="l"><a href="#386">386 </a>    <span class="php-comment">/**
+</span></span><span id="387" class="l"><a href="#387">387 </a><span class="php-comment">     * Sets a configuration value
+</span></span><span id="388" class="l"><a href="#388">388 </a><span class="php-comment">     *
+</span></span><span id="389" class="l"><a href="#389">389 </a><span class="php-comment">     * @param  string  $key      the name of the key
+</span></span><span id="390" class="l"><a href="#390">390 </a><span class="php-comment">     * @param  mixed   $value    the value for the key
+</span></span><span id="391" class="l"><a href="#391">391 </a><span class="php-comment">     */</span>
+</span><span id="392" class="l"><a href="#392">392 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> config_set( <span class="php-var">$key</span>, <span class="php-var">$value</span> ) {
+</span><span id="393" class="l"><a href="#393">393 </a>        <span class="php-var">$this</span>-&gt;config-&gt;set( <span class="php-var">$key</span>, <span class="php-var">$value</span> );
+</span><span id="394" class="l"><a href="#394">394 </a>    }
+</span><span id="395" class="l"><a href="#395">395 </a>
+</span><span id="396" class="l"><a href="#396">396 </a>    <span class="php-comment">/**
+</span></span><span id="397" class="l"><a href="#397">397 </a><span class="php-comment">     * Deletes a config value
+</span></span><span id="398" class="l"><a href="#398">398 </a><span class="php-comment">     *
+</span></span><span id="399" class="l"><a href="#399">399 </a><span class="php-comment">     * @param  string  $key      name of the key
+</span></span><span id="400" class="l"><a href="#400">400 </a><span class="php-comment">     */</span>
+</span><span id="401" class="l"><a href="#401">401 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> config_delete( <span class="php-var">$key</span> ) {
+</span><span id="402" class="l"><a href="#402">402 </a>        <span class="php-var">$this</span>-&gt;config-&gt;<span class="php-keyword2">delete</span>( <span class="php-var">$key</span> );
+</span><span id="403" class="l"><a href="#403">403 </a>    }
+</span><span id="404" class="l"><a href="#404">404 </a>
+</span><span id="405" class="l"><a href="#405">405 </a>    <span class="php-comment">/**
+</span></span><span id="406" class="l"><a href="#406">406 </a><span class="php-comment">     * Sends a system notification
+</span></span><span id="407" class="l"><a href="#407">407 </a><span class="php-comment">     *
+</span></span><span id="408" class="l"><a href="#408">408 </a><span class="php-comment">     * Use this for async notifications or when running code in the background. If you want
+</span></span><span id="409" class="l"><a href="#409">409 </a><span class="php-comment">     * regular &quot;end-of-workflow&quot; notifications, then use Alfred's built-in set.
+</span></span><span id="410" class="l"><a href="#410">410 </a><span class="php-comment">     *
+</span></span><span id="411" class="l"><a href="#411">411 </a><span class="php-comment">     * Since this uses AppleScript notifications, all of them will, unfortunately, have the
+</span></span><span id="412" class="l"><a href="#412">412 </a><span class="php-comment">     * icon for Script Editor in them, and this is not replaceable. If you want more control
+</span></span><span id="413" class="l"><a href="#413">413 </a><span class="php-comment">     * over your notifications, then use something like CocoaDialog or Terminal-Notifier.
+</span></span><span id="414" class="l"><a href="#414">414 </a><span class="php-comment">     *
+</span></span><span id="415" class="l"><a href="#415">415 </a><span class="php-comment">     * @since 1.0.0
+</span></span><span id="416" class="l"><a href="#416">416 </a><span class="php-comment">     * @uses Alphred\Notification::notify()
+</span></span><span id="417" class="l"><a href="#417">417 </a><span class="php-comment">     * @todo Check that return value is correct
+</span></span><span id="418" class="l"><a href="#418">418 </a><span class="php-comment">     * @see Alphred\Notification::notify() For more information on how to call with the correct options.
+</span></span><span id="419" class="l"><a href="#419">419 </a><span class="php-comment">     *
+</span></span><span id="420" class="l"><a href="#420">420 </a><span class="php-comment">     * @param  array $options   the list of options to construct the notification
+</span></span><span id="421" class="l"><a href="#421">421 </a><span class="php-comment">     * @return boolean          success
+</span></span><span id="422" class="l"><a href="#422">422 </a><span class="php-comment">     */</span>
+</span><span id="423" class="l"><a href="#423">423 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> send_notification( <span class="php-var">$options</span> ) {
+</span><span id="424" class="l"><a href="#424">424 </a>        <span class="php-keyword1">return</span> \Alphred\Notification::notify( <span class="php-var">$options</span> );
+</span><span id="425" class="l"><a href="#425">425 </a>    }
+</span><span id="426" class="l"><a href="#426">426 </a>
+</span><span id="427" class="l"><a href="#427">427 </a>
+</span><span id="428" class="l"><a href="#428">428 </a>    <span class="php-comment">/*****************************************************************************
+</span></span><span id="429" class="l"><a href="#429">429 </a><span class="php-comment">     * Keychain Wrapper functions
+</span></span><span id="430" class="l"><a href="#430">430 </a><span class="php-comment">     ****************************************************************************/</span>
+</span><span id="431" class="l"><a href="#431">431 </a>
+</span><span id="432" class="l"><a href="#432">432 </a>    <span class="php-comment">/**
+</span></span><span id="433" class="l"><a href="#433">433 </a><span class="php-comment">     * Gets a password from the keychain
+</span></span><span id="434" class="l"><a href="#434">434 </a><span class="php-comment">     *
+</span></span><span id="435" class="l"><a href="#435">435 </a><span class="php-comment">     * @uses \Alphred\Keychain::find_password()
+</span></span><span id="436" class="l"><a href="#436">436 </a><span class="php-comment">     *
+</span></span><span id="437" class="l"><a href="#437">437 </a><span class="php-comment">     * @param  string  $account the name of the account (key) for the password
+</span></span><span id="438" class="l"><a href="#438">438 </a><span class="php-comment">     * @return string|boolean   the password or false if not found
+</span></span><span id="439" class="l"><a href="#439">439 </a><span class="php-comment">     */</span>
+</span><span id="440" class="l"><a href="#440">440 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> get_password( <span class="php-var">$account</span> ) {
+</span><span id="441" class="l"><a href="#441">441 </a>        <span class="php-comment">// \Alphred\Keychain::find_password throws an exception when the password does not</span>
+</span><span id="442" class="l"><a href="#442">442 </a>        <span class="php-comment">// exist. This wrapper returns false if the password has not been found.</span>
+</span><span id="443" class="l"><a href="#443">443 </a>        <span class="php-keyword1">try</span> {
+</span><span id="444" class="l"><a href="#444">444 </a>            <span class="php-keyword1">return</span> \Alphred\Keychain::find_password( <span class="php-var">$account</span>, <span class="php-keyword1">null</span> );
+</span><span id="445" class="l"><a href="#445">445 </a>        } <span class="php-keyword1">catch</span> ( \Alphred\PasswordNotFound <span class="php-var">$e</span> ) {
+</span><span id="446" class="l"><a href="#446">446 </a>            \Alphred\<span class="php-keyword2">Log</span>::console( <span class="php-quote">&quot;No password for account `</span><span class="php-var">{$account}</span><span class="php-quote">` was found. Returning false.&quot;</span>, <span class="php-num">2</span> );
+</span><span id="447" class="l"><a href="#447">447 </a>            <span class="php-keyword1">return</span> <span class="php-keyword1">false</span>;
+</span><span id="448" class="l"><a href="#448">448 </a>        }
+</span><span id="449" class="l"><a href="#449">449 </a>    }
+</span><span id="450" class="l"><a href="#450">450 </a>
+</span><span id="451" class="l"><a href="#451">451 </a>    <span class="php-comment">/**
+</span></span><span id="452" class="l"><a href="#452">452 </a><span class="php-comment">     * Deletes a password from the keychain
+</span></span><span id="453" class="l"><a href="#453">453 </a><span class="php-comment">     *
+</span></span><span id="454" class="l"><a href="#454">454 </a><span class="php-comment">     * @uses \Alphred\Keychain::delete_password()
+</span></span><span id="455" class="l"><a href="#455">455 </a><span class="php-comment">     *
+</span></span><span id="456" class="l"><a href="#456">456 </a><span class="php-comment">     * @param  string  $account the name of the account (key) for the password
+</span></span><span id="457" class="l"><a href="#457">457 </a><span class="php-comment">     * @return boolean          true if it existed and was deleted, false if it didn't exist
+</span></span><span id="458" class="l"><a href="#458">458 </a><span class="php-comment">     */</span>
+</span><span id="459" class="l"><a href="#459">459 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> delete_password( <span class="php-var">$account</span> ) {
+</span><span id="460" class="l"><a href="#460">460 </a>        <span class="php-keyword1">return</span> \Alphred\Keychain::delete_password( <span class="php-var">$account</span>, <span class="php-keyword1">null</span> );
+</span><span id="461" class="l"><a href="#461">461 </a>    }
+</span><span id="462" class="l"><a href="#462">462 </a>
+</span><span id="463" class="l"><a href="#463">463 </a>    <span class="php-comment">/**
+</span></span><span id="464" class="l"><a href="#464">464 </a><span class="php-comment">     * Saves a password to the keychain
+</span></span><span id="465" class="l"><a href="#465">465 </a><span class="php-comment">     *
+</span></span><span id="466" class="l"><a href="#466">466 </a><span class="php-comment">     * @uses \Alphred\Keychain::save_password()
+</span></span><span id="467" class="l"><a href="#467">467 </a><span class="php-comment">     *
+</span></span><span id="468" class="l"><a href="#468">468 </a><span class="php-comment">     * @param  string  $account  the name of the account (key) for the password
+</span></span><span id="469" class="l"><a href="#469">469 </a><span class="php-comment">     * @param  string  $password the password
+</span></span><span id="470" class="l"><a href="#470">470 </a><span class="php-comment">     * @return boolean
+</span></span><span id="471" class="l"><a href="#471">471 </a><span class="php-comment">     */</span>
+</span><span id="472" class="l"><a href="#472">472 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> save_password( <span class="php-var">$account</span>, <span class="php-var">$password</span> ) {
+</span><span id="473" class="l"><a href="#473">473 </a>        <span class="php-keyword1">return</span> \Alphred\Keychain::save_password( <span class="php-var">$account</span>, <span class="php-var">$password</span>, <span class="php-keyword1">true</span>, <span class="php-keyword1">null</span> );
+</span><span id="474" class="l"><a href="#474">474 </a>    }
+</span><span id="475" class="l"><a href="#475">475 </a>
+</span><span id="476" class="l"><a href="#476">476 </a>    <span class="php-comment">/**
+</span></span><span id="477" class="l"><a href="#477">477 </a><span class="php-comment">     * Creates an AppleScript dialog to enter a password securely
+</span></span><span id="478" class="l"><a href="#478">478 </a><span class="php-comment">     *
+</span></span><span id="479" class="l"><a href="#479">479 </a><span class="php-comment">     * Note: this will return 'canceled' if the user presses the 'cancel' button
+</span></span><span id="480" class="l"><a href="#480">480 </a><span class="php-comment">     *
+</span></span><span id="481" class="l"><a href="#481">481 </a><span class="php-comment">     * @uses Alphred\Dialog
+</span></span><span id="482" class="l"><a href="#482">482 </a><span class="php-comment">     *
+</span></span><span id="483" class="l"><a href="#483">483 </a><span class="php-comment">     * @param  string|boolean $text         the text for the dialog
+</span></span><span id="484" class="l"><a href="#484">484 </a><span class="php-comment">     * @param  string|boolean $title        the title of the dialog; defaults to the workflow name
+</span></span><span id="485" class="l"><a href="#485">485 </a><span class="php-comment">     * @param  string|boolean $icon         An icon to use with the dialog box
+</span></span><span id="486" class="l"><a href="#486">486 </a><span class="php-comment">     * @return string         the result of the user-input
+</span></span><span id="487" class="l"><a href="#487">487 </a><span class="php-comment">     */</span>
+</span><span id="488" class="l"><a href="#488">488 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> get_password_dialog( <span class="php-var">$text</span> = <span class="php-keyword1">false</span>, <span class="php-var">$title</span> = <span class="php-keyword1">false</span>, <span class="php-var">$icon</span> = <span class="php-keyword1">false</span> ) {
+</span><span id="489" class="l"><a href="#489">489 </a>        <span class="php-comment">// Set the default text</span>
+</span><span id="490" class="l"><a href="#490">490 </a>        <span class="php-keyword1">if</span> ( ! <span class="php-var">$text</span> ) {
+</span><span id="491" class="l"><a href="#491">491 </a>            <span class="php-var">$text</span> = <span class="php-quote">'Please enter the password.'</span>;
+</span><span id="492" class="l"><a href="#492">492 </a>        }
+</span><span id="493" class="l"><a href="#493">493 </a>        <span class="php-comment">// Set the default title to be that of the workflow's name</span>
+</span><span id="494" class="l"><a href="#494">494 </a>        <span class="php-keyword1">if</span> ( ! <span class="php-var">$title</span> ) {
+</span><span id="495" class="l"><a href="#495">495 </a>            <span class="php-var">$title</span> = \Alphred\Globals::get( <span class="php-quote">'alfred_workflow_name'</span> );
+</span><span id="496" class="l"><a href="#496">496 </a>        }
+</span><span id="497" class="l"><a href="#497">497 </a>        <span class="php-comment">// Create hidden answer AppleScript dialog</span>
+</span><span id="498" class="l"><a href="#498">498 </a>        <span class="php-var">$dialog</span> = <span class="php-keyword1">new</span> \Alphred\Dialog([
+</span><span id="499" class="l"><a href="#499">499 </a>          <span class="php-quote">'text'</span> =&gt; <span class="php-var">$text</span>,
+</span><span id="500" class="l"><a href="#500">500 </a>          <span class="php-quote">'title'</span> =&gt; <span class="php-var">$title</span>,
+</span><span id="501" class="l"><a href="#501">501 </a>          <span class="php-quote">'default_answer'</span> =&gt; <span class="php-quote">''</span>,
+</span><span id="502" class="l"><a href="#502">502 </a>          <span class="php-quote">'hidden_answer'</span> =&gt; <span class="php-keyword1">true</span>
+</span><span id="503" class="l"><a href="#503">503 </a>        ]);
+</span><span id="504" class="l"><a href="#504">504 </a>        <span class="php-comment">// If there was an icon, then set it</span>
+</span><span id="505" class="l"><a href="#505">505 </a>        <span class="php-keyword1">if</span> ( <span class="php-var">$icon</span> ) {
+</span><span id="506" class="l"><a href="#506">506 </a>            <span class="php-var">$dialog</span>-&gt;set_icon( <span class="php-var">$icon</span> );
+</span><span id="507" class="l"><a href="#507">507 </a>        }
+</span><span id="508" class="l"><a href="#508">508 </a>        <span class="php-comment">// Execute the dialog and return the result</span>
+</span><span id="509" class="l"><a href="#509">509 </a>        <span class="php-keyword1">return</span> <span class="php-var">$dialog</span>-&gt;execute();
+</span><span id="510" class="l"><a href="#510">510 </a>    }
+</span><span id="511" class="l"><a href="#511">511 </a>
+</span><span id="512" class="l"><a href="#512">512 </a>    <span class="php-comment">/*****************************************************************************
+</span></span><span id="513" class="l"><a href="#513">513 </a><span class="php-comment">     * Logging Functions
+</span></span><span id="514" class="l"><a href="#514">514 </a><span class="php-comment">     ****************************************************************************/</span>
+</span><span id="515" class="l"><a href="#515">515 </a>
+</span><span id="516" class="l"><a href="#516">516 </a>    <span class="php-comment">/**
+</span></span><span id="517" class="l"><a href="#517">517 </a><span class="php-comment">     * Sends a log message to the console
+</span></span><span id="518" class="l"><a href="#518">518 </a><span class="php-comment">     *
+</span></span><span id="519" class="l"><a href="#519">519 </a><span class="php-comment">     * If the log level is set higher than the level that this function is called with,
+</span></span><span id="520" class="l"><a href="#520">520 </a><span class="php-comment">     * then nothing will happen.
+</span></span><span id="521" class="l"><a href="#521">521 </a><span class="php-comment">     *
+</span></span><span id="522" class="l"><a href="#522">522 </a><span class="php-comment">     * @see \Alphred\Log::console() More information on the console log
+</span></span><span id="523" class="l"><a href="#523">523 </a><span class="php-comment">     * @uses \Alphred\Log
+</span></span><span id="524" class="l"><a href="#524">524 </a><span class="php-comment">     *
+</span></span><span id="525" class="l"><a href="#525">525 </a><span class="php-comment">     * @param  string                   $message the message to log
+</span></span><span id="526" class="l"><a href="#526">526 </a><span class="php-comment">     * @param  string|integer   $level   the log level
+</span></span><span id="527" class="l"><a href="#527">527 </a><span class="php-comment">     * @param  integer|boolean  $trace   how far to go in the stacktrace. Defaults to the last level.
+</span></span><span id="528" class="l"><a href="#528">528 </a><span class="php-comment">     * @return mixed            default returns nothing
+</span></span><span id="529" class="l"><a href="#529">529 </a><span class="php-comment">     */</span>
+</span><span id="530" class="l"><a href="#530">530 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> console( <span class="php-var">$message</span>, <span class="php-var">$level</span> = <span class="php-quote">'INFO'</span>, <span class="php-var">$trace</span> = <span class="php-keyword1">false</span> ) {
+</span><span id="531" class="l"><a href="#531">531 </a>        \Alphred\<span class="php-keyword2">Log</span>::console( <span class="php-var">$message</span>, <span class="php-var">$level</span>, <span class="php-var">$trace</span> );
+</span><span id="532" class="l"><a href="#532">532 </a>    }
+</span><span id="533" class="l"><a href="#533">533 </a>
+</span><span id="534" class="l"><a href="#534">534 </a>
+</span><span id="535" class="l"><a href="#535">535 </a>    <span class="php-comment">/**
+</span></span><span id="536" class="l"><a href="#536">536 </a><span class="php-comment">     * Writes a log message to a log file
+</span></span><span id="537" class="l"><a href="#537">537 </a><span class="php-comment">     *
+</span></span><span id="538" class="l"><a href="#538">538 </a><span class="php-comment">     * @see \Alphred\Log::file() More information on the file log
+</span></span><span id="539" class="l"><a href="#539">539 </a><span class="php-comment">     * @uses \Alphred\Log
+</span></span><span id="540" class="l"><a href="#540">540 </a><span class="php-comment">     *
+</span></span><span id="541" class="l"><a href="#541">541 </a><span class="php-comment">     * @param  string        $message  message to log
+</span></span><span id="542" class="l"><a href="#542">542 </a><span class="php-comment">     * @param  string|int  $level    log level
+</span></span><span id="543" class="l"><a href="#543">543 </a><span class="php-comment">     * @param  string        $filename filename with no extension
+</span></span><span id="544" class="l"><a href="#544">544 </a><span class="php-comment">     * @param  boolean|int $trace    how far back to trace
+</span></span><span id="545" class="l"><a href="#545">545 </a><span class="php-comment">     */</span>
+</span><span id="546" class="l"><a href="#546">546 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <span class="php-keyword2">log</span>( <span class="php-var">$message</span>, <span class="php-var">$level</span> = <span class="php-quote">'INFO'</span>, <span class="php-var">$filename</span> = <span class="php-quote">'workflow'</span>, <span class="php-var">$trace</span> = <span class="php-keyword1">false</span> ) {
+</span><span id="547" class="l"><a href="#547">547 </a>        \Alphred\<span class="php-keyword2">Log</span>::<span class="php-keyword2">file</span>( <span class="php-var">$message</span>, <span class="php-var">$level</span>, <span class="php-var">$filename</span>, <span class="php-var">$trace</span> );
+</span><span id="548" class="l"><a href="#548">548 </a>    }
+</span><span id="549" class="l"><a href="#549">549 </a>
+</span><span id="550" class="l"><a href="#550">550 </a>    <span class="php-comment">/*****************************************************************************
+</span></span><span id="551" class="l"><a href="#551">551 </a><span class="php-comment">     * Text Processing Filters
+</span></span><span id="552" class="l"><a href="#552">552 </a><span class="php-comment">     ****************************************************************************/</span>
+</span><span id="553" class="l"><a href="#553">553 </a>
+</span><span id="554" class="l"><a href="#554">554 </a>    <span class="php-comment">/**
+</span></span><span id="555" class="l"><a href="#555">555 </a><span class="php-comment">     * Takes a unix epoch time and renders it as a string
+</span></span><span id="556" class="l"><a href="#556">556 </a><span class="php-comment">     *
+</span></span><span id="557" class="l"><a href="#557">557 </a><span class="php-comment">     * This also works for future times. If you set `$words` to `true`, then you will
+</span></span><span id="558" class="l"><a href="#558">558 </a><span class="php-comment">     * get &quot;one&quot; instead of &quot;1&quot;. Past times are appended with &quot;ago&quot;; future times are
+</span></span><span id="559" class="l"><a href="#559">559 </a><span class="php-comment">     * prepended with &quot;in &quot;.
+</span></span><span id="560" class="l"><a href="#560">560 </a><span class="php-comment">     *
+</span></span><span id="561" class="l"><a href="#561">561 </a><span class="php-comment">     * @param  integer  $seconds unix epoch time value
+</span></span><span id="562" class="l"><a href="#562">562 </a><span class="php-comment">     * @param  boolean $words    whether to use words or numerals
+</span></span><span id="563" class="l"><a href="#563">563 </a><span class="php-comment">     * @return string
+</span></span><span id="564" class="l"><a href="#564">564 </a><span class="php-comment">     */</span>
+</span><span id="565" class="l"><a href="#565">565 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> time_ago( <span class="php-var">$seconds</span>, <span class="php-var">$words</span> = <span class="php-keyword1">false</span> ) {
+</span><span id="566" class="l"><a href="#566">566 </a>        <span class="php-keyword1">return</span> Alphred\<span class="php-keyword2">Date</span>::ago( <span class="php-var">$seconds</span>, <span class="php-var">$words</span> );
+</span><span id="567" class="l"><a href="#567">567 </a>    }
+</span><span id="568" class="l"><a href="#568">568 </a>
+</span><span id="569" class="l"><a href="#569">569 </a>    <span class="php-comment">/**
+</span></span><span id="570" class="l"><a href="#570">570 </a><span class="php-comment">     * Takes a time and gives you a fuzzy description of when it is/was relative to now
+</span></span><span id="571" class="l"><a href="#571">571 </a><span class="php-comment">     *
+</span></span><span id="572" class="l"><a href="#572">572 </a><span class="php-comment">     * So, something like &quot;5 days, 16 hours, and 34 minutes ago&quot; turns into &quot;almost a week ago&quot;;
+</span></span><span id="573" class="l"><a href="#573">573 </a><span class="php-comment">     * Something like &quot;16 hours from now&quot; turns into &quot;yesterday&quot;; and something like &quot;1 month from now&quot;
+</span></span><span id="574" class="l"><a href="#574">574 </a><span class="php-comment">     * turns into &quot;in a month&quot;; it's fuzzy. Also, the first strings need to be a unix epoch time,
+</span></span><span id="575" class="l"><a href="#575">575 </a><span class="php-comment">     * so the number of seconds since 1 Jan, 1970 12:00AM.
+</span></span><span id="576" class="l"><a href="#576">576 </a><span class="php-comment">     *
+</span></span><span id="577" class="l"><a href="#577">577 </a><span class="php-comment">     * @param  int $seconds    a unix epoch time
+</span></span><span id="578" class="l"><a href="#578">578 </a><span class="php-comment">     * @return string          a string that represents an approximate time
+</span></span><span id="579" class="l"><a href="#579">579 </a><span class="php-comment">     */</span>
+</span><span id="580" class="l"><a href="#580">580 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> fuzzy_time_diff( <span class="php-var">$seconds</span> ) {
+</span><span id="581" class="l"><a href="#581">581 </a>        <span class="php-keyword1">return</span> Alphred\<span class="php-keyword2">Date</span>::fuzzy_ago( <span class="php-var">$seconds</span> );
+</span><span id="582" class="l"><a href="#582">582 </a>    }
+</span><span id="583" class="l"><a href="#583">583 </a>
+</span><span id="584" class="l"><a href="#584">584 </a>    <span class="php-comment">/**
+</span></span><span id="585" class="l"><a href="#585">585 </a><span class="php-comment">     * Implodes an array into a string with commas (uses an Oxford comma)
+</span></span><span id="586" class="l"><a href="#586">586 </a><span class="php-comment">     *
+</span></span><span id="587" class="l"><a href="#587">587 </a><span class="php-comment">     * If you set `$suffix` to `true`, then the function expects an associative array
+</span></span><span id="588" class="l"><a href="#588">588 </a><span class="php-comment">     * as 'suffix' =&gt; 'word', so an array like:
+</span></span><span id="589" class="l"><a href="#589">589 </a><span class="php-comment">     * ````php
+</span></span><span id="590" class="l"><a href="#590">590 </a><span class="php-comment">     * $list = [ 'penny' =&gt; 'one', 'quarters' =&gt; 'three', 'dollars' =&gt; 'five' ];
+</span></span><span id="591" class="l"><a href="#591">591 </a><span class="php-comment">     * ````
+</span></span><span id="592" class="l"><a href="#592">592 </a><span class="php-comment">     * will render as: &quot;one penny, three quarters, and five dollars&quot;
+</span></span><span id="593" class="l"><a href="#593">593 </a><span class="php-comment">     *
+</span></span><span id="594" class="l"><a href="#594">594 </a><span class="php-comment">     * @param array   $list    the array to add commas to
+</span></span><span id="595" class="l"><a href="#595">595 </a><span class="php-comment">     * @param boolean $suffix whether or not there is a suffix
+</span></span><span id="596" class="l"><a href="#596">596 </a><span class="php-comment">     * @return string               the array, but as a string with commas
+</span></span><span id="597" class="l"><a href="#597">597 </a><span class="php-comment">     */</span>
+</span><span id="598" class="l"><a href="#598">598 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> add_commas( <span class="php-var">$list</span>, <span class="php-var">$suffix</span> = <span class="php-keyword1">false</span> ) {
+</span><span id="599" class="l"><a href="#599">599 </a>        <span class="php-keyword1">return</span> \Alphred\Text::add_commas_to_list( <span class="php-var">$list</span>, <span class="php-var">$suffix</span> );
+</span><span id="600" class="l"><a href="#600">600 </a>    }
+</span><span id="601" class="l"><a href="#601">601 </a>
+</span><span id="602" class="l"><a href="#602">602 </a>    <span class="php-comment">/*****************************************************************************
+</span></span><span id="603" class="l"><a href="#603">603 </a><span class="php-comment">     * AppleScript Actions
+</span></span><span id="604" class="l"><a href="#604">604 </a><span class="php-comment">     ****************************************************************************/</span>
+</span><span id="605" class="l"><a href="#605">605 </a>
+</span><span id="606" class="l"><a href="#606">606 </a>    <span class="php-comment">/**
+</span></span><span id="607" class="l"><a href="#607">607 </a><span class="php-comment">     * Activates an application
+</span></span><span id="608" class="l"><a href="#608">608 </a><span class="php-comment">     *
+</span></span><span id="609" class="l"><a href="#609">609 </a><span class="php-comment">     * Brings an application to the front, launching it if necessary
+</span></span><span id="610" class="l"><a href="#610">610 </a><span class="php-comment">     *
+</span></span><span id="611" class="l"><a href="#611">611 </a><span class="php-comment">     * @param  string $application the name of the application
+</span></span><span id="612" class="l"><a href="#612">612 </a><span class="php-comment">     */</span>
+</span><span id="613" class="l"><a href="#613">613 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> activate( <span class="php-var">$application</span> ) {
+</span><span id="614" class="l"><a href="#614">614 </a>        Alphred\AppleScript::activate( <span class="php-var">$application</span> );
+</span><span id="615" class="l"><a href="#615">615 </a>    }
+</span><span id="616" class="l"><a href="#616">616 </a>
+</span><span id="617" class="l"><a href="#617">617 </a>    <span class="php-comment">/**
+</span></span><span id="618" class="l"><a href="#618">618 </a><span class="php-comment">     * Gets the active window
+</span></span><span id="619" class="l"><a href="#619">619 </a><span class="php-comment">     *
+</span></span><span id="620" class="l"><a href="#620">620 </a><span class="php-comment">     * @return array an array of [ 'app_name' =&gt; $name, 'window_name' =&gt; $name ]
+</span></span><span id="621" class="l"><a href="#621">621 </a><span class="php-comment">     */</span>
+</span><span id="622" class="l"><a href="#622">622 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> get_active_window() {
+</span><span id="623" class="l"><a href="#623">623 </a>        <span class="php-keyword1">return</span> Alphred\AppleScript::get_front();
+</span><span id="624" class="l"><a href="#624">624 </a>    }
+</span><span id="625" class="l"><a href="#625">625 </a>
+</span><span id="626" class="l"><a href="#626">626 </a>    <span class="php-comment">/**
+</span></span><span id="627" class="l"><a href="#627">627 </a><span class="php-comment">     * Brings an application to the front
+</span></span><span id="628" class="l"><a href="#628">628 </a><span class="php-comment">     *
+</span></span><span id="629" class="l"><a href="#629">629 </a><span class="php-comment">     * This is like `activate`, but it does not open the application if it is
+</span></span><span id="630" class="l"><a href="#630">630 </a><span class="php-comment">     * not already open.
+</span></span><span id="631" class="l"><a href="#631">631 </a><span class="php-comment">     *
+</span></span><span id="632" class="l"><a href="#632">632 </a><span class="php-comment">     * @param  string $application the name of an application
+</span></span><span id="633" class="l"><a href="#633">633 </a><span class="php-comment">     */</span>
+</span><span id="634" class="l"><a href="#634">634 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> bring_to_front( <span class="php-var">$application</span> ) {
+</span><span id="635" class="l"><a href="#635">635 </a>        Alphred\AppleScript::bring_to_front( <span class="php-var">$application</span> );
+</span><span id="636" class="l"><a href="#636">636 </a>    }
+</span><span id="637" class="l"><a href="#637">637 </a>
+</span><span id="638" class="l"><a href="#638">638 </a>
+</span><span id="639" class="l"><a href="#639">639 </a>
+</span><span id="640" class="l"><a href="#640">640 </a>}</span></code></pre>
+	</div>
+
+	<div id="footer">
+		Alphred API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+<script src="resources/combined.js?41adcf14e1dded7caf9778bb3fac017c57b881f0"></script>
+<script src="elementlist.js?6e85a91c1cd4d83b4bb15b06e62946c5c31d2c35"></script>
+</body>
+</html>

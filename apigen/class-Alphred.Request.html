@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Alphred\Request | Alphred</title>
+
+	<link rel="stylesheet" href="resources/bootstrap.min.css?08b23951ef4599ca9cbf1f902d0e8290c9653ddd">
+	<link rel="stylesheet" href="resources/style.css?062e9e59e0b8c44fbaaded5b7ffc21f907b78669">
+
+</head>
+
+<body>
+	<div id="navigation" class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a href="index.html" class="brand">Alphred</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li>
+							<a href="namespace-Alphred.html" title="Summary of Alphred"><span>Namespace</span></a>
+						</li>
+						<li class="active">
+<span>Class</span>						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+						</li>
+						<li>
+							<a href="deprecated.html" title="List of deprecated elements"><span>Deprecated</span></a>
+						</li>
+						<li>
+							<a href="todo.html" title="Todo list"><span>Todo</span></a>
+						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="-API-documentation.zip" title="Download documentation as ZIP archive"><span>Download</span></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="left">
+	<div id="menu">
+		<form id="search" class="form-search">
+			<input type="hidden" name="cx" value="">
+			<input type="hidden" name="ie" value="UTF-8">
+			<input type="text" name="q" class="search-query" placeholder="Search">
+		</form>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+					<li class="active main">
+						<a href="namespace-Alphred.html">
+							Alphred						</a>
+							</li>
+					<li>
+						<a href="namespace-None.html">
+							None						</a>
+							</li>
+			</ul>
+		</div>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Alphred.Alfred.html">Alfred</a></li>
+				<li><a href="class-Alphred.AppleScript.html">AppleScript</a></li>
+				<li><a href="class-Alphred.Choose.html">Choose</a></li>
+				<li><a href="class-Alphred.Config.html">Config</a></li>
+				<li><a href="class-Alphred.Date.html">Date</a></li>
+				<li><a href="class-Alphred.Dialog.html">Dialog</a></li>
+				<li><a href="class-Alphred.Filter.html">Filter</a></li>
+				<li><a href="class-Alphred.Globals.html">Globals</a></li>
+				<li><a href="class-Alphred.i18n.html">i18n</a></li>
+				<li><a href="class-Alphred.Ini.html">Ini</a></li>
+				<li><a href="class-Alphred.Keychain.html">Keychain</a></li>
+				<li><a href="class-Alphred.Log.html">Log</a></li>
+				<li><a href="class-Alphred.Notification.html">Notification</a></li>
+				<li class="active"><a href="class-Alphred.Request.html">Request</a></li>
+				<li><a href="class-Alphred.Result.html">Result</a></li>
+				<li><a href="class-Alphred.ScriptFilter.html">ScriptFilter</a></li>
+				<li><a href="class-Alphred.Text.html">Text</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-Alphred.ConfigKeyNotSet.html">ConfigKeyNotSet</a></li>
+				<li><a href="class-Alphred.Exception.html">Exception</a></li>
+				<li><a href="class-Alphred.FileDoesNotExist.html">FileDoesNotExist</a></li>
+				<li><a href="class-Alphred.InvalidKeychainAccount.html">InvalidKeychainAccount</a></li>
+				<li><a href="class-Alphred.InvalidScriptFilterArgument.html">InvalidScriptFilterArgument</a></li>
+				<li><a href="class-Alphred.InvalidSecurityAction.html">InvalidSecurityAction</a></li>
+				<li><a href="class-Alphred.InvalidXMLProperty.html">InvalidXMLProperty</a></li>
+				<li><a href="class-Alphred.PasswordExists.html">PasswordExists</a></li>
+				<li><a href="class-Alphred.PasswordNotFound.html">PasswordNotFound</a></li>
+				<li><a href="class-Alphred.PluginFunctionNotFound.html">PluginFunctionNotFound</a></li>
+				<li><a href="class-Alphred.RunningOutsideOfAlfred.html">RunningOutsideOfAlfred</a></li>
+				<li><a href="class-Alphred.ShouldBeBool.html">ShouldBeBool</a></li>
+				<li><a href="class-Alphred.TooManyArguments.html">TooManyArguments</a></li>
+				<li><a href="class-Alphred.UnknownSecurityException.html">UnknownSecurityException</a></li>
+				<li><a href="class-Alphred.UseOnlyAsStatic.html">UseOnlyAsStatic</a></li>
+			</ul>
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+	<div id="rightInner">
+<div id="content" class="class">
+	<h1>Class Request</h1>
+
+
+	<div class="description">
+	<p>Generic, light-weight, low-functionality wrapper around PHP's cURL library</p>
+
+<p>This Requests library should be good enough for most requests, as long as you
+aren't doing anything special or crazy. If you outgrow it, then you should either
+(1) use Guzzle, or (2) write your own requests library that has better coverage.</p>
+
+<p>Granted, this should handle MOST use cases. I don't know if it handles file uploads.
+Theoretically, it does, but I wouldn't bank on it, and, if it doesn't, I will not
+expand the functionality to cover file uploads.</p>
+
+<p>With this, you can easily make GET or POST requests. Set extra headers. Easily set
+a user-agent. Set parameters. And cache the data for later retrieval.</p>
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="alert alert-info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Alphred.html">Alphred</a><br>
+		
+
+				<b>Used by:</b>
+				<code><a href="class-Alphred.html#_get">Alphred::get()</a></code><br>
+				<b>Used by:</b>
+				<code><a href="class-Alphred.html#_post">Alphred::post()</a></code><br>
+			<b>Located at</b> <a href="source-class-Alphred.Request.html#21-689" title="Go to source code">Request.php</a>
+		<br>
+	</div>
+
+
+
+		<h2>Methods summary</h2>
+		<table class="summary table table-bordered table-striped methods" id="methods">
+		<tr data-order="__construct" id="___construct">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#___construct">#</a>
+			<code><a href="source-class-Alphred.Request.html#51-107" title="Go to source code">__construct</a>( <span>string <var>$url</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>( <span class="php-quote">'cache'</span> =&gt; <span class="php-keyword1">true</span>, <span class="php-quote">'cache_ttl'</span> =&gt; <span class="php-num">600</span>, <span class="php-quote">'cache_bin'</span> =&gt; <span class="php-keyword1">true</span> ) </span> )</code>
+
+			<div class="description short">
+				<p>Creates a request object</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a request object</p>
+
+<p>Currently, all the options apply to caching. So the three that are understood are:
+1. <code>cache</code>,
+2. <code>cache_life</code>, and
+3. <code>cache_bin</code>.</p>
+
+<p><code>cache</code> is a boolean that can turn on/off caching. It is recommended that you turn it on.
+<code>cache_life</code> is how long the cache will live. In other words, no attempts to get new data
+will be made until the data saved is older than the cache life (in seconds). It defaults to
+<code>3600</code> (one hour).
+<code>cache_bin</code> is the sub-directory in the workflow's cache folder where the results are saved.
+If <code>cache_bin</code> is set to <code>false</code> while caching is turned on, then all the results will be saved
+directly into the workflow's cache directory.</p>
+
+<p>Cache files are saved as md5 hashes of the request object. So, if you change anything about the
+request, then it will be considered a new cache file. Data is saved to the cache <em>only</em> if
+we receive an HTTP response code less than 400.</p>
+
+<p>My advice is not to touch these options and let the cache work with its default behavior.</p>
+
+<p>A further note on <code>cache_bin</code>: the 'cache_bin' option, if <code>true</code>, will create a cache_bin
+that is a directory in the cache directory named after the hostname. So if the url is
+<code>http://api.github.com/api....</code> then the <code>cache_bin</code> will be <code>api.github.com</code>, and all
+cached data will be saved in that directory. Otherwise, if you pass a string, then that will
+become the directory it will be saved under.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$url</var></dt>
+						<dd>the URL to request</dd>
+						<dt><var>$options</var></dt>
+						<dd>[description]</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="set_caches" id="_set_caches">
+
+			<td class="attributes"><code>
+				 private 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_set_caches">#</a>
+			<code><a href="source-class-Alphred.Request.html#109-132" title="Go to source code">set_caches</a>( <span>array <var>$options</var></span> )</code>
+
+			<div class="description short">
+				<p>Sets the cache options</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Sets the cache options</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$options</var></dt>
+						<dd>an array of cache options</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="execute" id="_execute">
+
+			<td class="attributes"><code>
+				 public 
+				string|array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_execute">#</a>
+			<code><a href="source-class-Alphred.Request.html#135-257" title="Go to source code">execute</a>( <span>boolean <var>$code</var> = <span class="php-keyword1">false</span> </span> )</code>
+
+			<div class="description short">
+				<p>Executes the cURL request</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Executes the cURL request</p>
+
+<p>If you set <code>$code</code> to <code>true</code>, then this function will return an associative array as:
+<code>&lt;pre&gt;[ &lt;span class="php-quote"&gt;'code'&lt;/span&gt; =&amp;gt; &lt;span class="php-keyword2"&gt;HTTP_RESPONSE_CODE&lt;/span&gt;, &lt;span class="php-quote"&gt;'data'&lt;/span&gt; =&amp;gt; RESPONSE_DATA
+];&lt;/pre&gt;</code>
+If you get cached data, then the code will be "faked" as a 302, which is appropriate.</p>
+
+<p>If there is an error, then the code will be 0. So, if you manage to get expired cache
+data, then the code will be 0 and there will be data. If there is no expired cache data,
+then you will receive an array of <code>[ 0, false ]</code>.</p>
+
+<p>This method does not cache data unless the response code is less than 400. If you need
+better data integrity than that, use Guzzle or write your own request library. Or improve
+this one by putting in a pull request on the Github repo.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$code</var></dt>
+						<dd>whether or not to return an HTTP response code</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						string|array<br>the response data, or an array with the code
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="build_post_fields" id="_build_post_fields">
+
+			<td class="attributes"><code>
+				 private 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_build_post_fields">#</a>
+			<code><a href="source-class-Alphred.Request.html#259-268" title="Go to source code">build_post_fields</a>( )</code>
+
+			<div class="description short">
+				<p>Builds the post fields array</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Builds the post fields array</p>
+
+
+
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="build_get_fields" id="_build_get_fields">
+
+			<td class="attributes"><code>
+				 private 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_build_get_fields">#</a>
+			<code><a href="source-class-Alphred.Request.html#270-283" title="Go to source code">build_get_fields</a>( )</code>
+
+			<div class="description short">
+				<p>Builds the post fields array</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Builds the post fields array</p>
+
+
+
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="build_fields" id="_build_fields">
+
+			<td class="attributes"><code>
+				 private 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_build_fields">#</a>
+			<code><a href="source-class-Alphred.Request.html#285-303" title="Go to source code">build_fields</a>( )</code>
+
+			<div class="description short">
+				<p>Builds the fields out of parameters array</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Builds the fields out of parameters array</p>
+
+
+
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="set_auth" id="_set_auth">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_set_auth">#</a>
+			<code><a href="source-class-Alphred.Request.html#305-320" title="Go to source code">set_auth</a>( <span>string <var>$username</var></span>, <span>string <var>$password</var></span> )</code>
+
+			<div class="description short">
+				<p>Sets basic authorization for a cURL request</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Sets basic authorization for a cURL request</p>
+
+<p>If you need more advanced authorization methods, and if you cannot make them happen with
+headers, then use a different library. I recommend Guzzle.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$username</var></dt>
+						<dd>a username</dd>
+						<dt><var>$password</var></dt>
+						<dd>a password</dd>
+					</dl></div>
+
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="set_url" id="_set_url">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_set_url">#</a>
+			<code><a href="source-class-Alphred.Request.html#322-338" title="Go to source code">set_url</a>( <span>string <var>$url</var></span> )</code>
+
+			<div class="description short">
+				<p>Sets the URL for the cURL request</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Sets the URL for the cURL request</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$url</var></dt>
+						<dd>a valid URL</dd>
+					</dl></div>
+
+
+					<h4>Throws</h4>
+					<div class="list">
+						<code><a href="class-Alphred.Exception.html">Alphred\Exception</a></code><br>when $url is not a valid URL
+					</div>
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+					<h4>Todo</h4>
+					<div class="list">
+							Add in custom exception<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="set_user_agent" id="_set_user_agent">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_set_user_agent">#</a>
+			<code><a href="source-class-Alphred.Request.html#340-350" title="Go to source code">set_user_agent</a>( <span>string <var>$agent</var></span> )</code>
+
+			<div class="description short">
+				<p>Sets the <code>user agent</code> for the cURL request</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Sets the <code>user agent</code> for the cURL request</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$agent</var></dt>
+						<dd>a user agent</dd>
+					</dl></div>
+
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="set_headers" id="_set_headers">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_set_headers">#</a>
+			<code><a href="source-class-Alphred.Request.html#352-367" title="Go to source code">set_headers</a>( <span>string|array <var>$headers</var></span> )</code>
+
+			<div class="description short">
+				<p>Sets the headers on a cURL request</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Sets the headers on a cURL request</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$headers</var></dt>
+						<dd>sets extra headers for the cURL request</dd>
+					</dl></div>
+
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="add_header" id="_add_header">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_add_header">#</a>
+			<code><a href="source-class-Alphred.Request.html#369-407" title="Go to source code">add_header</a>( <span>string|array <var>$header</var></span> )</code>
+
+			<div class="description short">
+				<p>Adds a header into the headers array</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Adds a header into the headers array</p>
+
+<p>You can actually pass multiple headers with an array, or just pass a single
+header with a string.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$header</var></dt>
+						<dd>the header to add</dd>
+					</dl></div>
+
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="use_post" id="_use_post">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_use_post">#</a>
+			<code><a href="source-class-Alphred.Request.html#409-419" title="Go to source code">use_post</a>( )</code>
+
+			<div class="description short">
+				<p>Sets the request to use <code>POST</code> rather than <code>GET</code></p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Sets the request to use <code>POST</code> rather than <code>GET</code></p>
+
+
+
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="add_parameter" id="_add_parameter">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_add_parameter">#</a>
+			<code><a href="source-class-Alphred.Request.html#421-431" title="Go to source code">add_parameter</a>( <span>string <var>$key</var></span>, <span>string <var>$value</var></span> )</code>
+
+			<div class="description short">
+				<p>Adds a parameter to the parameters array</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Adds a parameter to the parameters array</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$key</var></dt>
+						<dd>the name of the parameter</dd>
+						<dt><var>$value</var></dt>
+						<dd>the value of the parameter</dd>
+					</dl></div>
+
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="add_parameters" id="_add_parameters">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_add_parameters">#</a>
+			<code><a href="source-class-Alphred.Request.html#433-448" title="Go to source code">add_parameters</a>( <span>array <var>$params</var></span> )</code>
+
+			<div class="description short">
+				<p>Adds parameters to the request</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Adds parameters to the request</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$params</var></dt>
+						<dd>an array of parameters</dd>
+					</dl></div>
+
+
+					<h4>Throws</h4>
+					<div class="list">
+						<code><a href="class-Alphred.Exception.html">Alphred\Exception</a></code><br>when passed something other than an array
+					</div>
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="get_cached_data" id="_get_cached_data">
+
+			<td class="attributes"><code>
+				 private 
+				string|boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_get_cached_data">#</a>
+			<code><a href="source-class-Alphred.Request.html#450-489" title="Go to source code">get_cached_data</a>( <span> <var>$ignore_life</var> = <span class="php-keyword1">false</span> </span> )</code>
+
+			<div class="description short">
+				<p>Gets cached data</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Gets cached data</p>
+
+<p>This method first checks if the cache file exists. If <code>$ignore_life</code> is true,
+then it will return the data without checking the life. Otherwise, we'll check
+to make sure that the <code>$cache_life</code> is set. Next, we check the age of the cache.
+If any of these fail, then we return false, which indicates we should get new
+data. Otherwise, we retrieve the cache.</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						string|boolean<br>the data saved in the cache or false
+					</div>
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="get_cached_data_anyway" id="_get_cached_data_anyway">
+
+			<td class="attributes"><code>
+				 private 
+				string|boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_get_cached_data_anyway">#</a>
+			<code><a href="source-class-Alphred.Request.html#491-500" title="Go to source code">get_cached_data_anyway</a>( )</code>
+
+			<div class="description short">
+				<p>Retrieves cached data regardless of cache life</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Retrieves cached data regardless of cache life</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						string|boolean<br>returns the cached data or <code>false</code> if none exists
+					</div>
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="save_cache_data" id="_save_cache_data">
+
+			<td class="attributes"><code>
+				 private 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_save_cache_data">#</a>
+			<code><a href="source-class-Alphred.Request.html#502-518" title="Go to source code">save_cache_data</a>( <span>string <var>$data</var></span> )</code>
+
+			<div class="description short">
+				<p>Saves data to a cache file</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Saves data to a cache file</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$data</var></dt>
+						<dd>the data to save to the cache</dd>
+					</dl></div>
+
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="get_cache_key" id="_get_cache_key">
+
+			<td class="attributes"><code>
+				 private 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_get_cache_key">#</a>
+			<code><a href="source-class-Alphred.Request.html#520-529" title="Go to source code">get_cache_key</a>( )</code>
+
+			<div class="description short">
+				<p>Creates a cache key based on the request object</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a cache key based on the request object</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						string<br>a cache key
+					</div>
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="get_cache_file" id="_get_cache_file">
+
+			<td class="attributes"><code>
+				 private 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_get_cache_file">#</a>
+			<code><a href="source-class-Alphred.Request.html#531-540" title="Go to source code">get_cache_file</a>( )</code>
+
+			<div class="description short">
+				<p>Returns the file cache</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Returns the file cache</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						string<br>the full path to the cache file
+					</div>
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="get_cache_dir" id="_get_cache_dir">
+
+			<td class="attributes"><code>
+				 private 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_get_cache_dir">#</a>
+			<code><a href="source-class-Alphred.Request.html#542-555" title="Go to source code">get_cache_dir</a>( )</code>
+
+			<div class="description short">
+				<p>Returns the directory for the cache</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Returns the directory for the cache</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						string<br>full path to cache directory
+					</div>
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="create_cache_dir" id="_create_cache_dir">
+
+			<td class="attributes"><code>
+				 private 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_create_cache_dir">#</a>
+			<code><a href="source-class-Alphred.Request.html#557-574" title="Go to source code">create_cache_dir</a>( )</code>
+
+			<div class="description short">
+				<p>Creates a cache directory if it does not exist</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a cache directory if it does not exist</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						boolean<br>success or failure if directory has been made
+					</div>
+
+					<h4>Throws</h4>
+					<div class="list">
+						<code><a href="class-Alphred.RunningOutsideOfAlfred.html">Alphred\RunningOutsideOfAlfred</a></code><br>when environmental variables are not set
+					</div>
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="get_cache_age" id="_get_cache_age">
+
+			<td class="attributes"><code>
+				 private 
+				integer
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_get_cache_age">#</a>
+			<code><a href="source-class-Alphred.Request.html#576-589" title="Go to source code">get_cache_age</a>( )</code>
+
+			<div class="description short">
+				<p>Gets the age of a cache file</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Gets the age of a cache file</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						integer<br>the age of a file in seconds
+					</div>
+
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="clear_cache" id="_clear_cache">
+
+			<td class="attributes"><code>
+				 public 
+				null
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_clear_cache">#</a>
+			<code><a href="source-class-Alphred.Request.html#591-615" title="Go to source code">clear_cache</a>( <span>string|boolean <var>$bin</var> = <span class="php-keyword1">false</span> </span> )</code>
+
+			<div class="description short">
+				<p>Clears a cache bin</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Clears a cache bin</p>
+
+<p>Call the file with no arguments if you aren't using a cache bin; however, this
+will choke on sub-directories.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$bin</var></dt>
+						<dd>the name of the cache bin (or a URL if you're setting them automatically)</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						null
+					</div>
+
+					<h4>Throws</h4>
+					<div class="list">
+						<code><a href="class-Alphred.Exception.html">Alphred\Exception</a></code><br>when encountering a sub-directory
+					</div>
+
+					<h4>Used by</h4>
+					<div class="list">
+							<code><a href="class-Alphred.html#_clear_cache">Alphred::clear_cache()</a></code><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="clear_directory" id="_clear_directory">
+
+			<td class="attributes"><code>
+				 private 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_clear_directory">#</a>
+			<code><a href="source-class-Alphred.Request.html#617-646" title="Go to source code">clear_directory</a>( <span>string <var>$dir</var></span> )</code>
+
+			<div class="description short">
+				<p>Clears all the files out of a directory</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Clears all the files out of a directory</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$dir</var></dt>
+						<dd>a path to a directory</dd>
+					</dl></div>
+
+
+					<h4>Throws</h4>
+					<div class="list">
+						<code><a href="class-Alphred.Exception.html">Alphred\Exception</a></code><br>when encountering a sub-directory
+					</div>
+
+					<h4>Since</h4>
+					<div class="list">
+							1.0.0<br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		</table>
+
+
+
+		<h3>Magic methods summary</h3>
+
+
+
+
+
+
+
+
+		<h2>Properties summary</h2>
+		<table class="summary table table-bordered table-striped properties" id="properties">
+		<tr data-order="handler" id="$handler">
+			<td class="attributes"><code>
+				private  
+				Resource
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-Alphred.Request.html#39-43" title="Go to source code"><var>$handler</var></a>
+
+				<div class="description short">
+					<p>The internal cURL handler</p>
+				</div>
+
+				<div class="description detailed hidden">
+					<p>The internal cURL handler</p>
+
+				</div>
+			</td>
+			<td class="value">
+				<div>
+					<a href="#$handler" class="anchor">#</a>
+					<code></code>
+				</div>
+			</td>
+		</tr>
+		<tr data-order="object" id="$object">
+			<td class="attributes"><code>
+				private  
+				array
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-Alphred.Request.html#45-49" title="Go to source code"><var>$object</var></a>
+
+				<div class="description short">
+					<p>An internal structuring of the request object for cache creation</p>
+				</div>
+
+				<div class="description detailed hidden">
+					<p>An internal structuring of the request object for cache creation</p>
+
+				</div>
+			</td>
+			<td class="value">
+				<div>
+					<a href="#$object" class="anchor">#</a>
+					<code></code>
+				</div>
+			</td>
+		</tr>
+		</table>
+
+
+
+
+
+
+</div>
+	</div>
+
+	<div id="footer">
+		Alphred API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>
