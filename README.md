@@ -3,8 +3,7 @@ Alphred
 
 [![Code Climate](https://codeclimate.com/github/shawnrice/alphred/badges/gpa.svg)](https://codeclimate.com/github/shawnrice/alphred) [![Test Coverage](https://codeclimate.com/github/shawnrice/alphred/badges/coverage.svg)](https://codeclimate.com/github/shawnrice/alphred)
 
-A PHP library for Alfred Workflows.
-> Not quite ready for public consumption.
+## A PHP library for [Alfred](http://www.alfredapp.com) Workflows.
 
 ### Status
 > Not quite ready for public consumption.
