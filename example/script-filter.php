@@ -103,7 +103,7 @@ if ( ! empty( $query ) ) {
 	// So, Alphred's filter will filter out all things that don't match the query, and it will also
 	// reorganize the array so that the highest match is at the top. Granted, Alfred will override
 	// the sort order if a uid is present.
-	$matches = Alphred\Filter::Filter( $repos, $query, 30, 'name', 37 );
+	$matches = $Alphred->filter( $repos, $query, 'name', [ 'match_type' => 37 ] );
 } else {
 	// There was no query, so the answer is the full set
 	$matches = $repos;

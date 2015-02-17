@@ -61,7 +61,7 @@ class Filter {
 		// Set the defaults if not already set
 		$max             = ( isset( $options['max_results'] ) ) ? $options['max_results'] : false;
 		$fold_diacritics = ( isset( $options['fold'] ) ) ? $options['fold'] : true;
-		$flags           = ( isset( $options['flags'] ) ) ? $options['flags'] : MATCH_ALL;
+		$match_type      = ( isset( $options['match_type'] ) ) ? $options['match_type'] : MATCH_ALL;
 		$min             = ( isset( $options['min_score'] ) ) ? $options['min_score'] : false;
 		$return_score    = ( isset( $options['return_score'] ) ) ? $options['return_score'] : false;
 
@@ -104,7 +104,7 @@ class Filter {
 					continue;
 
 				// Perform the search
-				$result = self::filter_item( $value, $word, $flags, $fold_diacritics );
+				$result = self::filter_item( $value, $word, $match_type, $fold_diacritics );
 				// Check is a score was sent back that was not 0. If it was 0, then just
 				// continue because it didn't matter
 				if ( ! $result[0] ) {

@@ -37,9 +37,10 @@ class Alphred {
 	 *                            currently, only two options are available:
 	 *                            1. error_on_empty - displays a script filter item when empty
 	 *                            2. no_filter      - initializes object without a script filter
+	 *                            3. no_config      - creates without a config item
 	 * @param array|boolean $plugins plugins to be run at load
 	 */
-	public function __construct( $options = [ 'error_on_empty' => true ] ) {
+	public function __construct( $options = [ 'error_on_empty' => true, 'config' => true ] ) {
 
 		// Create a script filter object unless explicitly turned off
 		if ( ! isset( $options[ 'no_filter' ] ) || true !== $options[ 'no_filter' ] ) {
@@ -47,6 +48,19 @@ class Alphred {
 		}
 
 
+	}
+
+	private function parse_ini_file() {
+		if ( ! file_exists( 'workflow.ini' ) ) {
+			return;
+		}
+		$ini = Alphred\Ini::read_ini( 'workflow.ini' );
+		// Reads the config filename and handler from workflow.ini if set.
+		$handler = ( isset( $ini['alphred']['config_handler'] ) ) ?
+			trim( $ini['alphred']['config_handler'] ) : 'ini';
+		$filename = ( isset( $ini['alphred']['config_filename'] ) ) ?
+			trim( $ini['alphred']['config_filename'] ) : 'config';
+		$this->config = new Alphred\Config( $handler, $filename );
 	}
 
 	/**

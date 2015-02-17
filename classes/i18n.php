@@ -54,7 +54,16 @@ namespace Alphred;
 **/
 class i18n {
 
-	public function __construct() {
+	/**
+	 * Constructs the i18n object to use for translation, setting language
+	 *
+	 * Right now $engine is unused, but it's there to open for expansion for
+	 * other translation methods that can be popped in or out. `Json` is just
+	 * what is described above.
+	 *
+	 * @param string $engine translation utility; json is the only option
+	 */
+	public function __construct( $engine = 'json' ) {
 		if ( ! file_exists( 'i18n' ) || ! is_dir( 'i18n' ) ) { return false; }
 		// This is internal, for testing. If the "ALPHRED_TESTING" flag is set,
 		// then we'll pretend that our language is French rather than the system
@@ -86,6 +95,8 @@ class i18n {
 	/**
 	 * Translates a string from a dictionary
 	 *
+	 * @todo use "engines" instead of a single method
+	 *
 	 * @param  string $string a string to translate
 	 * @return string         a, possibly, translated string
 	 */
@@ -100,3 +111,6 @@ class i18n {
 
 // In the future, it would be pretty badass if I could give the option to do a background translation
 // using Google Translate or something akin to that.
+
+// For now, we'll leave this as is. In future releases, we'll create more engines that should work better
+// than this.
