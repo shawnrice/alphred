@@ -61,6 +61,10 @@ class Log {
 
 			// Get the full path to the log file, and create the data directory if it doesn't exist
 			$log_file = self::get_log_filename( $filename );
+
+			// Check and rotate the log if necessary
+			self::check_log( $log_file );
+
 			// Get the trace
 			$trace = self::trace( $trace );
 			// Get the formatted date
@@ -170,7 +174,7 @@ class Log {
 			// `Alphred.php`. If you want to change the max size, then either define the
 			// max size in the INI file or define the constant ALPHRED_LOG_SIZE before
 			// you include `Alphred.phar`.
-			if ( filesize( self::get_log_filename( $filename ) ) > ALPHRED_LOG_SIZE ) {
+			if ( filesize( $filename ) > ALPHRED_LOG_SIZE ) {
 				// The log is too big, so rotate it.
 				self::rotate_log( $filename );
 			}
