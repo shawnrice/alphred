@@ -1,0 +1,1 @@
+These files should cover some general usage of how to use the Alphred wrapper (the `Alphred` class).
