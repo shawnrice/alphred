@@ -4,7 +4,9 @@ The component supports basic http authentication but nothing as fancy as oauth.
 
 #### Methods
 > get( $url, $options = false, $cache_ttl = 600, $cache_bin = true )
+
 > post( $url, $options = false, $cache_ttl = 600, $cache_bin = true )
+
 > clear_cache( $bad = false )
 
 Options are set as an associative array. Keys can be:
