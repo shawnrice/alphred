@@ -1,6 +1,8 @@
 0.9.1
 ===
 * fixed server script creation
+* fixed server scripts
+* changed minimum query in server scripts to 0
 * fixed log rotation bug
 
 0.9.0
