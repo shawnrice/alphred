@@ -146,7 +146,7 @@ if ( ! ( isset( $argv ) && ( 'Alphred.phar' === basename( $argv[0] ) || 'Alphred
 				switch ( strtolower( alphred_confirm_create_server_scripts_path() ) ):
 					case 'y':
 					case 'yes':
-						foreach( [ 'server.sh', 'kill.sh', 'server.php' ] as $file ) :
+						foreach( [ 'server.sh', 'kill.sh', 'server.php', 'alphred_urlencode.sed' ] as $file ) :
 							file_put_contents( $_SERVER['PWD'] . "/{$file}", file_get_contents( __DIR__ . "/../scripts/{$file}" ) );
 						endforeach;
 						$text = file_get_contents( __DIR__ . '/commands/server-scripts.txt');

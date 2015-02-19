@@ -1,7 +1,8 @@
 0.9.1
 ===
-Fixed server script creation
+* fixed server script creation
+* fixed log rotation bug
 
 0.9.0
 ===
-Initial "alpha" release
+* initial "alpha" release

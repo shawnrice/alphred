@@ -3,9 +3,19 @@
 // Example that connects to Github
 // https://developer.github.com/v3/
 
+// Note: for testing purposes, these scripts link to the individual Alphred files. You should
+// use the `phar` instead. If using the cli-server, you should unpack the scripts using
+// `php Alphred.phar create-server-scripts` and use those.
+
+// Make this available via the CLI-server
+require_once( __DIR__ . '/server.php' );
+
 // For quicker development purposes, I'm setting some of the variables here so that it
 // can run via the command line. Don't do this in a real workflow.
-require_once( __DIR__ . '/test_vars.php' );
+if ( ! isset( $_SERVER['alfred_workflow_data'] ) ) {
+	require_once( __DIR__ . '/test_vars.php' );
+}
+
 
 
 // Require Alphred
@@ -133,7 +143,9 @@ foreach ( $matches as $match ) :
 	    'subtitle_alt'   => $icon,
 	    // Add in a uid so that Alfred can do its sorting magic
 	    'uid' 		 			 => $match['name'],
+	    // Set the argument to the URL, so that we can open it with the action
 	    'arg'      			 => $match['html_url'],
+	    // Setting valid to `true` means that we can action it
 	    'valid'    			 => true
 	]);
 endforeach;
