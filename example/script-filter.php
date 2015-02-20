@@ -41,10 +41,10 @@ $username = $Alphred->config_read( 'username' );
 // that will lead to the action to set the username.
 if ( ! $username ) {
 	$Alphred->add_result([
-	    'title' => 'Please set your username',
-	    'subtitle' => "Set username to `{$query}`",
-	    'arg'   => "set-username {$query}",
-	    'valid' => true
+			'title'    => 'Please set your username',
+			'subtitle' => "Set username to `{$query}`",
+			'arg'      => "set-username {$query}",
+			'valid'    => true
 	]);
 	// Print out the XML
 	$Alphred->to_xml();
@@ -56,9 +56,9 @@ if ( ! $username ) {
 if ( ! $password = $Alphred->get_password( 'github.com' ) ) {
 	// The password has not been set, so we'll provide only one option to set the password
 	$Alphred->add_result( new Alphred\Result([
-	    'title' => 'Press enter to set your password',
-	    'arg'   => 'set-password',
-	    'valid' => true
+			'title' => 'Press enter to set your password',
+			'arg'   => 'set-password',
+			'valid' => true
 	]));
 	// Print out the XML
 	$Alphred->to_xml();
@@ -126,27 +126,27 @@ foreach ( $matches as $match ) :
 	$icon = __DIR__ . "/icons/mark-github-{$color}.png";
 	$Alphred->add_result([
 	    // I want Alfred to show the name of the repo as the ttle
-	    'title' 	 			 => $match['name'],
-	    // We'll add in the appropriate icon
-	    'icon' 					 => $icon,
-	    // The description will the the subtitle
-	    'subtitle' 			 => $match['description'],
-	    // See the stargazers when you press shift
-	    'subtitle_shift' => $match['stargazers_count'] . ' stars.',
-	    // See the forks when you press function
-	    'subtitle_fn' 	 => $match['forks_count'] . ' forks.',
-	    // See when this was last updated when you press command
-	    'subtitle_cmd' 	 => $updated,
-	    // See the open issues when you press control
-	    'subtitle_ctrl'  => $match['open_issues'] . ' open issues.',
-	    // Right now, this just shows the icon. What should we put here?
-	    'subtitle_alt'   => $icon,
-	    // Add in a uid so that Alfred can do its sorting magic
-	    'uid' 		 			 => $match['name'],
-	    // Set the argument to the URL, so that we can open it with the action
-	    'arg'      			 => $match['html_url'],
-	    // Setting valid to `true` means that we can action it
-	    'valid'    			 => true
+			'title'          => $match['name'],
+			// We'll add in the appropriate icon
+			'icon'           => $icon,
+			// The description will the the subtitle
+			'subtitle'       => $match['description'],
+			// See the stargazers when you press shift
+			'subtitle_shift' => $match['stargazers_count'] . ' stars.',
+			// See the forks when you press function
+			'subtitle_fn'    => $match['forks_count'] . ' forks.',
+			// See when this was last updated when you press command
+			'subtitle_cmd'   => $updated,
+			// See the open issues when you press control
+			'subtitle_ctrl'  => $match['open_issues'] . ' open issues.',
+			// Right now, this just shows the icon. What should we put here?
+			'subtitle_alt'   => $icon,
+			// Add in a uid so that Alfred can do its sorting magic
+			'uid'            => $match['name'],
+			// Set the argument to the URL, so that we can open it with the action
+			'arg'            => $match['html_url'],
+			// Setting valid to `true` means that we can action it
+			'valid'          => true
 	]);
 endforeach;
 
