@@ -1,7 +1,7 @@
 These files should cover some general usage of how to use the Alphred wrapper (the `Alphred` class).
 
 ## What is Alphred?
-Alphred is a PHP library to aid in the creation of workflows for Alfred.
+Alphred is a PHP library to aid in the creation of workflows for Alfred. Most of Alphred should work with PHP 5.3+ (OS X 10.6+), but some features need PHP 5.4+ (OS X 10.9+). Alphred generally needs Alfred v2.5+ to run.
 
 ## Features
 * Simple AlfredXML generation for script filters, including extended XML attributes
@@ -17,3 +17,5 @@ Alphred is a PHP library to aid in the creation of workflows for Alfred.
 * send asynchonrous notifications with no external library
 * know if the user's theme is light or dark (to set different icons)
 * write complex workflows in 50-60 lines of code
+
+Look at https://github.com/shawnrice/alphred/blob/master/example/script-filter.php

@@ -15,3 +15,4 @@ tmp/*
 todo/*
 vendor/*
 workflow.ini
+example/rebuild-example.sh
