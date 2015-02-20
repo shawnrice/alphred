@@ -16,13 +16,8 @@ if ( ! isset( $_SERVER['alfred_workflow_data'] ) ) {
 	require_once( __DIR__ . '/test_vars.php' );
 }
 
-
-
 // Require Alphred
-// use a phar
-// require_once( __DIR__ . '/../build/Alphred.phar' );
-// use the main entry point for the library
-require_once( __DIR__ . '/../Main.php' );
+require_once( __DIR__ . '/Alphred.phar' );
 
 $query = ''; // Initialize an empty query
 

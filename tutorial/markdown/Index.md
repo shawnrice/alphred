@@ -18,4 +18,17 @@ Alphred is a PHP library to aid in the creation of workflows for Alfred. Most of
 * know if the user's theme is light or dark (to set different icons)
 * write complex workflows in 50-60 lines of code
 
-Look at https://github.com/shawnrice/alphred/blob/master/example/script-filter.php
+## Example
+An example workflow ([download](https://github.com/shawnrice/alphred/raw/master/example/gh-repos-example.alfredworkflow)) that takes your Github Username and Password and grabs a list of your repos and filters them by query is in the example folder. It uses the cli-server. You can see the well-documented code for the [script filter](https://github.com/shawnrice/alphred/blob/master/example/script-filter.php) and the [action script](https://github.com/shawnrice/alphred/blob/master/example/action.php). Without the comments, they reduce to about 60 lines of code.
+
+## Read More
+See the other markdown files in this directory to read more about:
+
+* Creating configuration files
+* Filtering items
+* Logging
+* Handling passwords
+* Making http requests
+* Using script filters (and a simpler version)
+* Using the individual components
+* Adding a workflow.ini file

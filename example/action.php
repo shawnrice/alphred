@@ -8,7 +8,7 @@
 require_once( __DIR__ . '/test_vars.php' );
 
 // Require Alphred
-require_once( __DIR__ . '/../build/Alphred.phar' );
+require_once( __DIR__ . '/Alphred.phar' );;
 
 // Instantiate an Alphred object, but since this isn't run as a script filter, we'll just
 // turn off the filter. It will run just fine if we left it on, but we're turning it off.
