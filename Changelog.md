@@ -1,3 +1,7 @@
+0.9.2
+===
+* fixed another bug with server-scripts
+
 0.9.1
 ===
 * fixed server script creation
