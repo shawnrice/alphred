@@ -125,7 +125,7 @@ foreach ( $matches as $match ) :
 	// Figure out the icon with the color from above
 	$icon = __DIR__ . "/icons/mark-github-{$color}.png";
 	$Alphred->add_result([
-	    // I want Alfred to show the name of the repo as the ttle
+			// I want Alfred to show the name of the repo as the title
 			'title'          => $match['name'],
 			// We'll add in the appropriate icon
 			'icon'           => $icon,
