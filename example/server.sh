@@ -80,7 +80,6 @@ function Alphred::query_server() {
 				data_string="${data_string}${var}"=$(eval echo \$$var)'&'
 			fi
 		done
-		echo "data_string: ${data_string}" 1>&2
 		if [ ! -z "${data_string}" ]; then
 			# remove the trailing ampersand
 			len=${#data_string}
@@ -91,8 +90,7 @@ function Alphred::query_server() {
 		fi
 
     cmd="curl -fsS --request POST 'http://localhost:${_ALPHRED_SERVER_PORT}/${directory}/${_ALPHRED_SCRIPT}' ${data_string}"
-    echo "${cmd}" 1>&2
-    eval $cmd
+    echo $(eval $cmd)
 
 }
 

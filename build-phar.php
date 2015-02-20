@@ -45,7 +45,8 @@ foreach ( $other_files as $file ) :
 endforeach;
 
 // Create a custom stub to add the shebang
-$stub = "#!/usr/bin/php \n" . $defaultStub;
+// $stub = "#!/usr/bin/php \n" . $defaultStub;
+$stub = $defaultStub;
 
 // Add the stub
 $phar->setStub( $stub );
