@@ -8,7 +8,7 @@
 // `php Alphred.phar create-server-scripts` and use those.
 
 // Make this available via the CLI-server
-require_once( __DIR__ . '/server.php' );
+require_once( __DIR__ . '/server-scripts/server.php' );
 
 // For quicker development purposes, I'm setting some of the variables here so that it
 // can run via the command line. Don't do this in a real workflow.

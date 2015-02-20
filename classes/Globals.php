@@ -36,6 +36,9 @@ class Globals {
 		 * @var array
 		 */
 		private static $variables = [
+			'alfred_preferences',
+			'alfred_preferences_localhash',
+			'alfred_theme',
 			'alfred_theme_background',
 			'alfred_theme_subtext',
 			'alfred_version',
@@ -45,9 +48,10 @@ class Globals {
 			'alfred_workflow_data',
 			'alfred_workflow_name',
 			'alfred_workflow_uid',
-			'ALPHRED_IN_BACKGROUND', // This is internal for background awareness
+			'ALPHRED_IN_BACKGROUND',  // This is internal for background awareness
 			'PWD',
-			'USER'
+			'USER',
+			'HOME',
 		];
 
 	/**

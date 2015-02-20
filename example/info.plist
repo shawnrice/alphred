@@ -143,7 +143,7 @@
 				<integer>1</integer>
 				<key>script</key>
 				<string># php script-filter.php "{query}"
-bash server.sh script-filter.php "{query}"</string>
+bash server-scripts/server.sh script-filter.php "{query}"</string>
 				<key>title</key>
 				<string>GH Repo (Alphred Test)</string>
 				<key>type</key>

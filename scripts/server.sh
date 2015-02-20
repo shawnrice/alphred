@@ -8,19 +8,7 @@ _ALPHRED_MIN_QUERY=0
 # Note: all declared variables have been prepended with "_ALPHRED_" so that
 # we avoid any sort of nameclashes that the user might implement
 
-# This is now old code that needed to be removed because people sometimes symlink and
-# rename their workflow folders, thus breaking this. The idea behind it was to make sure
-# that the server was launched one level above the workflow directory, i.e. the directory
-# where Alfred stores all workflows; this is done in order to make sure that one workflow
-# doesn't capture the input for other workflows that use this library/set of scripts.
-# It *seems* more reliable than setting random port numbers. But, right now, no check
-# exists to make sure that this is the correct behavior.
-# if [[ ! $(basename "${PWD}") =~ 'user.workflow.' ]]; then
-#     echo "You can execute this script only from an Alfred Workflow"
-#     exit 1
-# fi
-
-#####
+###########################################################################################
 
 # The location of the pid file
 _ALPHRED_PHP_PID_FILE=/tmp/Alphred-Server.pid
@@ -44,7 +32,7 @@ _ALPHRED_SCRIPT="$1"
 # This is the query to pass onto the script; encode it with the sed file
 _ALPHRED_QUERY=$(echo "$2" | sed -f "${_ALPHRED_ME}/alphred_urlencode.sed")
 
-_ALPHRED_GLOBAL_VARS="alfred_theme_background alfred_theme_subtext alfred_version alfred_version_build alfred_workflow_bundleid alfred_workflow_cache alfred_workflow_data alfred_workflow_name alfred_workflow_uid ALPHRED_IN_BACKGROUND"
+_ALPHRED_GLOBAL_VARS="alfred_preferences alfred_preferences_localhash alfred_theme alfred_theme_background alfred_theme_subtext alfred_version alfred_version_build alfred_workflow_bundleid alfred_workflow_cache alfred_workflow_data alfred_workflow_name alfred_workflow_uid ALPHRED_IN_BACKGROUND"
 
 function isset() {
     [[ -n "${1}" ]] && test -n "$(eval "echo "\${${1}+x}"")"
@@ -54,7 +42,7 @@ function Alphred::prime_server() {
     # kickoff thread handling scripts if process doesn't exist
     if [[ ! -f ${_ALPHRED_PHP_PID_FILE} ]] || ( ! ps -p $(cat "${_ALPHRED_PHP_PID_FILE}") > /dev/null ); then
         # launch the PHP Server in the Workflows Directory and store the PID
-        nohup php -S "localhost:${_ALPHRED_SERVER_PORT}" -t "${_ALPHRED_ME}/../" &> /dev/null &
+        nohup php -S "localhost:${_ALPHRED_SERVER_PORT}" -t "'${alfred_preferences}/workflows'" &> /dev/null &
         echo $! > "${_ALPHRED_PHP_PID_FILE}"
         # launch kill script
         nohup /bin/bash "${_ALPHRED_ME}/kill.sh" &> /dev/null &
@@ -69,6 +57,7 @@ function Alphred::query_server() {
     # Update the Last Triggered file
     echo $(date +%s) > "${_ALPHRED_KEEP_ALIVE}" &
 
+    # Get the directory name so that we can route things appropriate
     directory=$(basename "${PWD}")
 
 		data_string=''
@@ -94,6 +83,7 @@ function Alphred::query_server() {
 
 }
 
+# Prime the server (make sure it's running and keep it alive)
 Alphred::prime_server
 
 if [[ ${#_ALPHRED_QUERY} -ge $_ALPHRED_MIN_QUERY ]]; then

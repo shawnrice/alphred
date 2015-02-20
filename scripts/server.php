@@ -24,8 +24,6 @@
  * @since      File available since Release 1.0.0
  *
  *
- * @todo Migrate all Alfred environmental variables. Must be done in coordination
- *       with server.sh
  *
  */
 
@@ -39,6 +37,9 @@ if ( 'cli-server' === php_sapi_name() ) {
 	// These are all the potential global variables that can be set
 	// by Alfred, and one extra from Alphred.
 	$alfred_global_vars = [
+		'alfred_preferences',
+		'alfred_preferences_localhash',
+		'alfred_theme',
 		'alfred_theme_background',
 		'alfred_theme_subtext',
 		'alfred_version',
