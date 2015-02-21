@@ -36,12 +36,6 @@ bash lib/server.sh src/script-filter.php "{query}"
 ````
 
 __Important__
-If you symlink workflows, you must make sure that the name of the directory and the
-symlink are the same.
-	GOOD: example -> example
-	BAD:  example -> alphred-example-workflow
-
-__Also important__
 The console log will not work when you're using the cli-server.
 
 Tests
