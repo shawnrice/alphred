@@ -6,19 +6,23 @@ To demonstrate how to use Alphred, we're going to put together a simple workflow
 First, let's make it simple.
 
 Create a new workflow by pressing the `+` on the bottom left of the Workflows pane in Alfred Preferences.
+
 ![Alt text](../images/alfred-new-workflow-plus.png "Optional title")
 
 Choose `blank workflow`
+
 ![Alt text](../images/alfred-new-blank-workflow.png "Optional title")
 
-
 Create a script filter object. Press the `+` sign in the upper-right corner of the pane.
+
 ![Alt text](../images/new-object.png "Optional title")
 
 Choose `Inputs -> Script Filter`
+
 ![Alt text](../images/new-scriptfilter-object.png "Optional title")
 
 Let's fill out the script filter properties.
+
 ![Alt text](../images/script-filter-dialog.png "Optional title")
 
 We're going to use the __keyword__ `example` because this is an example workflow. Currently, there is no argument, which is fine. Enter a __Placeholder Title__. Next, we're going to use `/bin/bash` _not_ `/usr/bin/php` because we'll develop the php code in a separate file. It's easier that way. So, we'll enter the simple script:
@@ -53,6 +57,7 @@ Alphred contains many different components, each in its own class, but the most 
 `$workflow = new Alphred;` instantiates a new object of the Alphred class. The next line adds a single item to the script filter with a title that is, simply, `This is a title`, and the last line prints the XML for Alfred to read.
 
 So, try it. Call up Alfred and type `example` (our keyword), and you should see something like:
+
 ![Alt text](../images/script-filter-results-1.png "Optional title")
 
 Congrats! We have a working script filter, but it's not very useful yet.
@@ -93,6 +98,7 @@ $workflow->to_xml();
 ````
 
 Use the code above, except put in your username and password in the code. Your output will start to look different than mine -- because we have different repositories, but it should look something like this:
+
 ![Alt text](../images/script-filter-results-2.png "Optional title")
 
 So what happened above? Well, we made a `GET` request to Github, but, first, we had to set some parameters, which go into the `$options` array. Github gives us some `json`, so we decode the `json` into a php array.
@@ -102,6 +108,7 @@ So what happened above? Well, we made a `GET` request to Github, but, first, we 
 Next, we cycle through the results (`$repos`) and add a script filter item for each repo, and lastly, print the xml.
 
 Progress. But let's do a bit more with it. Go back to Alfred Preferences, and change the script filter dialog to have an "optional argument":
+
 ![Alt text](../images/script-filter-dialog-2.png "Optional title")
 
 > The optional argument means that the script filter will run with or without an argument.
@@ -127,11 +134,13 @@ $repos = $workflow->filter( $repos, $query, 'name' );
 ````
 
 Here, we're using the `filter` to remove anything that is not related to `$query`. Running the script with the argument `api`, for me, now looks like:
+
 ![Alt text](../images/script-filter-dialog-3.png "Optional title")
 
 See, fewer items. Nice.
 
 Also, you might notice that if you type in a query that filters everything out, you'll see this:
+
 ![Alt text](../images/script-filter-results-error-empty.png "Optional title")
 
 The reason is that, by default, an option is turned on called `error_on_empty`. I think that this behavior is better than just showing the fallback searches, which is exactly what Alfred does when the script outputs no usable XML. If you want to turn this off, then change
@@ -150,6 +159,7 @@ php action.php "{query}"
 ````
 
 Here's what it should look like:
+
 ![Alt text](../images/run-script-dialog.png "Optional title")
 
 Next, connect the Script Filter to the Run Script by clicking the little tab on the right side of the Script Filter object and dragging it to the Run Script object. Okay?
@@ -227,11 +237,13 @@ if ( ! $password = $workflow->get_password( 'github.com' ) ) {
 So what did we just do? Well, `$workflow->config_read( 'username' );` tries to read the key `username` from the config file. We don't have one yet, but we don't have to worry about creating one; Alphred will do it for you when you try to write to it the first time. But, if there is no value yet, then we'll just add an item to the script filter that tells the user to set their username, and uses the query to do so. Then, we print out the XML (`$workflow->to_xml()`) and use `exit(0);` to end the script so that it doesn't keep running.
 
 If the username is not set, then we it should look something like:
+
 ![Alt text](../images/set-username.png "Optional title")
 
 Almost the same thing goes for the password, except we're using the `get_password` method, which integrates with the System Keychain. Yes, that means that the password is encrypted securely. We can access it from the workflow -- once it's set -- but, otherwise, anyone needs to enter the user's system password to see it.
 
 When the password is not set, it will look like:
+
 ![Alt text](../images/set-password.png "Optional title")
 
 But, the script filter doesn't set anything on its own, so we need to edit `action.php` in order to do something. So, rewrite it so that it looks like:
@@ -323,6 +335,7 @@ Please enter the password.
 ````
 
 And it looks like:
+
 ![Alt text](../images/get-password-dialog.png "Optional title")
 
 Now, in the `if` statement, we have the lines:
@@ -366,6 +379,7 @@ Now, if you wanted, you could distribute this workflow. But we're missing a few 
 Let's get some icons. [Font Awesome](https://fortawesome.github.io/Font-Awesome/) has a nice Github one. But we wat to get it in some nice colors. Dean Jackson created a nice little utility that helps with these, and you can find my mirror at [this link](http://icons.shawnrice.org/preview/fontawesome). Change the colors with the color-picker in the upper-left hand corner of the page, and click on the icon to create it. Then download it. We'll get one in `#444444` and another in `#eaeaea`. We'll call them `github-dark.png` and `github-light.png` and place them in the root of the workflow directory.
 
 Here they are:
+
 ![Alt text](../images/github-light.png "Optional title") ![Alt text](../images/github-dark.png "Optional title")
 
 Why a light version and a dark version of the icons? Well, sometimes people have dark themes and others have light themes. Using a light icon on a light theme makes it not show up. Alphred gives you a nice little method to find out whether or not the background is light or dark.
@@ -397,9 +411,11 @@ endforeach;
 If you notice, we also added in a subtitle that displays the description of the repository. And we set the `uid` to the name of the repository.
 
 But, we have icons, and they respond to the theme:
+
 ![Alt text](../images/script-filter-with-light-icon.png "Optional title")
 
 Or, if I change my theme:
+
 ![Alt text](../images/script-filter-with-dark-icon.png "Optional title")
 
 But, let's go back to the `uid`. The results that are filtered through Alphred's `filter` method sorts them based on the match score. Alfred can override these, and it does so if you set a `uid`. The way that it works is that the more the you action an item with a `uid`, the higher it appears in the result list.
@@ -438,6 +454,7 @@ endforeach;
 ````
 
 The method `fuzzy_time_diff` converts a time (a Unix Epoch Time) to a fuzzy string like `yesterday` or `almost a month ago`. So, look at it now:
+
 ![Alt text](../images/script-filter-results-3.png "Optional title")
 
 We're going to change one more aspect about the workflow. Currently, the results are a bit too wide. We can change the matching rules for the `filter` method. So, change the `filter` line to
@@ -448,6 +465,7 @@ $repos = $workflow->filter( $repos, $query, 'name', [ 'match_type' => MATCH_STAR
 The capitalized flags `MATCH_*` are constants set by Alphred and determine different matching patterns. You can read more about them on the filters page.
 
 Let's also give the workflow an icon. Just copy `github-dark.png` to `icon.png`, and that will serve as the icon for the workflow so that it looks like:
+
 ![Alt text](../images/workflow-sidebar-with-icon.png "Optional title")
 
 Lastly, `action.php` prints out some information when setting the `username` and `password`. We can use these to display notifications by adding on a Post Notification object.
@@ -455,9 +473,11 @@ Lastly, `action.php` prints out some information when setting the `username` and
 Create one by pressing the `+` in the upper right corner of Alfred Preferences window and select `Outputs -> Post Notification`.
 
 Set it up so that it looks like:
+
 ![Alt text](../images/post-notification-dialog.png "Optional title")
 
 And then connect it so that the workflow looks like:
+
 ![Alt text](../images/post-notification-object.png "Optional title")
 
 We'll change just one more thing about `action.php` so that a notification will be sent:
