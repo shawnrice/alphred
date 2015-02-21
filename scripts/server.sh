@@ -81,7 +81,7 @@ function Alphred::query_server() {
 		fi
 
     cmd="curl -fsS --request POST 'http://localhost:${_ALPHRED_SERVER_PORT}/${directory}/${_ALPHRED_SCRIPT}' ${data_string}"
-    echo $(eval $cmd)
+    echo $(eval $cmd) | xmllint --format -
 
 }
 

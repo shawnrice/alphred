@@ -27,7 +27,7 @@ if ( isset( $argv[1] ) ) {
 	$query = trim( implode(' ', $argv ) ); // Make argv $query for now.
 }
 
-$Alphred = new Alphred(['error_on_empty' => true ]);
+$Alphred = new Alphred([ 'error_on_empty' => true ]);
 
 // Read the username from the config file
 $username = $Alphred->config_read( 'username' );
@@ -50,15 +50,17 @@ if ( ! $username ) {
 // We're going to try to read the password from the Keychain.
 if ( ! $password = $Alphred->get_password( 'github.com' ) ) {
 	// The password has not been set, so we'll provide only one option to set the password
-	$Alphred->add_result( new Alphred\Result([
+	$Alphred->add_result([
 			'title' => 'Press enter to set your password',
 			'arg'   => 'set-password',
 			'valid' => true
-	]));
+	]);
 	// Print out the XML
 	$Alphred->to_xml();
 	// Exit the script with a status of 0 (which means sucessfully completed -- no errors)
 	exit(0);
+} else {
+	Alphred\Log::console( 'What happened' );
 }
 
 
