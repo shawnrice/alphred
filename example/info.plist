@@ -229,13 +229,23 @@ bash server-scripts/server.sh script-filter.php "{query}"</string>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>triggerid</key>
-				<string>test</string>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>output</key>
+				<integer>0</integer>
+				<key>removeextension</key>
+				<false/>
+				<key>sticky</key>
+				<false/>
+				<key>title</key>
+				<string>{query}</string>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.trigger.external</string>
+			<string>alfred.workflow.output.notification</string>
 			<key>uid</key>
-			<string>CF38D9DA-CCD2-486F-9E72-586D163A0AE6</string>
+			<string>A2E7A60B-1972-4D3F-8EF3-31AF6ECE8222</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
@@ -263,23 +273,13 @@ echo "${file}"</string>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>lastpathcomponent</key>
-				<false/>
-				<key>onlyshowifquerypopulated</key>
-				<false/>
-				<key>output</key>
-				<integer>0</integer>
-				<key>removeextension</key>
-				<false/>
-				<key>sticky</key>
-				<false/>
-				<key>title</key>
-				<string>{query}</string>
+				<key>triggerid</key>
+				<string>test</string>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.output.notification</string>
+			<string>alfred.workflow.trigger.external</string>
 			<key>uid</key>
-			<string>A2E7A60B-1972-4D3F-8EF3-31AF6ECE8222</string>
+			<string>CF38D9DA-CCD2-486F-9E72-586D163A0AE6</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>

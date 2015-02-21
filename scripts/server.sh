@@ -42,7 +42,9 @@ function Alphred::prime_server() {
     # kickoff thread handling scripts if process doesn't exist
     if [[ ! -f ${_ALPHRED_PHP_PID_FILE} ]] || ( ! ps -p $(cat "${_ALPHRED_PHP_PID_FILE}") > /dev/null ); then
         # launch the PHP Server in the Workflows Directory and store the PID
-        nohup php -S "localhost:${_ALPHRED_SERVER_PORT}" -t "'${alfred_preferences}/workflows'" &> /dev/null &
+        # directory=$(echo "${alfred_preferences}/workflows" | sed 's/ /\\ /g')
+        directory="${alfred_preferences}/workflows"
+        /usr/bin/nohup php -S "localhost:${_ALPHRED_SERVER_PORT}" -t "${directory}" &> /dev/null &
         echo $! > "${_ALPHRED_PHP_PID_FILE}"
         # launch kill script
         nohup /bin/bash "${_ALPHRED_ME}/kill.sh" &> /dev/null &
