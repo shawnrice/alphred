@@ -18,16 +18,31 @@ CLI-Server
 
 PHP is quick to run but slow to load. To help out with that, you can write your workflow to use the built-in PHP CLI server. But, remember, that the CLI-Server exists only with PHP 5.4+, so it will not work on stock systems below Mavericks (10.9).
 
-To "install" the scripts for your workflow, just run: `php Alphred.phar create-server-scripts`. Doing so will create (or unpack) three files:
+To "install" the scripts for your workflow, just run: `php Alphred.phar create-server-scripts`. Doing so will create (or unpack) four files:
 1. server.php,
-2. server.sh, and
-3. kill.sh
+2. server.sh,
+3. kill.sh, and
+4. alphred_urlencode.sed
 
 Place these somewhere in your workflow. For each php script that you want to use with the server (probably just the script filters), add in `include_once( 'server.php' );` before you do much of anything. Then, in Alfred, make the script filters all `bash` and just use the line:
 ````shell
 bash server.sh script-filter.php "{query}"
 ````
 That's it. The rest is taken care of for you.
+
+Or, if you're using sub-directories:
+````shell
+bash lib/server.sh src/script-filter.php "{query}"
+````
+
+__Important__
+If you symlink workflows, you must make sure that the name of the directory and the
+symlink are the same.
+	GOOD: example -> example
+	BAD:  example -> alphred-example-workflow
+
+__Also important__
+The console log will not work when you're using the cli-server.
 
 Tests
 ===
