@@ -34,6 +34,24 @@ _ALPHRED_QUERY=$(echo "$2" | sed -f "${_ALPHRED_ME}/alphred_urlencode.sed")
 
 _ALPHRED_GLOBAL_VARS="alfred_preferences alfred_preferences_localhash alfred_theme alfred_theme_background alfred_theme_subtext alfred_version alfred_version_build alfred_workflow_bundleid alfred_workflow_cache alfred_workflow_data alfred_workflow_name alfred_workflow_uid ALPHRED_IN_BACKGROUND"
 
+# tries to find the symlink, if the workflow is symlinked
+function Alphred::find_symlink_dir() {
+	OLDIFS=$IFS
+	IFS=$'\n'
+	for dir in $(cd "${alfred_preferences}/workflows"; echo $(ls -l | grep ^l)); do
+		# This is a really long regex that should just grab the directory name
+		directory=$(echo $dir | grep "$(pwd)" | sed 's|^[lrwx@-]\{1,\}[ ]*[0-9]\{1,\}[ ]*[^ ]\{1,\}[ ]*[a-zA-Z]\{1,\}[ ]*[0-9]\{1,\}[ ]*[A-Za-z]\{1,\}[ ]*[0-9]\{1,\}[ ]*[0-9]\{2\}:[0-9]\{2\}\([A-Za-z0-9 -]\{1,\}\) \-\> '"$PWD"\/'|\1|g' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+
+		if [ ! -z "${directory}" ]; then
+			# we found something, so lets get out of the loop
+			break;
+		fi
+	done
+	# Bring back the old separator
+	IFS=$OLDIFS
+	echo $directory
+}
+
 function isset() {
     [[ -n "${1}" ]] && test -n "$(eval "echo "\${${1}+x}"")"
 }
@@ -61,6 +79,11 @@ function Alphred::query_server() {
 
     # Get the directory name so that we can route things appropriate
     directory=$(basename "${PWD}")
+    if [[ -z $(pwd | grep "${alfred_preferences}") ]]; then
+    	# If the directory does not match `pwd`, then we'll find the symlinked directory name
+    	# and URL encode it
+			directory=$(echo $(Alphred::find_symlink_dir) | sed -f "${_ALPHRED_ME}/alphred_urlencode.sed")
+		fi
 
 		data_string=''
 		if [[ ! -z "${_ALPHRED_QUERY}" ]]; then
