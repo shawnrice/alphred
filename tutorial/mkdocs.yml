@@ -1,0 +1,18 @@
+site_name: Alphred
+pages:
+  - ['Index.md', 'Home']
+  - ['Tutorial.md', 'Tutorial']
+  - ['Configurations.md', 'Configs']
+  - ['Filter.md', 'Filter']
+  - ['Logging.md', 'Logs']
+  - ['Passwords.md', 'Passwords']
+  - ['Request.md', 'HTTP Requests']
+  - ['UsingComponents.md', 'Components']
+  - ['Extending.md', 'Extending']
+theme: yeti
+repo_url: https://github.com/shawnrice/alphred
+site_author: Shawn Patrick Rice
+docs_dir: markdown
+site_dir: html
+use_directory_urls: true
+markdown_extensions: [codehilite, smarty, extra]

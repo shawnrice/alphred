@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Shawn Patrick Rice">
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+
+        <title>Passwords - Alphred</title>
+
+        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../css/font-awesome-4.0.3.css" rel="stylesheet">
+        <link href="../css/prettify-1.0.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <!-- Main title -->
+            <a class="navbar-brand" href="../Index">Alphred</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            <!-- Main navigation -->
+            <ul class="nav navbar-nav">
+            
+            
+                <li >
+                    <a href="../Index">Home</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../Tutorial">Tutorial</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../Configurations">Configs</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../Filter">Filter</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../Logging">Logs</a>
+                </li>
+            
+            
+            
+                <li class="active">
+                    <a href=".">Passwords</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../Request">HTTP Requests</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../UsingComponents">Components/Using Components</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../Extending">Extending</a>
+                </li>
+            
+            
+            </ul>
+
+            <!-- Search, Navigation and Repo links -->
+            <ul class="nav navbar-nav navbar-right">
+                
+                <li >
+                    <a rel="next" href="../Logging">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </li>
+                <li >
+                    <a rel="prev" href="../Request">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="https://github.com/shawnrice/alphred">
+                        
+                            <i class="fa fa-github"></i>
+                        
+                        GitHub
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+            <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="main active"><a href="#methods">Methods</a></li>
+        
+    
+        <li class="main "><a href="#explanation">Explanation</a></li>
+        
+    
+        <li class="main "><a href="#hidden-input">Hidden Input</a></li>
+        
+            <li><a href="#method">Method</a></li>
+        
+            <li><a href="#explanation_1">Explanation</a></li>
+        
+    
+    </ul>
+</div></div>
+            <div class="col-md-9" role="main">
+
+<p>Passwords can be a sensitive subject. You might need to store them, and, if you do, you should, obviously, store them securely, not in plain text. Alphred provides a few handy helpers. The first is the <code>Keychain</code> class that wraps around OSX&rsquo;s <code>security</code> command, allowing command line access to the keychain.</p>
+<h4 id="methods">Methods</h4>
+<blockquote>
+<p><code>save_password( $account, $password )</code>
+<code>get_password( $account )</code>
+<code>delete_password( $account )</code></p>
+</blockquote>
+<h4 id="explanation">Explanation</h4>
+<p>So, to use this through the wrapper, you can simply do the following</p>
+<div class="codehilite"><pre><span class="x">// some code above populates the $password variable</span>
+<span class="x">$workflow = new Alphred;</span>
+<span class="x">$workflow-&gt;save_password( &#39;github.com&#39;, $password );</span>
+</pre></div>
+
+
+<p>That&rsquo;s it. The password is now securely in the user&rsquo;s Keychain. To access it later, just use:</p>
+<div class="codehilite"><pre><span class="x">$workflow = new Alphred;</span>
+<span class="x">$password = $workflow-&gt;get_password( &#39;github.com&#39; );</span>
+</pre></div>
+
+
+<p>If you need to delete it from the Keychain, just use the <code>delete_password</code> method as such</p>
+<div class="codehilite"><pre><span class="x">$workflow = new Alphred;</span>
+<span class="x">$workflow-&gt;delete_password( &#39;github.com&#39; );</span>
+</pre></div>
+
+
+<p>You&rsquo;ll be happy to know that this command will not delete everything associated with Github in the Keychain; instead, it deletes only the entry stored by your workflow.</p>
+<h2 id="hidden-input">Hidden Input</h2>
+<h4 id="method">Method</h4>
+<blockquote>
+<p><code>get_password_dialog( $title, $text, $icon )</code></p>
+</blockquote>
+<h4 id="explanation_1">Explanation</h4>
+<p>You can also request a password using a &ldquo;hidden input&rdquo; display, just like most password boxes on webforms. Alphred does this by creating an AppleScript dialog for you:</p>
+<div class="codehilite"><pre><span class="x">$workflow = new Alphred;</span>
+<span class="x">$password = $workflow-&gt;get_password_dialog();</span>
+</pre></div>
+
+
+<p>If the user presses <code>Cancel</code>, then it will return a value of <code>canceled</code>, so make sure you check for that. My assumption is that no one will use the password <code>canceled</code>, and, if they do, then they should change it anyway.</p>
+<p>By default, the title will be the title of your workflow, and the text will be &ldquo;Please enter the password&rdquo;. You can change these by passing options to the <code>get_password_dialog</code> method.</p>
+<div class="codehilite"><pre><span class="x">$password = $workflow-&gt;get_password_dialog( &#39;This is my new title&#39;, &#39;This is the new message prompt.&#39; );</span>
+</pre></div>
+
+
+<p>You can also add in an icon. Make sure that you use the full path, however. So, if you want to use your workflow&rsquo;s icon:</p>
+<div class="codehilite"><pre><span class="x">$icon = realpath( &#39;icon.png&#39; );</span>
+<span class="x">$password = $workflow-&gt;get_password_dialog( &#39;This is my new title&#39;, &#39;This is the new message prompt.&#39;, $icon );</span>
+</pre></div>
+
+
+</div>
+        </div>
+
+        
+
+        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../js/prettify-1.0.min.js"></script>
+        <script src="../js/base.js"></script>
+    </body>
+</html>

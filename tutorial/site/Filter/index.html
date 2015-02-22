@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+
+        <title>Filter - Alphred</title>
+
+        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../css/font-awesome-4.0.3.css" rel="stylesheet">
+        <link href="../css/prettify-1.0.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <!-- Main title -->
+            <a class="navbar-brand" href="../Index">Alphred</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            <!-- Main navigation -->
+            <ul class="nav navbar-nav">
+            
+            
+                <li >
+                    <a href="../Index">Home</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../Tutorial">Tutorial</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../Configurations">Configs</a>
+                </li>
+            
+            
+            
+                <li class="active">
+                    <a href=".">Filter</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../Logging">Logs</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../Passwords">Passwords</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../Request">HTTP Requests</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../UsingComponents">Components/Using Components</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../Extending">Extending</a>
+                </li>
+            
+            
+            </ul>
+
+            <!-- Search, Navigation and Repo links -->
+            <ul class="nav navbar-nav navbar-right">
+                
+                <li >
+                    <a rel="next" href="../Configurations">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </li>
+                <li >
+                    <a rel="prev" href="../Logging">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+            <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="main active"><a href="#method">Method</a></li>
+        
+    
+        <li class="main "><a href="#explanation">Explanation</a></li>
+        
+    
+        <li class="main "><a href="#usage">Usage</a></li>
+        
+    
+    </ul>
+</div></div>
+            <div class="col-md-9" role="main">
+
+<p>The filter method allows you to search through results and filter out irrelevant ones. It is fairly powerful and flexible. It is a translation of the filter functionality of Deanishe's Python library Alfred Workflow, and it works fairly well.</p>
+<h4 id="method">Method</h4>
+<blockquote>
+<p>filter( $haystack, $needle, $key = false, $options = [] )</p>
+</blockquote>
+<h4 id="explanation">Explanation</h4>
+<p>The filter method filters an array (<code>$haystack</code>) by removing results that do not match a query (<code>$needle</code>). If the array is associative and you want to match one particular key, then set the <code>$key</code>.</p>
+<p>Passing an empty query ($needle) to this method will simply return the initial array. If you have <code>fold</code> on, then this will fail on characters that cannot be translitered into regular ASCII, so most Asian character sets.</p>
+<p>The options to be set are:
+<em> max_results  -- the maximum number of results to return (default: false)
+</em> min_score    -- the minimum score to return (0-100) (default: false)
+<em> return_score -- whether or not to return the score along with the results (default: false)
+</em> fold         -- whether or not to fold diacritical marks, thus making
+                                    <code>über</code> into <code>uber</code>. (default: true)
+* match_type     -- the type of filters to run. (default: MATCH_ALL)</p>
+<p>The match_type is defined as constants, and so you can call them by the flags or by the integer value. Options:
+<em> Match items that start with the query
+</em> 1: MATCH_STARTSWITH
+<em> Match items whose capital letters start with <code>query</code>
+</em> 2: MATCH_CAPITALS
+<em> Match items with a component "word" that matches <code>query</code>
+</em> 4: MATCH_ATOM
+<em> Match items whose initials (based on atoms) start with <code>query</code>
+</em> 8: MATCH_INITIALS_STARTSWITH
+<em> Match items whose initials (based on atoms) contain <code>query</code>
+</em> 16: MATCH_INITIALS_CONTAIN
+<em> Combination of MATCH_INITIALS_STARTSWITH and MATCH_INITIALS_CONTAIN
+</em> 24: MATCH_INITIALS
+<em> Match items if <code>query</code> is a substring
+</em> 32: MATCH_SUBSTRING
+<em> Match items if all characters in <code>query</code> appear in the item in order
+</em> 64: MATCH_ALLCHARS
+<em> Combination of all other <code>MATCH_*</code> constants
+</em> 127: MATCH_ALL</p>
+<h4 id="usage">Usage</h4>
+<p>Assume that you have an array that looks like:</p>
+<pre><code class="php">$array[] = [ 'title' =&gt; 'The ABCs of Gardening', 'author' =&gt; 'Amanda Hugenkiss' ];
+</code></pre>
+
+<p>and that there are multiple values in <code>$array</code>. You will need to specify a <code>key</code> to filter on, either <code>title</code> or <code>author</code>. An array that would look like:</p>
+<pre><code class="php">$array[] = 'The ABCs of Gardening';
+</code></pre>
+
+<p>would keep <code>false</code> as the key.</p>
+<p>So, the easiest way to use the filter mechanism is:</p>
+<pre><code class="php">$workflow = new Alphred;
+// we assume an array that looks like the one with 'title' and 'author' mentioned above and that $query has
+// already been set
+$results = $workflow-&gt;filter( $array, $query, 'title' );
+</code></pre>
+
+</div>
+        </div>
+
+        
+
+        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../js/prettify-1.0.min.js"></script>
+        <script src="../js/base.js"></script>
+    </body>
+</html>

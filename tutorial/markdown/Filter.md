@@ -49,6 +49,7 @@ $array[] = 'The ABCs of Gardening';
 would keep `false` as the key.
 
 So, the easiest way to use the filter mechanism is:
+
 ````php
 $workflow = new Alphred;
 // we assume an array that looks like the one with 'title' and 'author' mentioned above and that $query has

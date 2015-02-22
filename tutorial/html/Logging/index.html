@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Shawn Patrick Rice">
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+
+        <title>Logs - Alphred</title>
+
+        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../css/font-awesome-4.0.3.css" rel="stylesheet">
+        <link href="../css/prettify-1.0.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <!-- Main title -->
+            <a class="navbar-brand" href="../Index">Alphred</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            <!-- Main navigation -->
+            <ul class="nav navbar-nav">
+            
+            
+                <li >
+                    <a href="../Index">Home</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../Tutorial">Tutorial</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../Configurations">Configs</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../Filter">Filter</a>
+                </li>
+            
+            
+            
+                <li class="active">
+                    <a href=".">Logs</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../Passwords">Passwords</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../Request">HTTP Requests</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../UsingComponents">Components/Using Components</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../Extending">Extending</a>
+                </li>
+            
+            
+            </ul>
+
+            <!-- Search, Navigation and Repo links -->
+            <ul class="nav navbar-nav navbar-right">
+                
+                <li >
+                    <a rel="next" href="../Filter">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </li>
+                <li >
+                    <a rel="prev" href="../Passwords">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="https://github.com/shawnrice/alphred">
+                        
+                            <i class="fa fa-github"></i>
+                        
+                        GitHub
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+            <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="main active"><a href="#log-levels">Log Levels</a></li>
+        
+    
+        <li class="main "><a href="#setting-a-log-level">Setting a log level</a></li>
+        
+    
+        <li class="main "><a href="#console-logging">Console Logging</a></li>
+        
+    
+        <li class="main "><a href="#file-logging">File Logging</a></li>
+        
+    
+    </ul>
+</div></div>
+            <div class="col-md-9" role="main">
+
+<p>Alphred gives you easy access to two different kinds of logs: a console and a file. The console log writes to <code>STDERR</code> so that it does not interfere with script filters, and it shows up in the Alfred debugger window.</p>
+<h3 id="log-levels">Log Levels</h3>
+<p>There is a pre-defined set of log levels indicating severity. These cannot be changed without extending the Log class. By default there are:
+0. DEBUG
+1. INFO
+2. WARNING
+3. ERROR
+4. CRITICAL</p>
+<h3 id="setting-a-log-level">Setting a log level</h3>
+<p>Alphred sets the default log level to <code>WARNING</code> (2). Thus, by default, you will not see any <code>DEBUG</code> or <code>INFO</code> messages.</p>
+<p>You can set your log level either in a <code>workflow.ini</code> or by defining it before the including Alphred.phar. If you do not, then it will default to <code>WARNING</code>. Setting a log level means that messages that level or above will be displayed, so if you set your log level to <code>ERROR</code> (3), then only <code>ERROR</code> and <code>CRITICAL</code> messages will be either written to the file or the console.</p>
+<p>To define the level in the code, place something like:</p>
+<div class="codehilite"><pre><span class="x">define( &#39;ALPHRED_LOG_LEVEL&#39;, 2 );</span>
+</pre></div>
+
+
+<p>before you include Alphred.phar. You can also use the more verbose version:</p>
+<div class="codehilite"><pre><span class="x">define( &#39;ALPHRED_LOG_LEVEL&#39;, &#39;WARNING&#39; );</span>
+</pre></div>
+
+
+<p>My recommendation is to include a <code>workflow.ini</code> file with your workflow. Place it next to <code>info.plist</code>. In it, place the section</p>
+<div class="codehilite"><pre><span class="k">[alphred]</span>
+<span class="na">log_level</span> <span class="o">=</span> <span class="s">INFO</span>
+</pre></div>
+
+
+<p>or whatever you want the level to be set at. If you do this, then it is easy to change both for yourself and for others if they&rsquo;re running into trouble. So, make your workflow log to the console often with debug messages, and then set the default log level to something higher before you distribute it.</p>
+<h3 id="console-logging">Console Logging</h3>
+<p>The simplest way to log a message to a console:</p>
+<div class="codehilite"><pre><span class="x">$workflow = new Alphred;</span>
+<span class="x">$workflow-&gt;console( &#39;This is a message&#39; );</span>
+</pre></div>
+
+
+<p>That&rsquo;s it, and it will display the above text with a log level &lsquo;INFO&rsquo;. If you haven&rsquo;t set your log level, then the message will not show up (because Alphred has a default setting of <code>WARNING</code>).</p>
+<p>To specify the log level, just add the next argument:</p>
+<div class="codehilite"><pre><span class="x">$workflow-&gt;console( &#39;This is a message&#39;, 2 );</span>
+</pre></div>
+
+
+<p>or</p>
+<div class="codehilite"><pre><span class="x">$workflow-&gt;console( &#39;This is a message&#39;, &#39;WARNING&#39; );</span>
+</pre></div>
+
+
+<p>They&rsquo;re the same.</p>
+<h3 id="file-logging">File Logging</h3>
+<p>Alphred can also create a log file for you. It will be located in your workflow&rsquo;s data directory. By default, the file will be called <code>workflow.log</code>, but you can change the name, and you can also use multiple logs.</p>
+<p>Writing a log message works exactly the same as writing a console message, except we use <code>log</code> instead of <code>console</code>.</p>
+<div class="codehilite"><pre><span class="x">$workflow = new Alphred;</span>
+<span class="x">$workflow-&gt;log( &#39;This is a log message&#39; );</span>
+</pre></div>
+
+
+<p>will write the above text to the file <code>workflow.log</code> in your data directory. You can specify a level just like with console:</p>
+<div class="codehilite"><pre><span class="x">$workflow-&gt;log( &#39;This is a log message&#39;, &#39;WARNING&#39; );</span>
+</pre></div>
+
+
+<p>To specify the log file, use a third argument that is the basename of the file. (All files will have the extension <code>.log</code>)</p>
+<div class="codehilite"><pre><span class="x">$workflow-&gt;log( &#39;This is a log message&#39;, &#39;WARNING&#39;, &#39;my-log&#39; );</span>
+</pre></div>
+
+
+<p>This makes it super easy for you to have multiple log files:</p>
+<div class="codehilite"><pre><span class="x">$workflow-&gt;log( &#39;This message will go in the &quot;requests&quot; log&#39;, &#39;WARNING&#39;, &#39;requests&#39; );</span>
+<span class="x">$workflow-&gt;log( &#39;This message will go in the &quot;llamas&quot; log&#39;, &#39;WARNING&#39;, &#39;llamas&#39; );</span>
+</pre></div>
+
+
+</div>
+        </div>
+
+        
+
+        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../js/prettify-1.0.min.js"></script>
+        <script src="../js/base.js"></script>
+    </body>
+</html>

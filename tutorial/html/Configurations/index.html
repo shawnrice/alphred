@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Shawn Patrick Rice">
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+
+        <title>Configs - Alphred</title>
+
+        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../css/font-awesome-4.0.3.css" rel="stylesheet">
+        <link href="../css/prettify-1.0.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <!-- Main title -->
+            <a class="navbar-brand" href="../Index">Alphred</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            <!-- Main navigation -->
+            <ul class="nav navbar-nav">
+            
+            
+                <li >
+                    <a href="../Index">Home</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../Tutorial">Tutorial</a>
+                </li>
+            
+            
+            
+                <li class="active">
+                    <a href=".">Configs</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../Filter">Filter</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../Logging">Logs</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../Passwords">Passwords</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../Request">HTTP Requests</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../UsingComponents">Components/Using Components</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../Extending">Extending</a>
+                </li>
+            
+            
+            </ul>
+
+            <!-- Search, Navigation and Repo links -->
+            <ul class="nav navbar-nav navbar-right">
+                
+                <li >
+                    <a rel="next" href="../Tutorial">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </li>
+                <li >
+                    <a rel="prev" href="../Filter">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="https://github.com/shawnrice/alphred">
+                        
+                            <i class="fa fa-github"></i>
+                        
+                        GitHub
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+            <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="main active"><a href="#note">Note</a></li>
+        
+            <li><a href="#methods">Methods</a></li>
+        
+            <li><a href="#handlers">Handlers</a></li>
+        
+            <li><a href="#choosing-a-different-handler">Choosing a different handler</a></li>
+        
+            <li><a href="#changing-the-filename">Changing the filename</a></li>
+        
+            <li><a href="#changing-the-handler-and-filename-in-workflowini">Changing the handler and filename in workflow.ini</a></li>
+        
+    
+    </ul>
+</div></div>
+            <div class="col-md-9" role="main">
+
+<p>Many workflows need to be configured, and Alphred provides an easy way for you to manage simple configurations. Out of the box, it provides methods to write configuration files as <code>json</code>, <code>ini</code>, or <code>sqlite3</code>. They provide simple key-value pairs.</p>
+<h1 id="note">Note</h1>
+<p>This is outdated. You can no longer set the handler or the filename through the individual methods. Instead, you have
+set them either when you instantiate the Alphred object or in a <code>workflow.ini</code> file.</p>
+<h4 id="methods">Methods</h4>
+<blockquote>
+<p><code>config_set( $key, $value, $handler, $filename )</code>
+<code>config_read( $key, $handler, $filename )</code>
+<code>config_delete( $key, $handler, $filename )</code></p>
+</blockquote>
+<p>Configuration files are kept in your workflow&rsquo;s data directory.</p>
+<p>You do not need to create a config file ahead of time; instead, you just need to use the functions.</p>
+<div class="codehilite"><pre><span class="x">$workflow = new Alphred;</span>
+<span class="x">$workflow-&gt;config_set( &#39;username&#39;, &#39;shawnrice&#39; );</span>
+</pre></div>
+
+
+<p>To read a value (<code>config_read</code> will return <code>null</code> if the value has not been set):</p>
+<div class="codehilite"><pre><span class="x">$username = $workflow-&gt;config_read( &#39;username&#39; );</span>
+</pre></div>
+
+
+<p>To delete a value, just use</p>
+<div class="codehilite"><pre><span class="x">$workflow-&gt;config_delete( &#39;username&#39; );</span>
+</pre></div>
+
+
+<h3 id="handlers">Handlers</h3>
+<p>The config methods can use either
+1. <code>ini</code>,
+2. <code>json</code>, or
+3. <code>sqlite3</code>
+as a filetype. By default, Alphred uses <code>ini</code> files for configuration. These are simpler because users who open them with something like TextEdit will not break them as easily as <code>json</code> files.</p>
+<p>The <code>json</code> and <code>ini</code> versions can handle mutliple dimensional arrays easily. The <code>sqlite</code> version is not as robust yet. Also (this needs to be verified), the <code>sqlite</code> handler will not work with anything pre-Mavericks because the version of <code>sqlite3</code> that is standard is too old.</p>
+<h3 id="choosing-a-different-handler">Choosing a different handler</h3>
+<p>If you want to use a different handler, then add it on as an argument in each call:</p>
+<div class="codehilite"><pre><span class="x">$workflow = new Alphred;</span>
+<span class="x">$workflow-&gt;config_set( &#39;username&#39;, &#39;shawnrice&#39;, &#39;json&#39; );</span>
+<span class="x">$workflow-&gt;config_read( &#39;username&#39;, &#39;json&#39; );</span>
+<span class="x">$workflow-&gt;config_delete( &#39;username&#39;, &#39;json&#39; );</span>
+</pre></div>
+
+
+<h3 id="changing-the-filename">Changing the filename</h3>
+<p>By default, Alphred will name the file <code>config</code> with the appropriate extension (<code>ini</code>, <code>json</code>, or <code>sqlite3</code>). If you want to specify a different filename, then pass it as an argument, after the config type.</p>
+<div class="codehilite"><pre><span class="x">$workflow = new Alphred;</span>
+<span class="x">$workflow-&gt;config_set( &#39;username&#39;, &#39;shawnrice&#39;, &#39;json&#39;, &#39;my-config-filename&#39; );</span>
+<span class="x">$workflow-&gt;config_read( &#39;username&#39;, &#39;json&#39;, &#39;my-config-filename&#39; );</span>
+<span class="x">$workflow-&gt;config_delete( &#39;username&#39;, &#39;json&#39;, &#39;my-config-filename&#39; );</span>
+</pre></div>
+
+
+<h3 id="changing-the-handler-and-filename-in-workflowini">Changing the handler and filename in workflow.ini</h3>
+<p>Code will be written to make this happen.</p>
+</div>
+        </div>
+
+        
+
+        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../js/prettify-1.0.min.js"></script>
+        <script src="../js/base.js"></script>
+    </body>
+</html>

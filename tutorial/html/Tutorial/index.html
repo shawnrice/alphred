@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Shawn Patrick Rice">
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+
+        <title>Tutorial - Alphred</title>
+
+        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../css/font-awesome-4.0.3.css" rel="stylesheet">
+        <link href="../css/prettify-1.0.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <!-- Main title -->
+            <a class="navbar-brand" href="../Index">Alphred</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            <!-- Main navigation -->
+            <ul class="nav navbar-nav">
+            
+            
+                <li >
+                    <a href="../Index">Home</a>
+                </li>
+            
+            
+            
+                <li class="active">
+                    <a href=".">Tutorial</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../Configurations">Configs</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../Filter">Filter</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../Logging">Logs</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../Passwords">Passwords</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../Request">HTTP Requests</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../UsingComponents">Components/Using Components</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../Extending">Extending</a>
+                </li>
+            
+            
+            </ul>
+
+            <!-- Search, Navigation and Repo links -->
+            <ul class="nav navbar-nav navbar-right">
+                
+                <li >
+                    <a rel="next" href="../Index">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </li>
+                <li >
+                    <a rel="prev" href="../Configurations">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="https://github.com/shawnrice/alphred">
+                        
+                            <i class="fa fa-github"></i>
+                        
+                        GitHub
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+            <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="main active"><a href="#alphred-tutorial">Alphred Tutorial</a></li>
+        
+            <li><a href="#capturing-query-and-filtering">Capturing &ldquo;query&rdquo; and Filtering</a></li>
+        
+            <li><a href="#error-on-empty">Error on Empty</a></li>
+        
+            <li><a href="#actioning-actionphp">Actioning (action.php)</a></li>
+        
+            <li><a href="#making-it-distributable">Making it distributable</a></li>
+        
+            <li><a href="#adding-some-style">Adding Some Style</a></li>
+        
+    
+    </ul>
+</div></div>
+            <div class="col-md-9" role="main">
+
+<h1 id="alphred-tutorial">Alphred Tutorial</h1>
+<p>To demonstrate how to use Alphred, we&rsquo;re going to put together a simple workflow that uses the Github API to get a list of your repositories.</p>
+<p>First, let&rsquo;s make it simple.</p>
+<p>Create a new workflow by pressing the <code>+</code> on the bottom left of the Workflows pane in Alfred Preferences.</p>
+<p><img alt="Alt text" src="../../images/alfred-new-workflow-plus.png" title="Optional title" /></p>
+<p>Choose <code>blank workflow</code></p>
+<p><img alt="Alt text" src="../../images/alfred-new-blank-workflow.png" title="Optional title" /></p>
+<p>Create a script filter object. Press the <code>+</code> sign in the upper-right corner of the pane.</p>
+<p><img alt="Alt text" src="../../images/new-object.png" title="Optional title" /></p>
+<p>Choose <code>Inputs -&gt; Script Filter</code></p>
+<p><img alt="Alt text" src="../../images/new-scriptfilter-object.png" title="Optional title" /></p>
+<p>Let&rsquo;s fill out the script filter properties.</p>
+<p><img alt="Alt text" src="../../images/script-filter-dialog.png" title="Optional title" /></p>
+<p>We&rsquo;re going to use the <strong>keyword</strong> <code>example</code> because this is an example workflow. Currently, there is no argument, which is fine. Enter a <strong>Placeholder Title</strong>. Next, we&rsquo;re going to use <code>/bin/bash</code> <em>not</em> <code>/usr/bin/php</code> because we&rsquo;ll develop the php code in a separate file. It&rsquo;s easier that way. So, we&rsquo;ll enter the simple script:</p>
+<div class="codehilite"><pre>php script-filter.php <span class="s2">&quot;{query}&quot;</span>
+</pre></div>
+
+
+<p>That simply runs the file <code>script-filter.php</code> with the php command line. <code>{query}</code> is a special pseudo-variable that take the input of the script. Right now, we have no argument, so the <code>{query}</code> doesn&rsquo;t really matter, but we&rsquo;ll expand that later. Also, note the quotes around <code>{query}</code>. Set the escaping to match the image.</p>
+<p>Now, <code>script-filter.php</code> does not exist yet, so we&rsquo;ll have to make it. Click the <code>Open workflow folder</code> button. Click back to Alfred Preferences, and click the <code>Save</code> button.</p>
+<p>Okay, so the directory opened in Finder contains only one file: <code>info.plist</code>. This is the workflow definition file that Alfred creates. Don&rsquo;t touch it. Next, download <code>Alphred.phar</code> from Github and drag it into the folder. Last step, for now, create a new file called <code>script-filter.php</code> in the directory and open it with your favorite text editor.</p>
+<blockquote>
+<p>If you use TextEdit, then make sure you switch to &ldquo;plain text&rdquo; mode.</p>
+</blockquote>
+<p>Let&rsquo;s start with some code:</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="k">require_once</span><span class="p">(</span> <span class="s1">&#39;Alphred.phar&#39;</span> <span class="p">);</span>
+
+<span class="nv">$workflow</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Alphred</span><span class="p">;</span>
+<span class="nv">$workflow</span><span class="o">-&gt;</span><span class="na">add_result</span><span class="p">([</span> <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;This is a title&#39;</span> <span class="p">]);</span>
+<span class="nv">$workflow</span><span class="o">-&gt;</span><span class="na">to_xml</span><span class="p">();</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+
+
+<p>So, what does that code do? First, we require the Alphred library. Even though it&rsquo;s a <code>phar</code>, you use it just like any php file.</p>
+<blockquote>
+<p><code>phar</code> stands for <strong>PH</strong>p<strong>AR</strong>chive. <code>Alphred.phar</code> is actually over 20 files rolled into one convenient file.</p>
+</blockquote>
+<p>Alphred contains many different components, each in its own class, but the most commonly used ones are simplified in a &ldquo;wrapper&rdquo; class called <code>Alphred</code>, and that&rsquo;s what we&rsquo;ll be using throughout this tutorial.</p>
+<p><code>$workflow = new Alphred;</code> instantiates a new object of the Alphred class. The next line adds a single item to the script filter with a title that is, simply, <code>This is a title</code>, and the last line prints the XML for Alfred to read.</p>
+<p>So, try it. Call up Alfred and type <code>example</code> (our keyword), and you should see something like:</p>
+<p><img alt="Alt text" src="../../images/script-filter-results-1.png" title="Optional title" /></p>
+<p>Congrats! We have a working script filter, but it&rsquo;s not very useful yet.</p>
+<p>Since we want to grab some information from Github, we have to use their API. <a href="https://developer.github.com/v3/">You can go read the documentation</a>.</p>
+<p>Let&rsquo;s change the code in <code>script-filter.php</code>:</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="k">require_once</span><span class="p">(</span> <span class="s1">&#39;Alphred.phar&#39;</span> <span class="p">);</span>
+<span class="nv">$workflow</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Alphred</span><span class="p">;</span>
+
+<span class="c1">// This is actually my username</span>
+<span class="nv">$username</span> <span class="o">=</span> <span class="s1">&#39;shawnrice&#39;</span><span class="p">;</span>
+<span class="c1">// This isn&#39;t actually my password</span>
+<span class="nv">$password</span> <span class="o">=</span> <span class="s1">&#39;thisismypassword&#39;</span><span class="p">;</span>
+
+<span class="c1">// Github advises us to explicitly add the header below</span>
+<span class="nv">$options</span><span class="p">[</span><span class="s1">&#39;headers&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span> <span class="s1">&#39;Accept: application/vnd.github.v3+json&#39;</span> <span class="p">];</span>
+<span class="c1">// Github also demands that we set a user-agent</span>
+<span class="nv">$options</span><span class="p">[</span><span class="s1">&#39;user_agent&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;alfred&#39;</span><span class="p">;</span>
+<span class="c1">// Github gives us a default of 30 repos in the response, but we can push it to 100. Let&#39;s get 100.</span>
+<span class="nv">$options</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span> <span class="s1">&#39;per_page&#39;</span> <span class="o">=&gt;</span> <span class="mi">100</span> <span class="p">];</span>
+<span class="c1">// Lastly, we&#39;re using basic authorization with Github rather than any Oauth or Access Tokens, so</span>
+<span class="c1">// we&#39;ll go ahead and add in the basic authorization with the username and password below.</span>
+<span class="nv">$options</span><span class="p">[</span><span class="s1">&#39;auth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span> <span class="nv">$username</span><span class="p">,</span> <span class="nv">$password</span> <span class="p">];</span>
+<span class="c1">// The request variables have been set, so let&#39;s execute it. If we wanted to adjust the caching options,</span>
+<span class="c1">// then we&#39;d pass another argument.</span>
+<span class="nv">$repos</span> <span class="o">=</span> <span class="nv">$workflow</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span> <span class="s2">&quot;https://api.github.com/users/</span><span class="si">{</span><span class="nv">$username</span><span class="si">}</span><span class="s2">/repos&quot;</span><span class="p">,</span> <span class="nv">$options</span> <span class="p">);</span>
+<span class="c1">// We know that we&#39;re getting JSON data, so we&#39;ll also decode it into an easily accessible array.</span>
+<span class="nv">$repos</span> <span class="o">=</span> <span class="nb">json_decode</span><span class="p">(</span> <span class="nv">$repos</span><span class="p">,</span> <span class="k">true</span> <span class="p">);</span>
+
+<span class="k">foreach</span> <span class="p">(</span> <span class="nv">$repos</span> <span class="k">as</span> <span class="nv">$repo</span> <span class="p">)</span> <span class="o">:</span>
+    <span class="nv">$workflow</span><span class="o">-&gt;</span><span class="na">add_result</span><span class="p">([</span><span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$repo</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="p">]);</span>
+<span class="k">endforeach</span><span class="p">;</span>
+<span class="nv">$workflow</span><span class="o">-&gt;</span><span class="na">to_xml</span><span class="p">();</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+
+
+<p>Use the code above, except put in your username and password in the code. Your output will start to look different than mine &ndash; because we have different repositories, but it should look something like this:</p>
+<p><img alt="Alt text" src="../../images/script-filter-results-2.png" title="Optional title" /></p>
+<p>So what happened above? Well, we made a <code>GET</code> request to Github, but, first, we had to set some parameters, which go into the <code>$options</code> array. Github gives us some <code>json</code>, so we decode the <code>json</code> into a php array.</p>
+<blockquote>
+<p>By default, the request is cached so that we don&rsquo;t have to actually reach Github each time. This makes the workflow go faster. I&rsquo;ll show you how to turn this off later.</p>
+</blockquote>
+<p>Next, we cycle through the results (<code>$repos</code>) and add a script filter item for each repo, and lastly, print the xml.</p>
+<p>Progress. But let&rsquo;s do a bit more with it. Go back to Alfred Preferences, and change the script filter dialog to have an &ldquo;optional argument&rdquo;:</p>
+<p><img alt="Alt text" src="../../images/script-filter-dialog-2.png" title="Optional title" /></p>
+<blockquote>
+<p>The optional argument means that the script filter will run with or without an argument.</p>
+</blockquote>
+<h3 id="capturing-query-and-filtering">Capturing &ldquo;query&rdquo; and Filtering</h3>
+<p>Now, we have a lot of repositories, and we want to be able to search for a specific one, so let&rsquo;s implement a <code>filter</code>. First, we need to capture the <code>{query}</code>.</p>
+<blockquote>
+<p>When you pass arguments to a php script via the command line, they appear in an array called <code>$argv</code>.</p>
+</blockquote>
+<p>Near the top, add in the lines:</p>
+<div class="codehilite"><pre><span class="x">$query = &#39;&#39;;</span>
+<span class="x">if ( isset( $argv[1] ) ) {</span>
+<span class="x">    $query = $argv[1];</span>
+<span class="x">}</span>
+</pre></div>
+
+
+<p>Since we put quotes around <code>{query}</code>, the argument will be contained entirely in <code>$argv[1]</code>. If we hadn&rsquo;t, then each space would be a new array item. So &ldquo;this query&rdquo; would have <code>$argv[1]</code> equal to <code>this</code> and <code>$argv[2]</code> as <code>query</code>. But, if there is no query, then the script will throw an error on the line <code>$query = $argv[1];</code> since <code>$argv[1]</code> is not set. That&rsquo;s why we initialize <code>$query</code> as an empty string and then set it only if <code>$argv[1]</code> is actually set.</p>
+<p>Next, above the <code>foreach</code> loop where we added the results, add in the line:</p>
+<div class="codehilite"><pre><span class="x">$repos = $workflow-&gt;filter( $repos, $query, &#39;name&#39; );</span>
+</pre></div>
+
+
+<p>Here, we&rsquo;re using the <code>filter</code> to remove anything that is not related to <code>$query</code>. Running the script with the argument <code>api</code>, for me, now looks like:</p>
+<p><img alt="Alt text" src="../../images/script-filter-dialog-3.png" title="Optional title" /></p>
+<p>See, fewer items. Nice.</p>
+<h3 id="error-on-empty">Error on Empty</h3>
+<p>Also, you might notice that if you type in a query that filters everything out, you&rsquo;ll see this:</p>
+<p><img alt="Alt text" src="../../images/script-filter-results-error-empty.png" title="Optional title" /></p>
+<p>The reason is that, by default, an option is turned on called <code>error_on_empty</code>. I think that this behavior is better than just showing the fallback searches, which is exactly what Alfred does when the script outputs no usable XML. If you want to turn this off, then change</p>
+<div class="codehilite"><pre><span class="x">$workflow = new Alphred;</span>
+</pre></div>
+
+
+<p>to</p>
+<div class="codehilite"><pre><span class="x">$workflow = new Alphred([ &#39;error_on_empty&#39; =&gt; false ]);</span>
+</pre></div>
+
+
+<h3 id="actioning-actionphp">Actioning (action.php)</h3>
+<p>Anyway, our script filter now returns some results, but it doesn&rsquo;t do anything, so let&rsquo;s make it do something. First, create a file called <code>action.php</code>. We&rsquo;ll worry about the contents in a moment. Also, create a <code>Run Script</code> object by clicking the <code>+</code> in the upper-right corner, and selecting <code>Actions -&gt; Run Script</code>. Again, we&rsquo;ll use a bash script with the same escaping. The contents of the script will simply be:</p>
+<div class="codehilite"><pre>php action.php <span class="s2">&quot;{query}&quot;</span>
+</pre></div>
+
+
+<p>Here&rsquo;s what it should look like:</p>
+<p><img alt="Alt text" src="../../images/run-script-dialog.png" title="Optional title" /></p>
+<p>Next, connect the Script Filter to the Run Script by clicking the little tab on the right side of the Script Filter object and dragging it to the Run Script object.</p>
+<p>Let&rsquo;s get back to some code.</p>
+<h4 id="a-simple-action">A Simple Action</h4>
+<p>Open up <code>action.php</code> and paste in the following:</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="k">if</span> <span class="p">(</span> <span class="nb">isset</span><span class="p">(</span> <span class="nv">$argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="nb">exec</span><span class="p">(</span> <span class="s2">&quot;open </span><span class="si">{</span><span class="nv">$argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="p">);</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+
+
+<p>What does this do? Well, it just takes <code>$argv[1]</code> (which is <code>{query}</code>), and uses a bash command <code>open</code> to open it. We&rsquo;re going to change the script filter to pass the URL of the Github repo, and so this script will open the URL in the default browser. Now, you might be thinking that this is silly: why are we using a php script to run a bash command? The reason is that we&rsquo;re going to build <code>action.php</code> into something better.</p>
+<h4 id="adding-the-argument">Adding the Argument</h4>
+<p>But, we do have to change <code>script-filter.php</code> to pass the argument. So, go back to <code>script-filter.php</code> and change the <code>foreach</code> loop to:</p>
+<div class="codehilite"><pre><span class="x">foreach ( $repos as $repo ) :</span>
+<span class="x">    $workflow-&gt;add_result([</span>
+<span class="x">        &#39;title&#39; =&gt; $repo[&#39;name&#39;],</span>
+<span class="x">        &#39;arg&#39;   =&gt; $repo[&#39;html_url&#39;],</span>
+<span class="x">        &#39;valid&#39; =&gt; true</span>
+<span class="x">    ]);</span>
+<span class="x">endforeach;</span>
+</pre></div>
+
+
+<p>Now, you can press <code>enter</code> on one of the results, and it will pass the arg (<code>$repo['html_url']</code>) to <code>action.php</code> that will open the URL. But we have to set <code>valid</code> to <code>true</code> in order to let Alfred know that you can action it.</p>
+<h2 id="making-it-distributable">Making it distributable</h2>
+<p>This is great, but what if you want to distribute it? You have your Github username and password hardcoded into the file, and it&rsquo;s not so great to make users edit the php file in order to set their credentials. Alphred offers nice and easy ways to use configuration files as well as to set passwords securely. So, let&rsquo;s revisit the script filter.</p>
+<p>Change the lines:</p>
+<div class="codehilite"><pre><span class="x">$username = &#39;shawnrice&#39;;</span>
+<span class="x">$password = &#39;thisismypassword&#39;;</span>
+</pre></div>
+
+
+<p>to</p>
+<div class="codehilite"><pre><span class="x">// Read the username from the config file</span>
+<span class="x">$username = $workflow-&gt;config_read( &#39;username&#39; );</span>
+
+<span class="x">// If the username has not been set, then we&#39;ll just show one option for the script filter</span>
+<span class="x">// that will lead to the action to set the username.</span>
+<span class="x">if ( ! $username ) {</span>
+<span class="x">    $workflow-&gt;add_result([</span>
+<span class="x">            &#39;title&#39;    =&gt; &#39;Please set your username&#39;,</span>
+<span class="x">            &#39;subtitle&#39; =&gt; &quot;Set username to `{$query}`&quot;,</span>
+<span class="x">            &#39;arg&#39;      =&gt; &quot;set-username {$query}&quot;,</span>
+<span class="x">            &#39;valid&#39;    =&gt; true</span>
+<span class="x">    ]);</span>
+<span class="x">    // Print out the XML</span>
+<span class="x">    $workflow-&gt;to_xml();</span>
+<span class="x">    // Exit the script with a status of 0 (which means sucessfully completed -- no errors)</span>
+<span class="x">    exit(0);</span>
+<span class="x">}</span>
+
+<span class="x">// We&#39;re going to try to read the password from the Keychain.</span>
+<span class="x">if ( ! $password = $workflow-&gt;get_password( &#39;github.com&#39; ) ) {</span>
+<span class="x">    // The password has not been set, so we&#39;ll provide only one option to set the password</span>
+<span class="x">    $workflow-&gt;add_result([</span>
+<span class="x">            &#39;title&#39; =&gt; &#39;Press enter to set your password&#39;,</span>
+<span class="x">            &#39;arg&#39;   =&gt; &#39;set-password&#39;,</span>
+<span class="x">            &#39;valid&#39; =&gt; true</span>
+<span class="x">    ]);</span>
+<span class="x">    // Print out the XML</span>
+<span class="x">    $workflow-&gt;to_xml();</span>
+<span class="x">    // Exit the script with a status of 0 (which means sucessfully completed -- no errors)</span>
+<span class="x">    exit(0);</span>
+<span class="x">}</span>
+</pre></div>
+
+
+<h4 id="configuration">Configuration</h4>
+<p>So what did we just do? Well, <code>$workflow-&gt;config_read( 'username' );</code> tries to read the key <code>username</code> from the config file. We don&rsquo;t have one yet, but we don&rsquo;t have to worry about creating one; Alphred will do it for you when you try to write to it the first time. But, if there is no value yet, then we&rsquo;ll just add an item to the script filter that tells the user to set their username, and uses the query to do so. Then, we print out the XML (<code>$workflow-&gt;to_xml()</code>) and use <code>exit(0);</code> to end the script so that it doesn&rsquo;t keep running.</p>
+<p>If the username is not set, then we it should look something like:</p>
+<p><img alt="Alt text" src="../../images/set-username.png" title="Optional title" /></p>
+<p>Almost the same thing goes for the password, except we&rsquo;re using the <code>get_password</code> method, which integrates with the System Keychain. Yes, that means that the password is encrypted securely. We can access it from the workflow &ndash; once it&rsquo;s set &ndash; but, otherwise, anyone needs to enter the user&rsquo;s system password to see it.</p>
+<p>When the password is not set, it will look like:</p>
+<p><img alt="Alt text" src="../../images/set-password.png" title="Optional title" /></p>
+<h4 id="a-more-advanced-set-actions">A More Advanced Set Actions</h4>
+<p>But, the script filter doesn&rsquo;t set anything on its own, so we need to edit <code>action.php</code> in order to do something. So, rewrite it so that it looks like:</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="k">require_once</span><span class="p">(</span> <span class="nx">__DIR__</span> <span class="o">.</span> <span class="s1">&#39;/Alphred.phar&#39;</span> <span class="p">);;</span>
+<span class="nv">$workflow</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Alphred</span><span class="p">;</span>
+
+<span class="nv">$action</span> <span class="o">=</span> <span class="nb">trim</span><span class="p">(</span> <span class="nv">$argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">);</span>
+
+<span class="k">if</span> <span class="p">(</span> <span class="mi">0</span> <span class="o">===</span> <span class="nb">strpos</span><span class="p">(</span> <span class="nv">$action</span><span class="p">,</span> <span class="s1">&#39;set-username &#39;</span> <span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$username</span> <span class="o">=</span> <span class="nb">trim</span><span class="p">(</span> <span class="nb">str_replace</span><span class="p">(</span> <span class="s1">&#39;set-username&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="nv">$action</span> <span class="p">)</span> <span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="k">empty</span><span class="p">(</span> <span class="nv">$username</span> <span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="k">die</span><span class="p">(</span> <span class="s2">&quot;Empty username&quot;</span> <span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nv">$workflow</span><span class="o">-&gt;</span><span class="na">config_set</span><span class="p">(</span> <span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="nv">$username</span> <span class="p">);</span>
+    <span class="k">print</span> <span class="s2">&quot;Set username to </span><span class="si">{</span><span class="nv">$username</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">;</span>
+    <span class="k">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span> <span class="s1">&#39;set-password&#39;</span> <span class="o">==</span> <span class="nv">$action</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$password</span> <span class="o">=</span> <span class="nv">$workflow</span><span class="o">-&gt;</span><span class="na">get_password_dialog</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="k">empty</span><span class="p">(</span> <span class="nv">$password</span> <span class="p">)</span> <span class="o">||</span> <span class="s1">&#39;canceled&#39;</span> <span class="o">==</span> <span class="nv">$password</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="k">die</span><span class="p">(</span> <span class="s2">&quot;Empty argument&quot;</span> <span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="nv">$workflow</span><span class="o">-&gt;</span><span class="na">save_password</span><span class="p">(</span> <span class="s1">&#39;github.com&#39;</span><span class="p">,</span> <span class="nv">$password</span> <span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$workflow</span><span class="o">-&gt;</span><span class="na">console</span><span class="p">(</span> <span class="s1">&#39;Set password for github.&#39;</span><span class="p">,</span> <span class="mi">1</span> <span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+
+<span class="k">if</span> <span class="p">(</span> <span class="nb">filter_var</span><span class="p">(</span> <span class="nv">$action</span><span class="p">,</span> <span class="nx">FILTER_VALIDATE_URL</span> <span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="nb">exec</span><span class="p">(</span> <span class="s2">&quot;open </span><span class="si">{</span><span class="nv">$action</span><span class="si">}</span><span class="s2">&quot;</span> <span class="p">);</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+
+
+<p>So, that&rsquo;s a lot of new code. Let&rsquo;s go through it.</p>
+<p>We now need the Alphred library because we&rsquo;re going to be using some of the methods. We create the Alphred object as <code>$workflow</code> just as in <code>script-filter.php</code>, and we capture the <code>{query}</code> variable (<code>$argv[1]</code>) as a variable called <code>$action</code>. Also, we <code>trim</code> the variable to remove leading and trailing whitespace.</p>
+<p>This script now has three different actions:
+1. Set a password,
+2. Set a username, and
+3. Open a URL.</p>
+<p>Each of those correspond to one of the <code>if</code> statements above. First, we look to see if the <code>$action</code> is <code>set-username</code>; next, we check for <code>set-password</code>; and, lastly, we check to see if it&rsquo;s a URL. Let&rsquo;s handle them one at a time.</p>
+<h4 id="set-username">Set Username</h4>
+<p>We&rsquo;re passing the username with the <code>set-username</code> action. It&rsquo;s nice an simple that way, so first we check to see if the string <code>set-username</code> is in <code>$action</code> with</p>
+<div class="codehilite"><pre><span class="x">if ( 0 === strpos( $action, &#39;set-username &#39; ) ) {</span>
+</pre></div>
+
+
+<blockquote>
+<p>It&rsquo;s good practice to use Yoda syntax here for matching becaue it&rsquo;s easier to debug. It&rsquo;s good to do with all your if statements, if possible.</p>
+</blockquote>
+<p>Note the triple <code>=</code>. Normally, we&rsquo;d use double, but since <code>set-username</code> has a position of <code>0</code>, and since <code>0</code> evaluates to <code>false</code>,</p>
+<div class="codehilite"><pre><span class="x">if ( 0 == strpos( $action, &#39;set-username &#39; ) ) {</span>
+</pre></div>
+
+
+<p>will evaluate to <code>false</code> if the action is <code>set-username shawnrice</code>, which is not what we want. Thus, we use exactly equals <code>0</code> (<code>===</code>).</p>
+<p>When it evalutes to true, we grab the username by cutting out <code>set-username</code> and trimming the whitespace.</p>
+<div class="codehilite"><pre><span class="x">    $username = trim( str_replace( &#39;set-username&#39;, &#39;&#39;, $action ) );</span>
+</pre></div>
+
+
+<p>But, we add in a quick check to make sure that the username isn&rsquo;t empty (just whitespace). If it is, then the script will exit with an error because of <code>die</code>.</p>
+<p>Now, the remaining lines:</p>
+<div class="codehilite"><pre><span class="x">    $workflow-&gt;config_set( &#39;username&#39;, $username );</span>
+<span class="x">    print &quot;Set username to {$username}\n&quot;;</span>
+<span class="x">    exit(0);</span>
+</pre></div>
+
+
+<p>the first sets the <code>username</code> key in the config file to the value of <code>$username</code>. Sweet. What does it actually do? It creates a file called <code>config.ini</code> in your workflow&rsquo;s data folder.</p>
+<blockquote>
+<p>Workflows should store their &ldquo;persistent&rdquo; data (data that sticks around) in the data directory, which is located at <code>~/Library/Application Support/Alfred 2/Workflow Data/{WORKFLOW_BUNDLE_ID}</code>.</p>
+</blockquote>
+<p>You don&rsquo;t have to worry about the path or creating the directory or the file: Alphred does it for you. And, by default, it creates an <code>ini</code> file.</p>
+<p>Why <code>ini</code>? Well, it&rsquo;s easy for users to edit if they need without messing it up. You can change the format of the config file to <code>json</code> or <code>sqlite3</code> as well as the filename, but we aren&rsquo;t going to cover that here.</p>
+<p>So, <code>$workflow-&gt;config_set( 'username', $username );</code> sets the username, then we print a message, and exit the script so that it doesn&rsquo;t keep running.</p>
+<h4 id="set-password">Set Password</h4>
+<p>To set the password, we&rsquo;re going to use the <code>save_password</code> method that employs the system keychain. But, if you remember, we didn&rsquo;t pass a password with the script filter (like we did with the username). Why not? Well, it&rsquo;s a password, and we&rsquo;ll treat it as one with a hidden input textbox, just like webforms do that way, if someone is looking over your shoulder, they don&rsquo;t see you type in your password. Alphred makes it really easy to do this with the method: <code>get_password_dialog</code>. It creates a simple AppleScript dialog with a hidden input field. You can set the title, the text, and the icon by passing arguments, but, by default, the title is the name of the workflow, the text is</p>
+<div class="codehilite"><pre>Please enter the password.
+</pre></div>
+
+
+<p>And it looks like:</p>
+<p><img alt="Alt text" src="../../images/get-password-dialog.png" title="Optional title" /></p>
+<p>Now, in the <code>if</code> statement, we have the lines:</p>
+<div class="codehilite"><pre><span class="x">    if ( empty( $password ) || &#39;canceled&#39; == $password ) {</span>
+<span class="x">        die( &quot;Empty argument&quot; );</span>
+<span class="x">    }</span>
+</pre></div>
+
+
+<p>Why? Well, we want to make sure that the password isn&rsquo;t empty because Github does not allow that. The dialog will return <code>canceled</code> if the user presses the <code>cancel</code> button, so we consider that an error, also because no one should ever set their password to <code>canceled</code>. So, if either of those are true, we don&rsquo;t save the password but instead <code>die</code> with an error message.</p>
+<p>If we make it past the <code>if</code> statement, then we set the password in the system keychain and log a message to the console:</p>
+<div class="codehilite"><pre><span class="x">    if ( $workflow-&gt;save_password( &#39;github.com&#39;, $password ) ) {</span>
+<span class="x">        $workflow-&gt;console( &#39;Set password for github.&#39;, 1 );</span>
+<span class="x">    }</span>
+</pre></div>
+
+
+<p>The <code>if</code> statement here just checks to make sure that setting the password was a success. The <code>console</code> method is nice because it will write things out to the Alfred Debugger, making it easy to send information to the user and to help you debug. <strong>But</strong>, this message will never show up. Why not? Well, the second argument for <code>console</code> is the <code>log_level</code>. Alphred defines five levels of log messages:
+1. DEBUG
+2. INFO
+3. WARNING
+4. ERROR
+5. CRITICAL</p>
+<p>You also can set your log &ldquo;threshold,&rdquo; which means that anything under the &ldquo;threshold&rdquo; will not appear. By default, the log level is set to <code>WARNING</code>; since this message that we just logged is <code>INFO</code> (<code>1</code>), it will not appear. You can change the log level either in a <code>workflow.ini</code> file or by defining the constant <strong>before</strong> you include Alphred.phar.</p>
+<blockquote>
+<p>i.e. <code>define( 'ALPHRED_LOG_LEVEL', 'DEBUG' );</code></p>
+</blockquote>
+<p>That&rsquo;s it. Now the password is saved. If you entered the correct password, then when you invoke the workflow again, you&rsquo;ll see your repos again.</p>
+<h4 id="opening-the-url-and-validating">Opening the URL (and validating)</h4>
+<p>The last <code>if</code> block opens the URL, which is the first action that we set. But we changed it a bit. The statement</p>
+<div class="codehilite"><pre><span class="x">if ( filter_var( $action, FILTER_VALIDATE_URL ) ) {</span>
+</pre></div>
+
+
+<p>makes sure that the string is a valid URL. That doesn&rsquo;t mean that the URL exists but that it is just a well-formed URL. This <code>if</code> statement adds in a little bit of error checking.</p>
+<h2 id="adding-some-style">Adding Some Style</h2>
+<p>Now, if you wanted, you could distribute this workflow. But we&rsquo;re missing a few things. There are no icons (the workflow is ugly!), we have so much more information that we can add in, and the user cannot change their username or password once it&rsquo;s been set.</p>
+<h4 id="adding-switching-icons">Adding Switching Icons</h4>
+<p>Let&rsquo;s get some icons. <a href="https://fortawesome.github.io/Font-Awesome/">Font Awesome</a> has a nice Github one. But we wat to get it in some nice colors. Dean Jackson created a nice little utility that helps with these, and you can find my mirror at <a href="http://icons.shawnrice.org/preview/fontawesome">this link</a>. Change the colors with the color-picker in the upper-left hand corner of the page, and click on the icon to create it. Then download it. We&rsquo;ll get one in <code>#444444</code> and another in <code>#eaeaea</code>. We&rsquo;ll call them <code>github-dark.png</code> and <code>github-light.png</code> and place them in the root of the workflow directory.</p>
+<p>Here they are:</p>
+<p><img alt="Alt text" src="../../images/github-light.png" title="Optional title" /> <img alt="Alt text" src="../../images/github-dark.png" title="Optional title" /></p>
+<p>Why a light version and a dark version of the icons? Well, sometimes people have dark themes and others have light themes. Using a light icon on a light theme makes it not show up. Alphred gives you a nice little method to find out whether or not the background is light or dark.</p>
+<div class="codehilite"><pre><span class="x">$background = $workflow-&gt;theme_background();</span>
+</pre></div>
+
+
+<p>It will return <code>light</code> if the background is <code>light</code> and <code>dark</code> if the background is dark.</p>
+<p>So, go back to <code>script-filter.php</code> and change the <code>foreach</code> loop:</p>
+<div class="codehilite"><pre><span class="x">if ( &#39;light&#39; == $workflow-&gt;theme_background() ) {</span>
+<span class="x">    $icon = &#39;github-dark.png&#39;;</span>
+<span class="x">} else {</span>
+<span class="x">    $icon = &#39;github-light.png&#39;;</span>
+<span class="x">}</span>
+<span class="x">foreach ( $repos as $repo ) :</span>
+<span class="x">    $workflow-&gt;add_result([</span>
+<span class="x">        &#39;title&#39;     =&gt; $repo[&#39;name&#39;],</span>
+<span class="x">        &#39;subtitle&#39; =&gt; $repo[&#39;description&#39;],</span>
+<span class="x">        &#39;uid&#39;       =&gt; $repo[&#39;name&#39;],</span>
+<span class="x">        &#39;arg&#39;       =&gt; $repo[&#39;html_url&#39;],</span>
+<span class="x">        &#39;valid&#39;     =&gt; true,</span>
+<span class="x">        &#39;icon&#39;      =&gt; $icon</span>
+<span class="x">    ]);</span>
+<span class="x">endforeach;</span>
+</pre></div>
+
+
+<p>If you notice, we also added in a subtitle that displays the description of the repository. And we set the <code>uid</code> to the name of the repository.</p>
+<p>But, we have icons, and they respond to the theme:</p>
+<p><img alt="Alt text" src="../../images/script-filter-with-light-icon.png" title="Optional title" /></p>
+<p>Or, if I change my theme:</p>
+<p><img alt="Alt text" src="../../images/script-filter-with-dark-icon.png" title="Optional title" /></p>
+<h4 id="uid">UID</h4>
+<p>But, let&rsquo;s go back to the <code>uid</code>. The results that are filtered through Alphred&rsquo;s <code>filter</code> method sorts them based on the match score. Alfred can override these, and it does so if you set a <code>uid</code>. The way that it works is that the more the you action an item with a <code>uid</code>, the higher it appears in the result list.</p>
+<p>Now, we need to add some items back into the script filter so that the user can reset their username and password if they desire. It&rsquo;s pretty easy, just after the <code>foreach</code> loop, add the following:
+<code>``php
+$workflow-&gt;add_result([
+        'title'    =&gt; 'Set Your Github Username',
+        'subtitle' =&gt; "Set username to</code>{$query}`&rdquo;,
+        &lsquo;arg&rsquo;      =&gt; &ldquo;set-username {$query}&rdquo;,
+        &lsquo;icon&rsquo;     =&gt; $icon,
+        &lsquo;valid&rsquo;    =&gt; true
+]);
+$workflow-&gt;add_result([
+        &lsquo;title&rsquo; =&gt; &lsquo;Set Your Github Password&rsquo;,
+        &lsquo;arg&rsquo;   =&gt; &lsquo;set-password&rsquo;,
+        &lsquo;icon&rsquo;  =&gt; $icon,
+        &lsquo;valid&rsquo; =&gt; true
+]);</p>
+<div class="codehilite"><pre><span class="cp">##</span><span class="c">## Fuzzy Dates</span><span class="x"></span>
+
+<span class="x">Let&#39;s just change one last thing. Instead of having the description of the repository (they&#39;re yours, you probably remember them), let&#39;s change the subtitle to the last updated time.</span>
+
+<span class="x">So, change the `foreach` to:</span>
+<span class="x">````php</span>
+<span class="x">foreach ( </span><span class="p">$</span><span class="nv">repos</span><span class="x"> as </span><span class="p">$</span><span class="nv">repo</span><span class="x"> ) :</span>
+<span class="x">    </span><span class="p">$</span><span class="nv">workflow</span><span class="x">-&gt;add_result([</span>
+<span class="x">        &#39;title&#39;     =&gt; </span><span class="p">$</span><span class="nv">repo</span><span class="x">[&#39;name&#39;],</span>
+<span class="x">        &#39;subtitle&#39; =&gt; </span><span class="p">$</span><span class="nv">workflow</span><span class="x">-&gt;fuzzy_time_diff( strtotime( </span><span class="p">$</span><span class="nv">repo</span><span class="x">[&#39;updated_at&#39;] ) ),</span>
+<span class="x">        &#39;uid&#39;       =&gt; </span><span class="p">$</span><span class="nv">repo</span><span class="x">[&#39;name&#39;],</span>
+<span class="x">        &#39;arg&#39;       =&gt; </span><span class="p">$</span><span class="nv">repo</span><span class="x">[&#39;html_url&#39;],</span>
+<span class="x">        &#39;valid&#39;     =&gt; true,</span>
+<span class="x">        &#39;icon&#39;      =&gt; </span><span class="p">$</span><span class="nv">icon</span><span class="x"></span>
+<span class="x">    ]);</span>
+<span class="x">endforeach;</span>
+</pre></div>
+
+
+<p>The method <code>fuzzy_time_diff</code> converts a time (a Unix Epoch Time) to a fuzzy string like <code>yesterday</code> or <code>almost a month ago</code>. So, look at it now:</p>
+<p><img alt="Alt text" src="../../images/script-filter-results-3.png" title="Optional title" /></p>
+<h4 id="setting-filter-flags">Setting Filter Flags</h4>
+<p>We&rsquo;re going to change one more aspect about the workflow. Currently, the results are a bit too wide. We can change the matching rules for the <code>filter</code> method. So, change the <code>filter</code> line to</p>
+<div class="codehilite"><pre><span class="x">$repos = $workflow-&gt;filter( $repos, $query, &#39;name&#39;, [ &#39;match_type&#39; =&gt; MATCH_STARTSWITH &amp;&amp; MATCH_ATOM &amp;&amp; MATCH_SUBSTRING ] );</span>
+</pre></div>
+
+
+<p>The capitalized flags <code>MATCH_*</code> are constants set by Alphred and determine different matching patterns. You can read more about them on the filters page.</p>
+<p>Let&rsquo;s also give the workflow an icon. Just copy <code>github-dark.png</code> to <code>icon.png</code>, and that will serve as the icon for the workflow so that it looks like:</p>
+<p><img alt="Alt text" src="../../images/workflow-sidebar-with-icon.png" title="Optional title" /></p>
+<h4 id="add-a-notification">Add a Notification</h4>
+<p>Lastly, <code>action.php</code> prints out some information when setting the <code>username</code> and <code>password</code>. We can use these to display notifications by adding on a Post Notification object.</p>
+<p>Create one by pressing the <code>+</code> in the upper right corner of Alfred Preferences window and select <code>Outputs -&gt; Post Notification</code>.</p>
+<p>Set it up so that it looks like:</p>
+<p><img alt="Alt text" src="../../images/post-notification-dialog.png" title="Optional title" /></p>
+<p>And then connect it so that the workflow looks like:</p>
+<p><img alt="Alt text" src="../../images/post-notification-object.png" title="Optional title" /></p>
+<p>We&rsquo;ll change just one more thing about <code>action.php</code> so that a notification will be sent:</p>
+<div class="codehilite"><pre><span class="x">if ( $workflow-&gt;save_password( &#39;github.com&#39;, $password ) ) {</span>
+<span class="x">    $workflow-&gt;console( &#39;Set password for Github.&#39;, 1 );</span>
+<span class="x">    print &quot;Password has been set for Github\n&quot;;</span>
+<span class="x">}</span>
+</pre></div>
+
+
+<p>The <code>print</code> statement just lets us know that the password has been set, but it doesn&rsquo;t show it.</p>
+<h4 id="thats-it">That&rsquo;s It</h4>
+<p>That&rsquo;s it. You have a fully functional workflow, using Alphred. But there are many different parts of Alphred that we haven&rsquo;t even touched. Find out more about them. By reading some of the other markdown files in this directory or reading through the API documentation.</p>
+</div>
+        </div>
+
+        
+
+        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../js/prettify-1.0.min.js"></script>
+        <script src="../js/base.js"></script>
+    </body>
+</html>

@@ -48,7 +48,8 @@ if ( ! $username ) {
 }
 
 // We're going to try to read the password from the Keychain.
-if ( ! $password = $Alphred->get_password( 'github.com' ) ) {
+$password = $Alphred->get_password( 'github.com' );
+if ( ! $password || empty( $password ) ) {
 	// The password has not been set, so we'll provide only one option to set the password
 	$Alphred->add_result([
 			'title' => 'Press enter to set your password',
@@ -59,10 +60,7 @@ if ( ! $password = $Alphred->get_password( 'github.com' ) ) {
 	$Alphred->to_xml();
 	// Exit the script with a status of 0 (which means sucessfully completed -- no errors)
 	exit(0);
-} else {
-	Alphred\Log::console( 'What happened' );
 }
-
 
 // At this point, we now have the username and password set, so the workflow should be configured.
 // So we'll go ahead and start to construct a call to Github.
@@ -85,6 +83,7 @@ $repos = $Alphred->get( "https://api.github.com/users/{$username}/repos", $optio
 // We know that we're getting JSON data, so we'll also decode it into an easily accessible array.
 $repos = json_decode( $repos, true );
 
+$Alphred->console( "Queried: `https://api.github.com/users/{$username}/repos`", 1 );
 /*
  We could have just pushed all of that to this long, long call:
 
@@ -95,14 +94,14 @@ $repos = json_decode( $repos, true );
 	'headers' => [ 'Accept: application/vnd.github.v3+json' ]
  ]), true );
 
- */
+*/
 
 // Okay, now, if there is a query, then we'll use that to filter out the repos
 if ( ! empty( $query ) ) {
 	// So, Alphred's filter will filter out all things that don't match the query, and it will also
 	// reorganize the array so that the highest match is at the top. Granted, Alfred will override
 	// the sort order if a uid is present.
-	$matches = $Alphred->filter( $repos, $query, 'name', [ 'match_type' => 37 ] );
+	$matches = $Alphred->filter( $repos, $query, 'name' );
 } else {
 	// There was no query, so the answer is the full set
 	$matches = $repos;
@@ -110,6 +109,15 @@ if ( ! empty( $query ) ) {
 
 // Let's get the inverse of the background of the theme so that we can assign the right icon
 $color = ( 'light' == $Alphred->theme_background() ) ? 'dark' : 'light';
+
+if ( 0 == count( $matches ) ) {
+	$Alphred->add_result([
+	  'title' => 'No Repositories found',
+	  'icon'  => '/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/Unsupported.icns'
+	]);
+	$Alphred->to_xml();
+	exit(0);
+}
 
 // Let's go ahead and add each to the script filter results
 foreach ( $matches as $match ) :
