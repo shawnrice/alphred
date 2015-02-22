@@ -91,7 +91,7 @@
             
             
                 <li >
-                    <a href="../UsingComponents">Components/Using Components</a>
+                    <a href="../UsingComponents">Components</a>
                 </li>
             
             
@@ -156,15 +156,15 @@
 <p>To demonstrate how to use Alphred, we&rsquo;re going to put together a simple workflow that uses the Github API to get a list of your repositories.</p>
 <p>First, let&rsquo;s make it simple.</p>
 <p>Create a new workflow by pressing the <code>+</code> on the bottom left of the Workflows pane in Alfred Preferences.</p>
-<p><img alt="Alt text" src="../../images/alfred-new-workflow-plus.png" title="Optional title" /></p>
+<p><img alt="Alt text" src="../images/alfred-new-workflow-plus.png" title="Optional title" /></p>
 <p>Choose <code>blank workflow</code></p>
-<p><img alt="Alt text" src="../../images/alfred-new-blank-workflow.png" title="Optional title" /></p>
+<p><img alt="Alt text" src="../images/alfred-new-blank-workflow.png" title="Optional title" /></p>
 <p>Create a script filter object. Press the <code>+</code> sign in the upper-right corner of the pane.</p>
-<p><img alt="Alt text" src="../../images/new-object.png" title="Optional title" /></p>
+<p><img alt="Alt text" src="../images/new-object.png" title="Optional title" /></p>
 <p>Choose <code>Inputs -&gt; Script Filter</code></p>
-<p><img alt="Alt text" src="../../images/new-scriptfilter-object.png" title="Optional title" /></p>
+<p><img alt="Alt text" src="../images/new-scriptfilter-object.png" title="Optional title" /></p>
 <p>Let&rsquo;s fill out the script filter properties.</p>
-<p><img alt="Alt text" src="../../images/script-filter-dialog.png" title="Optional title" /></p>
+<p><img alt="Alt text" src="../images/script-filter-dialog.png" title="Optional title" /></p>
 <p>We&rsquo;re going to use the <strong>keyword</strong> <code>example</code> because this is an example workflow. Currently, there is no argument, which is fine. Enter a <strong>Placeholder Title</strong>. Next, we&rsquo;re going to use <code>/bin/bash</code> <em>not</em> <code>/usr/bin/php</code> because we&rsquo;ll develop the php code in a separate file. It&rsquo;s easier that way. So, we&rsquo;ll enter the simple script:</p>
 <div class="codehilite"><pre>php script-filter.php <span class="s2">&quot;{query}&quot;</span>
 </pre></div>
@@ -189,12 +189,12 @@
 
 <p>So, what does that code do? First, we require the Alphred library. Even though it&rsquo;s a <code>phar</code>, you use it just like any php file.</p>
 <blockquote>
-<p><code>phar</code> stands for <strong>PH</strong>p<strong>AR</strong>chive. <code>Alphred.phar</code> is actually over 20 files rolled into one convenient file.</p>
+<p><code>phar</code> stands for __PH__p__AR__chive. <code>Alphred.phar</code> is actually over 20 files rolled into one convenient file.</p>
 </blockquote>
 <p>Alphred contains many different components, each in its own class, but the most commonly used ones are simplified in a &ldquo;wrapper&rdquo; class called <code>Alphred</code>, and that&rsquo;s what we&rsquo;ll be using throughout this tutorial.</p>
 <p><code>$workflow = new Alphred;</code> instantiates a new object of the Alphred class. The next line adds a single item to the script filter with a title that is, simply, <code>This is a title</code>, and the last line prints the XML for Alfred to read.</p>
 <p>So, try it. Call up Alfred and type <code>example</code> (our keyword), and you should see something like:</p>
-<p><img alt="Alt text" src="../../images/script-filter-results-1.png" title="Optional title" /></p>
+<p><img alt="Alt text" src="../images/script-filter-results-1.png" title="Optional title" /></p>
 <p>Congrats! We have a working script filter, but it&rsquo;s not very useful yet.</p>
 <p>Since we want to grab some information from Github, we have to use their API. <a href="https://developer.github.com/v3/">You can go read the documentation</a>.</p>
 <p>Let&rsquo;s change the code in <code>script-filter.php</code>:</p>
@@ -231,14 +231,14 @@
 
 
 <p>Use the code above, except put in your username and password in the code. Your output will start to look different than mine &ndash; because we have different repositories, but it should look something like this:</p>
-<p><img alt="Alt text" src="../../images/script-filter-results-2.png" title="Optional title" /></p>
+<p><img alt="Alt text" src="../images/script-filter-results-2.png" title="Optional title" /></p>
 <p>So what happened above? Well, we made a <code>GET</code> request to Github, but, first, we had to set some parameters, which go into the <code>$options</code> array. Github gives us some <code>json</code>, so we decode the <code>json</code> into a php array.</p>
 <blockquote>
 <p>By default, the request is cached so that we don&rsquo;t have to actually reach Github each time. This makes the workflow go faster. I&rsquo;ll show you how to turn this off later.</p>
 </blockquote>
 <p>Next, we cycle through the results (<code>$repos</code>) and add a script filter item for each repo, and lastly, print the xml.</p>
 <p>Progress. But let&rsquo;s do a bit more with it. Go back to Alfred Preferences, and change the script filter dialog to have an &ldquo;optional argument&rdquo;:</p>
-<p><img alt="Alt text" src="../../images/script-filter-dialog-2.png" title="Optional title" /></p>
+<p><img alt="Alt text" src="../images/script-filter-dialog-2.png" title="Optional title" /></p>
 <blockquote>
 <p>The optional argument means that the script filter will run with or without an argument.</p>
 </blockquote>
@@ -262,11 +262,11 @@
 
 
 <p>Here, we&rsquo;re using the <code>filter</code> to remove anything that is not related to <code>$query</code>. Running the script with the argument <code>api</code>, for me, now looks like:</p>
-<p><img alt="Alt text" src="../../images/script-filter-dialog-3.png" title="Optional title" /></p>
+<p><img alt="Alt text" src="../images/script-filter-dialog-3.png" title="Optional title" /></p>
 <p>See, fewer items. Nice.</p>
 <h3 id="error-on-empty">Error on Empty</h3>
 <p>Also, you might notice that if you type in a query that filters everything out, you&rsquo;ll see this:</p>
-<p><img alt="Alt text" src="../../images/script-filter-results-error-empty.png" title="Optional title" /></p>
+<p><img alt="Alt text" src="../images/script-filter-results-error-empty.png" title="Optional title" /></p>
 <p>The reason is that, by default, an option is turned on called <code>error_on_empty</code>. I think that this behavior is better than just showing the fallback searches, which is exactly what Alfred does when the script outputs no usable XML. If you want to turn this off, then change</p>
 <div class="codehilite"><pre><span class="x">$workflow = new Alphred;</span>
 </pre></div>
@@ -284,7 +284,7 @@
 
 
 <p>Here&rsquo;s what it should look like:</p>
-<p><img alt="Alt text" src="../../images/run-script-dialog.png" title="Optional title" /></p>
+<p><img alt="Alt text" src="../images/run-script-dialog.png" title="Optional title" /></p>
 <p>Next, connect the Script Filter to the Run Script by clicking the little tab on the right side of the Script Filter object and dragging it to the Run Script object.</p>
 <p>Let&rsquo;s get back to some code.</p>
 <h4 id="a-simple-action">A Simple Action</h4>
@@ -357,10 +357,10 @@
 <h4 id="configuration">Configuration</h4>
 <p>So what did we just do? Well, <code>$workflow-&gt;config_read( 'username' );</code> tries to read the key <code>username</code> from the config file. We don&rsquo;t have one yet, but we don&rsquo;t have to worry about creating one; Alphred will do it for you when you try to write to it the first time. But, if there is no value yet, then we&rsquo;ll just add an item to the script filter that tells the user to set their username, and uses the query to do so. Then, we print out the XML (<code>$workflow-&gt;to_xml()</code>) and use <code>exit(0);</code> to end the script so that it doesn&rsquo;t keep running.</p>
 <p>If the username is not set, then we it should look something like:</p>
-<p><img alt="Alt text" src="../../images/set-username.png" title="Optional title" /></p>
+<p><img alt="Alt text" src="../images/set-username.png" title="Optional title" /></p>
 <p>Almost the same thing goes for the password, except we&rsquo;re using the <code>get_password</code> method, which integrates with the System Keychain. Yes, that means that the password is encrypted securely. We can access it from the workflow &ndash; once it&rsquo;s set &ndash; but, otherwise, anyone needs to enter the user&rsquo;s system password to see it.</p>
 <p>When the password is not set, it will look like:</p>
-<p><img alt="Alt text" src="../../images/set-password.png" title="Optional title" /></p>
+<p><img alt="Alt text" src="../images/set-password.png" title="Optional title" /></p>
 <h4 id="a-more-advanced-set-actions">A More Advanced Set Actions</h4>
 <p>But, the script filter doesn&rsquo;t set anything on its own, so we need to edit <code>action.php</code> in order to do something. So, rewrite it so that it looks like:</p>
 <div class="codehilite"><pre><span class="cp">&lt;?php</span>
@@ -446,7 +446,7 @@
 
 
 <p>And it looks like:</p>
-<p><img alt="Alt text" src="../../images/get-password-dialog.png" title="Optional title" /></p>
+<p><img alt="Alt text" src="../images/get-password-dialog.png" title="Optional title" /></p>
 <p>Now, in the <code>if</code> statement, we have the lines:</p>
 <div class="codehilite"><pre><span class="x">    if ( empty( $password ) || &#39;canceled&#39; == $password ) {</span>
 <span class="x">        die( &quot;Empty argument&quot; );</span>
@@ -485,7 +485,7 @@
 <h4 id="adding-switching-icons">Adding Switching Icons</h4>
 <p>Let&rsquo;s get some icons. <a href="https://fortawesome.github.io/Font-Awesome/">Font Awesome</a> has a nice Github one. But we wat to get it in some nice colors. Dean Jackson created a nice little utility that helps with these, and you can find my mirror at <a href="http://icons.shawnrice.org/preview/fontawesome">this link</a>. Change the colors with the color-picker in the upper-left hand corner of the page, and click on the icon to create it. Then download it. We&rsquo;ll get one in <code>#444444</code> and another in <code>#eaeaea</code>. We&rsquo;ll call them <code>github-dark.png</code> and <code>github-light.png</code> and place them in the root of the workflow directory.</p>
 <p>Here they are:</p>
-<p><img alt="Alt text" src="../../images/github-light.png" title="Optional title" /> <img alt="Alt text" src="../../images/github-dark.png" title="Optional title" /></p>
+<p><img alt="Alt text" src="../images/github-light.png" title="Optional title" /> <img alt="Alt text" src="../images/github-dark.png" title="Optional title" /></p>
 <p>Why a light version and a dark version of the icons? Well, sometimes people have dark themes and others have light themes. Using a light icon on a light theme makes it not show up. Alphred gives you a nice little method to find out whether or not the background is light or dark.</p>
 <div class="codehilite"><pre><span class="x">$background = $workflow-&gt;theme_background();</span>
 </pre></div>
@@ -513,16 +513,16 @@
 
 <p>If you notice, we also added in a subtitle that displays the description of the repository. And we set the <code>uid</code> to the name of the repository.</p>
 <p>But, we have icons, and they respond to the theme:</p>
-<p><img alt="Alt text" src="../../images/script-filter-with-light-icon.png" title="Optional title" /></p>
+<p><img alt="Alt text" src="../images/script-filter-with-light-icon.png" title="Optional title" /></p>
 <p>Or, if I change my theme:</p>
-<p><img alt="Alt text" src="../../images/script-filter-with-dark-icon.png" title="Optional title" /></p>
+<p><img alt="Alt text" src="../images/script-filter-with-dark-icon.png" title="Optional title" /></p>
 <h4 id="uid">UID</h4>
 <p>But, let&rsquo;s go back to the <code>uid</code>. The results that are filtered through Alphred&rsquo;s <code>filter</code> method sorts them based on the match score. Alfred can override these, and it does so if you set a <code>uid</code>. The way that it works is that the more the you action an item with a <code>uid</code>, the higher it appears in the result list.</p>
 <p>Now, we need to add some items back into the script filter so that the user can reset their username and password if they desire. It&rsquo;s pretty easy, just after the <code>foreach</code> loop, add the following:
-<code>``php
+<code _query="$query">``php
 $workflow-&gt;add_result([
         'title'    =&gt; 'Set Your Github Username',
-        'subtitle' =&gt; "Set username to</code>{$query}`&rdquo;,
+        'subtitle' =&gt; "Set username to</code>`&rdquo;,
         &lsquo;arg&rsquo;      =&gt; &ldquo;set-username {$query}&rdquo;,
         &lsquo;icon&rsquo;     =&gt; $icon,
         &lsquo;valid&rsquo;    =&gt; true
@@ -553,7 +553,7 @@ $workflow-&gt;add_result([
 
 
 <p>The method <code>fuzzy_time_diff</code> converts a time (a Unix Epoch Time) to a fuzzy string like <code>yesterday</code> or <code>almost a month ago</code>. So, look at it now:</p>
-<p><img alt="Alt text" src="../../images/script-filter-results-3.png" title="Optional title" /></p>
+<p><img alt="Alt text" src="../images/script-filter-results-3.png" title="Optional title" /></p>
 <h4 id="setting-filter-flags">Setting Filter Flags</h4>
 <p>We&rsquo;re going to change one more aspect about the workflow. Currently, the results are a bit too wide. We can change the matching rules for the <code>filter</code> method. So, change the <code>filter</code> line to</p>
 <div class="codehilite"><pre><span class="x">$repos = $workflow-&gt;filter( $repos, $query, &#39;name&#39;, [ &#39;match_type&#39; =&gt; MATCH_STARTSWITH &amp;&amp; MATCH_ATOM &amp;&amp; MATCH_SUBSTRING ] );</span>
@@ -562,14 +562,14 @@ $workflow-&gt;add_result([
 
 <p>The capitalized flags <code>MATCH_*</code> are constants set by Alphred and determine different matching patterns. You can read more about them on the filters page.</p>
 <p>Let&rsquo;s also give the workflow an icon. Just copy <code>github-dark.png</code> to <code>icon.png</code>, and that will serve as the icon for the workflow so that it looks like:</p>
-<p><img alt="Alt text" src="../../images/workflow-sidebar-with-icon.png" title="Optional title" /></p>
+<p><img alt="Alt text" src="../images/workflow-sidebar-with-icon.png" title="Optional title" /></p>
 <h4 id="add-a-notification">Add a Notification</h4>
 <p>Lastly, <code>action.php</code> prints out some information when setting the <code>username</code> and <code>password</code>. We can use these to display notifications by adding on a Post Notification object.</p>
 <p>Create one by pressing the <code>+</code> in the upper right corner of Alfred Preferences window and select <code>Outputs -&gt; Post Notification</code>.</p>
 <p>Set it up so that it looks like:</p>
-<p><img alt="Alt text" src="../../images/post-notification-dialog.png" title="Optional title" /></p>
+<p><img alt="Alt text" src="../images/post-notification-dialog.png" title="Optional title" /></p>
 <p>And then connect it so that the workflow looks like:</p>
-<p><img alt="Alt text" src="../../images/post-notification-object.png" title="Optional title" /></p>
+<p><img alt="Alt text" src="../images/post-notification-object.png" title="Optional title" /></p>
 <p>We&rsquo;ll change just one more thing about <code>action.php</code> so that a notification will be sent:</p>
 <div class="codehilite"><pre><span class="x">if ( $workflow-&gt;save_password( &#39;github.com&#39;, $password ) ) {</span>
 <span class="x">    $workflow-&gt;console( &#39;Set password for Github.&#39;, 1 );</span>
