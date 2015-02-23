@@ -39,7 +39,7 @@
             </button>
 
             <!-- Main title -->
-            <a class="navbar-brand" href="../Index">Alphred</a>
+            <a class="navbar-brand" href="..">Alphred</a>
         </div>
 
         <!-- Expanded navigation -->
@@ -48,56 +48,75 @@
             <ul class="nav navbar-nav">
             
             
-                <li >
-                    <a href="../Index">Home</a>
-                </li>
-            
-            
-            
                 <li class="active">
                     <a href=".">Tutorial</a>
                 </li>
             
             
             
-                <li >
-                    <a href="../Configurations">Configs</a>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Wrapper <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li >
+                            <a href="../wrapper-guide/Configurations">Configs</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../wrapper-guide/SimpleScriptFilter">Script Filters</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../wrapper-guide/ScriptFilter">Advanced Script Filters</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../wrapper-guide/Filter">Filter</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../wrapper-guide/Logging">Logs</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../wrapper-guide/Passwords">Passwords</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../wrapper-guide/Request">HTTP Requests</a>
+                        </li>
+                    
+                    </ul>
                 </li>
             
             
             
-                <li >
-                    <a href="../Filter">Filter</a>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Components <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li >
+                            <a href="../components/UsingComponents">Components</a>
+                        </li>
+                    
+                    </ul>
                 </li>
             
             
             
-                <li >
-                    <a href="../Logging">Logs</a>
-                </li>
-            
-            
-            
-                <li >
-                    <a href="../Passwords">Passwords</a>
-                </li>
-            
-            
-            
-                <li >
-                    <a href="../Request">HTTP Requests</a>
-                </li>
-            
-            
-            
-                <li >
-                    <a href="../UsingComponents">Components</a>
-                </li>
-            
-            
-            
-                <li >
-                    <a href="../Extending">Extending</a>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Advanced <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li >
+                            <a href="../advanced/Extending">Extending</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../advanced/CLI-Server">CLI Server</a>
+                        </li>
+                    
+                    </ul>
                 </li>
             
             
@@ -107,12 +126,12 @@
             <ul class="nav navbar-nav navbar-right">
                 
                 <li >
-                    <a rel="next" href="../Index">
+                    <a rel="next" href="..">
                         <i class="fa fa-arrow-left"></i> Previous
                     </a>
                 </li>
                 <li >
-                    <a rel="prev" href="../Configurations">
+                    <a rel="prev" href="../wrapper-guide/Configurations">
                         Next <i class="fa fa-arrow-right"></i>
                     </a>
                 </li>
@@ -237,6 +256,9 @@
 <p>By default, the request is cached so that we don&rsquo;t have to actually reach Github each time. This makes the workflow go faster. I&rsquo;ll show you how to turn this off later.</p>
 </blockquote>
 <p>Next, we cycle through the results (<code>$repos</code>) and add a script filter item for each repo, and lastly, print the xml.</p>
+<blockquote>
+<p>Note: if you have two-factor authentication turned on for Github, then you&rsquo;ll have to use a special &ldquo;application&rdquo; password. Until then, you will not get any information from Github.</p>
+</blockquote>
 <p>Progress. But let&rsquo;s do a bit more with it. Go back to Alfred Preferences, and change the script filter dialog to have an &ldquo;optional argument&rdquo;:</p>
 <p><img alt="Alt text" src="../images/script-filter-dialog-2.png" title="Optional title" /></p>
 <blockquote>

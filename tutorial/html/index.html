@@ -7,14 +7,14 @@
         
         <meta name="author" content="Shawn Patrick Rice">
         
-        <link rel="shortcut icon" href="../img/favicon.ico">
+        <link rel="shortcut icon" href="./img/favicon.ico">
 
-        <title>Home - Alphred</title>
+        <title>Alphred</title>
 
-        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
-        <link href="../css/font-awesome-4.0.3.css" rel="stylesheet">
-        <link href="../css/prettify-1.0.css" rel="stylesheet">
-        <link href="../css/base.css" rel="stylesheet">
+        <link href="./css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="./css/font-awesome-4.0.3.css" rel="stylesheet">
+        <link href="./css/prettify-1.0.css" rel="stylesheet">
+        <link href="./css/base.css" rel="stylesheet">
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -48,56 +48,75 @@
             <ul class="nav navbar-nav">
             
             
-                <li class="active">
-                    <a href=".">Home</a>
+                <li >
+                    <a href="Tutorial/">Tutorial</a>
                 </li>
             
             
             
-                <li >
-                    <a href="../Tutorial">Tutorial</a>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Wrapper <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li >
+                            <a href="wrapper-guide/Configurations/">Configs</a>
+                        </li>
+                    
+                        <li >
+                            <a href="wrapper-guide/SimpleScriptFilter/">Script Filters</a>
+                        </li>
+                    
+                        <li >
+                            <a href="wrapper-guide/ScriptFilter/">Advanced Script Filters</a>
+                        </li>
+                    
+                        <li >
+                            <a href="wrapper-guide/Filter/">Filter</a>
+                        </li>
+                    
+                        <li >
+                            <a href="wrapper-guide/Logging/">Logs</a>
+                        </li>
+                    
+                        <li >
+                            <a href="wrapper-guide/Passwords/">Passwords</a>
+                        </li>
+                    
+                        <li >
+                            <a href="wrapper-guide/Request/">HTTP Requests</a>
+                        </li>
+                    
+                    </ul>
                 </li>
             
             
             
-                <li >
-                    <a href="../Configurations">Configs</a>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Components <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li >
+                            <a href="components/UsingComponents/">Components</a>
+                        </li>
+                    
+                    </ul>
                 </li>
             
             
             
-                <li >
-                    <a href="../Filter">Filter</a>
-                </li>
-            
-            
-            
-                <li >
-                    <a href="../Logging">Logs</a>
-                </li>
-            
-            
-            
-                <li >
-                    <a href="../Passwords">Passwords</a>
-                </li>
-            
-            
-            
-                <li >
-                    <a href="../Request">HTTP Requests</a>
-                </li>
-            
-            
-            
-                <li >
-                    <a href="../UsingComponents">Components</a>
-                </li>
-            
-            
-            
-                <li >
-                    <a href="../Extending">Extending</a>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Advanced <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li >
+                            <a href="advanced/Extending/">Extending</a>
+                        </li>
+                    
+                        <li >
+                            <a href="advanced/CLI-Server/">CLI Server</a>
+                        </li>
+                    
+                    </ul>
                 </li>
             
             
@@ -112,7 +131,7 @@
                     </a>
                 </li>
                 <li >
-                    <a rel="prev" href="../Tutorial">
+                    <a rel="prev" href="Tutorial/">
                         Next <i class="fa fa-arrow-right"></i>
                     </a>
                 </li>
@@ -144,6 +163,9 @@
         <li class="main "><a href="#example">Example</a></li>
         
     
+        <li class="main "><a href="#api-documentation">API Documentation</a></li>
+        
+    
         <li class="main "><a href="#read-more">Read More</a></li>
         
     
@@ -156,12 +178,12 @@
 <p>Alphred is a PHP library to aid in the creation of workflows for Alfred. Most of Alphred should work with PHP 5.3+ (OS X 10.6+), but some features need PHP 5.4+ (OS X 10.9+). Alphred generally needs Alfred v2.5+ to run.</p>
 <h2 id="features">Features</h2>
 <ul>
-<li>Simple AlfredXML generation for <a href="https://github.com/shawnrice/alphred/blob/master/tutorial/markdown/SimpleScriptFilter.md">script filters</a>, including extended XML attributes</li>
-<li><a href="https://github.com/shawnrice/alphred/blob/master/tutorial/markdown/Configurations.md">Create and manage configuration files</a> in <code>ini</code>, <code>json</code>, or <code>sqlite3</code> from a few lines of code</li>
-<li>Easy <a href="https://github.com/shawnrice/alphred/blob/master/tutorial/markdown/Request.md">http requests</a> with get or post, including data caching</li>
+<li>Simple AlfredXML generation for <a href="wrapper-guide/SimpleScriptFilter/">script filters</a>, including extended XML attributes</li>
+<li><a href="wrapper-guide/Configurations/">Create and manage configuration files</a> in <code>ini</code>, <code>json</code>, or <code>sqlite3</code> from a few lines of code</li>
+<li>Easy <a href="wrapper-guide/Request/">http requests</a> with get or post, including data caching</li>
 <li>Use the system keychain <a href="https://github.com/shawnrice/alphred/blob/master/tutorial/markdown/Passwords.md">to store and retrieve passwords</a></li>
-<li><a href="https://github.com/shawnrice/alphred/blob/master/tutorial/markdown/Logging.md">Simple logging</a> to single or multiple files as well as the console with variable log levels</li>
-<li><a href="https://github.com/shawnrice/alphred/blob/master/tutorial/markdown/Filter.md">Filter results</a> easily to match a query</li>
+<li><a href="wrapper-guide/Logging/">Simple logging</a> to single or multiple files as well as the console with variable log levels</li>
+<li><a href="wrapper-guide/Filter/">Filter results</a> easily to match a query</li>
 <li>Make your script filters faster by using the cli-server (PHP 5.4+) with almost no change to your existing code</li>
 <li>Easily change dates into strings, exact (1 day, 3 hours, and 23 minutes ago) or fuzzy (yesterday)</li>
 <li>Use title case without any extra work</li>
@@ -172,6 +194,11 @@
 </ul>
 <h2 id="example">Example</h2>
 <p>An example workflow (<a href="https://github.com/shawnrice/alphred/raw/master/example/gh-repos-example.alfredworkflow">download</a>) that takes your Github Username and Password and grabs a list of your repos and filters them by query is in the example folder. It uses the cli-server. You can see the well-documented code for the <a href="https://github.com/shawnrice/alphred/blob/master/example/script-filter.php">script filter</a> and the <a href="https://github.com/shawnrice/alphred/blob/master/example/action.php">action script</a>. Without the comments, they reduce to about 60 lines of code together.</p>
+<h2 id="api-documentation">API Documentation</h2>
+<ul>
+<li><a href="./phpdoc/index.html">Read phpdocumentor docs</a></li>
+<li><a href="./apigen/index.html">Read apigen docs</a></li>
+</ul>
 <h2 id="read-more">Read More</h2>
 <p>See the other markdown files in this directory to read more about:</p>
 <ul>
@@ -190,8 +217,8 @@
         
 
         <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-        <script src="../js/bootstrap-3.0.3.min.js"></script>
-        <script src="../js/prettify-1.0.min.js"></script>
-        <script src="../js/base.js"></script>
+        <script src="./js/bootstrap-3.0.3.min.js"></script>
+        <script src="./js/prettify-1.0.min.js"></script>
+        <script src="./js/base.js"></script>
     </body>
 </html>

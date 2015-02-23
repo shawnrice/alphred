@@ -107,6 +107,8 @@ So what happened above? Well, we made a `GET` request to Github, but, first, we 
 
 Next, we cycle through the results (`$repos`) and add a script filter item for each repo, and lastly, print the xml.
 
+> Note: if you have two-factor authentication turned on for Github, then you'll have to use a special "application" password. Until then, you will not get any information from Github.
+
 Progress. But let's do a bit more with it. Go back to Alfred Preferences, and change the script filter dialog to have an "optional argument":
 
 ![Alt text](images/script-filter-dialog-2.png "Optional title")

@@ -1,14 +1,17 @@
 site_name: Alphred
 pages:
-  - ['Index.md', 'Home']
+  - ['index.md', 'Home']
   - ['Tutorial.md', 'Tutorial']
-  - ['Configurations.md', 'Configs']
-  - ['Filter.md', 'Filter']
-  - ['Logging.md', 'Logs']
-  - ['Passwords.md', 'Passwords']
-  - ['Request.md', 'HTTP Requests']
-  - ['UsingComponents.md', 'Components']
-  - ['Extending.md', 'Extending']
+  - ['wrapper-guide/Configurations.md', 'Wrapper', 'Configs']
+  - ['wrapper-guide/SimpleScriptFilter.md', 'Wrapper', 'Script Filters']
+  - ['wrapper-guide/ScriptFilter.md', 'Wrapper', 'Advanced Script Filters']
+  - ['wrapper-guide/Filter.md', 'Wrapper', 'Filter']
+  - ['wrapper-guide/Logging.md', 'Wrapper', 'Logs']
+  - ['wrapper-guide/Passwords.md', 'Wrapper', 'Passwords']
+  - ['wrapper-guide/Request.md', 'Wrapper', 'HTTP Requests']
+  - ['components/UsingComponents.md', 'Components', 'Components']
+  - ['advanced/Extending.md', 'Advanced', 'Extending']
+  - ['advanced/CLI-Server.md', 'Advanced', 'CLI Server']
 theme: yeti
 repo_url: https://github.com/shawnrice/alphred
 site_author: Shawn Patrick Rice

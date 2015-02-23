@@ -21,6 +21,10 @@ _ALPHRED_KILL_SCRIPT="${_ALPHRED_ME}/kill.sh"
 # The port for the scripts to run on
 _ALPHRED_SERVER_PORT=8972
 
+if [[ -f "${_ALPHRED_ME}/extend_query_server.sh" ]]; then
+	. extend_query_server.sh
+fi
+
 # If we cannot find the kill script, then exit with error code 1.
 if [[ ! -f "${_ALPHRED_KILL_SCRIPT}" ]]; then
 	echo "ERROR: Cannot find kill script; please reinstall server scripts."

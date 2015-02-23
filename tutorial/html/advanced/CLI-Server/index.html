@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Shawn Patrick Rice">
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+
+        <title>CLI Server - Alphred</title>
+
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.0.3.css" rel="stylesheet">
+        <link href="../../css/prettify-1.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <!-- Main title -->
+            <a class="navbar-brand" href="../..">Alphred</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            <!-- Main navigation -->
+            <ul class="nav navbar-nav">
+            
+            
+                <li >
+                    <a href="../../Tutorial">Tutorial</a>
+                </li>
+            
+            
+            
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Wrapper <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li >
+                            <a href="../../wrapper-guide/Configurations">Configs</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../../wrapper-guide/SimpleScriptFilter">Script Filters</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../../wrapper-guide/ScriptFilter">Advanced Script Filters</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../../wrapper-guide/Filter">Filter</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../../wrapper-guide/Logging">Logs</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../../wrapper-guide/Passwords">Passwords</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../../wrapper-guide/Request">HTTP Requests</a>
+                        </li>
+                    
+                    </ul>
+                </li>
+            
+            
+            
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Components <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li >
+                            <a href="../../components/UsingComponents">Components</a>
+                        </li>
+                    
+                    </ul>
+                </li>
+            
+            
+            
+                <li class="dropdown active">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Advanced <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li >
+                            <a href="../Extending">Extending</a>
+                        </li>
+                    
+                        <li class="active">
+                            <a href=".">CLI Server</a>
+                        </li>
+                    
+                    </ul>
+                </li>
+            
+            
+            </ul>
+
+            <!-- Search, Navigation and Repo links -->
+            <ul class="nav navbar-nav navbar-right">
+                
+                <li >
+                    <a rel="next" href="../Extending">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </li>
+                <li class="disabled">
+                    <a rel="prev" >
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="https://github.com/shawnrice/alphred">
+                        
+                            <i class="fa fa-github"></i>
+                        
+                        GitHub
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+            <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="main active"><a href="#cli-server">CLI-Server</a></li>
+        
+            <li><a href="#simple-usage">Simple Usage</a></li>
+        
+            <li><a href="#creating-the-scripts">Creating the scripts</a></li>
+        
+    
+        <li class="main "><a href="#editing-and-extending-the-scripts">Editing and extending the scripts</a></li>
+        
+            <li><a href="#setting-a-minimum-query-length">Setting a minimum query length</a></li>
+        
+            <li><a href="#creating-a-fallback">Creating a fallback</a></li>
+        
+    
+        <li class="main "><a href="#debugging">Debugging</a></li>
+        
+    
+        <li class="main "><a href="#whats-to-gain">What&rsquo;s to gain?</a></li>
+        
+            <li><a href="#why-create-a-server">Why create a server?</a></li>
+        
+            <li><a href="#can-i-use-it-on-my-other-scripts">Can I use it on my other scripts?</a></li>
+        
+            <li><a href="#running-the-server">Running the server</a></li>
+        
+            <li><a href="#wont-it-clash-with-other-workflows-that-use-it">Won&rsquo;t it clash with other workflows that use it?</a></li>
+        
+            <li><a href="#important-notes">Important Notes</a></li>
+        
+    
+    </ul>
+</div></div>
+            <div class="col-md-9" role="main">
+
+<h1 id="cli-server">CLI-Server</h1>
+<p>Alphred contains a few scripts that let you run your workflow over a pop-up webserver rather than just the regular PHP CLI.</p>
+<blockquote>
+<p>Alphred uses the built-in CLI-Server SAPI that comes with PHP 5.4+. Thus, it will not work with OS X less than Mavericks.</p>
+</blockquote>
+<h2 id="simple-usage">Simple Usage</h2>
+<p>Make sure that the code to run your script filter (in Alfred&rsquo;s Script Filter dialog box) is:</p>
+<div class="codehilite"><pre>bash path/to/server.sh path/to/php/script-filter.php <span class="s2">&quot;{query}&quot;</span>
+</pre></div>
+
+
+<p>Then, in <code>script-filter.php</code> (or whatever you call it), make sure you include the line:</p>
+<div class="codehilite"><pre><span class="x">require_once( __DIR__ . &#39;/path/to/server.php&#39; );</span>
+</pre></div>
+
+
+<p>The file <code>server.php</code> sets all the Alfred global variables that you would expect to have, and it maps &ldquo;{query}&rdquo; to <code>$argv[1]</code>, which is where you would normally find it. Thus, minimal changes are needed to your code.</p>
+<h2 id="creating-the-scripts">Creating the scripts</h2>
+<p>The scripts come packaged in <code>Alphred.phar</code>, and, to get access to them, just run</p>
+<div class="codehilite"><pre>php Alphred.phar create-server-scripts
+</pre></div>
+
+
+<p>and the scripts will be created for you. Move them wherever you like, but make sure that they are all in the same directory.</p>
+<h1 id="editing-and-extending-the-scripts">Editing and extending the scripts</h1>
+<p>Don&rsquo;t edit the scripts, unless you want to set a minimum query length (i.e. don&rsquo;t run the script filter unless there is a query of at least three characters).</p>
+<h2 id="setting-a-minimum-query-length">Setting a minimum query length</h2>
+<p>Open <code>server.sh</code> and change line 4 from</p>
+<div class="codehilite"><pre><span class="nv">_ALPHRED_MIN_QUERY</span><span class="o">=</span>0
+</pre></div>
+
+
+<p>to whatever you need. So, if you want to have the minimum query set at 3, you would use:</p>
+<div class="codehilite"><pre><span class="nv">_ALPHRED_MIN_QUERY</span><span class="o">=</span>3
+</pre></div>
+
+
+<h2 id="creating-a-fallback">Creating a fallback</h2>
+<p>If you set min query, then you might want to provide some feedback for the user to tell them to keep typing. The easiest way to do this is to create a file called <code>extend_query_server.sh</code> and place it in a function called <code>Alphred::extend_query_server</code>. Here is an example:</p>
+<div class="codehilite"><pre><span class="k">function</span> Alphred::extend_query_server<span class="o">()</span> <span class="o">{</span>
+  print <span class="s2">&quot;&lt;?xml version=&#39;1.0&#39; encoding=&#39;UTF-8&#39;?&gt;\n&quot;</span> <span class="se">\</span>
+        <span class="s2">&quot;&lt;items&gt;\n&quot;</span> <span class="se">\</span>
+        <span class="s2">&quot; &lt;item valid=&#39;no&#39;&gt;\n&quot;</span> <span class="se">\</span>
+        <span class="s2">&quot;  &lt;title&gt;Error: </span><span class="si">${</span><span class="nv">_ALPHRED_MIN_QUERY</span><span class="si">}</span><span class="s2"> characters minimum are needed to perform query.&lt;/title&gt;\n&quot;</span> <span class="se">\</span>
+        <span class="s2">&quot;  &lt;subtitle&gt;</span><span class="si">${</span><span class="nv">alfred_workflow_name</span><span class="si">}</span><span class="s2">&lt;/subtitle&gt;\n&quot;</span> <span class="se">\</span>
+        <span class="s2">&quot;  &lt;icon&gt;/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/Unsupported.icns&lt;/icon&gt;\n&quot;</span> <span class="se">\</span>
+        <span class="s2">&quot; &lt;/item&gt;\n&quot;</span> <span class="se">\</span>
+        <span class="s2">&quot;&lt;/items&gt;\n&quot;</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<h1 id="debugging">Debugging</h1>
+<p>The console log is not available when you&rsquo;re using the cli-server. This is because <code>STDERR</code> is directed to <code>/dev/null/</code>, which is needed in order to make the server run in the background. Instead, you can either log everything to a log file:</p>
+<div class="codehilite"><pre><span class="x">// Log using the wrapper</span>
+<span class="x">$workflow-&gt;log( &#39;This is a log message&#39;, 1 );</span>
+
+<span class="x">// Log using the Log component:</span>
+<span class="x">Alphred\Log::file( &#39;This is a log message&#39;, 1 );</span>
+</pre></div>
+
+
+<p>Or, debug without the cli-server by just running the script filter with:</p>
+<div class="codehilite"><pre>php src/script-filter.php <span class="s2">&quot;{query}&quot;</span>
+</pre></div>
+
+
+<p>And, once that works, turn on the cli-server with the regular invocation:</p>
+<div class="codehilite"><pre>bash server-scripts/server.sh src/script-filter.php <span class="s2">&quot;{query}&quot;</span>
+</pre></div>
+
+
+<h1 id="whats-to-gain">What&rsquo;s to gain?</h1>
+<h2 id="why-create-a-server">Why create a server?</h2>
+<p>Well, PHP is fast to run, but it&rsquo;s slow to start, partly because the php binary is so large. Thus, there is some noticeable lag, especially when running a script for the first time in a while.</p>
+<blockquote>
+<p>PHP compiles your script to OpCode before running it. If the script has been run recently, then it uses the OpCode; otherwise, it needs to recompile it, slowing things down.</p>
+</blockquote>
+<p>The server runs quickly, making everything feel more responsive. It adds that extra little performance to your script filters.</p>
+<h2 id="can-i-use-it-on-my-other-scripts">Can I use it on my other scripts?</h2>
+<p>Yes, you could, but you don&rsquo;t get nearly as much value from it. Script filters deal with user-interaction, and so we notice when they run slowly. We don&rsquo;t notice, nearly as much, when other scripts run slowly.</p>
+<h2 id="running-the-server">Running the server</h2>
+<p>Alphred&rsquo;s cli-server scripts launch the server on <code>http://localhost:8792</code>, and then makes cURL calls to it. But, we don&rsquo;t want to launch a server and leave it running forever on the user&rsquo;s computer, so Alphred launches a kill script at the same time that stops the server after a period of inactivity, usually 20-30 seconds.</p>
+<h2 id="wont-it-clash-with-other-workflows-that-use-it">Won&rsquo;t it clash with other workflows that use it?</h2>
+<p>No. The server is launched so that the &ldquo;web root&rdquo; is in the directory where all the workflows are stored. The <code>server.sh</code> file routes the request into your workflow. This makes sure that workflows won&rsquo;t fight over the cli-server. But it also means that you have to be more careful with your paths in the PHP scripts because <code>$PWD</code> is now set not in the workflow root, but one directory level below it, where all the workflows are. So, set file paths either as absolute (if you&rsquo;re access the cache or data directories), or make them more explicitly relative using <code>__DIR__</code></p>
+<blockquote>
+<p><code>__DIR__</code> is the directory of the current php file.</p>
+</blockquote>
+<p>So, if you had a directory setup like:</p>
+<div class="codehilite"><pre>info.plist
+icon.png
+workflow.ini
+icons/icon1.png
+icons/icon2.png
+server-scripts/alphred_urlencode.sed
+server-scripts/extend_query_server.sh
+server-scripts/kill.sh
+server-scripts/server.php
+server-scripts/server.sh
+src/action.php
+src/script-filter.php
+</pre></div>
+
+
+<p>Then, to access the icons from <code>script-filter.php</code>, you would write:</p>
+<div class="codehilite"><pre><span class="x">$icon1 = __DIR__ . &#39;/../icons/icon1.png&#39;;</span>
+<span class="x">$icon2 = __DIR__ . &#39;/../icons/icon2.png&#39;;</span>
+</pre></div>
+
+
+<p>To include the server script, you would write:</p>
+<div class="codehilite"><pre><span class="x">require_once( __DIR__ . &#39;/../server.php&#39; );</span>
+</pre></div>
+
+
+<h2 id="important-notes">Important Notes</h2>
+<p>The console log will not work, which makes debugging a bit harder. Well, the console log still works, but the console is just taken somewhere else that the Alfred debugger cannot read. File logs still work just fine.</p>
+<p>If you get curl errors with a 500 http response code, it probably means that there is a bug in the php script.</p>
+<p>Do not include files with <code>require_once( './src/my_file.php' );</code> because they will not be found. Instead, use something like: <code>require_once( __DIR__ . '/src/my_file.php' );</code> The magic <code>__DIR__</code> is the directory where the php file is located.</p>
+<p>Make sure that you escape double-quotes; otherwise, your entire query might not end up in <code>$argv[1]</code>.</p>
+</div>
+        </div>
+
+        
+
+        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/prettify-1.0.min.js"></script>
+        <script src="../../js/base.js"></script>
+    </body>
+</html>
