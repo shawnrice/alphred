@@ -70,8 +70,19 @@ function Alphred::prime_server() {
         echo $! > "${_ALPHRED_PHP_PID_FILE}"
         # launch kill script
         nohup /bin/bash "${_ALPHRED_ME}/kill.sh" &> /dev/null &
-        # we need to put in a very small delay to let the server boot up otherwise the first time will fail
-        sleep 0.3
+
+        # We're going to wait until the server has spun up. By trying to execute a cURL call.
+        # we'll get a 7 if it isn't there, otherwise, so we'll increment a counter and then try
+        # again
+        i=0
+        while [ $i -lt 100 ]; do
+        	curl -sS http://localhost:"${_ALPHRED_SERVER_PORT}" &> /dev/null
+        	if [[ '7' != $(echo $?) ]]; then
+        		echo "Server started." 1>&2
+        		break;
+        	fi
+        	i=$(( i + 1 ))
+        done
     fi
     # Update the Last Triggered file
     echo $(date +%s) > "${_ALPHRED_KEEP_ALIVE}" &
