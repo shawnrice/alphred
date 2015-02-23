@@ -41,14 +41,14 @@ _ALPHRED_MIN_QUERY=3
 If you set min query, then you might want to provide some feedback for the user to tell them to keep typing. The easiest way to do this is to create a file called `extend_query_server.sh` and place it in a function called `Alphred::extend_query_server`. Here is an example:
 ````shell
 function Alphred::extend_query_server() {
-  print "<?xml version='1.0' encoding='UTF-8'?>\n" \
-        "<items>\n" \
-        " <item valid='no'>\n" \
-        "  <title>Error: ${_ALPHRED_MIN_QUERY} characters minimum are needed to perform query.</title>\n" \
-        "  <subtitle>${alfred_workflow_name}</subtitle>\n" \
-        "  <icon>/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/Unsupported.icns</icon>\n" \
-        " </item>\n" \
-        "</items>\n"
+  echo "<?xml version='1.0' encoding='UTF-8'?>"
+ 	echo "<items>"
+ 	echo " <item valid='no'>"
+ 	echo "  <title>Error: ${_ALPHRED_MIN_QUERY} characters minimum are needed to perform query.</title>"
+ 	echo "  <subtitle>${alfred_workflow_name}</subtitle>"
+ 	echo "  <icon>/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/Unsupported.icns</icon>"
+ 	echo " </item>"
+ 	echo "</items>"
 }
 ````
 

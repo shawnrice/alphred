@@ -228,14 +228,14 @@
 <h2 id="creating-a-fallback">Creating a fallback</h2>
 <p>If you set min query, then you might want to provide some feedback for the user to tell them to keep typing. The easiest way to do this is to create a file called <code>extend_query_server.sh</code> and place it in a function called <code>Alphred::extend_query_server</code>. Here is an example:</p>
 <div class="codehilite"><pre><span class="k">function</span> Alphred::extend_query_server<span class="o">()</span> <span class="o">{</span>
-  print <span class="s2">&quot;&lt;?xml version=&#39;1.0&#39; encoding=&#39;UTF-8&#39;?&gt;\n&quot;</span> <span class="se">\</span>
-        <span class="s2">&quot;&lt;items&gt;\n&quot;</span> <span class="se">\</span>
-        <span class="s2">&quot; &lt;item valid=&#39;no&#39;&gt;\n&quot;</span> <span class="se">\</span>
-        <span class="s2">&quot;  &lt;title&gt;Error: </span><span class="si">${</span><span class="nv">_ALPHRED_MIN_QUERY</span><span class="si">}</span><span class="s2"> characters minimum are needed to perform query.&lt;/title&gt;\n&quot;</span> <span class="se">\</span>
-        <span class="s2">&quot;  &lt;subtitle&gt;</span><span class="si">${</span><span class="nv">alfred_workflow_name</span><span class="si">}</span><span class="s2">&lt;/subtitle&gt;\n&quot;</span> <span class="se">\</span>
-        <span class="s2">&quot;  &lt;icon&gt;/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/Unsupported.icns&lt;/icon&gt;\n&quot;</span> <span class="se">\</span>
-        <span class="s2">&quot; &lt;/item&gt;\n&quot;</span> <span class="se">\</span>
-        <span class="s2">&quot;&lt;/items&gt;\n&quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;&lt;?xml version=&#39;1.0&#39; encoding=&#39;UTF-8&#39;?&gt;&quot;</span>
+    <span class="nb">echo</span> <span class="s2">&quot;&lt;items&gt;&quot;</span>
+    <span class="nb">echo</span> <span class="s2">&quot; &lt;item valid=&#39;no&#39;&gt;&quot;</span>
+    <span class="nb">echo</span> <span class="s2">&quot;  &lt;title&gt;Error: </span><span class="si">${</span><span class="nv">_ALPHRED_MIN_QUERY</span><span class="si">}</span><span class="s2"> characters minimum are needed to perform query.&lt;/title&gt;&quot;</span>
+    <span class="nb">echo</span> <span class="s2">&quot;  &lt;subtitle&gt;</span><span class="si">${</span><span class="nv">alfred_workflow_name</span><span class="si">}</span><span class="s2">&lt;/subtitle&gt;&quot;</span>
+    <span class="nb">echo</span> <span class="s2">&quot;  &lt;icon&gt;/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/Unsupported.icns&lt;/icon&gt;&quot;</span>
+    <span class="nb">echo</span> <span class="s2">&quot; &lt;/item&gt;&quot;</span>
+    <span class="nb">echo</span> <span class="s2">&quot;&lt;/items&gt;&quot;</span>
 <span class="o">}</span>
 </pre></div>
 

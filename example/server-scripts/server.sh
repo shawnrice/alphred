@@ -22,7 +22,7 @@ _ALPHRED_KILL_SCRIPT="${_ALPHRED_ME}/kill.sh"
 _ALPHRED_SERVER_PORT=8972
 
 if [[ -f "${_ALPHRED_ME}/extend_query_server.sh" ]]; then
-	. extend_query_server.sh
+	source "${_ALPHRED_ME}/extend_query_server.sh"
 fi
 
 # If we cannot find the kill script, then exit with error code 1.
@@ -128,21 +128,21 @@ Alphred::prime_server
 
 if [[ ${#_ALPHRED_QUERY} -ge $_ALPHRED_MIN_QUERY ]]; then
     Alphred::query_server
-elif [[ '0' == $(type -t Alphred::extend_query_server; echo $?) ]]; then
+elif [[ '0' == $(type -t Alphred::extend_query_server  > /dev/null; echo $?) ]]; then
     # If you want to define a fallback for this script to do when then min query is not reached,
     # then define the function "Alphred::extend_query_server"
     #
     # Example:
-    # function Alphred::extend_query_server() {
-    #   print "<?xml version='1.0' encoding='UTF-8'?>\n" \
-    #         "<items>\n" \
-    #         " <item valid='no'>\n" \
-    #         "  <title>Error: ${_ALPHRED_MIN_QUERY} characters minimum are needed to perform query.</title>\n" \
-    #         "  <subtitle>${alfred_workflow_name}</subtitle>\n" \
-    #         "  <icon>/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/Unsupported.icns</icon>\n" \
-    #         " </item>\n" \
-    #         "</items>\n"
-    # }
+		# function Alphred::extend_query_server() {
+		#   echo "<?xml version='1.0' encoding='UTF-8'?>"
+		# 	echo "<items>"
+		# 	echo " <item valid='no'>"
+		# 	echo "  <title>Error: ${_ALPHRED_MIN_QUERY} characters minimum are needed to perform query.</title>"
+		# 	echo "  <subtitle>${alfred_workflow_name}</subtitle>"
+		# 	echo "  <icon>/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/Unsupported.icns</icon>"
+		# 	echo " </item>"
+		# 	echo "</items>"
+		# }
     #
     Alphred::extend_query_server "${_ALPHRED_QUERY}"
 fi
