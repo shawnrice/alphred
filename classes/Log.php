@@ -186,12 +186,10 @@ class Log {
 		*
 		* @since 1.0.0
 		*/
-		private function rotate_log( $filename ) {
-			// Get the log filename
-			$log_file = self::get_log_filename( $filename );
+		private function rotate_log( $log_file ) {
 
 			// Set the backup log filename
-			$old = substr( $log_file, -4 ) . '.1.log';
+			$old = substr( $log_file, 0, -4 ) . '.1.log';
 
 			// Check if an old filelog exists
 			if ( file_exists( $old ) ) {

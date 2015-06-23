@@ -134,7 +134,7 @@ class Ini {
 		foreach( $global as $value ) :
 			// There should really be only one item in each array, but this is easy
 			foreach ( $value as $k => $v ) :
-				$contents .= "{$k} = {$v}\r\n";
+				$contents .= "{$k} = \"{$v}\"\r\n";
 			endforeach;
 		endforeach;
 
@@ -152,7 +152,7 @@ class Ini {
 				// actually key => value rather than title => section
 				// This is actually a deprecated part now, and we should
 				// never quite get here.
-				$contents .= "{$title} = {$section}\r\n";
+				$contents .= "{$title} = \"{$section}\"\r\n";
 			}
 
 		endforeach;
@@ -203,10 +203,10 @@ class Ini {
 		foreach( $section as $key => $value ) :
 			if ( is_array( $value ) ) {
 				foreach( $value as $v ) :
-						$contents .= "{$key}[] = {$v}\r\n";
+						$contents .= "{$key}[] = \"{$v}\"\r\n";
 				endforeach;
 			} else {
-				$contents .= "{$key} = {$value}\r\n";
+				$contents .= "{$key} = \"{$value}\"\r\n";
 			}
 		endforeach;
 		return $contents;

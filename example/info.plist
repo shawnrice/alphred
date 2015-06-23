@@ -83,7 +83,7 @@
 	<key>createdby</key>
 	<string>Shawn Patrick Rice</string>
 	<key>description</key>
-	<string></string>
+	<string>Show your github repos!</string>
 	<key>disabled</key>
 	<false/>
 	<key>name</key>
@@ -93,6 +93,8 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>concurrently</key>
+				<false/>
 				<key>escaping</key>
 				<integer>4</integer>
 				<key>script</key>
@@ -110,6 +112,8 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>concurrently</key>
+				<false/>
 				<key>escaping</key>
 				<integer>4</integer>
 				<key>script</key>
@@ -161,6 +165,8 @@ bash server-scripts/server.sh script-filter.php "{query}"</string>
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>concurrently</key>
+				<false/>
 				<key>escaping</key>
 				<integer>4</integer>
 				<key>script</key>
@@ -178,6 +184,8 @@ bash server-scripts/server.sh script-filter.php "{query}"</string>
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>concurrently</key>
+				<false/>
 				<key>escaping</key>
 				<integer>4</integer>
 				<key>script</key>
@@ -195,6 +203,8 @@ bash server-scripts/server.sh script-filter.php "{query}"</string>
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>concurrently</key>
+				<false/>
 				<key>escaping</key>
 				<integer>4</integer>
 				<key>script</key>
@@ -212,6 +222,8 @@ bash server-scripts/server.sh script-filter.php "{query}"</string>
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>concurrently</key>
+				<false/>
 				<key>escaping</key>
 				<integer>4</integer>
 				<key>script</key>
@@ -223,40 +235,6 @@ bash server-scripts/server.sh script-filter.php "{query}"</string>
 			<string>alfred.workflow.action.script</string>
 			<key>uid</key>
 			<string>4D4E2DAF-A262-445D-8005-346F9BF84111</string>
-			<key>version</key>
-			<integer>0</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>triggerid</key>
-				<string>test</string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.trigger.external</string>
-			<key>uid</key>
-			<string>CF38D9DA-CCD2-486F-9E72-586D163A0AE6</string>
-			<key>version</key>
-			<integer>0</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>escaping</key>
-				<integer>0</integer>
-				<key>script</key>
-				<string># This external trigger is unused for everything but some tests, for the library,
-# so just ignore its existence
-file="${alfred_workflow_data}/test_external_trigger.txt"
-echo {query} &gt; "${file}"
-echo "${file}"</string>
-				<key>type</key>
-				<integer>0</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.script</string>
-			<key>uid</key>
-			<string>EBF461DD-55E7-44A0-81BE-B78A691908DA</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
@@ -280,6 +258,42 @@ echo "${file}"</string>
 			<string>alfred.workflow.output.notification</string>
 			<key>uid</key>
 			<string>A2E7A60B-1972-4D3F-8EF3-31AF6ECE8222</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>0</integer>
+				<key>script</key>
+				<string># This external trigger is unused for everything but some tests, for the library,
+# so just ignore its existence
+file="${alfred_workflow_data}/test_external_trigger.txt"
+echo {query} &gt; "${file}"
+echo "${file}"</string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>EBF461DD-55E7-44A0-81BE-B78A691908DA</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>triggerid</key>
+				<string>test</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.trigger.external</string>
+			<key>uid</key>
+			<string>CF38D9DA-CCD2-486F-9E72-586D163A0AE6</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
