@@ -44,7 +44,7 @@ function Alphred::find_symlink_dir() {
 	IFS=$'\n'
 	for dir in $(cd "${alfred_preferences}/workflows"; echo $(ls -l | grep ^l)); do
 		# This is a really long regex that should just grab the directory name
-		directory=$(echo $dir | grep "$(pwd)" | sed 's|^[lrwx@-]\{1,\}[ ]*[0-9]\{1,\}[ ]*[^ ]\{1,\}[ ]*[a-zA-Z]\{1,\}[ ]*[0-9]\{1,\}[ ]*[A-Za-z]\{1,\}[ ]*[0-9]\{1,\}[ ]*[0-9]\{2\}:[0-9]\{2\}\([A-Za-z0-9 -]\{1,\}\) \-\> '"$PWD"'[\/]*|\1|g' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+		directory=$(echo $dir | grep "$(pwd)" | sed 's|^[lrwx@-]\{1,\}[ ]*[0-9]\{1,\}[ ]*[^ ]\{1,\}[ ]*[a-zA-Z]\{1,\}[ ]*[0-9]\{1,\}[ ]*[A-Za-z]\{1,\}[ ]*[0-9]\{1,\}[ ]*[0-9]\{2\}[:0-9]\{2\}\([A-Za-z0-9 -]\{1,\}\) \-\> '"$PWD"'[\/]*|\1|g' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
 
 		if [ ! -z "${directory}" ]; then
 			# we found something, so lets get out of the loop

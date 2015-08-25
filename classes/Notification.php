@@ -22,26 +22,26 @@ namespace Alphred;
  */
 class Notification {
 
-/**
- * The available, built-in sounds that you can use
- * @var array
- */
-private static $sounds = [
-				'Basso',
-				'Bottle',
-				'Funk',
-				'Hero',
-				'Ping',
-				'Purr',
-				'Submarine',
-				'Blow',
-				'Frog',
-				'Glass',
-				'Morse',
-				'Pop',
-				'Sosumi',
-				'Tink'
-		];
+	/**
+	 * The available, built-in sounds that you can use
+	 * @var array
+	 */
+	private static $sounds = [
+		'Basso',
+		'Bottle',
+		'Funk',
+		'Hero',
+		'Ping',
+		'Purr',
+		'Submarine',
+		'Blow',
+		'Frog',
+		'Glass',
+		'Morse',
+		'Pop',
+		'Sosumi',
+		'Tink'
+	];
 
 	/**
 	 * Sends a system notification

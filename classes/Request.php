@@ -535,7 +535,7 @@ class Request {
 	 *
 	 * @return string the full path to the cache file
 	 */
-	private function get_cache_file() {
+	public function get_cache_file() {
 		return $this->get_cache_dir() . '/' . $this->get_cache_key();
 	}
 

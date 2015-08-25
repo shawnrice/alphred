@@ -1,3 +1,7 @@
+0.9.4
+===
+* updated fix for server scripts when using files that include only a datestamp and not a timestamp
+
 0.9.2
 ===
 * fixed another bug with server-scripts

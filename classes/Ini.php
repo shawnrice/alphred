@@ -157,7 +157,7 @@ class Ini {
 
 		endforeach;
 
-		file_put_contents( $file, $contents );
+		file_put_contents( $file, mb_convert_encoding( $contents, 'UTF-8', 'auto' ) );
 	}
 
 	/**
