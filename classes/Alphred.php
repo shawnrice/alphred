@@ -272,7 +272,7 @@ class Alphred {
 	 * @param  string|boolean $cache_bin cache bin
 	 * @return string         the results
 	 */
-	public function post( $url, $options = false, $cache_ttl = 600, $cache_bin = true ) {
+	public function post( $url, $options = false, $cache_ttl = 0, $cache_bin = false ) {
 		$request = $this->create_request( $url, $options, $cache_ttl, $cache_bin, 'post' );
 		return $request->execute();
 	}

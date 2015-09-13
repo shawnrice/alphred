@@ -176,7 +176,7 @@ class Date {
 		endforeach;
 
 		// Add on the remainder of the "next unit" so that we can get it in base 10
-		$main_value = $main_value + ( $next_value / $post_units[ $next_unit ] );
+		$main_value += ( $post_units[ $next_unit ] ) ? ( $next_value / $post_units[ $next_unit ] );
 
 		// So, we've defined two thresholds that will have us "round up" to the next
 		// unit (i.e. day -> week and week->month). Check, first, if they're close enough
