@@ -187,6 +187,11 @@ function ALPHRED_PARSE_INI() {
 		return false;
 	}
 	$ini = parse_ini_file( $_SERVER['PWD'] . '/workflow.ini', true );
+
+	// Exit if the Alphred section is not set.
+	if ( ! isset( $ini['alphred'] ) ) {
+		return;
+	}
 	// We can only about the Alphred section
 	$ini = $ini['alphred'];
 
