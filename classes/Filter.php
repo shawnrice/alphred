@@ -205,7 +205,7 @@ class Filter {
 		// Note: if PHP will throw a notice if the string contains characters that cannot
 		// be transliterated. These will most likely be certain symbols and characters
 		// from many different Asian languages.
-		return iconv( $encoding, 'ASCII//TRANSLIT', $string );
+		return @iconv( $encoding, 'ASCII//TRANSLIT', $string );
  	}
 
  	/**
