@@ -206,6 +206,9 @@ class Ini {
 						$contents .= "{$key}[] = \"{$v}\"\r\n";
 				endforeach;
 			} else {
+				if ( empty( $key ) ) {
+					continue;
+				}
 				$contents .= "{$key} = \"{$value}\"\r\n";
 			}
 		endforeach;
