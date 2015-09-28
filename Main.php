@@ -29,6 +29,16 @@ if ( ! ini_get( 'auto_detect_line_endings' ) ) {
 	ini_set( 'auto_detect_line_endings', true );
 }
 
+// Set the internal charset to UTF-8, which is what Alfred uses
+ini_set( 'default_charset', 'UTF-8' );
+
+// If ini settings are supported (PHP 5.6 and up), set other charsets to UTF-8, which is what Alfred uses
+if ( 5 === PHP_MAJOR_VERSION && 6 >= PHP_MINOR_VERSION ) {
+	ini_set( 'input_encoding', 'UTF-8' );
+	ini_set( 'output_encoding', 'UTF-8' );
+	ini_set( 'internal_encoding', 'UTF-8' );
+}
+
 // Set date/time to avoid warnings/errors.
 if ( ! ini_get( 'date.timezone' ) ) {
 	ini_set( 'date.timezone', exec( 'tz=`ls -l /etc/localtime` && echo ${tz#*/zoneinfo/}' ) );

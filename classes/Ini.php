@@ -157,7 +157,7 @@ class Ini {
 
 		endforeach;
 
-		file_put_contents( $file, mb_convert_encoding( $contents, 'UTF-8', 'auto' ) );
+		file_put_contents( $file, $contents );
 	}
 
 	/**
@@ -203,7 +203,7 @@ class Ini {
 		foreach( $section as $key => $value ) :
 			if ( is_array( $value ) ) {
 				foreach( $value as $v ) :
-						$contents .= "{$key}[] = \"{$v}\"\r\n";
+					$contents .= "{$key}[] = \"{$v}\"\r\n";
 				endforeach;
 			} else {
 				if ( empty( $key ) ) {
