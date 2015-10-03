@@ -548,7 +548,7 @@ class Request {
 	 */
 	private function get_cache_dir() {
 		$path = \Alphred\Globals::get( 'alfred_workflow_cache' );
-		if ( isset( $this->cache_bin ) && $this->cache_bin ) {
+		if ( isset( $this->cache_bin ) ) {
 			$path .= '/' . $this->cache_bin;
 		}
 		return $path;

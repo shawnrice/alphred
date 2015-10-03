@@ -291,7 +291,7 @@ class Alphred {
 	 * @param  string|boolean $destination the full path to download the file to
 	 * @return string         the filepath where it was downloaded
 	 */
-	public function download( $url, $options = false, $cache_ttl = 0, $cache_bin = false, $destination = false ) {
+	public function download( $url, $options = false, $cache_ttl = 0, $cache_bin = true, $destination = false ) {
 		$request = $this->create_request( $url, $options, $cache_ttl, $cache_bin, 'get' );
 		$request->execute();
 
