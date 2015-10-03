@@ -266,7 +266,7 @@ class Alphred {
 	 *
 	 * @uses Alphred\Request
 	 *
-	 * @param  string  				$url       [description]
+	 * @param  string  				$url       the URL
 	 * @param  array|boolean  $options   an array of options for the request
 	 * @param  integer 				$cache_ttl cache time to live in seconds
 	 * @param  string|boolean $cache_bin cache bin
@@ -275,6 +275,47 @@ class Alphred {
 	public function post( $url, $options = false, $cache_ttl = 0, $cache_bin = false ) {
 		$request = $this->create_request( $url, $options, $cache_ttl, $cache_bin, 'post' );
 		return $request->execute();
+	}
+
+	/**
+	 * Downloads a file
+	 *
+	 * @see Alphred::get() See `get()` for details. The method is basically the same.
+	 *
+	 * @uses Alphred\Request
+	 *
+	 * @param  string  				$url       [description]
+	 * @param  array|boolean  $options     an array of options for the request
+	 * @param  integer 				$cache_ttl   cache time to live in seconds
+	 * @param  string|boolean $cache_bin   cache bin
+	 * @param  string|boolean $destination the full path to download the file to
+	 * @return string         the filepath where it was downloaded
+	 */
+	public function download( $url, $options = false, $cache_ttl = 0, $cache_bin = false, $destination = false ) {
+		$request = $this->create_request( $url, $options, $cache_ttl, $cache_bin, 'get' );
+		$request->execute();
+
+		// If a destination path has been set, then rename the cache file to the destination path after downloading it
+		if ( false !== $destination ) {
+			// The directory of the destination
+			$directory = dirname( $destination );
+			// Make sure that the destination directory exists before trying to move anything there
+			if ( file_exists( $directory ) && is_dir( $directory ) ) {
+				// Make sure that the cached file (that we just downloaded) exists before attempting to move it
+				if ( file_exists( $request->get_cache_file() ) ) {
+					// Move the file
+					rename( $request->get_cache_file(), $destination );
+					$file_path = $destination;
+				} else {
+					// Destination directory does not exist or is not a directory
+					// throw an exception?
+				}
+			}
+		} else {
+			// No destination was set, so the file will just live in the cache path
+			$file_path = $request->get_cache_file();
+		}
+		return $file_path;
 	}
 
 	/**

@@ -49,7 +49,7 @@ class Log {
 		 * @param  string  					$filename the filename of the log without an extension
 		 * @param  boolean|integer 	$trace    how far back to trace
 		 */
-		public function file( $message, $level = 1, $filename = 'workflow', $trace = false ) {
+		public static function file( $message, $level = 1, $filename = 'workflow', $trace = false ) {
 
 			// Check if the log level is loggable based on the threshold.
 			// The threshold is defined as the constant ALPHED_LOG_LEVEL, and defaults to level 2 (WARNING).
@@ -88,7 +88,7 @@ class Log {
 		 * @param  string|integer 	$level   the log level
 		 * @param  boolean|integer 	$trace   how far back to trace
 		 */
-		public function console( $message, $level = 1, $trace = false ) {
+		public static function console( $message, $level = 1, $trace = false ) {
 
 			// Check if the log level is loggable based on the threshold.
 			// The threshold is defined as the constant ALPHED_LOG_LEVEL, and defaults to level 2 (WARNING).
@@ -117,7 +117,7 @@ class Log {
 		 * @param  string  					$filename the filename of the log without an extension
 		 * @param  boolean|integer 	$trace    how far back to trace
 		 */
-		public function log( $message, $level = 1, $filename = 'workflow', $trace = false ) {
+		public static function log( $message, $level = 1, $filename = 'workflow', $trace = false ) {
 			// Check if the log level is loggable based on the threshold.
 			// The threshold is defined as the constant ALPHED_LOG_LEVEL, and defaults to level 2 (WARNING).
 			// Change this either in the workflow.ini file or by defining the constant ALPHRED_LOG_LEVEL
@@ -139,7 +139,7 @@ class Log {
 		 * @param  string $filename a filename for a log file
 		 * @return string           the full filepath for a log file
 		 */
-		private function get_log_filename( $filename ) {
+		private static function get_log_filename( $filename ) {
 			// Attempt to get the workflow's data directory. If it isn't set (i.e. running outside of a workflow env),
 			// then just use the current directory.
 			if ( ! $dir = \Alphred\Globals::get( 'alfred_workflow_data' ) ) {
@@ -155,7 +155,7 @@ class Log {
 		 *
 		 * @since 1.0.0
 		 */
-		private function create_log_directory() {
+		private static function create_log_directory() {
 			$directory = \Alphred\Globals::get( 'alfred_workflow_data' );
 			if ( $directory ) {
 				if ( ! file_exists( $directory ) ) {
@@ -169,7 +169,7 @@ class Log {
 		*
 		* @since 1.0.0
 		*/
-		private function check_log( $filename ) {
+		private static function check_log( $filename ) {
 			// ALPHRED_LOG_SIZE is define in bytes. It defaults to 1048576 and is set in
 			// `Alphred.php`. If you want to change the max size, then either define the
 			// max size in the INI file or define the constant ALPHRED_LOG_SIZE before
@@ -186,7 +186,7 @@ class Log {
 		*
 		* @since 1.0.0
 		*/
-		private function rotate_log( $log_file ) {
+		private static function rotate_log( $log_file ) {
 
 			// Set the backup log filename
 			$old = substr( $log_file, 0, -4 ) . '.1.log';
@@ -212,7 +212,7 @@ class Log {
 		 * @param  integer|string $level the level represented as either a string or an integer
 		 * @return string        	the name of the log level
 		 */
-		private function normalize_log_level( $level ) {
+		private static function normalize_log_level( $level ) {
 			// Check if the log level is numeric
 			if ( is_numeric( $level ) ) {
 				// It is numeric, so check if it is valid
@@ -245,7 +245,7 @@ class Log {
 		 * @param  boolean|integer $depth How far to do the trace, default is the last
 		 * @return string          the file and line number of the trace
 		 */
-		private function trace( $depth = false ) {
+		private static function trace( $depth = false ) {
 
 			// Get the relevant information from the backtrace
 			$trace = debug_backtrace();
@@ -280,7 +280,7 @@ class Log {
 		 * @param  mixed  $level  Either a string or a
 		 * @return boolean        Whether or not a value is above the logging threshold
 		 */
-		private function is_loggable( $level ) {
+		private static function is_loggable( $level ) {
 			// First, check is the level is numeric
 			if ( ! is_numeric( $level ) ) {
 				// It is not numeric, so let's translate it to a number
@@ -298,7 +298,7 @@ class Log {
 		 *
 		 * @return integer  an integer matching a log level
 		 */
-		private function get_threshold() {
+		private static function get_threshold() {
 			// Check is the threshold is defined as a number
 			if ( is_numeric( ALPHRED_LOG_LEVEL ) ) {
 				// It is, so just return that number
@@ -322,7 +322,7 @@ class Log {
 		 *
 		 * @return string the time as HH:MM:SS
 		 */
-		private function date_console() {
+		private static function date_console() {
 			return date( 'H:i:s', time() );
 		}
 
@@ -333,7 +333,7 @@ class Log {
 		 *
 		 * @return string Formatted as YYYY-MM-DD HH:MM:SS
 		 */
-		private function date_file() {
+		private static function date_file() {
  			return date( 'Y-m-d H:i:s' );
 		}
 }

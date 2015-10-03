@@ -73,7 +73,7 @@ class Filter {
 	 * @param  array 					$options  a list of options to configure the filter
 	 * @return array          an array of filtered items
 	 */
-	public function Filter( $haystack, $needle, $key = false, $options = [] ) {
+	public static function Filter( $haystack, $needle, $key = false, $options = [] ) {
 		// Set the defaults if not already set
 		$max             = ( isset( $options['max_results'] ) ) ? $options['max_results'] : false;
 		$fold_diacritics = ( isset( $options['fold'] ) ) ? $options['fold'] : true;
@@ -179,7 +179,7 @@ class Filter {
 	 * @param  array $b an array
 	 * @return bool
 	 */
-	public function sort_by_score( $a, $b ) {
+	public static function sort_by_score( $a, $b ) {
 		return $a[0] < $b[0];
 	}
 
@@ -189,7 +189,7 @@ class Filter {
 	 * @param  string $string 	a string to process
 	 * @return string         	the processed string
 	 */
-	private function remove_all_non_caps( $string ) {
+	private static function remove_all_non_caps( $string ) {
 		return strtolower( preg_replace( '/[^A-Z0-9]/', '', $string ) );
 	}
 
@@ -199,7 +199,7 @@ class Filter {
 	 * @param  string $string a string to transliterate
 	 * @return string         the transliterated string
 	 */
-	private function convert( $string ) {
+	private static function convert( $string ) {
 		// I don't want to mess with encodings, so we'll just auto-detect
 		$encoding = mb_detect_encoding( $string );
 		// Note: if PHP will throw a notice if the string contains characters that cannot
@@ -219,7 +219,7 @@ class Filter {
  	 * @param  bool   $fold_diacritics whether or not to transliterate to ascii
  	 * @return array                   an array that is score and then the rule matched
  	 */
- 	private function filter_item( $value, $query, $match_on, $fold_diacritics ) {
+ 	private static function filter_item( $value, $query, $match_on, $fold_diacritics ) {
  		$query = strtolower( $query );
 
  		if ( $fold_diacritics ) {

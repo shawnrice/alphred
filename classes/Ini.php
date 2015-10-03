@@ -76,7 +76,7 @@ class Ini {
 	 * @param  boolean $exception whether or not to throw an exception on file not found
 	 * @return array|boolean      an array that represents the ini file
 	 */
-	public function read_ini( $file, $exception = true ) {
+	public static function read_ini( $file, $exception = true ) {
 		if ( ! file_exists( $file ) ) {
 			if ( $exception ) {
 				throw new FileDoesNotExist( "File `{$file}` not found." );
@@ -110,7 +110,7 @@ class Ini {
 	 * @param  array  $array  the array to be translated into an ini file
 	 * @param  string $file  the full path to the ini file, should have '.ini'
 	 */
-	public function write_ini( $array, $file ) {
+	public static function write_ini( $array, $file ) {
 		// Collapse the arrays into writeable sections
 		$sections = self::collapse_sections( $array );
 		// Separate out the things that need to be in the global space from the things
@@ -166,7 +166,7 @@ class Ini {
 	 * @param  array $array array of values to write to an ini file
 	 * @return array        a sorted array
 	 */
-	private function separate_non_sections( $array ) {
+	private static function separate_non_sections( $array ) {
 		// Bad name for the method
 
 		// The global space
@@ -198,7 +198,7 @@ class Ini {
 	 * @param  array $section  an array
 	 * @return string          the array as an ini section
 	 */
-	private function print_section( $section ) {
+	private static function print_section( $section ) {
 		$contents = '';
 		foreach( $section as $key => $value ) :
 			if ( is_array( $value ) ) {
@@ -223,7 +223,7 @@ class Ini {
 	 * @param  array $array the array to be collapsed
 	 * @return array        the collapsed array
 	 */
-	private function collapse_sections( $array ) {
+	private static function collapse_sections( $array ) {
 		return self::step_back( self::flatten_array( $array ) );
 	}
 
@@ -237,7 +237,7 @@ class Ini {
 	 * @param  string $prefix  a prefix for a key
 	 * @return array           the array, but flattened
 	 */
-	private function flatten_array( $array, $prefix = '' ) {
+	private static function flatten_array( $array, $prefix = '' ) {
 			if ( ! is_array( $array ) ) {
 				return $array;
 			}
@@ -279,7 +279,7 @@ class Ini {
 	 * @param  array $array a flattened array
 	 * @return array        a slightly less flat array
 	 */
-	private function step_back( $array ) {
+	private static function step_back( $array ) {
 		$new = [];
 		foreach( $array as $key => $value ) :
 		  if ( substr_count( $key, ':' ) >= 1 ) {
@@ -304,7 +304,7 @@ class Ini {
 	 * @param  mixed $values  the values for an array
 	 * @return array          the newly-dimensional array with $values
 	 */
-	private function parse_section( $name, $values ) {
+	private static function parse_section( $name, $values ) {
 		if ( false !== strpos( $name, ':' ) ) {
 			$pieces = explode( ':', $name );
 			$pieces = array_filter( $pieces, 'trim' );
@@ -323,7 +323,7 @@ class Ini {
 	 * @param  mixed $values  the values for the bottom level of the newly dimensional array
 	 * @return array          a slightly more dimensional array than we received
 	 */
-	private function nest_array( $array, $values ) {
+	private static function nest_array( $array, $values ) {
 	    if ( empty( $array ) ) {
 	        return $values;
 	    }
@@ -340,7 +340,7 @@ class Ini {
 	 * @param  array  	$array an array
 	 * @return boolean         whether it is associative
 	 */
-	private function is_assoc( $array ) {
+	private static function is_assoc( $array ) {
 	    // Keys of the array
 	    $keys = array_keys( $array );
 
