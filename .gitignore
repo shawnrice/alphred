@@ -2,7 +2,6 @@
 ./*.xml
 .DS_Store
 apigen.neon
-commands/*
 composer.json
 composer.lock
 docs/*
