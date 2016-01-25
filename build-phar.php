@@ -28,7 +28,7 @@ endforeach;
 
 // Add in other files
 $other_files = [
-	'apigen.neon',
+	// 'apigen.neon',
 	'build-phar.php',
 	// 'build.xml',
 	'Changelog.md',
