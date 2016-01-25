@@ -1,0 +1,46 @@
+================================================================================
+ Alphred (ALPHRED_VERSION)
+================================================================================
+
+Three scripts have been created.
+1. server.sh
+2. kill.sh
+3. server.php
+4. alphred_urlencode.sed
+
+You should not alter any of these scripts. With the exception of server.sh; you
+can edit the _ALPHRED_MIN_QUERY variable if you want to enforce a minimum query
+length for the script filter.
+
+These scripts exist to make your script filters more responsive, and they have
+little use outside of that. The idea is that the PHP binary is slow to start,
+but it runs fast once it has been loaded. So, instead of running the binary each
+time, we just create a short-lived server and route our requests to that server.
+We can do this because PHP 5.4+ has a built-in server, but that means that this
+approach will fail if using a version of PHP before 5.4 (Mavericks, 10.9 has 5.4
+and Yosemite, 10.10 has 5.5). The server is set to live for about 20 seconds past
+inactivity and can be used by multiple workflows, assuming that the user has not
+changed many hard-to-change default values.
+
+Usage
+-----
+For any PHP script that you want to use the CLI-server SAPI with, simply include
+`server.php` at the top with a simple:
+	include( 'server.php' );
+
+`server.php` will map the $_SERVER variables accordingly and route any calls
+that you should need.
+
+The script filter source should read:
+	bash server.sh script-filter.php "{query}"
+
+Or, if you're using sub-directories:
+	bash lib/server.sh src/script-filter.php "{query}"
+
+Important
+------
+The console log will not work when you're using the cli-server.
+
+See repository at http://www.github.com/shawnrice/alphred
+Read documentation at http://shawnrice.github.io/alphred
+Please post bug reports at https://github.com/shawnrice/alphred/issues

@@ -1,0 +1,16 @@
+=========================
+ Alphred (ALPHRED_VERSION)
+=========================
+© Shawn Patrick Rice ALPHRED_COPYRIGHT
+Licensed under MIT (http://opensource.org/licenses/MIT).
+
+Alphred is a PHP library to help build workflows for Alfred 2 (http://www.alfredapp.com).
+
+Alphred is meant to be included in the source of a workflow, i.e.:
+    require_once 'path/to/Alphred.phar';
+and not invoked directly, except under specific circumstances about which your can read
+more in the online documentation.
+
+See repository at http://www.github.com/shawnrice/alphred
+Read documentation at http://shawnrice.github.io/alphred
+Please post bug reports at https://github.com/shawnrice/alphred/issues
