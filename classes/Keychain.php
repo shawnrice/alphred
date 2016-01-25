@@ -110,7 +110,7 @@ class Keychain {
 	 * @param  string 	$args    	extra arguments for the security command
 	 * @return string|boolean       either a found password or true
 	 */
-	private function call_security( $action, $service, $account, $args ) {
+	private static function call_security( $action, $service, $account, $args ) {
 		if ( ! in_array( $action, [ 'add-generic-password', 'delete-generic-password', 'find-generic-password' ] ) ) {
 			throw new InvalidSecurityAction( "{$action} is not valid.", 4 );
 
@@ -149,7 +149,7 @@ class Keychain {
 	/**
 	 * Sets the service appropriately, usually to the bundle id of the workflow
 	 */
-	private function set_service( $service ) {
+	private static function set_service( $service ) {
 
 		// The service has not been set, so let's set it to the bundle id of the workflow
 		if ( is_null( $service ) ) {
