@@ -1,3 +1,7 @@
+0.9.7
+===
+* explicitly declared static classes as static to avoid PHP 5.6+ warnings
+
 0.9.6
 ===
 * added "download" to the wrapper (uses the request class and returns a filename rather than raw data)
