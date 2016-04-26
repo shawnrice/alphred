@@ -47,7 +47,7 @@ class ScriptFilter {
 	public function __construct( $options = [] ) {
 
 		$this->i18n = false;
-		foreach ( ['localize', 'localise', 'i18n' ] as $localize ) :
+		foreach ( ['localize', 'localise', 'i18n'] as $localize ) :
 			if ( isset( $options[ $localize ] ) && $options[ $localize ] ) {
 				$this->initializei18n();
 				break;
@@ -109,7 +109,7 @@ class ScriptFilter {
 	 * @param \Alphred\Result $result an Alphred\Result object
 	 */
 	public function add_result( \Alphred\Result $result ) {
-		if ( ! ( is_object( $result ) && ( 'Alphred\Result' == get_class( $result ) ) ) ) {
+		if ( ! ( is_object( $result ) && ( 'Alphred\Result' === get_class( $result ) ) ) ) {
 			// Double-check that the namespacing doesn't affect the return value of "get_class"
 			// raise an exception instead
 			return false;
@@ -157,7 +157,7 @@ class ScriptFilter {
 					'icon'     		 => '/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/Unsupported.icns',
 					'subtitle' 	   => 'Please try a different query.',
 					'autocomplete' => '',
-					'valid'        => false
+					'valid'        => false,
 				]);
 				$this->add_result( $result );
 			}
@@ -190,9 +190,9 @@ class ScriptFilter {
 		// The information we need is stored in the sub variable, so let's just get that
 		$item = $item->data;
 		// These go in the 'item' part as an attribute
-		$attributes = [ 'uid', 'arg', 'autocomplete' ];
+		$attributes = ['uid', 'arg', 'autocomplete'];
 		// This is either true or false
-		$bool = [ 'valid' ];
+		$bool = ['valid'];
 
 		// Start the element
 		$this->xml->startElement( 'item' );
@@ -205,8 +205,8 @@ class ScriptFilter {
 		endforeach;
 
 		// Translate 'valid' from a boolean to the 'yes' or 'no' value that Alfred wants to see
-		if ( isset( $item['valid'] ) && in_array( strtolower( $item['valid'] ), ['yes', 'no', true, false] ) ) {
-			if ( 'no' == strtolower( $item['valid'] ) ) {
+		if ( isset( $item['valid'] ) && in_array( strtolower( $item['valid'] ), [ 'yes', 'no', true, false ] ) ) {
+			if ( 'no' === strtolower( $item['valid'] ) ) {
 				$item['valid'] = false;
 			}
 			$valid = $item['valid'] ? 'yes' : 'no';
@@ -290,14 +290,14 @@ class Result {
 		'arg',
 		'text_copy',
 		'text_largetype',
-		'autocomplete'
+		'autocomplete',
 	];
 
 	/**
 	 * Possible boolean methods for a Result
 	 * @var array
 	 */
-	private static $bool_methods = [ 'valid' ];
+	private static $bool_methods = ['valid'];
 
 
 	/**

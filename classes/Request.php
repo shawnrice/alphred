@@ -15,7 +15,6 @@
  *
  */
 
-
 namespace Alphred;
 
 /**
@@ -112,13 +111,13 @@ class Request {
 	 * @param array $options an array of cache options
 	 */
 	private function set_caches( $options ) {
-		if ( ! isset( $options['cache_bin' ] ) ) {
+		if ( ! isset( $options['cache_bin'] ) ) {
 			// exit early if no cache bin is set
 			return;
 		}
 		// Here we can automatically set the cache bin to the URL hostname
-		if ( true === $options[ 'cache_bin' ] ) {
-			$options[ 'cache_bin' ] = parse_url( $this->object['url'], PHP_URL_HOST );
+		if ( true === $options['cache_bin'] ) {
+			$options['cache_bin'] = parse_url( $this->object['url'], PHP_URL_HOST );
 		}
 
 		if ( isset( $options['cache'] ) && $options['cache'] ) {
@@ -137,7 +136,7 @@ class Request {
 	 *
 	 * If you set `$code` to `true`, then this function will return an associative array as:
 	 * ````php
-	 * [ 'code' => HTTP_RESPONSE_CODE,
+	 * ['code' => HTTP_RESPONSE_CODE,
 	 *   'data' => RESPONSE_DATA
 	 * ];
 	 *````
@@ -169,7 +168,7 @@ class Request {
 		if ( isset( $this->cache_life ) ) {
 			if ( $data = $this->get_cached_data() ) {
 				// Debug-level log message
-				Log::console( "Getting the data from cache, aged " . $this->get_cache_age() . " seconds.", 0 );
+				Log::console( 'Getting the data from cache, aged ' . $this->get_cache_age() . ' seconds.', 0 );
 
 				// Close the cURL handler for good measure; we don't need it anymore
 				curl_close( $this->handler );
@@ -180,7 +179,7 @@ class Request {
 				} else {
 					// They wanted an HTTP code, and we don't have a real one for them because we're getting this
 					// from the internal cache, so we'll just fake a 302 response code
-					return [ 'code' => 302, 'data' => $data ];
+					return ['code' => 302, 'data' => $data ];
 				}
 			}
 		}
@@ -196,9 +195,9 @@ class Request {
 		// Let's do some error checking on the request now, and then try to execute some fallbacks if there
 		// actually was a problem. First, check to make sure that the errno (cURL error code) is 0, which
 		// indicates success.
-		if ( $errno === 0 ) {
+		if ( 0 === $errno ) {
 			// The cURL request was successful, so log a debug message of "success"
-			Log::console( "cURL query successful.", 0 );
+			Log::console( 'cURL query successful.', 0 );
 		} else if ( $data = $this->get_cached_data_anyway() ) {
 			// Try to get expired cached results....
 			// This could work with error code 6 (cannot resolve) because that _could_
@@ -214,7 +213,7 @@ class Request {
 				return $data;
 			} else {
 				// The requested the code as well, so we'll return an array with the code:
-				return [ 'code' => 0, 'data' => $data ];
+				return ['code' => 0, 'data' => $data ];
 			}
 		} else {
 			// Let them know what debuggin information follows
@@ -230,7 +229,7 @@ class Request {
 				return false;
 			} else {
 				// But they also wanted the code, so we'll return 0 for the code
-				return [ 'code' => 0, 'data' => false ];
+				return ['code' => 0, 'data' => false ];
 			}
 		}
 
@@ -252,7 +251,7 @@ class Request {
 			return $this->results;
 		} else {
 			// The requested the code as well, so we'll return an array with the code:
-			return [ 'code' => $this->code, 'data' => $this->results ];
+			return ['code' => $this->code, 'data' => $this->results ];
 		}
 	}
 
@@ -291,14 +290,14 @@ class Request {
 		// If the method is `GET`, then we need to append the parameters to
 		// the URL to make sure that it goes alright. Post parameters are included
 		// separately and should already be set.
-		if ( 'get' == $this->object['request_type'] ) {
+		if ( 'get' === $this->object['request_type'] ) {
 			$this->build_get_fields();
-		} else if ( 'post' == $this->object['request_type'] ) {
+		} else if ( 'post' === $this->object['request_type'] ) {
 			$this->build_post_fields();
 		} else {
 			// This should never happen. I mean it. There is no way that I can think of that this exception will be
 			// thrown. If it is, then please report it, and send me the code you used to make it happen.
-			throw new Exception( "You should never see this, but somehow you are making an unsupported request", 4 );
+			throw new Exception( 'You should never see this, but somehow you are making an unsupported request', 4 );
 		}
 	}
 
@@ -331,7 +330,7 @@ class Request {
 	public function set_url( $url ) {
 		// Validate the URL to make sure that it is one
 		if ( ! filter_var( $url, FILTER_VALIDATE_URL ) ) {
-			throw new Exception("The url provided ({$url}) is not valid.");
+			throw new Exception( "The url provided ({$url}) is not valid." );
 		}
 		curl_setopt( $this->handler, CURLOPT_URL, filter_var( $url, FILTER_SANITIZE_URL ) );
 		$this->object['url'] = $url;
@@ -384,7 +383,7 @@ class Request {
 		} else if ( is_array( $header ) ) {
 			// Well, they sent an array, so let's just assume that they want to set
 			// multiple headers here.
-			foreach( $header as $head ) :
+			foreach ( $header as $head ) :
 				if ( is_string( $head ) ) {
 					// Push each header into the headers array. We can't really check
 					// to make sure that these headers are okay or fine. So we'll just
@@ -393,7 +392,7 @@ class Request {
 				} else {
 					// We're going to assume it's an array, so we'll push them together
 					// for the error message.
-					$head = implode( "|", $head );
+					$head = implode( '|', $head );
 					// Bad header. Throw an exception.
 					throw new Exception( "You can't push these headers ({$h}).", 4 );
 				}
@@ -427,7 +426,7 @@ class Request {
 	 * @param string $value the value of the parameter
 	 */
 	public function add_parameter( $key, $value ) {
-		$this->object['parameters'][$key] = $value;
+		$this->object['parameters'][ $key ] = $value;
 	}
 
 	/**
@@ -442,7 +441,7 @@ class Request {
 		if ( ! is_array( $params ) ) {
 			throw new Exception( 'Parameters must be defined as an array', 4 );
 		}
-		foreach( $params as $key => $value ) :
+		foreach ( $params as $key => $value ) :
 			$this->add_parameter( $key, $value );
 		endforeach;
 	}
@@ -511,7 +510,7 @@ class Request {
 		$this->create_cache_dir();
 
 		// Debug-level log message
-		\Alphred\Log::log( "Saving cached data to `" . $this->get_cache_file() . "`", 0, 'debug' );
+		\Alphred\Log::log( 'Saving cached data to `' . $this->get_cache_file() . '`', 0, 'debug' );
 
 		// Save the data
 		file_put_contents( $this->get_cache_file(), $data );
@@ -568,7 +567,7 @@ class Request {
 		}
 		if ( ! file_exists( $this->get_cache_dir() ) ) {
 			// Debug-level log message
-			\Alphred\Log::log( "Creating cache dir `" . $this->get_cache_dir() . "`", 0, 'debug' );
+			\Alphred\Log::log( 'Creating cache dir `' . $this->get_cache_dir() . '`', 0, 'debug' );
 			return mkdir( $this->get_cache_dir(), 0775, true );
 		}
 	}
@@ -630,8 +629,8 @@ class Request {
 
 		\Alphred\Log::console( "Clearing cache directory `{$dir}`.", 1 );
 
-		$files = array_diff( scandir( $dir ), [ '.', '..' ] );
-		foreach( $files as $file ) :
+		$files = array_diff( scandir( $dir ), ['.', '..'] );
+		foreach ( $files as $file ) :
 			// Do not delete sub-directories
 			if ( is_dir( $file ) ) {
 				// We could expand this to support deleting sub-directories by just calling this method
@@ -684,6 +683,5 @@ class Request {
 	// 	file_put_contents( $destination, $favicon );
 	// 	return $destination;
 	// }
-
 
 }

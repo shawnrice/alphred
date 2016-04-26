@@ -111,7 +111,7 @@ class Keychain {
 	 * @return string|boolean       either a found password or true
 	 */
 	private static function call_security( $action, $service, $account, $args ) {
-		if ( ! in_array( $action, [ 'add-generic-password', 'delete-generic-password', 'find-generic-password' ] ) ) {
+		if ( ! in_array( $action, ['add-generic-password', 'delete-generic-password', 'find-generic-password'] ) ) {
 			throw new InvalidSecurityAction( "{$action} is not valid.", 4 );
 
 			// So, if, for some reason, the thing is caught, we can't really go on. So we'll exit anyway.
@@ -122,13 +122,13 @@ class Keychain {
 		// Note: $args needs to be escaped in the function that calls this one
 		$command = "security {$action} -s '{$service}' -a '{$account}'  {$args}";
 		exec( $command, $output, $return_code );
-		if ( 45 == $return_code ) {
+		if ( 45 === $return_code ) {
 			// raise exception because password already exists
 			throw new PasswordExists( 'Password Already Exists, did you mean to update it?', 2 );
-		} else if ( 44 == $return_code ) {
+		} else if ( 44 === $return_code ) {
 			// raise exception because password does not exist
 			throw new PasswordNotFound( "Password for '{$account}' does not exist", 3 );
-		} else if ( 0 == $return_code ) {
+		} else if ( 0 === $return_code ) {
 			// Do nothing here. For now.
 			// @todo Do something here.
 		} else {
@@ -159,6 +159,5 @@ class Keychain {
 		}
 		return $service;
 	}
-
 
 }

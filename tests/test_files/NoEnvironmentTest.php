@@ -17,7 +17,7 @@ class NoEnvironmentTest extends \PHPUnit_Framework_TestCase {
 			'alfred_workflow_uid',
 			'ALPHRED_IN_BACKGROUND', // This is internal for background awareness
 		];
-		foreach( $variables as $variable ) :
+		foreach ( $variables as $variable ) :
 			if ( isset( $_SERVER[ $variable ] ) ) {
 				unset( $_SERVER[ $variable ] );
 			}

@@ -12,7 +12,7 @@
  */
 function alphred_confirm_create_server_scripts() {
 	// Possible answers
-	$answers = [ 'y', 'yes', 'n', 'no' ];
+	$answers = ['y', 'yes', 'n', 'no'];
 	// Ask for confirmation
 	$line = readline( "Do you want to create the server scripts to run this workflow from a CLI Server SAPI? (Y/n): " );
 	if ( empty( $line ) ) {
@@ -34,7 +34,7 @@ function alphred_confirm_create_server_scripts() {
 function alphred_confirm_create_server_scripts_path() {
 	$answers = [ 'y', 'yes', 'n', 'no' ];
 	$path = $_SERVER['PWD'];
-	$line = readline("Files will be created at {$path}. Continue? (Y/n): ");
+	$line = readline( "Files will be created at {$path}. Continue? (Y/n): " );
 	if ( empty( $line ) ) {
 		$line = 'Y';
 	}
@@ -72,7 +72,7 @@ function update_alphred_from_master() {
 		}
 	} else {
 		// The download was bad
-		print "Error: downloaded phar is bad.";
+		print 'Error: downloaded phar is bad.';
 		// Delete the bad download
 		unlink( 'alphred-tmp.phar' );
 	}
@@ -83,25 +83,25 @@ function update_alphred_from_master() {
  * Prints the help message
  */
 function print_alphred_help( $commands ) {
-		// Get the help command from the embedded text file
-		$text = str_replace( 'ALPHRED_VERSION', ALPHRED_VERSION, file_get_contents( __DIR__ . '/../commands/help.txt' ) );
-		// Update the copyright year
-		$text = str_replace( 'ALPHRED_COPYRIGHT', ALPHRED_COPYRIGHT, $text );
+	// Get the help command from the embedded text file
+	$text = str_replace( 'ALPHRED_VERSION', ALPHRED_VERSION, file_get_contents( __DIR__ . '/../commands/help.txt' ) );
+	// Update the copyright year
+	$text = str_replace( 'ALPHRED_COPYRIGHT', ALPHRED_COPYRIGHT, $text );
 
-		// Print the text of the help
-		print $text;
-		print "---------------------------\n";
-		print "Commands:\n";
-		foreach ( $commands as $command => $help ) :
-			print "* {$command}:\n\t{$help}\n";
-		endforeach;
+	// Print the text of the help
+	print $text;
+	print "---------------------------\n";
+	print "Commands:\n";
+	foreach ( $commands as $command => $help ) :
+		print "* {$command}:\n\t{$help}\n";
+	endforeach;
 }
 
 /**
  * Extracts Alphred into its base components
  */
 function extract_alphred() {
-	$me = Phar::running( false );
+	$me   = Phar::running( false );
 	$phar = new Phar( $me );
 	if ( ! file_exists( 'Alphred' ) ) {
 		mkdir( 'Alphred', 0775 );

@@ -109,15 +109,17 @@ class Filter {
 			}
 
 			// If the value is empty, then don't bother searching. We got whitespace.
-			if ( empty( trim( $value ) ) )
+			if ( empty( trim( $value ) ) ) {
 				continue;
+			}
 
 			// Foreach word, do a search
-			foreach( $words as $word ) :
+			foreach ( $words as $word ) :
 
 				// If the word is empty, then don't bother searching
-				if ( empty( $word ) )
+				if ( empty( $word ) ) {
 					continue;
+				}
 
 				// Perform the search
 				$result = self::filter_item( $value, $word, $match_type, $fold_diacritics );
@@ -161,7 +163,7 @@ class Filter {
 		}
 
 		// They don't want the score, so just remove them and simply the array
-		foreach ($results as $key => $value ) :
+		foreach ( $results as $key => $value ) :
 			$results[ $key ] = $value[1];
 		endforeach;
 		// Return the sorted results
@@ -230,7 +232,7 @@ class Filter {
 		$arr = array_unique( str_split( $query ) );
 		$arr2 = array_unique( str_split( strtolower( $value ) ) );
 		if ( count( array_diff( $arr, $arr2 ) ) > 0 ) {
-			return [ 0, 'None' ];
+			return [ 0, 'None'];
 		}
 
     // Item starts with $query
@@ -293,7 +295,7 @@ class Filter {
      * @todo Rework the scoring on this part
      */
     if ( $match_on & MATCH_ALLCHARS ) {
-    	foreach( str_split( $query ) as $character ) :
+    	foreach ( str_split( $query ) as $character ) :
     		$position[] = strpos( $value, $character );
   		endforeach;
   		$divisor = ( ( 1 + reset( $position ) ) * ( ( abs( end( $position ) - reset( $position ) ) ) ) );
@@ -307,7 +309,7 @@ class Filter {
     }
 
     // Nothing matched, so return a score of 0
-    return [0, 'None'];
+    return [ 0, 'None' ];
 	}
 
 }

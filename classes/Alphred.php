@@ -38,18 +38,18 @@ class Alphred {
 	 *                            5. config_handler  - sets the handler for the config (default: `ini`)
 	 * @param array|boolean $plugins plugins to be run at load
 	 */
-	public function __construct( $options = [ 'error_on_empty' => true ] ) {
+	public function __construct( $options = ['error_on_empty' => true ] ) {
 
 		// We're going to parse the ini file (if it exists) and just merge what we find there
 		// with the $options array. The original $options array will override the workflow.ini file.
 		$options = array_merge( $options, $this->parse_ini_file() );
 
 		// Create a script filter object unless explicitly turned off
-		if ( ! isset( $options[ 'no_filter' ] ) || true !== $options[ 'no_filter' ] ) {
+		if ( ! isset( $options['no_filter'] ) || true !== $options['no_filter'] ) {
 			$this->filter = new Alphred\ScriptFilter( $options );
 		}
 
-		if ( ! isset( $options[ 'no_config' ] ) || true !== $options[ 'no_config' ] ) {
+		if ( ! isset( $options['no_config'] ) || true !== $options['no_config'] ) {
 			// Use `ini` as the default handler and `config` as the default filename
 			$handler  = ( isset( $options['config_handler'] ) ) ? $options['config_handler'] : 'ini';
 			$filename = ( isset( $options['config_filename'] ) ) ? $options['config_filename'] : 'config';
@@ -334,13 +334,14 @@ class Alphred {
 			// Create an object with caching on
 			$request = new Alphred\Request( $url, [ 'cache' => true,
 			                               					'cache_ttl' => $cache_ttl,
-			                               					'cache_bin' => $cache_bin ] );
+			                               					'cache_bin' => $cache_bin,
+			                               				] );
 		} else {
 			// Create an object with caching off
-			$request = new Alphred\Request( $url, [ 'cache' => false ] );
+			$request = new Alphred\Request( $url, ['cache' => false ] );
 		}
 		// Set it to `POST` if that's what they want
-		if ( 'post' == $type ) {
+		if ( 'post' === $type ) {
 			$request->use_post();
 		}
 		// If there are options, then go through them and set everything
@@ -537,10 +538,10 @@ class Alphred {
 		}
 		// Create hidden answer AppleScript dialog
 		$dialog = new \Alphred\Dialog([
-		  'text' => $text,
-		  'title' => $title,
-		  'default_answer' => '',
-		  'hidden_answer' => true
+			'text'           => $text,
+			'title'          => $title,
+			'default_answer' => '',
+			'hidden_answer'  => true,
 		]);
 		// If there was an icon, then set it
 		if ( $icon ) {
@@ -571,7 +572,6 @@ class Alphred {
 	public function console( $message, $level = 'INFO', $trace = false ) {
 		\Alphred\Log::console( $message, $level, $trace );
 	}
-
 
 	/**
 	 * Writes a log message to a log file
@@ -628,7 +628,7 @@ class Alphred {
 	 * If you set `$suffix` to `true`, then the function expects an associative array
 	 * as 'suffix' => 'word', so an array like:
 	 * ````php
-	 * $list = [ 'penny' => 'one', 'quarters' => 'three', 'dollars' => 'five' ];
+	 * $list = ['penny' => 'one', 'quarters' => 'three', 'dollars' => 'five'];
 	 * ````
 	 * will render as: "one penny, three quarters, and five dollars"
 	 *
@@ -658,7 +658,7 @@ class Alphred {
 	/**
 	 * Gets the active window
 	 *
-	 * @return array an array of [ 'app_name' => $name, 'window_name' => $name ]
+	 * @return array an array of ['app_name' => $name, 'window_name' => $name ]
 	 */
 	public function get_active_window() {
 		return Alphred\AppleScript::get_front();
@@ -675,7 +675,5 @@ class Alphred {
 	public function bring_to_front( $application ) {
 		Alphred\AppleScript::bring_to_front( $application );
 	}
-
-
 
 }

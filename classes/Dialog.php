@@ -130,7 +130,7 @@ class Dialog {
 	 */
 	public function set_icon( $icon ) {
 		// These are the default options
-		$default_icons = [ 'stop', 'note', 'caution' ];
+		$default_icons = ['stop', 'note', 'caution'];
 		// The is icon one of the defualts?
 		if ( in_array( strtolower( $icon ), $default_icons ) ) {
 			// Set the "icon" text

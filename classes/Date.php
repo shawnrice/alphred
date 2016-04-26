@@ -33,16 +33,16 @@ namespace Alphred;
 class Date {
 
 	private static $legend_english = [
-		'millenium' => [ 'multiple' => 'millenia',  'value' => 31536000000 ],
-		'century'   => [ 'multiple' => 'centuries', 'value' => 3153600000  ],
-		'decade'    => [ 'multiple' => 'decades',   'value' => 315360000   ],
-		'year'      => [ 'multiple' => 'years',     'value' => 31536000    ],
-		'month'     => [ 'multiple' => 'months',    'value' => 2592000     ],
-		'week'      => [ 'multiple' => 'weeks',     'value' => 604800      ],
-		'day'       => [ 'multiple' => 'days',      'value' => 86400       ],
-		'hour'      => [ 'multiple' => 'hours',     'value' => 3600        ],
-		'minute'    => [ 'multiple' => 'minutes',   'value' => 60          ],
-		'second'    => [ 'multiple' => 'seconds',   'value' => 1           ]
+		'millenium' => ['multiple' => 'millenia',  'value' => 31536000000 ],
+		'century'   => ['multiple' => 'centuries', 'value' => 3153600000  ],
+		'decade'    => ['multiple' => 'decades',   'value' => 315360000   ],
+		'year'      => ['multiple' => 'years',     'value' => 31536000    ],
+		'month'     => ['multiple' => 'months',    'value' => 2592000     ],
+		'week'      => ['multiple' => 'weeks',     'value' => 604800      ],
+		'day'       => ['multiple' => 'days',      'value' => 86400       ],
+		'hour'      => ['multiple' => 'hours',     'value' => 3600        ],
+		'minute'    => ['multiple' => 'minutes',   'value' => 60          ],
+		'second'    => ['multiple' => 'seconds',   'value' => 1           ]
 	];
 
 	/**
@@ -79,10 +79,10 @@ class Date {
 				'days'    => $diff->d % 7,
 				'hours'   => $diff->h,
 				'minutes' => $diff->i,
-				'seconds' => $diff->s
+				'seconds' => $diff->s,
 			],
 			// Is the date in the past or the future?
-			'tense' => ( ( 0 === $diff->invert ) ? 'past' : 'future' )
+			'tense' => ( ( 0 === $diff->invert ) ? 'past' : 'future' ),
 		];
 
 	}
@@ -140,10 +140,10 @@ class Date {
 
 		// It's weird to say "last minute," so we'll say "a minute ago," etc...
 		$special = [
-			'seconds' => [ 'past' => 'just now', 		 'future' => 'in a second' ],
-			'minutes' => [ 'past' => 'a minute ago', 'future' => 'in a minute' ],
-			'hours'   => [ 'past' => 'an hour ago',  'future' => 'in an hour'  ],
-			'days'    => [ 'past' => 'yesterday',  	 'future' => 'tomorrow'    ]
+			'seconds' => ['past' => 'just now', 		 'future' => 'in a second'],
+			'minutes' => ['past' => 'a minute ago', 'future' => 'in a minute'],
+			'hours'   => ['past' => 'an hour ago',  'future' => 'in an hour'  ],
+			'days'    => ['past' => 'yesterday',  	 'future' => 'tomorrow'    ]
 		];
 
 		// Set preliminary tense prefix and suffix strings
@@ -161,16 +161,16 @@ class Date {
 		$threshold2 = 0.8;
 
 		// Cycle through the array to try to find the right values
-		foreach( $times as $unit => $value ) :
-			if ( ( 0 == $value ) && ( ! isset( $main_unit ) ) ) {
+		foreach ( $times as $unit => $value ) :
+			if ( ( 0 === $value ) && ( ! isset( $main_unit ) ) ) {
 				$previous_unit = $unit;
 			} else if ( isset( $main_unit ) ) {
-				$next_unit = $unit;
+				$next_unit  = $unit;
 				$next_value = $value;
 				break;
 			}
-			if ( ( 0 != $value ) && ( ! isset( $main_unit ) ) ) {
-				$main_unit = $unit;
+			if ( ( 0 !== $value ) && ( ! isset( $main_unit ) ) ) {
+				$main_unit  = $unit;
 				$main_value = $value;
 			}
 		endforeach;
@@ -184,7 +184,7 @@ class Date {
 		if ( $main_value / $post_units[ $main_unit ] > $threshold2 ) {
 			// The first threshold ($threshold2) rounds to "almost a {next unit}"
 			// So, "almost a week" instead of "5 days ago"
-			if ( 'hours' == $singular[ $previous_unit ] ) {
+			if ( 'hours' === $singular[ $previous_unit ] ) {
 				$string = "almost an {$singular[ $previous_unit ]}";
 			} else {
 				$string = "almost a {$singular[ $previous_unit ]}";
@@ -208,7 +208,7 @@ class Date {
 			}
 		} else {
 			// If it's close enough to 1, then we'll use a singular
-			if ( 1 == $main_value || 1 == round( $main_value ) ) {
+			if ( 1 === $main_value || 1 === round( $main_value ) ) {
 				if ( isset( $special[ $main_unit ] ) ) {
 					$string = $special[ $main_unit ][ $tense ];
 					$tense_prefix = '';
@@ -216,7 +216,7 @@ class Date {
 				} else {
 					$string = "a {$singular[ $main_unit ]}";
 				}
-			} else if ( 2 == $main_value || 2 == round( $main_value ) ) {
+			} else if ( 2 === $main_value || 2 === round( $main_value ) ) {
 				// If it's close enough to 2, then we'll use 'a couple'
 				$string = "a couple {$main_unit}";
 			} else {
@@ -268,7 +268,7 @@ class Date {
 		endforeach;
 
 		// If we want this as an array, then return that
-		if ( 'array' == $type ) {
+		if ( 'array' === $type ) {
 			return $data;
 		}
 
@@ -301,7 +301,7 @@ class Date {
 		}
 
 		$string = Date::seconds_to_human_time( $seconds, $words, 'string' );
-		if ( 'past' == $tense ) {
+		if ( 'past' === $tense ) {
 			return "{$string} ago";
 		} else {
 			return "in {$string}";
@@ -361,7 +361,7 @@ class Date {
 			1000000000          => 'billion',
 			1000000000000       => 'trillion',
 			1000000000000000    => 'quadrillion',
-			1000000000000000000 => 'quintillion'
+			1000000000000000000 => 'quintillion',
 		];
 
 		if ( ! is_numeric( $number ) ) {

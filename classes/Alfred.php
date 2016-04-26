@@ -40,7 +40,7 @@ class Alfred {
 			$script .= "with argument \"{$argument}\"";
 		}
 		// Execute the AppleScript to call the trigger
-		exec( "osascript -e '$script'" );
+		exec( "osascript -e '{$script}'" );
 	}
 
 	/**
@@ -49,21 +49,21 @@ class Alfred {
 	 * @uses Alphred\Globals::get()
 	 * @return string either 'light' or 'dark'
 	 */
-  public static function light_or_dark() {
-    // Regex pattern to parse the Alfred background variable
-    $pattern = "/rgba\(([0-9]{1,3}),([0-9]{1,3}),([0-9]{1,3}),([0-9.]{4,})\)/";
-    // Do the regex, matching everything in the $matches variable
-    preg_match_all( $pattern, \Alphred\Globals::get( 'alfred_theme_background' ), $matches );
-    // Pull the values into an $rgb array
-    $rgb = array( 'r' => $matches[1][0], 'g' => $matches[2][0], 'b' => $matches[3][0] );
+	public static function light_or_dark() {
+		// Regex pattern to parse the Alfred background variable
+		$pattern = "/rgba\(([0-9]{1,3}),([0-9]{1,3}),([0-9]{1,3}),([0-9.]{4,})\)/";
+		// Do the regex, matching everything in the $matches variable
+		preg_match_all( $pattern, \Alphred\Globals::get( 'alfred_theme_background' ), $matches );
+		// Pull the values into an $rgb array
+		$rgb = array( 'r' => $matches[1][0], 'g' => $matches[2][0], 'b' => $matches[3][0] );
 
-    // This calculates the luminance. Values are between 0 and 1.
-    $luminance = ( 0.299 * $rgb[ 'r' ] + 0.587 * $rgb[ 'g' ] + 0.114 * $rgb[ 'b' ] ) / 255;
+		// This calculates the luminance. Values are between 0 and 1.
+		$luminance = ( 0.299 * $rgb['r'] + 0.587 * $rgb['g'] + 0.114 * $rgb['b'] ) / 255;
 
-    if ( 0.5 < $luminance ) {
-        return 'light';
-    }
-    return 'dark';
-  }
+		if ( 0.5 < $luminance ) {
+			return 'light';
+		}
+			return 'dark';
+		}
 
 }

@@ -103,7 +103,7 @@ class Config {
 			// If the directory does not exist, then make it
 			if ( ! file_exists( $dir ) ) {
 				// Debug-level log message
-				\Alphred\Log::log( "Creating data directory.", 0, 'debug' );
+				\Alphred\Log::log( 'Creating data directory.', 0, 'debug' );
 
 				// Make the directory
 				return mkdir( $dir, 0775, true );
@@ -315,7 +315,7 @@ class Config {
 		$result = $query->execute();
 		// the assumption is that there will be only one row
 		$result = $result->fetchArray( SQLITE3_ASSOC );
-		if ( isset( $result[ 'value' ] ) ) {
+		if ( isset( $result['value'] ) ) {
 			return $result['value'];
 		}
 		throw new ConfigKeyNotSet( "`{$key}` is not set.", 1 );
@@ -416,5 +416,3 @@ class Config {
 	}
 
 }
-
-

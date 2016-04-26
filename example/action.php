@@ -16,7 +16,7 @@ $Alphred = new Alphred( [ 'no_filter' => true ] );
 
 if ( ! isset( $argv[1] ) ) {
 	$Alphred->console( 'Cannot run `' . basename( __FILE__ ) . '` without an argument.', 4 );
-	exit(1);
+	exit( 1 );
 }
 $action = trim( $argv[1] );
 
@@ -24,7 +24,7 @@ $action = trim( $argv[1] );
 // For the "set-password" action, we're going to use an AppleScript dialog
 // that will present an "input hidden" password text box. This way, we do
 // not have to worry that anyone is looking over our shoulders.
-if ( 'set-password' == $action ) {
+if ( 'set-password' === $action ) {
 	// Run the dialog and save the output as in the $password variable. Note,
 	// Alphred's AppleScript utility will strip out everything but the text
 	// returned.
@@ -32,8 +32,8 @@ if ( 'set-password' == $action ) {
 	// Now we need some error checking. This is a placeholder, but, since we
 	// know that Github won't allow for an empty password, then we're doing
 	// to just exit the script with an error message.
-	if ( empty( $password ) || 'canceled' == $password ) {
-		die("Empty argument");
+	if ( empty( $password ) || 'canceled' === $password ) {
+		die( 'Empty argument' );
 	}
 	// So, there is a password. Let's go ahead and save it using Alphred's
 	// keychain utility. This is what is needed, minimally, in order to set
@@ -59,8 +59,8 @@ if ( 0 === strpos( $action, 'set-username ' ) ) {
 	// from each side.
 	$username = trim( str_replace( 'set-username', '', $action ) );
 	// Error checking: Make sure that there is something in the username variable now.
-	if (empty( $username ) ) {
-		die("Empty username");
+	if ( empty( $username ) ) {
+		die( 'Empty username' );
 	}
 	// Create a new config object, just like we did with the script filter
 	$Alphred->config_set( 'username', $username );
@@ -71,7 +71,7 @@ if ( 0 === strpos( $action, 'set-username ' ) ) {
 	// Print a message that we've set the username (for the notification).
 	print "Set username to {$username}\n";
 	// Exit with a 0 status so nothing else in the script runs.
-	exit(0);
+	exit( 0 );
 }
 
 if ( filter_var( $action, FILTER_VALIDATE_URL ) ) {

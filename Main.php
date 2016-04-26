@@ -19,7 +19,7 @@
  */
 
 // Set the version of the library as a constant
-define( 'ALPHRED_VERSION',   trim( file_get_contents( __DIR__ . '/commands/Version' ) ) );
+define( 'ALPHRED_VERSION', trim( file_get_contents( __DIR__ . '/commands/Version' ) ) );
 
 // Parse the INI file early, if it exists
 ALPHRED_PARSE_INI();
@@ -105,7 +105,7 @@ if ( ! ( isset( $argv ) && ( 'Alphred.phar' === basename( $argv[0] ) || 'Alphred
 	// if ( $version = Alphred\Globals::get( 'alfred_version' ) ) {
 	// 	$version = explode( '.', $version );
 	// 	if ( $version[1] < 6 ) {
-	// 		Alphred\Notification::notify([ 'title' => 'Please upgrade '])
+	// 		Alphred\Notification::notify(['title' => 'Please upgrade '])
 	// 	}
 	// } else {
 	// 	throw new Alphred\RunningOutsideOfAlfred( "Alphred cannot run outside of a workflow enviroment. (Failed version check).", 4 );
@@ -129,7 +129,7 @@ if ( ! ( isset( $argv ) && ( 'Alphred.phar' === basename( $argv[0] ) || 'Alphred
 	];
 
 	// Parse the options
-	$options = getopt( 'h', [ 'help' ] );
+	$options = getopt( 'h', ['help'] );
 
 	// There was no command, so we'll just assume that they wanted the help
 	if ( ! isset( $argv[1] ) ) {
@@ -149,17 +149,17 @@ if ( ! ( isset( $argv ) && ( 'Alphred.phar' === basename( $argv[0] ) || 'Alphred
 
 	// This just copies the `server.sh`, `kill.sh`, `server.php` scripts into the current directory, and
 	// then displays the server help.
-	if ( 'create-server-scripts' == trim( $argv[1] ) ) {
-		switch ( strtolower( alphred_confirm_create_server_scripts() ) ):
+	if ( 'create-server-scripts' === trim( $argv[1] ) ) {
+		switch ( strtolower( alphred_confirm_create_server_scripts() ) ) :
 			case 'y':
 			case 'yes':
-				switch ( strtolower( alphred_confirm_create_server_scripts_path() ) ):
+				switch ( strtolower( alphred_confirm_create_server_scripts_path() ) ) :
 					case 'y':
 					case 'yes':
-						foreach( [ 'server.sh', 'kill.sh', 'server.php', 'alphred_urlencode.sed' ] as $file ) :
+						foreach ( ['server.sh', 'kill.sh', 'server.php', 'alphred_urlencode.sed'] as $file ) :
 							file_put_contents( $_SERVER['PWD'] . "/{$file}", file_get_contents( __DIR__ . "/../scripts/{$file}" ) );
 						endforeach;
-						$text = file_get_contents( __DIR__ . '/commands/server-scripts.txt');
+						$text = file_get_contents( __DIR__ . '/commands/server-scripts.txt' );
 						$text = str_replace( 'ALPHRED_VERSION', ALPHRED_VERSION, $text );
 						print $text;
 						break;
@@ -179,12 +179,12 @@ if ( ! ( isset( $argv ) && ( 'Alphred.phar' === basename( $argv[0] ) || 'Alphred
 
 	if ( 'update-self-master' == trim( $argv[1] ) ) {
 		update_alphred_from_master();
-		exit(0);
+		exit( 0 );
 	}
 
 	if ( 'extract' == trim( $argv[1] ) ) {
 		extract_alphred();
-		exit(0);
+		exit( 0 );
 	}
 
 }

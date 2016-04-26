@@ -48,8 +48,8 @@ class Text {
 			'towards','under','underneath','unlike','until','up','upon','versus','via','with','within','without'
 		];
 
-		$starting = [ '“', '‘' ]; // Add in things like upside-down exclamation points and question marks
-		$stop     = [ '.', '!', '?' ];
+		$starting = ['“', '‘']; // Add in things like upside-down exclamation points and question marks
+		$stop     = ['.', '!', '?'];
 		$words = explode( ' ', $string );
 		foreach ( $words as $k => $w ) :
 
@@ -133,13 +133,13 @@ class Text {
 		foreach ( $list as $unit => $value ) :
 			// Concatenate the string with the units
 			$string .= $suffix ? "{$value} {$unit}" : $value;
-			if ( $count == count( $list ) ) {
+			if ( $count === count( $list ) ) {
 				// All done, so return
 				return $string;
-			} else if ( ( ( $count + 1 ) == count( $list ) ) && ( 2 == count( $list ) ) ) {
+			} else if ( ( ( $count + 1 ) === count( $list ) ) && ( 2 === count( $list ) ) ) {
 				// There are only two units, so no comma
 				$string .= ' and ';
-			} else if ( ( $count + 1 ) == count( $list ) ) {
+			} else if ( ( $count + 1 ) === count( $list ) ) {
 				// Last unit, so add in the "and"
 				$string .= ', and ';
 			} else {

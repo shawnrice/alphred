@@ -17,11 +17,11 @@ $phar->startBuffering();
 $defaultStub = $phar->createDefaultStub( 'Main.php' );
 
 
-$phar[ "Main.php" ] = file_get_contents( __DIR__ . "/Main.php" );
+$phar['Main.php'] = file_get_contents( __DIR__ . '/Main.php' );
 
 // Cycle through these directories and include everything
-foreach( [ 'classes', 'scripts', 'commands' ] as $directory ) :
-	foreach( array_diff( scandir( $directory ), ['.', '..', '.DS_Store' ] ) as $filename ) :
+foreach ( ['classes', 'scripts', 'commands'] as $directory ) :
+	foreach ( array_diff( scandir( $directory ), ['.', '..', '.DS_Store'] ) as $filename ) :
 	    $phar[ "{$directory}/{$filename}" ] = file_get_contents( __DIR__ . "/{$directory}/{$filename}" );
 	endforeach;
 endforeach;
@@ -55,7 +55,7 @@ $phar->stopBuffering();
 
 // I should use php's chmod() function, but I'm going to cheat here to make it executable
 exec( 'chmod +x build/Alphred.phar', $return, $code );
-if ( 0 == $code ) {
+if ( 0 === $code ) {
 	print "Built Phar\n";
 } else {
 	print "Problem occured building phar.\n";
