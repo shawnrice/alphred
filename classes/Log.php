@@ -132,6 +132,17 @@ class Log {
 		}
 
 		/**
+		 * Prints a deprecation warning for Alfred 3 using Alfred 2 functions
+		 *
+		 * @param  string $method Name of method that is deprecated
+		 */
+		public static function deprecated( $method, $alternative = false ) {
+			$message = "DEPRECATION -- {$method} is deprecated.";
+			$message .= ( is_string( $alternative ) ) ? " Use {$alternative} instead." : '';
+			self::console( $message, 2 );
+		}
+
+		/**
 		 * Gets the full filepath to the log file
 		 *
 		 * @since 1.0.0
